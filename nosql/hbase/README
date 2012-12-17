@@ -1,0 +1,25 @@
+------------------------------------
+SAMPLE JAVA CODE TO USE APACHE HBASE
+------------------------------------
+
+!!! This project is not yet usable. Don't try to test it or you will be sorry...
+
+This project contains JAVA code samples to interact with the Apache HBase (http://hbase.apache.org) solution.
+It will show how to use the Client API and run some MAPREDUCE jobs against HBase.
+
+You will need Java JDK 6.0 and Maven (http://maven.apache.org) correctly installed on your computer.
+
+HOW TO
+git clone git://github.com/echarles/t4f-hbase.git t4f-hbase
+cd t4f-hadoop
+mvn test
+This will run the integration tests in the client and mapreduce modules.
+
+LICENSE
+Licensed under ASL2 (Apache Software License)
+http://www.apache.org/licenses/LICENSE-2.0.html
+
+ADDITIONAL NOTES
+It uses HBase 0.90.3 version (which depends on Hadoop 0.20-append built by the HBase team).
+'t4f' stands for "Train for Freedom"
+You can contact me on Twitter @echarles

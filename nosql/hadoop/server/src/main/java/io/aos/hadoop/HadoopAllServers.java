@@ -1,0 +1,198 @@
+/****************************************************************
+ * Licensed to the AOS Community (AOS) under one or more        *
+ * contributor license agreements.  See the NOTICE file         *
+ * distributed with this work for additional information        *
+ * regarding copyright ownership.  The AOS licenses this file   *
+ * to you under the Apache License, Version 2.0 (the            *
+ * "License"); you may not use this file except in compliance   *
+ * with the License.  You may obtain a copy of the License at   *
+ *                                                              *
+ *   http://www.apache.org/licenses/LICENSE-2.0                 *
+ *                                                              *
+ * Unless required by applicable law or agreed to in writing,   *
+ * software distributed under the License is distributed on an  *
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY       *
+ * KIND, either express or implied.  See the License for the    *
+ * specific language governing permissions and limitations      *
+ * under the License.                                           *
+ ****************************************************************/
+package io.aos.hadoop;
+
+import ios.aos.summer.shell.process.AosProcessLauncher;
+
+import java.util.concurrent.TimeUnit;
+
+import org.apache.hadoop.hdfs.server.datanode.DataNode;
+import org.apache.hadoop.hdfs.server.namenode.NameNode;
+import org.apache.hadoop.hdfs.server.namenode.SecondaryNameNode;
+import org.apache.hadoop.yarn.server.nodemanager.NodeManager;
+import org.apache.hadoop.yarn.server.resourcemanager.ResourceManager;
+import org.apache.log4j.Logger;
+
+/**
+ * hdfs: 83 threads namenode: 37 threads secondarynamnode: 17 threads datanode:
+ * 29 threads yarn: 246 threads resourcemanager: 190 threads nodemanager: 56
+ * threads
+ * 
+ * NameNode (37 threads) java -Dproc_namenode -Xmx1000m
+ * -Djava.net.preferIPv4Stack=true -Xmx128m -Xmx128m
+ * -Dhadoop.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs
+ * -Dhadoop.log.file=hadoop-echarles-namenode-echarles.log
+ * -Dhadoop.home.dir=/d/opt/hadoop-3.0.0-SNAPSHOT -Dhadoop.id.str=echarles
+ * -Dhadoop.root.logger=INFO,RFA -Dhadoop.policy.file=hadoop-policy.xml
+ * -Djava.net.preferIPv4Stack=true -Dhadoop.security.logger=INFO,RFAS
+ * -Dhdfs.audit.logger=INFO,NullAppender -Dhadoop.security.logger=INFO,RFAS
+ * -Dhdfs.audit.logger=INFO,NullAppender -Dhadoop.security.logger=INFO,RFAS
+ * -Dhdfs.audit.logger=INFO,NullAppender -Dhadoop.security.logger=INFO,RFAS
+ * org.apache.hadoop.hdfs.server.namenode.NameNode
+ * 
+ * SecondaryNameNode (17 threads) java -Dproc_secondarynamenode -Xmx1000m
+ * -Djava.net.preferIPv4Stack=true -Xmx128m -Xmx128m
+ * -Dhadoop.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs
+ * -Dhadoop.log.file=hadoop-echarles-secondarynamenode-echarles.log
+ * -Dhadoop.home.dir=/d/opt/hadoop-3.0.0-SNAPSHOT -Dhadoop.id.str=echarles
+ * -Dhadoop.root.logger=INFO,RFA -Dhadoop.policy.file=hadoop-policy.xml
+ * -Djava.net.preferIPv4Stack=true -Dhadoop.security.logger=INFO,RFAS
+ * -Dhdfs.audit.logger=INFO,NullAppender -Dhadoop.security.logger=INFO,RFAS
+ * -Dhdfs.audit.logger=INFO,NullAppender -Dhadoop.security.logger=INFO,RFAS
+ * -Dhdfs.audit.logger=INFO,NullAppender -Dhadoop.security.logger=INFO,RFAS
+ * org.apache.hadoop.hdfs.server.namenode.SecondaryNameNode
+ * 
+ * DataNode (29 threads) java -Dproc_datanode -Xmx1000m
+ * -Djava.net.preferIPv4Stack=true -Xmx128m -Xmx128m
+ * -Dhadoop.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs
+ * -Dhadoop.log.file=hadoop-echarles-datanode-echarles.log
+ * -Dhadoop.home.dir=/d/opt/hadoop-3.0.0-SNAPSHOT -Dhadoop.id.str=echarles
+ * -Dhadoop.root.logger=INFO,RFA -Dhadoop.policy.file=hadoop-policy.xml
+ * -Djava.net.preferIPv4Stack=true -server -Dhadoop.security.logger=ERROR,RFAS
+ * -Dhadoop.security.logger=ERROR,RFAS -Dhadoop.security.logger=ERROR,RFAS
+ * -Dhadoop.security.logger=INFO,RFAS
+ * org.apache.hadoop.hdfs.server.datanode.DataNode
+ * 
+ * ResourceManager (190 threads) java -Dproc_resourcemanager -Xmx1000m -Xdebug
+ * -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n
+ * -Dhadoop.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs
+ * -Dyarn.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs -Dhadoop.log.file=yarn.log
+ * -Dyarn.log.file=yarn.log -Dyarn.home.dir= -Dyarn.id.str=
+ * -Dhadoop.root.logger=INFO,console -Dyarn.root.logger=INFO,console
+ * -Dyarn.policy.file=hadoop-policy.xml
+ * -Dhadoop.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs
+ * -Dyarn.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs
+ * -Dhadoop.log.file=yarn-echarles-resourcemanager-echarles.log
+ * -Dyarn.log.file=yarn-echarles-resourcemanager-echarles.log -Dyarn.home.dir=
+ * -Dyarn.id.str=echarles -Dhadoop.root.logger=INFO,RFA
+ * -Dyarn.root.logger=INFO,RFA -Dyarn.policy.file=hadoop-policy.xml
+ * -Dhadoop.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs
+ * -Dyarn.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs
+ * -Dhadoop.log.file=yarn-echarles-resourcemanager-echarles.log
+ * -Dyarn.log.file=yarn-echarles-resourcemanager-echarles.log
+ * -Dyarn.home.dir=/d/opt/hadoop-3.0.0-SNAPSHOT
+ * -Dhadoop.home.dir=/d/opt/hadoop-3.0.0-SNAPSHOT -Dhadoop.root.logger=INFO,RFA
+ * -Dyarn.root.logger=INFO,RFA -classpath
+ * /d/opt/hadoop-3.0.0-SNAPSHOT/etc/hadoop
+ * :/d/opt/hadoop-3.0.0-SNAPSHOT/etc/hadoop
+ * :/d/opt/hadoop-3.0.0-SNAPSHOT/etc/hadoop
+ * :/d/opt/hadoop-3.0.0-SNAPSHOT/share/hadoop
+ * /common/lib/*:/d/opt/hadoop-3.0.0-SNAPSHOT
+ * /share/hadoop/common/*:/d/opt/hadoop
+ * -3.0.0-SNAPSHOT/contrib/capacity-scheduler
+ * /*.jar:/d/opt/hadoop-3.0.0-SNAPSHOT/
+ * contrib/capacity-scheduler/*.jar:/d/opt/hadoop
+ * -3.0.0-SNAPSHOT/contrib/capacity
+ * -scheduler/*.jar:/d/opt/hadoop-3.0.0-SNAPSHOT/
+ * contrib/capacity-scheduler/*.jar
+ * :/d/opt/hadoop-3.0.0-SNAPSHOT/share/hadoop/hdfs
+ * :/d/opt/hadoop-3.0.0-SNAPSHOT/share
+ * /hadoop/hdfs/lib/*:/d/opt/hadoop-3.0.0-SNAPSHOT
+ * /share/hadoop/hdfs/*:/d/opt/hadoop
+ * -3.0.0-SNAPSHOT/share/hadoop/mapreduce/lib/*
+ * :/d/opt/hadoop-3.0.0-SNAPSHOT/share
+ * /hadoop/mapreduce/*:/d/opt/hadoop-3.0.0-SNAPSHOT
+ * /share/hadoop/mapreduce/*:/d/opt
+ * /hadoop-3.0.0-SNAPSHOT/share/hadoop/mapreduce/
+ * lib/*:/d/opt/hadoop-3.0.0-SNAPSHOT/etc/hadoop/rm-config/log4j.properties
+ * org.apache.hadoop.yarn.server.resourcemanager.ResourceManager
+ * 
+ * NodeManager (56 threads) java -Dproc_nodemanager -Xmx1000m
+ * -Dhadoop.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs
+ * -Dyarn.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs
+ * -Dhadoop.log.file=yarn-echarles-nodemanager-echarles.log
+ * -Dyarn.log.file=yarn-echarles-nodemanager-echarles.log -Dyarn.home.dir=
+ * -Dyarn.id.str=echarles -Dhadoop.root.logger=INFO,RFA
+ * -Dyarn.root.logger=INFO,RFA -Dyarn.policy.file=hadoop-policy.xml -server
+ * -Dhadoop.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs
+ * -Dyarn.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs
+ * -Dhadoop.log.file=yarn-echarles-nodemanager-echarles.log
+ * -Dyarn.log.file=yarn-echarles-nodemanager-echarles.log
+ * -Dyarn.home.dir=/d/opt/hadoop-3.0.0-SNAPSHOT
+ * -Dhadoop.home.dir=/d/opt/hadoop-3.0.0-SNAPSHOT -Dhadoop.root.logger=INFO,RFA
+ * -Dyarn.root.logger=INFO,RFA -classpath
+ * /d/opt/hadoop-3.0.0-SNAPSHOT/etc/hadoop
+ * :/d/opt/hadoop-3.0.0-SNAPSHOT/etc/hadoop
+ * :/d/opt/hadoop-3.0.0-SNAPSHOT/etc/hadoop
+ * :/d/opt/hadoop-3.0.0-SNAPSHOT/share/hadoop
+ * /common/lib/*:/d/opt/hadoop-3.0.0-SNAPSHOT
+ * /share/hadoop/common/*:/d/opt/hadoop
+ * -3.0.0-SNAPSHOT/contrib/capacity-scheduler
+ * /*.jar:/d/opt/hadoop-3.0.0-SNAPSHOT/
+ * contrib/capacity-scheduler/*.jar:/d/opt/hadoop
+ * -3.0.0-SNAPSHOT/share/hadoop/hdfs
+ * :/d/opt/hadoop-3.0.0-SNAPSHOT/share/hadoop/hdfs
+ * /lib/*:/d/opt/hadoop-3.0.0-SNAPSHOT
+ * /share/hadoop/hdfs/*:/d/opt/hadoop-3.0.0-SNAPSHOT
+ * /share/hadoop/mapreduce/lib/*
+ * :/d/opt/hadoop-3.0.0-SNAPSHOT/share/hadoop/mapreduce
+ * /*:/d/opt/hadoop-3.0.0-SNAPSHOT
+ * /share/hadoop/mapreduce/*:/d/opt/hadoop-3.0.0-SNAPSHOT
+ * /share/hadoop/mapreduce/
+ * lib/*:/d/opt/hadoop-3.0.0-SNAPSHOT/etc/hadoop/nm-config/log4j.properties
+ * org.apache.hadoop.yarn.server.nodemanager.NodeManager
+ */
+public class HadoopAllServers {
+    private static Logger logger = Logger.getLogger(HadoopAllServers.class);
+
+    public static void main(String[] args) throws Exception {
+
+        new AosProcessLauncher() {
+            @Override
+            public void process() throws Exception {
+                NameNode.main(new String[] {});
+            }
+        }.launch();
+
+        new AosProcessLauncher() {
+            @Override
+            public void process() throws Exception {
+                SecondaryNameNode.main(new String[] {});
+            }
+        }.launch();
+
+        new AosProcessLauncher() {
+            @Override
+            public void process() throws Exception {
+                DataNode.main(new String[] {});
+            }
+        }.launch();
+
+        new AosProcessLauncher() {
+            @Override
+            public void process() throws Exception {
+                ResourceManager.main(new String[] {});
+            }
+        }.launch();
+
+        new AosProcessLauncher() {
+            @Override
+            public void process() throws Exception {
+                NodeManager.main(new String[] {});
+            }
+        }.launch();
+
+        while (true) {
+            logger.info("Sleeping...");
+            TimeUnit.MINUTES.sleep(1);
+        }
+
+    }
+
+}

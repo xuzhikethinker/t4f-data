@@ -1,0 +1,52 @@
+T4F Data NoSql Hadoop Server
+============================
+
+Shows how to start a HBase Server from the JAVA code.
+
+Build HBase from Source
+-----------------------
+mvn clean package assembly:assembly help:active-profiles -DskipTests -Dhadoop.profile=2.0
+
+source jdk6.sh
+mvn clean package assembly:assembly help:active-profiles -DskipTests -Dhadoop.profile=3.0 -o
+rm -fr /w/opt/hbase-0.95-SNAPSHOT
+cp target/hbase-0.95-SNAPSHOT.tar.gz /w/opt
+cd /w/opt
+tar xvfz hbase-0.95-SNAPSHOT.tar.gz
+rm hbase-0.95-SNAPSHOT.tar.gz
+cd hbase-0.95-SNAPSHOT
+cp /t/t4f-data.git/nosql/hbase/common/src/main/resources/hbase-site.xml conf/
+cd bin
+./start-hbase.sh 
+./hbase shell
+help
+create 'test', 'cf'
+list 'test'
+put 'test', 'row1', 'cf:a', 'value1'
+put 'test', 'row2', 'cf:b', 'value2'
+put 'test', 'row3', 'cf:c', 'value3'
+scan 'test'
+get 'test', 'row1'
+disable 'test'
+drop 'test'
+exit
+./stop-hbase.sh
+
+Build HBase with Hadoop 3.0
+---------------------------
+mvn package assembly:assembly -DskipTests -Dhadoop.profile=3.0
+Also works with m2eclipse. Import with profile='!hadoop-1.0, hadoop-3.0'
+
+Manage HBase
+------------
+60010 HMaster web-interface
+60030 RegionServer web-interface
+
+Build HBase Documentation
+-------------------------
+mvn site
+mvn docbkx-maven-plugin:generate-html
+
+HBase Data Model
+----------------
+key for time series <userid % const><reverse ts><userid>

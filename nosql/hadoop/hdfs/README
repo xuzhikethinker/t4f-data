@@ -1,0 +1,13 @@
+T4F Data NoSql Hadoop HDFS
+==========================
+
+Hadoop HDFS usage examples.
+
+TODO
+----
++ write/read sequence files
+
+Good to Know
+------------
+nohup hadoop fsck / -files -blocks -locations
+cat nohup.out | grep [your block name]
