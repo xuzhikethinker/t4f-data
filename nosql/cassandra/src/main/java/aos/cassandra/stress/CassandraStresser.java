@@ -208,7 +208,7 @@ public class CassandraStresser {
 
     private static Cluster newCluster() {
 
-        String hostUrl = randomizeHosts("node1.cassandra.staging.qutics.com:9160,node2.cassandra.staging.qutics.com:9160");
+        String hostUrl = randomizeHosts("localhost:9160,localhost:9160");
         CassandraHostConfigurator cf = new CassandraHostConfigurator(hostUrl);
         cf.setAutoDiscoverHosts(true);
         return HFactory.getOrCreateCluster("QubitCluster", cf);
