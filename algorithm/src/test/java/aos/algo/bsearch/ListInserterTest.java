@@ -20,10 +20,10 @@ package aos.algo.bsearch;
 
 import aos.algo.bsearch.IterativeBinaryListSearcher;
 import aos.algo.list.ListInserter;
-import io.aos.data.comparator.NaturalComparator;
-import io.aos.data.iterator.AosIterator;
-import io.aos.data.list.ArrayList;
-import io.aos.data.list.List;
+import aos.data.comparator.NaturalComparator;
+import aos.data.iterator.AosIterator;
+import aos.data.list.ArrayList;
+import aos.data.list.List;
 import junit.framework.TestCase;
 
 /**

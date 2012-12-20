@@ -18,8 +18,8 @@
  ****************************************************************/
 package aos.algo.string.search;
 
-import io.aos.data.iterator.AosIterator;
-import io.aos.data.iterator.IteratorOutOfBoundsException;
+import aos.data.iterator.AosIterator;
+import aos.data.iterator.IteratorOutOfBoundsException;
 
 /**
  * An {@link AosIterator} over a {@link StringSearcher}. Successfull calls to {@link #current} will return a

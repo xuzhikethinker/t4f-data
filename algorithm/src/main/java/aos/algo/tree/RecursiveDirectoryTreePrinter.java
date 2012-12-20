@@ -18,8 +18,8 @@
  ****************************************************************/
 package aos.algo.tree;
 
-import io.aos.data.iterable.ArrayIterator;
-import io.aos.data.iterator.AosIterator;
+import aos.data.iterable.ArrayIterator;
+import aos.data.iterator.AosIterator;
 
 import java.io.File;
 

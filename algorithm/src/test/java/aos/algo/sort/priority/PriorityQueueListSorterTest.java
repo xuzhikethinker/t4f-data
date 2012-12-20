@@ -21,7 +21,7 @@ package aos.algo.sort.priority;
 import aos.algo.list.ListSorter;
 import aos.algo.sort.AbstractListSorterTestCase;
 import aos.algo.sort.priority.PriorityQueueListSorter;
-import io.aos.data.comparator.Comparator;
+import aos.data.comparator.Comparator;
 
 /**
  */

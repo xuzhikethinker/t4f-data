@@ -19,7 +19,7 @@
 package aos.algo.sortedset;
 
 import aos.algo.sortedset.SortedListSet;
-import io.aos.data.set.Set;
+import aos.data.set.Set;
 
 /**
  * Test cases for {@link SortedListSet}.

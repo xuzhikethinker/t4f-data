@@ -19,10 +19,10 @@
 package aos.algo.tstrees;
 
 
-import io.aos.data.iterator.AosIterator;
-import io.aos.data.list.LinkedList;
-import io.aos.data.list.List;
-import io.aos.data.tstree.TernarySearchTree;
+import aos.data.iterator.AosIterator;
+import aos.data.list.LinkedList;
+import aos.data.list.List;
+import aos.data.tstree.TernarySearchTree;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

@@ -18,7 +18,7 @@
  ****************************************************************/
 package aos.algo.list;
 
-import io.aos.data.list.List;
+import aos.data.list.List;
 
 /**
  * Uses a {@link ListSearcher} to insertion values into a {@link List} in sorted order.

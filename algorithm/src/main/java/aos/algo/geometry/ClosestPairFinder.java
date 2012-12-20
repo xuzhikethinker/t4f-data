@@ -18,8 +18,8 @@
  ****************************************************************/
 package aos.algo.geometry;
 
-import io.aos.data.geometry.Point;
-import io.aos.data.set.Set;
+import aos.data.geometry.Point;
+import aos.data.set.Set;
 
 /**
  * Generic interface for closest pair of points algorithms.

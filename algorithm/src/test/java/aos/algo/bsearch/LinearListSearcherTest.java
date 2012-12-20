@@ -20,7 +20,7 @@ package aos.algo.bsearch;
 
 import aos.algo.list.LinearListSearcher;
 import aos.algo.list.ListSearcher;
-import io.aos.data.comparator.Comparator;
+import aos.data.comparator.Comparator;
 
 /**
  * Test cases for {@link LinearListSearcher}.

@@ -21,9 +21,9 @@ package aos.algo.sort;
 import aos.algo.list.ListSorter;
 import aos.algo.sort.bubble.BubblesortListSorter;
 import aos.algo.sort.insertion.InsertionSortListSorter;
-import io.aos.data.comparator.Comparator;
-import io.aos.data.list.ArrayList;
-import io.aos.data.list.List;
+import aos.data.comparator.Comparator;
+import aos.data.list.ArrayList;
+import aos.data.list.List;
 import junit.framework.TestCase;
 
 /**

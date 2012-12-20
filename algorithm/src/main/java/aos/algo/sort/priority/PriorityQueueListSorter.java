@@ -19,13 +19,13 @@
 package aos.algo.sort.priority;
 
 import aos.algo.list.ListSorter;
-import io.aos.data.comparator.Comparator;
-import io.aos.data.comparator.ReverseComparator;
-import io.aos.data.iterator.AosIterator;
-import io.aos.data.list.ArrayList;
-import io.aos.data.list.List;
-import io.aos.data.queue.HeapOrderedListPriorityQueue;
-import io.aos.data.queue.Queue;
+import aos.data.comparator.Comparator;
+import aos.data.comparator.ReverseComparator;
+import aos.data.iterator.AosIterator;
+import aos.data.list.ArrayList;
+import aos.data.list.List;
+import aos.data.queue.HeapOrderedListPriorityQueue;
+import aos.data.queue.Queue;
 
 /**
  * Sample solution for exercise 8-3.

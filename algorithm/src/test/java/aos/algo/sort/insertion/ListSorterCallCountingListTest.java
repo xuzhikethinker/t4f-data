@@ -21,11 +21,11 @@ package aos.algo.sort.insertion;
 import aos.algo.sort.bubble.BubblesortListSorter;
 import aos.algo.sort.insertion.InsertionSortListSorter;
 import aos.algo.sort.selection.SelectionSortListSorter;
-import io.aos.data.comparator.Comparator;
-import io.aos.data.comparator.NaturalComparator;
-import io.aos.data.list.ArrayList;
-import io.aos.data.list.List;
-import io.aos.data.stack.CallCountingList;
+import aos.data.comparator.Comparator;
+import aos.data.comparator.NaturalComparator;
+import aos.data.list.ArrayList;
+import aos.data.list.List;
+import aos.data.stack.CallCountingList;
 import junit.framework.TestCase;
 
 /**

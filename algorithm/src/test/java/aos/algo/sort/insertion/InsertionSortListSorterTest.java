@@ -21,7 +21,7 @@ package aos.algo.sort.insertion;
 import aos.algo.list.ListSorter;
 import aos.algo.sort.AbstractListSorterTestCase;
 import aos.algo.sort.insertion.InsertionSortListSorter;
-import io.aos.data.comparator.Comparator;
+import aos.data.comparator.Comparator;
 
 /**
  */

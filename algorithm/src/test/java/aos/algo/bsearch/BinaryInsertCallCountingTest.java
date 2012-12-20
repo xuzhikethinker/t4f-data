@@ -24,10 +24,10 @@ import aos.algo.list.ListSorter;
 import aos.algo.sort.merge.MergesortListSorter;
 import aos.algo.sort.quick.QuicksortListSorter;
 import aos.algo.sort.shell.ShellsortListSorter;
-import io.aos.data.comparator.CallCountingComparator;
-import io.aos.data.comparator.NaturalComparator;
-import io.aos.data.list.ArrayList;
-import io.aos.data.list.List;
+import aos.data.comparator.CallCountingComparator;
+import aos.data.comparator.NaturalComparator;
+import aos.data.list.ArrayList;
+import aos.data.list.List;
 import junit.framework.TestCase;
 
 /**

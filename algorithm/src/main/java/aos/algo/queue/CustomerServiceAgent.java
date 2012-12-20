@@ -18,7 +18,7 @@
  ****************************************************************/
 package aos.algo.queue;
 
-import io.aos.data.queue.Queue;
+import aos.data.queue.Queue;
 
 /**
  * Services {@link Call}s by pulling them off a {@link Queue}.

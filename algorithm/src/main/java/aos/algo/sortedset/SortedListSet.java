@@ -20,12 +20,12 @@ package aos.algo.sortedset;
 
 import aos.algo.bsearch.IterativeBinaryListSearcher;
 import aos.algo.list.ListSearcher;
-import io.aos.data.comparator.Comparator;
-import io.aos.data.comparator.NaturalComparator;
-import io.aos.data.iterator.AosIterator;
-import io.aos.data.list.ArrayList;
-import io.aos.data.list.List;
-import io.aos.data.set.Set;
+import aos.data.comparator.Comparator;
+import aos.data.comparator.NaturalComparator;
+import aos.data.iterator.AosIterator;
+import aos.data.list.ArrayList;
+import aos.data.list.List;
+import aos.data.set.Set;
 
 /**
  * A {@link Set} that uses a {@link List} as the underlying storage mechanism and a {@link ListSearcher} to keep the

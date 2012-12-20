@@ -21,7 +21,7 @@ package aos.algo.sort.quick;
 import aos.algo.list.ListSorter;
 import aos.algo.sort.AbstractListSorterTestCase;
 import aos.algo.sort.quick.HybridQuicksortListSorter;
-import io.aos.data.comparator.Comparator;
+import aos.data.comparator.Comparator;
 
 /**
  */

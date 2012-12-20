@@ -20,11 +20,11 @@ package aos.algo.sort;
 
 import aos.algo.sort.quick.QuicksortListSorter;
 import aos.algo.sort.shell.ShellsortListSorter;
-import io.aos.data.comparator.Comparator;
-import io.aos.data.comparator.NaturalComparator;
-import io.aos.data.list.ArrayList;
-import io.aos.data.list.List;
-import io.aos.data.stack.CallCountingList;
+import aos.data.comparator.Comparator;
+import aos.data.comparator.NaturalComparator;
+import aos.data.list.ArrayList;
+import aos.data.list.List;
+import aos.data.stack.CallCountingList;
 import junit.framework.TestCase;
 
 /**

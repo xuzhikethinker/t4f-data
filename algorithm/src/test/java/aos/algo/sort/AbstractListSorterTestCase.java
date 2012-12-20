@@ -19,10 +19,10 @@
 package aos.algo.sort;
 
 import aos.algo.list.ListSorter;
-import io.aos.data.comparator.Comparator;
-import io.aos.data.comparator.NaturalComparator;
-import io.aos.data.list.LinkedList;
-import io.aos.data.list.List;
+import aos.data.comparator.Comparator;
+import aos.data.comparator.NaturalComparator;
+import aos.data.list.LinkedList;
+import aos.data.list.List;
 import junit.framework.TestCase;
 
 /**

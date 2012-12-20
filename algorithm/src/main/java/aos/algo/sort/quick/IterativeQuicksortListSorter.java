@@ -19,10 +19,10 @@
 package aos.algo.sort.quick;
 
 import aos.algo.list.ListSorter;
-import io.aos.data.comparator.Comparator;
-import io.aos.data.list.List;
-import io.aos.data.stack.ListStack;
-import io.aos.data.stack.Stack;
+import aos.data.comparator.Comparator;
+import aos.data.list.List;
+import aos.data.stack.ListStack;
+import aos.data.stack.Stack;
 
 /**
  * Sample solution to exercise 7-2.

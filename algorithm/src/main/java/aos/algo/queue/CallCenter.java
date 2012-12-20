@@ -18,12 +18,12 @@
  ****************************************************************/
 package aos.algo.queue;
 
-import io.aos.data.iterator.AosIterator;
-import io.aos.data.list.ArrayList;
-import io.aos.data.list.List;
-import io.aos.data.queue.BlockingQueue;
-import io.aos.data.queue.ListFifoQueue;
-import io.aos.data.queue.Queue;
+import aos.data.iterator.AosIterator;
+import aos.data.list.ArrayList;
+import aos.data.list.List;
+import aos.data.queue.BlockingQueue;
+import aos.data.queue.ListFifoQueue;
+import aos.data.queue.Queue;
 
 /**
  * Uses a {@link BlockingQueue} to route {@link Call}s to {@link CustomerServiceAgent}s.

@@ -18,7 +18,7 @@
  ****************************************************************/
 package aos.algo.math;
 
-import io.aos.data.iterable.PowerCalculator;
+import aos.data.iterable.PowerCalculator;
 
 /**
  * A {@link PowerCalculator} that uses iteration.

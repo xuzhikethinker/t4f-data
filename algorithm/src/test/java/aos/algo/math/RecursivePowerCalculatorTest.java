@@ -19,7 +19,7 @@
 package aos.algo.math;
 
 import aos.algo.math.RecursivePowerCalculator;
-import io.aos.data.iterable.PowerCalculator;
+import aos.data.iterable.PowerCalculator;
 
 /**
  * Test cases for {@link RecursivePowerCalculator}.

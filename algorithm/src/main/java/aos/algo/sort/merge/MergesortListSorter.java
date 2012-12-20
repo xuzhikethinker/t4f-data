@@ -19,10 +19,10 @@
 package aos.algo.sort.merge;
 
 import aos.algo.list.ListSorter;
-import io.aos.data.comparator.Comparator;
-import io.aos.data.iterator.AosIterator;
-import io.aos.data.list.ArrayList;
-import io.aos.data.list.List;
+import aos.data.comparator.Comparator;
+import aos.data.iterator.AosIterator;
+import aos.data.list.ArrayList;
+import aos.data.list.List;
 
 /**
  * A {@link ListSorter} that uses an mergesort algorithm.

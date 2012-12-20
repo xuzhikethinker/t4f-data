@@ -19,7 +19,7 @@
 package aos.algo.string.search;
 
 
-import io.aos.data.iterator.AosIterator;
+import aos.data.iterator.AosIterator;
 
 import java.io.FileInputStream;
 import java.io.IOException;
