@@ -23,13 +23,13 @@
   <parent>
     <groupId>aos.t4f</groupId>
     <artifactId>t4f-data</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
   <artifactId>t4f-data-analysis</artifactId>
   <name>T4F Data Analysis</name>
   <packaging>pom</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <modules>
     <module>hive</module>
     <module>pig</module>

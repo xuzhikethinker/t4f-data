@@ -23,13 +23,13 @@
   <parent> 
     <groupId>aos.t4f</groupId>
     <artifactId>t4f-activemq-in-action-examples</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
   </parent>
   -->
   <groupId>aos.t4f</groupId>
   <artifactId>t4f-activemq-in-action-web</artifactId>
   <packaging>pom</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <name>ActiveMQ In Action Examples Chapter 8</name>
 
   <modules>

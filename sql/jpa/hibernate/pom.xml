@@ -23,12 +23,12 @@
   <groupId>aos.t4f</groupId>
   <artifactId>t4f-data-sql-jpa-hibernate</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <name>T4F Data SQL JPA Hibernate</name>
   <parent>
     <groupId>aos.t4f</groupId>
     <artifactId>t4f-data-sql-jpa</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
   <dependencies>

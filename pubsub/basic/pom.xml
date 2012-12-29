@@ -23,13 +23,13 @@
   <parent>
     <groupId>aos.t4f</groupId>
     <artifactId>t4f-data-pubsub</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
   <artifactId>t4f-data-pubsub-basic</artifactId>
   <name>T4F Data PubSub Basic</name>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
