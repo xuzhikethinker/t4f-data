@@ -32,21 +32,21 @@ import org.apache.log4j.Logger;
  * java -Xmx1000m -Djava.net.preferIPv4Stack=true
  * -Dhadoop.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs
  * -Dhadoop.log.file=hadoop.log -Dhadoop.home.dir=/d/opt/hadoop-3.0.0-SNAPSHOT
- * -Dhadoop.id.str=echarles -Dhadoop.root.logger=INFO,console
+ * -Dhadoop.id.str=echarles -Dhadoop.root.LOGGER=INFO,console
  * -Dhadoop.policy.file=hadoop-policy.xml -Djava.net.preferIPv4Stack=true
- * -Dhadoop.security.logger=INFO,NullAppender org.apache.hadoop.util.RunJar
+ * -Dhadoop.security.LOGGER=INFO,NullAppender org.apache.hadoop.util.RunJar
  * ./share/hadoop/mapreduce/hadoop-mapreduce-examples-3.0.0-SNAPSHOT.jar
  * wordcount site site-out2
  * 
  * 
  * java -Dlog4j.configuration=container-log4j.properties
  * -Dyarn.app.mapreduce.container.log.dir=<LOG_DIR>
- * -Dyarn.app.mapreduce.container.log.filesize=0 -Dhadoop.root.logger=INFO,CLA
+ * -Dyarn.app.mapreduce.container.log.filesize=0 -Dhadoop.root.LOGGER=INFO,CLA
  * -Xmx1024m org.apache.hadoop.mapreduce.v2.app.MRAppMaster S 1><LOG_DIR>/stdout
  * 2><LOG_DIR>/stderr
  */
 public class MapReduceRunJar {
-    private static Logger logger = Logger.getLogger(MapReduceRunJar.class);
+    private static final Logger LOGGER = Logger.getLogger(MapReduceRunJar.class);
 
     public static void main(final String... args) throws Exception {
 
@@ -78,7 +78,7 @@ public class MapReduceRunJar {
         }.launch();
 
         // while (true) {
-        // logger.info("Sleeping...");
+        // LOGGER.info("Sleeping...");
         // TimeUnit.MINUTES.sleep(1);
         // }
 

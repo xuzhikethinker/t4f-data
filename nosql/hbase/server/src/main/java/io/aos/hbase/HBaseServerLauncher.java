@@ -38,7 +38,7 @@ import org.apache.log4j.Logger;
  * </p>
  */
 public class HBaseServerLauncher {
-    private static Logger logger = Logger.getLogger(HBaseServerLauncher.class);
+    private static final Logger LOGGER = Logger.getLogger(HBaseServerLauncher.class);
 
     public static void main(String[] args) throws Exception {
         
@@ -64,7 +64,7 @@ public class HBaseServerLauncher {
         });
 
         while (true) {
-            logger.info("Sleeping...");
+            LOGGER.info("Sleeping...");
             Thread.sleep(10000);
         }
 
@@ -74,11 +74,11 @@ public class HBaseServerLauncher {
         Thread mt = new Thread(new Runnable() {
             @Override
             public void run() {
-                logger.info("Trying to start...");
+                LOGGER.info("Trying to start...");
                 try {
                     hBaseProcessRunner.run();
                     while (true) {
-                        logger.info("Sleeping...");
+                        LOGGER.info("Sleeping...");
                         Thread.sleep(10000);
                     }
                 } catch (Exception e) {

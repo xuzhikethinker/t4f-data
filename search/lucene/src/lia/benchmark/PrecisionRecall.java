@@ -60,7 +60,7 @@ public class PrecisionRecall {
 
     String docNameField = "filename"; 
     
-    PrintWriter logger = new PrintWriter(System.out, true); 
+    PrintWriter LOGGER = new PrintWriter(System.out, true); 
 
     TrecTopicsReader qReader = new TrecTopicsReader();   //#1
     QualityQuery qqs[] = qReader.readQueries(            //#1
@@ -69,17 +69,17 @@ public class PrecisionRecall {
     Judge judge = new TrecJudge(new BufferedReader(      //#2
         new FileReader(qrelsFile)));                     //#2
     
-    judge.validateData(qqs, logger);                     //#3
+    judge.validateData(qqs, LOGGER);                     //#3
     
     QualityQueryParser qqParser = new SimpleQQParser("title", "contents");  //#4
     
     QualityBenchmark qrun = new QualityBenchmark(qqs, qqParser, searcher, docNameField);
     SubmissionReport submitLog = null;
     QualityStats stats[] = qrun.execute(judge,           //#5
-            submitLog, logger);
+            submitLog, LOGGER);
     
     QualityStats avg = QualityStats.average(stats);      //#6
-    avg.log("SUMMARY",2,logger, "  ");
+    avg.log("SUMMARY",2,LOGGER, "  ");
     dir.close();
   }
 }

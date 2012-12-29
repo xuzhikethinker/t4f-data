@@ -30,7 +30,7 @@ import kafka.consumer.KafkaStream;
 import kafka.javaapi.consumer.ConsumerConnector;
 import kafka.message.Message;
 
-public class KafkaConsumerSpl extends Thread {
+public class KafkaConsumerMain extends Thread {
 
     public static void main(String[] args) {
 

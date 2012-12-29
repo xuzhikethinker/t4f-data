@@ -36,7 +36,7 @@ import aos.cassandra.support.AosEmbeddedCassandra;
  * Base class for test cases that need access to EmbeddedServerHelper
  */
 public abstract class AbstractCassandraDaoTest {
-    private static Logger log = LoggerFactory.getLogger(AbstractCassandraDaoTest.class);
+    private static final Logger log = LoggerFactory.getLogger(AbstractCassandraDaoTest.class);
     private static AosEmbeddedCassandra embedded;
 
     protected HConnectionManager connectionManager;

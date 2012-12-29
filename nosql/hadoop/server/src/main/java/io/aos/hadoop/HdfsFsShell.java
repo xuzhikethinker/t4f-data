@@ -25,13 +25,13 @@ import org.apache.log4j.Logger;
 
 hadoop fs
     java -Xmx1000m -Djava.net.preferIPv4Stack=true -Dhadoop.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs -Dhadoop.log.file=hadoop.log 
-      -Dhadoop.home.dir=/d/opt/hadoop-3.0.0-SNAPSHOT -Dhadoop.id.str=echarles -Dhadoop.root.logger=INFO,console -Dhadoop.policy.file=hadoop-policy.xml 
-      -Djava.net.preferIPv4Stack=true -Xmx128m -Dhadoop.security.logger=INFO,NullAppender 
+      -Dhadoop.home.dir=/d/opt/hadoop-3.0.0-SNAPSHOT -Dhadoop.id.str=echarles -Dhadoop.root.LOGGER=INFO,console -Dhadoop.policy.file=hadoop-policy.xml 
+      -Djava.net.preferIPv4Stack=true -Xmx128m -Dhadoop.security.LOGGER=INFO,NullAppender 
       org.apache.hadoop.fs.FsShell
 
  */
 public class HdfsFsShell {
-    private static Logger logger = Logger.getLogger(HdfsFsShell.class);
+    private static final Logger LOGGER = Logger.getLogger(HdfsFsShell.class);
 
     public static void main(String[] args) throws Exception {
         FsShell.main(new String[]{"-ls", "/"});

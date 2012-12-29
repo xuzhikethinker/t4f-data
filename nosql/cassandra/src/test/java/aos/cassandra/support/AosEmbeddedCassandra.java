@@ -40,7 +40,7 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public class AosEmbeddedCassandra {
-    private static Logger log = LoggerFactory.getLogger(AosEmbeddedCassandra.class);
+    private static final Logger log = LoggerFactory.getLogger(AosEmbeddedCassandra.class);
 
     private static final String TMP = "tmp";
 

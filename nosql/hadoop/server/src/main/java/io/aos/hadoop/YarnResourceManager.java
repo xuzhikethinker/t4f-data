@@ -31,21 +31,21 @@ import org.apache.log4j.Logger;
  * -Dhadoop.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs
  * -Dyarn.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs -Dhadoop.log.file=yarn.log
  * -Dyarn.log.file=yarn.log -Dyarn.home.dir= -Dyarn.id.str=
- * -Dhadoop.root.logger=INFO,console -Dyarn.root.logger=INFO,console
+ * -Dhadoop.root.LOGGER=INFO,console -Dyarn.root.LOGGER=INFO,console
  * -Dyarn.policy.file=hadoop-policy.xml
  * -Dhadoop.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs
  * -Dyarn.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs
  * -Dhadoop.log.file=yarn-echarles-resourcemanager-echarles.log
  * -Dyarn.log.file=yarn-echarles-resourcemanager-echarles.log -Dyarn.home.dir=
- * -Dyarn.id.str=echarles -Dhadoop.root.logger=INFO,RFA
- * -Dyarn.root.logger=INFO,RFA -Dyarn.policy.file=hadoop-policy.xml
+ * -Dyarn.id.str=echarles -Dhadoop.root.LOGGER=INFO,RFA
+ * -Dyarn.root.LOGGER=INFO,RFA -Dyarn.policy.file=hadoop-policy.xml
  * -Dhadoop.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs
  * -Dyarn.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs
  * -Dhadoop.log.file=yarn-echarles-resourcemanager-echarles.log
  * -Dyarn.log.file=yarn-echarles-resourcemanager-echarles.log
  * -Dyarn.home.dir=/d/opt/hadoop-3.0.0-SNAPSHOT
- * -Dhadoop.home.dir=/d/opt/hadoop-3.0.0-SNAPSHOT -Dhadoop.root.logger=INFO,RFA
- * -Dyarn.root.logger=INFO,RFA -classpath
+ * -Dhadoop.home.dir=/d/opt/hadoop-3.0.0-SNAPSHOT -Dhadoop.root.LOGGER=INFO,RFA
+ * -Dyarn.root.LOGGER=INFO,RFA -classpath
  * /d/opt/hadoop-3.0.0-SNAPSHOT/etc/hadoop
  * :/d/opt/hadoop-3.0.0-SNAPSHOT/etc/hadoop
  * :/d/opt/hadoop-3.0.0-SNAPSHOT/etc/hadoop
@@ -71,7 +71,7 @@ import org.apache.log4j.Logger;
  * org.apache.hadoop.yarn.server.resourcemanager.ResourceManager
  */
 public class YarnResourceManager {
-    private static Logger logger = Logger.getLogger(YarnResourceManager.class);
+    private static final Logger LOGGER = Logger.getLogger(YarnResourceManager.class);
 
     public static void main(String[] args) throws Exception {
 
@@ -83,7 +83,7 @@ public class YarnResourceManager {
         }.launch();
 
         while (true) {
-            logger.info("Sleeping...");
+            LOGGER.info("Sleeping...");
             TimeUnit.MINUTES.sleep(1);
         }
 

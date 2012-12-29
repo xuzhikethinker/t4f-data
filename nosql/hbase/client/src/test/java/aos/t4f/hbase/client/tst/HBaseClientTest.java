@@ -46,7 +46,7 @@ import org.junit.Test;
 
 public class HBaseClientTest {
     
-    private static Logger logger = Logger.getLogger(HBaseClientTest.class);
+    private static final Logger LOGGER = Logger.getLogger(HBaseClientTest.class);
     
     private static final byte[] TABLE_NAME_1 = Bytes.toBytes("TableName1");
     private static final byte[] COLUMN_FAMILY_NAME_1 = Bytes.toBytes("ColumnFamilyName1");
@@ -91,7 +91,7 @@ public class HBaseClientTest {
     }
     
     private void createTable(byte[] columnFamilyName, byte[] tableName) throws IOException {
-        logger.info("Creating HBase table with name=" + tableName);
+        LOGGER.info("Creating HBase table with name=" + tableName);
         HBaseAdmin hbaseAdmin = new HBaseAdmin(hbaseCluster.getConfiguration());
         if (! hbaseAdmin.tableExists(tableName)) {
           HTableDescriptor desc = new HTableDescriptor(tableName);
@@ -104,7 +104,7 @@ public class HBaseClientTest {
 
     private void put(byte[] tableName, byte[] columnFamilyName, String key) throws IOException {
         HTable table = new HTable(hbaseCluster.getConfiguration(), tableName);
-//        logger.info("Putting in HBase table key=" + key);
+//        LOGGER.info("Putting in HBase table key=" + key);
         Put put = new Put(Bytes.toBytes(key));
         for (int i = 0; i < NUMBER_OF_ROWS; i++) {
             put.add(columnFamilyName, Bytes.toBytes(COLUMN_PREFIX + i), Bytes.toBytes(VALUE_PREFIX + i));
@@ -115,7 +115,7 @@ public class HBaseClientTest {
 
     private void get(byte[] tableName, byte[] columnFamilyName, String key) throws IOException {
         HTable table = new HTable(hbaseCluster.getConfiguration(), tableName);
-//        logger.info("Getting from HBase table key=" + key);
+//        LOGGER.info("Getting from HBase table key=" + key);
         Get get = new Get(Bytes.toBytes(key));
         get.addFamily(columnFamilyName);
         Result result = table.get(get);
@@ -126,9 +126,9 @@ public class HBaseClientTest {
 
     private void scanAll(byte[] tableName, byte[] columnFamilyName) throws IOException {
         HTable table = new HTable(hbaseCluster.getConfiguration(), tableName);
-        logger.info("Scanning all from HBase table name=" + tableName);
+        LOGGER.info("Scanning all from HBase table name=" + tableName);
         Scan scan = new Scan();
-        logger.info("Getting from HBase table.");
+        LOGGER.info("Getting from HBase table.");
         scan.addFamily(columnFamilyName);
         scan.setCaching(table.getScannerCaching() * 2);
         ResultScanner resultScanner = table.getScanner(scan);
@@ -144,10 +144,10 @@ public class HBaseClientTest {
 
     private void scanWithFilter(byte[] tableName, byte[] columnFamilyName, String val, int expected) throws IOException {
         HTable table = new HTable(hbaseCluster.getConfiguration(), tableName);
-        logger.info("Scanning with filter from HBase table.");
+        LOGGER.info("Scanning with filter from HBase table.");
         Filter filter = new RowFilter(CompareFilter.CompareOp.LESS_OR_EQUAL, new BinaryComparator(Bytes.toBytes(val)));
         Scan scan = new Scan();
-        logger.info("Getting from HBase table.");
+        LOGGER.info("Getting from HBase table.");
         scan.setFilter(filter);
         int resultCount = 0;
         ResultScanner resultScanner = table.getScanner(scan);
@@ -161,7 +161,7 @@ public class HBaseClientTest {
 
     private void delete(byte[] tableName, byte[] columnFamilyName, String key) throws IOException {
         HTable table = new HTable(hbaseCluster.getConfiguration(), tableName);
-//        logger.info("Deleting from HBase table.");
+//        LOGGER.info("Deleting from HBase table.");
         Delete delete = new Delete(Bytes.toBytes(key));
         table.delete(delete);
         table.close();
@@ -171,7 +171,7 @@ public class HBaseClientTest {
         for (int i = 0; i < NUMBER_OF_ROWS; i++) {
             byte[] byteValue = result.getValue(columnFamilyName, Bytes.toBytes(COLUMN_PREFIX + i));
             if (byteValue != null) {
-//                logger.info("Value for column " + COLUMN_PREFIX + i +"=" + Bytes.toString(byteValue));
+//                LOGGER.info("Value for column " + COLUMN_PREFIX + i +"=" + Bytes.toString(byteValue));
             }
         }
     }

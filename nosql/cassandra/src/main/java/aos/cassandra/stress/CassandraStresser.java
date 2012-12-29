@@ -30,6 +30,7 @@ import com.google.common.base.Joiner;
 
 public class CassandraStresser {
 
+    private static String CONNECTION_STRING = "localhost:9160";
     private static int NUMBER_OF_THREADS = 500;
     private static final StringSerializer STRING_SERIALIZER = StringSerializer.get();
 
@@ -40,6 +41,13 @@ public class CassandraStresser {
     private static Lock lock;
 
     public static void main(String... args) throws InterruptedException, IOException {
+
+        printUsage();
+
+        if (args.length > 0) {
+            CONNECTION_STRING = args[0];
+            NUMBER_OF_THREADS = Integer.parseInt(args[1]);
+        }
 
         lock = new ReentrantLock();
 
@@ -86,6 +94,11 @@ public class CassandraStresser {
 
         Thread.sleep(Long.MAX_VALUE);
 
+    }
+
+    private static void printUsage() {
+        System.out.println("Parameters: connection-string number-of-threads");
+        System.out.println("Example: localhost:9160,localhost2:9160 150");
     }
 
     private class CassandraStresserRunnable implements Runnable {
@@ -208,7 +221,7 @@ public class CassandraStresser {
 
     private static Cluster newCluster() {
 
-        String hostUrl = randomizeHosts("localhost:9160,localhost:9160");
+        String hostUrl = randomizeHosts(CONNECTION_STRING);
         CassandraHostConfigurator cf = new CassandraHostConfigurator(hostUrl);
         cf.setAutoDiscoverHosts(true);
         return HFactory.getOrCreateCluster("QubitCluster", cf);

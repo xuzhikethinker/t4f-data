@@ -31,13 +31,13 @@ import org.apache.log4j.Logger;
  * -Dhadoop.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs
  * -Dhadoop.log.file=yarn-echarles-historyserver-echarles.log
  * -Dhadoop.home.dir=/d/opt/hadoop-3.0.0-SNAPSHOT -Dhadoop.id.str=echarles
- * -Dhadoop.root.logger=INFO,RFA -Dhadoop.policy.file=hadoop-policy.xml
- * -Djava.net.preferIPv4Stack=true -Dmapred.jobsummary.logger=INFO,JSA
- * -Dhadoop.security.logger=INFO,NullAppender
+ * -Dhadoop.root.LOGGER=INFO,RFA -Dhadoop.policy.file=hadoop-policy.xml
+ * -Djava.net.preferIPv4Stack=true -Dmapred.jobsummary.LOGGER=INFO,JSA
+ * -Dhadoop.security.LOGGER=INFO,NullAppender
  * org.apache.hadoop.mapreduce.v2.hs.JobHistoryServer
  */
 public class MapReduceJobHistory {
-    private static Logger logger = Logger.getLogger(MapReduceJobHistory.class);
+    private static final Logger LOGGER = Logger.getLogger(MapReduceJobHistory.class);
 
     public static void main(String[] args) throws Exception {
 
@@ -49,7 +49,7 @@ public class MapReduceJobHistory {
         }.launch();
 
         while (true) {
-            logger.info("Sleeping...");
+            LOGGER.info("Sleeping...");
             TimeUnit.MINUTES.sleep(1);
         }
 

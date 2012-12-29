@@ -46,7 +46,7 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 public class GateAnnieAnalyser {
-    private static final Logger logger = Logger.getLogger(GateAnnieAnalyser.class);
+    private static final Logger LOGGER = Logger.getLogger(GateAnnieAnalyser.class);
     private static final String GATE_HOME_FOLDER = "/Users/echarles/opt/gate-7.0-build4195-BIN";
     private SerialAnalyserController _annieController;
 
@@ -127,9 +127,9 @@ public class GateAnnieAnalyser {
                 }
 
                 // insert anotation tags backward
-                // logger.debug("Unsorted annotations count: " +
+                // LOGGER.debug("Unsorted annotations count: " +
                 // requiredAnnotationSet.size());
-                // logger.debug("Sorted annotations count: " +
+                // LOGGER.debug("Sorted annotations count: " +
                 // sortedAnnotationList.size());
                 /*
                  * for (int i = sortedAnnotationList.size() - 1; i >= 0; --i) {
@@ -182,7 +182,7 @@ public class GateAnnieAnalyser {
      */
     public void initAnnie() throws GateException {
 
-        logger.debug("Initializing Annie.");
+        LOGGER.debug("Initializing Annie.");
 
         // Create a serial analyser controller to run ANNIE with
         _annieController = (SerialAnalyserController) Factory.createResource("gate.creole.SerialAnalyserController",
@@ -200,7 +200,7 @@ public class GateAnnieAnalyser {
 
         }
 
-        logger.debug("Annie is initialized.");
+        LOGGER.debug("Annie is initialized.");
 
     }
 
@@ -241,9 +241,9 @@ public class GateAnnieAnalyser {
                 if (annotStart < currStart) {
                     insertElementAt(annot, i);
                     /*
-                     * logger.debug("Insert start: "+annotStart+" at position: "+
+                     * LOGGER.debug("Insert start: "+annotStart+" at position: "+
                      * i+" size=" +size());
-                     * logger.debug("Current start: "+currStart);
+                     * LOGGER.debug("Current start: "+currStart);
                      */
                     return true;
                 }
@@ -252,7 +252,7 @@ public class GateAnnieAnalyser {
             int size = size();
             insertElementAt(annot, size);
 
-            // logger.debug("Insert start: "+annotStart+" at size position: "+size);
+            // LOGGER.debug("Insert start: "+annotStart+" at size position: "+size);
             return true;
 
         }

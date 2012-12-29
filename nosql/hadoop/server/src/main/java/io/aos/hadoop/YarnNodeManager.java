@@ -31,15 +31,15 @@ import org.apache.log4j.Logger;
  * -Dyarn.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs
  * -Dhadoop.log.file=yarn-echarles-nodemanager-echarles.log
  * -Dyarn.log.file=yarn-echarles-nodemanager-echarles.log -Dyarn.home.dir=
- * -Dyarn.id.str=echarles -Dhadoop.root.logger=INFO,RFA
- * -Dyarn.root.logger=INFO,RFA -Dyarn.policy.file=hadoop-policy.xml -server
+ * -Dyarn.id.str=echarles -Dhadoop.root.LOGGER=INFO,RFA
+ * -Dyarn.root.LOGGER=INFO,RFA -Dyarn.policy.file=hadoop-policy.xml -server
  * -Dhadoop.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs
  * -Dyarn.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs
  * -Dhadoop.log.file=yarn-echarles-nodemanager-echarles.log
  * -Dyarn.log.file=yarn-echarles-nodemanager-echarles.log
  * -Dyarn.home.dir=/d/opt/hadoop-3.0.0-SNAPSHOT
- * -Dhadoop.home.dir=/d/opt/hadoop-3.0.0-SNAPSHOT -Dhadoop.root.logger=INFO,RFA
- * -Dyarn.root.logger=INFO,RFA -classpath
+ * -Dhadoop.home.dir=/d/opt/hadoop-3.0.0-SNAPSHOT -Dhadoop.root.LOGGER=INFO,RFA
+ * -Dyarn.root.LOGGER=INFO,RFA -classpath
  * /d/opt/hadoop-3.0.0-SNAPSHOT/etc/hadoop
  * :/d/opt/hadoop-3.0.0-SNAPSHOT/etc/hadoop
  * :/d/opt/hadoop-3.0.0-SNAPSHOT/etc/hadoop
@@ -62,7 +62,7 @@ import org.apache.log4j.Logger;
  * org.apache.hadoop.yarn.server.nodemanager.NodeManager
  */
 public class YarnNodeManager {
-    private static Logger logger = Logger.getLogger(YarnNodeManager.class);
+    private static final Logger LOGGER = Logger.getLogger(YarnNodeManager.class);
 
     public static void main(String[] args) throws Exception {
 
@@ -74,7 +74,7 @@ public class YarnNodeManager {
         }.launch();
 
         while (true) {
-            logger.info("Sleeping...");
+            LOGGER.info("Sleeping...");
             TimeUnit.MINUTES.sleep(1);
         }
 

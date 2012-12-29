@@ -31,15 +31,15 @@ import org.apache.log4j.Logger;
  * -Dhadoop.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs
  * -Dhadoop.log.file=hadoop-echarles-namenode-echarles.log
  * -Dhadoop.home.dir=/d/opt/hadoop-3.0.0-SNAPSHOT -Dhadoop.id.str=echarles
- * -Dhadoop.root.logger=INFO,RFA -Dhadoop.policy.file=hadoop-policy.xml
- * -Djava.net.preferIPv4Stack=true -Dhadoop.security.logger=INFO,RFAS
- * -Dhdfs.audit.logger=INFO,NullAppender -Dhadoop.security.logger=INFO,RFAS
- * -Dhdfs.audit.logger=INFO,NullAppender -Dhadoop.security.logger=INFO,RFAS
- * -Dhdfs.audit.logger=INFO,NullAppender -Dhadoop.security.logger=INFO,RFAS
+ * -Dhadoop.root.LOGGER=INFO,RFA -Dhadoop.policy.file=hadoop-policy.xml
+ * -Djava.net.preferIPv4Stack=true -Dhadoop.security.LOGGER=INFO,RFAS
+ * -Dhdfs.audit.LOGGER=INFO,NullAppender -Dhadoop.security.LOGGER=INFO,RFAS
+ * -Dhdfs.audit.LOGGER=INFO,NullAppender -Dhadoop.security.LOGGER=INFO,RFAS
+ * -Dhdfs.audit.LOGGER=INFO,NullAppender -Dhadoop.security.LOGGER=INFO,RFAS
  * org.apache.hadoop.hdfs.server.namenode.NameNode
  */
 public class HdfsNameNode {
-    private static Logger logger = Logger.getLogger(HdfsNameNode.class);
+    private static final Logger LOGGER = Logger.getLogger(HdfsNameNode.class);
 
     public static void main(String[] args) throws Exception {
 
@@ -51,7 +51,7 @@ public class HdfsNameNode {
         }.launch();
 
         while (true) {
-            logger.info("Sleeping...");
+            LOGGER.info("Sleeping...");
             TimeUnit.MINUTES.sleep(1);
         }
 

@@ -25,13 +25,13 @@ import org.apache.log4j.Logger;
 
 hdfs namenode
     java -Dproc_namenode -Xmx1000m -Djava.net.preferIPv4Stack=true -Dhadoop.log.dir=/d/opt/hadoop-3.0.0-SNAPSHOT/logs -Dhadoop.log.file=hadoop.log 
-    -Dhadoop.home.dir=/d/opt/hadoop-3.0.0-SNAPSHOT -Dhadoop.id.str=echarles -Dhadoop.root.logger=INFO,console -Dhadoop.policy.file=hadoop-policy.xml 
-    -Djava.net.preferIPv4Stack=true -Dhadoop.security.logger=INFO,RFAS -Dhdfs.audit.logger=INFO,NullAppender -Dhadoop.security.logger=INFO,NullAppender 
+    -Dhadoop.home.dir=/d/opt/hadoop-3.0.0-SNAPSHOT -Dhadoop.id.str=echarles -Dhadoop.root.LOGGER=INFO,console -Dhadoop.policy.file=hadoop-policy.xml 
+    -Djava.net.preferIPv4Stack=true -Dhadoop.security.LOGGER=INFO,RFAS -Dhdfs.audit.LOGGER=INFO,NullAppender -Dhadoop.security.LOGGER=INFO,NullAppender 
     org.apache.hadoop.hdfs.server.namenode.NameNode -format
 
  */
 public class HdfsNameNodeFormatter {
-    private static Logger logger = Logger.getLogger(HdfsNameNodeFormatter.class);
+    private static final Logger LOGGER = Logger.getLogger(HdfsNameNodeFormatter.class);
 
     public static void main(String[] args) throws Exception {
         NameNode.main(new String[]{"-format"});

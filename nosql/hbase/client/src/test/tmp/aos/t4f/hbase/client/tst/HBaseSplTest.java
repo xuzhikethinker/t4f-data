@@ -39,7 +39,7 @@ import org.junit.Test;
 
 public class HBaseSplTest {
 
-    private static Logger logger = Logger.getLogger(HBaseSplTest.class);
+    private static final Logger LOGGER = Logger.getLogger(HBaseSplTest.class);
     
     private static Configuration configuration;
     
@@ -84,7 +84,7 @@ public class HBaseSplTest {
              hbaseAdmin.createTable(desc);
          }
          catch (TableExistsException e) {
-             logger.warn("Table already exists");
+             LOGGER.warn("Table already exists");
          }
     }
          
@@ -97,7 +97,7 @@ public class HBaseSplTest {
              get.addColumn(Bytes.toBytes(COLUMN_FAMILY_NAME), Bytes.toBytes(COLUMN_NAME));
              Result result = table.get(get);
              byte[] val = result.getValue(Bytes.toBytes(COLUMN_FAMILY_NAME), Bytes.toBytes(COLUMN_NAME));
-             logger.info("Value=" + Bytes.toString(val));
+             LOGGER.info("Value=" + Bytes.toString(val));
          }
     }
     
@@ -110,7 +110,7 @@ public class HBaseSplTest {
          try {
              Result result;
              while ((result = resultScanner.next()) != null) {
-                 logger.info("Deleting key=" + result.getRow());
+                 LOGGER.info("Deleting key=" + result.getRow());
                  table.delete(new Delete(result.getRow()));
              }
          } finally {
