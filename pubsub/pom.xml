@@ -32,7 +32,9 @@
   <modules>
     <module>activemq</module>
     <module>basic</module>
+<!-- 
     <module>camel</module>
+-->
     <module>hazelcast</module>
     <module>kafka</module>
     <module>kestrel</module>

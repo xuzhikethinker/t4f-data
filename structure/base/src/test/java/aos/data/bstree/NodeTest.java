@@ -18,13 +18,14 @@
  ****************************************************************/
 package aos.data.bstree;
 
-import aos.data.bstree.Node;
 import junit.framework.TestCase;
+
+import org.junit.Ignore;
 
 /**
  * Test cases for {@link Node}.
- *
  */
+@Ignore
 public class NodeTest extends TestCase {
     private Node _a;
     private Node _d;

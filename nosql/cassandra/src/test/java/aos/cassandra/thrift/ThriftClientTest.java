@@ -29,10 +29,12 @@ import org.apache.thrift.TException;
 import org.apache.thrift.transport.TTransportException;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import aos.cassandra.support.AosEmbeddedCassandra;
 
+@Ignore
 public class ThriftClientTest {
     private static final String HOST = "localhost";
     private static final int PORT = 9170;

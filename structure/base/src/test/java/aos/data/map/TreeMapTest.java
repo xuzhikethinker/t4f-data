@@ -18,15 +18,16 @@
  ****************************************************************/
 package aos.data.map;
 
-import aos.data.map.Map;
-import aos.data.map.TreeMap;
+import org.junit.Ignore;
 
 /**
  * Test cases for {@link TreeMap}.
- * 
  */
+@Ignore
 public class TreeMapTest extends AbstractMapTestCase {
+
     protected Map createMap() {
         return new TreeMap();
     }
+
 }

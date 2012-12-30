@@ -18,18 +18,20 @@
  ****************************************************************/
 package aos.data.map;
 
-import aos.data.map.MapSet;
-import aos.data.map.TreeMap;
+import org.junit.Ignore;
+
 import aos.data.set.AbstractSetTestCase;
 import aos.data.set.Set;
 
-
 /**
- * Test cases for {@link MapSet} using a {@link TreeMap} as underlying storage mechanism.
- *
+ * Test cases for {@link MapSet} using a {@link TreeMap} as underlying storage
+ * mechanism.
  */
+@Ignore
 public class TreeMapSetTest extends AbstractSetTestCase {
+
     protected Set createSet() {
         return new MapSet(new TreeMap());
     }
+
 }

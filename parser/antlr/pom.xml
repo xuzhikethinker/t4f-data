@@ -32,7 +32,7 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.codehaus.mojo.antlr3</groupId>
+        <groupId>org.antlr</groupId>
         <artifactId>antlr3-maven-plugin</artifactId>
       </plugin>
     </plugins>

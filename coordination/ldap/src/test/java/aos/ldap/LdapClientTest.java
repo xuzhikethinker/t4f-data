@@ -27,9 +27,14 @@ import javax.naming.directory.Attribute;
 import javax.naming.directory.Attributes;
 import javax.naming.directory.InitialDirContext;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 public class LdapClientTest {
 
-    public static void test() throws NamingException {
+    @Test
+    @Ignore
+    public void test() throws NamingException {
 
         Hashtable<String, String> env = new Hashtable<String, String>();
 
@@ -43,7 +48,7 @@ public class LdapClientTest {
 
         Attributes attrs = ctx.getAttributes("");
         NamingEnumeration<? extends Attribute> enm = attrs.getAll();
-        
+
         while (enm.hasMore()) {
             System.out.println(enm.next());
         }

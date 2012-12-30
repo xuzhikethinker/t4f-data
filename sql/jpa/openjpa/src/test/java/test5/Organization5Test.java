@@ -22,63 +22,68 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class Organization5Test {
-	
-	@Test
-	public void insertValues() {
-		
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("test5", System.getProperties());
 
-		EntityManager em = factory.createEntityManager();
-		em.getTransaction().begin();
-		
-		Organization organization = new Organization(" The Apache Software Foundation");
+    @Test
+    public void insertValues() {
 
-		Project project = new Project("Streaming LOB support (for OpenJPA)");
-		organization.addProject(project);
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("test5", System.getProperties());
 
-		project = new Project("Maven Dependency Visualization");
-		organization.addProject(project);
-		em.persist(organization);
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
 
-		organization = new Organization(" Mono Project");
-		project = new Project("Gendarme Tasks");
-		organization.addProject(project);
+        Organization organization = new Organization(" The Apache Software Foundation");
+
+        Project project = new Project("Streaming LOB support (for OpenJPA)");
+        organization.addProject(project);
+
+        project = new Project("Maven Dependency Visualization");
+        organization.addProject(project);
+        em.persist(organization);
+
+        organization = new Organization(" Mono Project");
+        project = new Project("Gendarme Tasks");
+        organization.addProject(project);
         Member member = new Member("Me as member");
         organization.addMember(member);
-		em.persist(organization);
-		
-		em.getTransaction().commit();
-		em.close();
-		factory.close();
-	}
+        em.persist(organization);
 
-	@Test
-	public void readValues() {
-		
-//		EntityManagerFactory factory = Persistence.createEntityManagerFactory("test5", System.getProperties());
-//
-//		EntityManager em = factory.createEntityManager();
-//
-//		Query q = em.createQuery("select o from Org o");
-//
-//		for (Organization organization : (List<Organization>) q.getResultList()) {
-//			System.out.println("Organization: " + organization.getName());
-//			if (organization.getProjects() != null &&
-//				organization.getProjects().size() > 0) {
-//				for (Project p : organization.getProjects()) {
-//					System.out.println("-" + p.getName() );
-//				}
-//			} else {
-//				System.out.println("No proyects yet");
-//			}
-//		}
-//		
-//		em.close();
-//		factory.close();
-		
-	}
-	
+        em.getTransaction().commit();
+        em.close();
+        factory.close();
+    }
+
+    @Test
+    public void readValues() {
+
+        // EntityManagerFactory factory =
+        // Persistence.createEntityManagerFactory("test5",
+        // System.getProperties());
+        //
+        // EntityManager em = factory.createEntityManager();
+        //
+        // Query q = em.createQuery("select o from Org o");
+        //
+        // for (Organization organization : (List<Organization>)
+        // q.getResultList()) {
+        // System.out.println("Organization: " + organization.getName());
+        // if (organization.getProjects() != null &&
+        // organization.getProjects().size() > 0) {
+        // for (Project p : organization.getProjects()) {
+        // System.out.println("-" + p.getName() );
+        // }
+        // } else {
+        // System.out.println("No proyects yet");
+        // }
+        // }
+        //
+        // em.close();
+        // factory.close();
+
+    }
+
 }

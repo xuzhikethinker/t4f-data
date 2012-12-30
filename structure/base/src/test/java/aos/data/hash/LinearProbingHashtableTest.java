@@ -18,13 +18,12 @@
  ****************************************************************/
 package aos.data.hash;
 
-import aos.data.hash.Hashtable;
-import aos.data.hash.LinearProbingHashtable;
+import org.junit.Ignore;
 
 /**
  * Test cases for {@link LinearProbingHashtable}.
- * 
  */
+@Ignore
 public class LinearProbingHashtableTest extends AbstractHashtableTestCase {
     protected Hashtable createTable(int capacity) {
         return new LinearProbingHashtable(capacity);

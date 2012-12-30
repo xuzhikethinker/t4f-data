@@ -1,0 +1,72 @@
+[2012.12.30 CET 08:29:43.554] (aos.hdfs.basics.AbstractHdfsFileTest.java:103):testHdfsFileNotExists - Testing if HDFS file does not exists.
+[2012.12.30 CET 08:29:43.587] (aos.hdfs.basics.AbstractHdfsFileTest.java:121):testCreateHdfsFile - Testing HDFS file creation.
+[2012.12.30 CET 08:29:43.602] (aos.hdfs.basics.AbstractHdfsFileTest.java:98):testHdfsFileExists - Testing if HDFS file exists.
+[2012.12.30 CET 08:29:43.603] (aos.hdfs.basics.AbstractHdfsFileTest.java:134):testCopyHdfsFile - Testing HDFS file copy.
+[2012.12.30 CET 08:29:43.612] (aos.hdfs.basics.AbstractHdfsFileTest.java:98):testHdfsFileExists - Testing if HDFS file exists.
+[2012.12.30 CET 08:29:43.613] (aos.hdfs.basics.AbstractHdfsFileTest.java:157):testGetLastModificationDateHdfsFile - Testing HDFS file modification date.
+[2012.12.30 CET 08:29:43.614] (aos.hdfs.basics.AbstractHdfsFileTest.java:164):testHdfsFileLocation - Testing HDFS file location.
+[2012.12.30 CET 08:29:43.616] (aos.hdfs.basics.AbstractHdfsFileTest.java:175):testListNodes - Testing HDFS node list.
+[2012.12.30 CET 08:29:43.617] (aos.hdfs.basics.AbstractHdfsFileTest.java:186):testRenameHdfsFile - Testing HDFS file rename.
+[2012.12.30 CET 08:29:43.618] (aos.hdfs.basics.AbstractHdfsFileTest.java:191):testDeleteHdfsFile - Testing HDFS file delete.
+[2012.12.30 CET 08:29:43.620] (aos.hdfs.basics.AbstractHdfsFileTest.java:191):testDeleteHdfsFile - Testing HDFS file delete.
+[2012.12.30 CET 08:29:43.621] (aos.hdfs.basics.AbstractHdfsFileTest.java:196):testRecursiveDeleteHdfsFile - Testing HDFS file recursive delete.
+[2012.12.30 CET 08:29:44.107] (aos.hdfs.basics.AbstractHdfsFileTest.java:103):testHdfsFileNotExists - Testing if HDFS file does not exists.
+[2012.12.30 CET 08:29:44.118] (aos.hdfs.basics.AbstractHdfsFileTest.java:121):testCreateHdfsFile - Testing HDFS file creation.
+[2012.12.30 CET 08:29:44.129] (aos.hdfs.basics.AbstractHdfsFileTest.java:98):testHdfsFileExists - Testing if HDFS file exists.
+[2012.12.30 CET 08:29:44.130] (aos.hdfs.basics.AbstractHdfsFileTest.java:134):testCopyHdfsFile - Testing HDFS file copy.
+[2012.12.30 CET 08:29:44.174] (aos.hdfs.basics.AbstractHdfsFileTest.java:98):testHdfsFileExists - Testing if HDFS file exists.
+[2012.12.30 CET 08:29:44.175] (aos.hdfs.basics.AbstractHdfsFileTest.java:157):testGetLastModificationDateHdfsFile - Testing HDFS file modification date.
+[2012.12.30 CET 08:29:44.176] (aos.hdfs.basics.AbstractHdfsFileTest.java:164):testHdfsFileLocation - Testing HDFS file location.
+[2012.12.30 CET 08:29:44.176] (aos.hdfs.basics.AbstractHdfsFileTest.java:175):testListNodes - Testing HDFS node list.
+[2012.12.30 CET 08:29:44.177] (aos.hdfs.basics.AbstractHdfsFileTest.java:186):testRenameHdfsFile - Testing HDFS file rename.
+[2012.12.30 CET 08:29:44.178] (aos.hdfs.basics.AbstractHdfsFileTest.java:191):testDeleteHdfsFile - Testing HDFS file delete.
+[2012.12.30 CET 08:29:44.178] (aos.hdfs.basics.AbstractHdfsFileTest.java:191):testDeleteHdfsFile - Testing HDFS file delete.
+[2012.12.30 CET 08:29:44.179] (aos.hdfs.basics.AbstractHdfsFileTest.java:196):testRecursiveDeleteHdfsFile - Testing HDFS file recursive delete.
+[2012.12.30 CET 08:29:47.852] (aos.hdfs.basics.AbstractHdfsFileTest.java:103):testHdfsFileNotExists - Testing if HDFS file does not exists.
+[2012.12.30 CET 08:29:47.973] (aos.hdfs.basics.AbstractHdfsFileTest.java:121):testCreateHdfsFile - Testing HDFS file creation.
+[2012.12.30 CET 08:29:47.997] (aos.hdfs.basics.AbstractHdfsFileTest.java:98):testHdfsFileExists - Testing if HDFS file exists.
+[2012.12.30 CET 08:29:47.999] (aos.hdfs.basics.AbstractHdfsFileTest.java:134):testCopyHdfsFile - Testing HDFS file copy.
+[2012.12.30 CET 08:29:48.004] (aos.hdfs.basics.AbstractHdfsFileTest.java:98):testHdfsFileExists - Testing if HDFS file exists.
+[2012.12.30 CET 08:29:48.005] (aos.hdfs.basics.AbstractHdfsFileTest.java:157):testGetLastModificationDateHdfsFile - Testing HDFS file modification date.
+[2012.12.30 CET 08:29:48.007] (aos.hdfs.basics.AbstractHdfsFileTest.java:164):testHdfsFileLocation - Testing HDFS file location.
+[2012.12.30 CET 08:29:48.010] (aos.hdfs.basics.AbstractHdfsFileTest.java:175):testListNodes - Testing HDFS node list.
+[2012.12.30 CET 08:29:48.012] (aos.hdfs.basics.AbstractHdfsFileTest.java:186):testRenameHdfsFile - Testing HDFS file rename.
+[2012.12.30 CET 08:29:48.015] (aos.hdfs.basics.AbstractHdfsFileTest.java:191):testDeleteHdfsFile - Testing HDFS file delete.
+[2012.12.30 CET 08:29:48.017] (aos.hdfs.basics.AbstractHdfsFileTest.java:191):testDeleteHdfsFile - Testing HDFS file delete.
+[2012.12.30 CET 08:29:48.018] (aos.hdfs.basics.AbstractHdfsFileTest.java:196):testRecursiveDeleteHdfsFile - Testing HDFS file recursive delete.
+[2012.12.30 CET 08:29:54.981] (aos.hdfs.basics.AbstractHdfsFileTest.java:103):testHdfsFileNotExists - Testing if HDFS file does not exists.
+[2012.12.30 CET 08:29:55.012] (aos.hdfs.basics.AbstractHdfsFileTest.java:121):testCreateHdfsFile - Testing HDFS file creation.
+[2012.12.30 CET 08:29:55.032] (aos.hdfs.basics.AbstractHdfsFileTest.java:98):testHdfsFileExists - Testing if HDFS file exists.
+[2012.12.30 CET 08:29:55.034] (aos.hdfs.basics.AbstractHdfsFileTest.java:134):testCopyHdfsFile - Testing HDFS file copy.
+[2012.12.30 CET 08:29:55.039] (aos.hdfs.basics.AbstractHdfsFileTest.java:98):testHdfsFileExists - Testing if HDFS file exists.
+[2012.12.30 CET 08:29:55.040] (aos.hdfs.basics.AbstractHdfsFileTest.java:157):testGetLastModificationDateHdfsFile - Testing HDFS file modification date.
+[2012.12.30 CET 08:29:55.041] (aos.hdfs.basics.AbstractHdfsFileTest.java:164):testHdfsFileLocation - Testing HDFS file location.
+[2012.12.30 CET 08:29:55.044] (aos.hdfs.basics.AbstractHdfsFileTest.java:175):testListNodes - Testing HDFS node list.
+[2012.12.30 CET 08:29:55.046] (aos.hdfs.basics.AbstractHdfsFileTest.java:186):testRenameHdfsFile - Testing HDFS file rename.
+[2012.12.30 CET 08:29:55.048] (aos.hdfs.basics.AbstractHdfsFileTest.java:191):testDeleteHdfsFile - Testing HDFS file delete.
+[2012.12.30 CET 08:29:55.049] (aos.hdfs.basics.AbstractHdfsFileTest.java:191):testDeleteHdfsFile - Testing HDFS file delete.
+[2012.12.30 CET 08:29:55.051] (aos.hdfs.basics.AbstractHdfsFileTest.java:196):testRecursiveDeleteHdfsFile - Testing HDFS file recursive delete.
+[2012.12.30 CET 08:30:47.127] (aos.hdfs.basics.AbstractHdfsFileTest.java:103):testHdfsFileNotExists - Testing if HDFS file does not exists.
+[2012.12.30 CET 08:30:47.158] (aos.hdfs.basics.AbstractHdfsFileTest.java:121):testCreateHdfsFile - Testing HDFS file creation.
+[2012.12.30 CET 08:30:47.171] (aos.hdfs.basics.AbstractHdfsFileTest.java:98):testHdfsFileExists - Testing if HDFS file exists.
+[2012.12.30 CET 08:30:47.172] (aos.hdfs.basics.AbstractHdfsFileTest.java:134):testCopyHdfsFile - Testing HDFS file copy.
+[2012.12.30 CET 08:30:47.181] (aos.hdfs.basics.AbstractHdfsFileTest.java:98):testHdfsFileExists - Testing if HDFS file exists.
+[2012.12.30 CET 08:30:47.182] (aos.hdfs.basics.AbstractHdfsFileTest.java:157):testGetLastModificationDateHdfsFile - Testing HDFS file modification date.
+[2012.12.30 CET 08:30:47.182] (aos.hdfs.basics.AbstractHdfsFileTest.java:164):testHdfsFileLocation - Testing HDFS file location.
+[2012.12.30 CET 08:30:47.185] (aos.hdfs.basics.AbstractHdfsFileTest.java:175):testListNodes - Testing HDFS node list.
+[2012.12.30 CET 08:30:47.185] (aos.hdfs.basics.AbstractHdfsFileTest.java:186):testRenameHdfsFile - Testing HDFS file rename.
+[2012.12.30 CET 08:30:47.187] (aos.hdfs.basics.AbstractHdfsFileTest.java:191):testDeleteHdfsFile - Testing HDFS file delete.
+[2012.12.30 CET 08:30:47.188] (aos.hdfs.basics.AbstractHdfsFileTest.java:191):testDeleteHdfsFile - Testing HDFS file delete.
+[2012.12.30 CET 08:30:47.189] (aos.hdfs.basics.AbstractHdfsFileTest.java:196):testRecursiveDeleteHdfsFile - Testing HDFS file recursive delete.
+[2012.12.30 CET 08:30:54.853] (aos.hdfs.basics.AbstractHdfsFileTest.java:103):testHdfsFileNotExists - Testing if HDFS file does not exists.
+[2012.12.30 CET 08:30:54.901] (aos.hdfs.basics.AbstractHdfsFileTest.java:121):testCreateHdfsFile - Testing HDFS file creation.
+[2012.12.30 CET 08:30:54.924] (aos.hdfs.basics.AbstractHdfsFileTest.java:98):testHdfsFileExists - Testing if HDFS file exists.
+[2012.12.30 CET 08:30:54.926] (aos.hdfs.basics.AbstractHdfsFileTest.java:134):testCopyHdfsFile - Testing HDFS file copy.
+[2012.12.30 CET 08:30:54.932] (aos.hdfs.basics.AbstractHdfsFileTest.java:98):testHdfsFileExists - Testing if HDFS file exists.
+[2012.12.30 CET 08:30:54.933] (aos.hdfs.basics.AbstractHdfsFileTest.java:157):testGetLastModificationDateHdfsFile - Testing HDFS file modification date.
+[2012.12.30 CET 08:30:54.934] (aos.hdfs.basics.AbstractHdfsFileTest.java:164):testHdfsFileLocation - Testing HDFS file location.
+[2012.12.30 CET 08:30:54.937] (aos.hdfs.basics.AbstractHdfsFileTest.java:175):testListNodes - Testing HDFS node list.
+[2012.12.30 CET 08:30:54.939] (aos.hdfs.basics.AbstractHdfsFileTest.java:186):testRenameHdfsFile - Testing HDFS file rename.
+[2012.12.30 CET 08:30:54.941] (aos.hdfs.basics.AbstractHdfsFileTest.java:191):testDeleteHdfsFile - Testing HDFS file delete.
+[2012.12.30 CET 08:30:54.943] (aos.hdfs.basics.AbstractHdfsFileTest.java:191):testDeleteHdfsFile - Testing HDFS file delete.
+[2012.12.30 CET 08:30:54.944] (aos.hdfs.basics.AbstractHdfsFileTest.java:196):testRecursiveDeleteHdfsFile - Testing HDFS file recursive delete.

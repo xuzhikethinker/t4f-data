@@ -18,13 +18,12 @@
  ****************************************************************/
 package aos.data.set;
 
-import aos.data.set.Set;
-import aos.data.set.TreeSet;
+import org.junit.Ignore;
 
 /**
  * Test cases for {@link TreeSet}.
- *
  */
+@Ignore
 public class TreeSetTest extends AbstractSetTestCase {
     protected Set createSet() {
         return new TreeSet();

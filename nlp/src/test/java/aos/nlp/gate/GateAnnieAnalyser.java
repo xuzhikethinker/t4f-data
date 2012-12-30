@@ -43,8 +43,10 @@ import java.util.Set;
 import java.util.Vector;
 
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class GateAnnieAnalyser {
     private static final Logger LOGGER = Logger.getLogger(GateAnnieAnalyser.class);
     private static final String GATE_HOME_FOLDER = "/Users/echarles/opt/gate-7.0-build4195-BIN";

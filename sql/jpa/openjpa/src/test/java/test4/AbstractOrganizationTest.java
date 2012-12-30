@@ -25,72 +25,75 @@ import javax.persistence.Query;
 
 import junit.framework.TestResult;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class AbstractOrganizationTest implements junit.framework.Test {
-	
-	@Test
-	public void insertValues() {
-		
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("test4", System.getProperties());
 
-		EntityManager em = factory.createEntityManager();
-		em.getTransaction().begin();
-		
-		Organization organization = new Organization(" The Apache Software Foundation");
+    @Test
+    public void insertValues() {
 
-		Project project = new Project("Streaming LOB support (for OpenJPA)");
-		organization.addProject(project);
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("test4", System.getProperties());
 
-		project = new Project("Maven Dependency Visualization");
-		organization.addProject(project);
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
 
-		em.persist(organization);
+        Organization organization = new Organization(" The Apache Software Foundation");
 
-		organization = new Organization(" Mono Project");
-		project = new Project("Gendarme Tasks");
-		organization.addProject(project);
+        Project project = new Project("Streaming LOB support (for OpenJPA)");
+        organization.addProject(project);
 
-		em.persist(organization);
+        project = new Project("Maven Dependency Visualization");
+        organization.addProject(project);
 
-		em.getTransaction().commit();
-		em.close();
-		factory.close();
-	}
+        em.persist(organization);
 
-	@Test
-	public void readValues() {
-		
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("test4", System.getProperties());
+        organization = new Organization(" Mono Project");
+        project = new Project("Gendarme Tasks");
+        organization.addProject(project);
 
-		EntityManager em = factory.createEntityManager();
+        em.persist(organization);
 
-		Query q = em.createQuery("select o from Organization o");
+        em.getTransaction().commit();
+        em.close();
+        factory.close();
+    }
 
-//		for (Organization organization : (List<Organization>) q.getResultList()) {
-//			System.out.println("Organization: " + organization.getName());
-//			if (organization.getProjects() != null &&
-//				organization.getProjects().size() > 0) {
-//				for (Project p : organization.getProjects()) {
-//					System.out.println("-" + p.getName() );
-//				}
-//			} else {
-//				System.out.println("No proyects yet");
-//			}
-//		}
-		em.close();
-		factory.close();
-	}
+    @Test
+    public void readValues() {
 
-	@Override
-	public int countTestCases() {
-		return 2;
-	}
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("test4", System.getProperties());
 
-	@Override
-	public void run(TestResult result) {
-		insertValues();
-		readValues();
-	}
-	
+        EntityManager em = factory.createEntityManager();
+
+        Query q = em.createQuery("select o from Organization o");
+
+        // for (Organization organization : (List<Organization>)
+        // q.getResultList()) {
+        // System.out.println("Organization: " + organization.getName());
+        // if (organization.getProjects() != null &&
+        // organization.getProjects().size() > 0) {
+        // for (Project p : organization.getProjects()) {
+        // System.out.println("-" + p.getName() );
+        // }
+        // } else {
+        // System.out.println("No proyects yet");
+        // }
+        // }
+        em.close();
+        factory.close();
+    }
+
+    @Override
+    public int countTestCases() {
+        return 2;
+    }
+
+    @Override
+    public void run(TestResult result) {
+        insertValues();
+        readValues();
+    }
+
 }

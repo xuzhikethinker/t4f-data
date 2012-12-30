@@ -17,20 +17,25 @@
  * under the License.                                           *
  ****************************************************************/
 package org.apache.activemq.book.ch11;
+
+import org.junit.Ignore;
+
 import aos.t4f.activemq.broker.BrokerConfigTest;
+
 /**
  * A CamelConfigTest
- *
+ * 
  */
-public class CamelConfigTest  extends BrokerConfigTest{
+@Ignore
+public class CamelConfigTest extends BrokerConfigTest {
 
-    /** 
+    /**
      * @return
      * @see aos.t4f.activemq.broker.BrokerConfigTest#getBrokerConfig()
      */
     @Override
     protected String getBrokerConfig() {
-        
+
         return "org/apache/activemq/book/ch11/broker.xml";
     }
 }

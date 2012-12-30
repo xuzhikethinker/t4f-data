@@ -21,18 +21,20 @@ package aos.t4f.mvel;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import aos.t4f.mvel.script.AbstractMvelScriptTest;
 
 public class MvelScriptSwingTest extends AbstractMvelScriptTest {
-    
+
     @Test
+    @Ignore
     public void testShell() throws IOException, InterruptedException, ClassNotFoundException {
         MvelShell.main(getScriptPath("swing.mvel"));
         System.out.print("Hey Guy, you have 10 seconds to look at the displayed Swing Frame");
-        for (int i=0; i<10; i++) {
-            TimeUnit.SECONDS.sleep(1); 
+        for (int i = 0; i < 10; i++) {
+            TimeUnit.SECONDS.sleep(1);
             System.out.print(".");
         }
 

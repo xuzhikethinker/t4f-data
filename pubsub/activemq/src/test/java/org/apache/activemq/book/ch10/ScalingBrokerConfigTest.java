@@ -18,14 +18,17 @@
  ****************************************************************/
 package org.apache.activemq.book.ch10;
 
+import org.junit.Ignore;
+
 import aos.t4f.activemq.broker.BrokerConfigTest;
 
 /**
  * A ScalingBrokerConfigTest
- *
+ * 
  */
+@Ignore
 public class ScalingBrokerConfigTest extends BrokerConfigTest {
-    /** 
+    /**
      * @return
      * @see aos.t4f.activemq.broker.BrokerConfigTest#getBrokerConfig()
      */

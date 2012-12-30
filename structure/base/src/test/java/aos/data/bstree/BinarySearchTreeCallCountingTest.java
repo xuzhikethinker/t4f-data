@@ -18,15 +18,18 @@
  ****************************************************************/
 package aos.data.bstree;
 
-import aos.data.bstree.BinarySearchTree;
+import junit.framework.TestCase;
+
+import org.junit.Ignore;
+
 import aos.data.comparator.CallCountingComparator;
 import aos.data.comparator.NaturalComparator;
 import aos.data.list.ArrayList;
 import aos.data.list.List;
-import junit.framework.TestCase;
 
 /**
  */
+@Ignore
 public class BinarySearchTreeCallCountingTest extends TestCase {
     private static final int TEST_SIZE = 1000;
 

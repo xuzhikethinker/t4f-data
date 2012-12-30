@@ -22,31 +22,33 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class MessageTest {
 
-	@Test
-	public void test() {
-		
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("test3", System.getProperties());
-		EntityManager em = factory.createEntityManager();
-		
-		em.getTransaction().begin();
-		
-//		em.createQuery("DELETE FROM Header").executeUpdate();
-//		em.createQuery("DELETE FROM Message").executeUpdate();
-		
-		Message message1 = new Message("Message 1");
-		em.persist(message1);
-		
-		Message message2 = new Message("Message 2");
-		message2.addHeader(new Header("Header 2.1"));
-		message2.addHeader(new Header("Header 2.2"));
-		em.persist(message2);
+    @Test
+    public void test() {
 
-		em.getTransaction().commit();
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("test3", System.getProperties());
+        EntityManager em = factory.createEntityManager();
 
-	}
+        em.getTransaction().begin();
+
+        // em.createQuery("DELETE FROM Header").executeUpdate();
+        // em.createQuery("DELETE FROM Message").executeUpdate();
+
+        Message message1 = new Message("Message 1");
+        em.persist(message1);
+
+        Message message2 = new Message("Message 2");
+        message2.addHeader(new Header("Header 2.1"));
+        message2.addHeader(new Header("Header 2.2"));
+        em.persist(message2);
+
+        em.getTransaction().commit();
+
+    }
 
 }

@@ -59,12 +59,13 @@ import org.apache.commons.io.FileUtils;
 import org.apache.thrift.transport.TTransportException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import aos.cassandra.support.AosEmbeddedCassandra;
 
+@Ignore
 public class HectorCassandraTest {
-
     private static final String CLUSTER_NAME = "TestCluster";
     private static final String KEYSPACE_NAME = "KEYSPACE";
     private static final String COLUMN_FAMILY_NAME_1 = "ColumnFamily1";

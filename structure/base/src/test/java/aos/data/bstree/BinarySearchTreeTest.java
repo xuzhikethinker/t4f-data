@@ -18,15 +18,16 @@
  ****************************************************************/
 package aos.data.bstree;
 
-import aos.data.bstree.BinarySearchTree;
-import aos.data.bstree.Node;
-import aos.data.comparator.NaturalComparator;
 import junit.framework.TestCase;
+
+import org.junit.Ignore;
+
+import aos.data.comparator.NaturalComparator;
 
 /**
  * Test cases for {@link BinarySearchTree}.
- *
  */
+@Ignore
 public class BinarySearchTreeTest extends TestCase {
     private Node _a;
     private Node _d;

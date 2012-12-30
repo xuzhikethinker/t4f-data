@@ -18,28 +18,27 @@
  ****************************************************************/
 package test6;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class Sample6Test {
-	
-	@Test
-	public void insertValues() {
-		
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("test6", System.getProperties());
 
-		EntityManager em = factory.createEntityManager();
-		em.getTransaction().begin();
-		
-		em.getTransaction().commit();
-		em.close();
-		factory.close();
-	}
+    @Test
+    public void insertValues() {
+
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("test6", System.getProperties());
+
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+
+        em.getTransaction().commit();
+        em.close();
+        factory.close();
+    }
 
 }

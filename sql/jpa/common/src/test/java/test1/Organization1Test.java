@@ -25,69 +25,70 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class Organization1Test {
 
-	@Test
-	public void insertValues() {
-		
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("test1", System.getProperties());
+    @Test
+    public void insertValues() {
 
-		EntityManager em = factory.createEntityManager();
-		em.getTransaction().begin();
-		
-		Organization organization = new Organization(" The Apache Software Foundation");
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("test1", System.getProperties());
 
-		Project project = new Project("Streaming LOB support (for OpenJPA)");
-		Student student = new Student("Ignacio Andreu");
-		project.setStudent(student);
-		organization.addProject(project);
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
 
-		project = new Project("Maven Dependency Visualization");
-		student = new Student("Peter Kolbus");
-		project.setStudent(student);
-		organization.addProject(project);
+        Organization organization = new Organization(" The Apache Software Foundation");
 
-		em.persist(organization);
+        Project project = new Project("Streaming LOB support (for OpenJPA)");
+        Student student = new Student("Ignacio Andreu");
+        project.setStudent(student);
+        organization.addProject(project);
 
-		organization = new Organization(" Mono Project");
-		project = new Project("Gendarme Tasks");
-		student = new Student("N�stor Salceda");
-		project.setStudent(student);
-		organization.addProject(project);
+        project = new Project("Maven Dependency Visualization");
+        student = new Student("Peter Kolbus");
+        project.setStudent(student);
+        organization.addProject(project);
 
-		em.persist(organization);
+        em.persist(organization);
 
-		em.getTransaction().commit();
-		em.close();
-		factory.close();
-		
-	}
+        organization = new Organization(" Mono Project");
+        project = new Project("Gendarme Tasks");
+        student = new Student("N�stor Salceda");
+        project.setStudent(student);
+        organization.addProject(project);
 
-	@Test
-	public void readValues() {
-		
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("test1", System.getProperties());
+        em.persist(organization);
 
-		EntityManager em = factory.createEntityManager();
+        em.getTransaction().commit();
+        em.close();
+        factory.close();
 
-		Query q = em.createQuery("select o from Organization o");
+    }
 
-		for (Organization organization : (List<Organization>) q.getResultList()) {
-			System.out.println("Organization: " + organization.getName());
-			if (organization.getProjects() != null &&
-				organization.getProjects().size() > 0) {
-				for (Project p : organization.getProjects()) {
-					System.out.println("-" + p.getName() + " asigned to " + p.getStudent().getName());
-				}
-			} else {
-				System.out.println("No proyects yet");
-			}
-		}
-		em.close();
-		factory.close();
-		
-	}
-	
+    @Test
+    public void readValues() {
+
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("test1", System.getProperties());
+
+        EntityManager em = factory.createEntityManager();
+
+        Query q = em.createQuery("select o from Organization o");
+
+        for (Organization organization : (List<Organization>) q.getResultList()) {
+            System.out.println("Organization: " + organization.getName());
+            if (organization.getProjects() != null && organization.getProjects().size() > 0) {
+                for (Project p : organization.getProjects()) {
+                    System.out.println("-" + p.getName() + " asigned to " + p.getStudent().getName());
+                }
+            } else {
+                System.out.println("No proyects yet");
+            }
+        }
+        em.close();
+        factory.close();
+
+    }
+
 }

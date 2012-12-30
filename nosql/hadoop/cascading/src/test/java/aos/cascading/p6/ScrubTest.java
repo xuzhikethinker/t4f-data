@@ -35,26 +35,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package aos.cascading.p6;
 
-
-import org.junit.Test;
-
-import aos.cascading.p6.ScrubFunction;
 import static org.junit.Assert.assertEquals;
+
+import org.junit.Ignore;
+import org.junit.Test;
 
 import cascading.tuple.Fields;
 
-public class ScrubTest
-  {
-  @Test
-  public void testMain() throws Exception
-    {
-    ScrubTest tester = new ScrubTest();
-    Fields fieldDeclaration = new Fields( "doc_id", "token" );
-    ScrubFunction scrub = new ScrubFunction( fieldDeclaration );
+@Ignore
+public class ScrubTest {
 
-    assertEquals( "Scrub", "foo bar", scrub.scrubText( "FoO BAR  " ) );
+    @Test
+    public void test() throws Exception {
+        ScrubTest tester = new ScrubTest();
+        Fields fieldDeclaration = new Fields("doc_id", "token");
+        ScrubFunction scrub = new ScrubFunction(fieldDeclaration);
+        assertEquals("Scrub", "foo bar", scrub.scrubText("FoO BAR  "));
     }
-  }
+
+}

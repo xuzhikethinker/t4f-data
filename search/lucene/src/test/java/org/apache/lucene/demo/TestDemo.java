@@ -35,12 +35,13 @@ package org.apache.lucene.demo;
  * limitations under the License.
  */
 
-import io.aos.lucene.search.SearchFiles;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
 import java.nio.charset.Charset;
+
+import aos.lucene.search.SearchFiles;
 
 
 public class TestDemo {

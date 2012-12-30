@@ -18,15 +18,14 @@
  ****************************************************************/
 package aos.data.hash;
 
-import aos.data.hash.BucketingHashtable;
-import aos.data.hash.Hashtable;
-import aos.data.hash.LinearProbingHashtable;
 import junit.framework.TestCase;
+
+import org.junit.Ignore;
 
 /**
  * Compare the performance of linear probing versus bucketing.
- *
  */
+@Ignore
 public class HashtableCallCountingTest extends TestCase {
     private static final int TEST_SIZE = 1000;
     private static final int INITIAL_CAPACITY = 17;
