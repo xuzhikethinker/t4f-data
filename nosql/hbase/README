@@ -1,25 +1,50 @@
-------------------------------------
-SAMPLE JAVA CODE TO USE APACHE HBASE
-------------------------------------
+T4F Data NoSql HBase
+====================
 
-!!! This project is not yet usable. Don't try to test it or you will be sorry...
+Build HBase from Source
+-----------------------
+mvn clean package assembly:assembly help:active-profiles -DskipTests -Dhadoop.profile=2.0
 
-This project contains JAVA code samples to interact with the Apache HBase (http://hbase.apache.org) solution.
-It will show how to use the Client API and run some MAPREDUCE jobs against HBase.
+source jdk6.sh
+mvn clean package assembly:assembly help:active-profiles -DskipTests -Dhadoop.profile=3.0 -o
+rm -fr /w/opt/hbase-0.95-SNAPSHOT
+cp target/hbase-0.95-SNAPSHOT.tar.gz /w/opt
+cd /w/opt
+tar xvfz hbase-0.95-SNAPSHOT.tar.gz
+rm hbase-0.95-SNAPSHOT.tar.gz
+cd hbase-0.95-SNAPSHOT
+cp /t/t4f-data.git/nosql/hbase/common/src/main/resources/hbase-site.xml conf/
+cd bin
+./start-hbase.sh 
+./hbase shell
+help
+create 'test', 'cf'
+list 'test'
+put 'test', 'row1', 'cf:a', 'value1'
+put 'test', 'row2', 'cf:b', 'value2'
+put 'test', 'row3', 'cf:c', 'value3'
+scan 'test'
+get 'test', 'row1'
+disable 'test'
+drop 'test'
+exit
+./stop-hbase.sh
 
-You will need Java JDK 6.0 and Maven (http://maven.apache.org) correctly installed on your computer.
+Build HBase with Hadoop 3.0
+---------------------------
+mvn package assembly:assembly -DskipTests -Dhadoop.profile=3.0
+Also works with m2eclipse. Import with profile='!hadoop-1.0, hadoop-3.0'
 
-HOW TO
-git clone git://github.com/echarles/t4f-hbase.git t4f-hbase
-cd t4f-hadoop
-mvn test
-This will run the integration tests in the client and mapreduce modules.
+Manage HBase
+------------
+60010 HMaster web-interface
+60030 RegionServer web-interface
 
-LICENSE
-Licensed under ASL2 (Apache Software License)
-http://www.apache.org/licenses/LICENSE-2.0.html
+Build HBase Documentation
+-------------------------
+mvn site
+mvn docbkx-maven-plugin:generate-html
 
-ADDITIONAL NOTES
-It uses HBase 0.90.3 version (which depends on Hadoop 0.20-append built by the HBase team).
-'t4f' stands for "Train for Freedom"
-You can contact me on Twitter @echarles
+HBase Data Model
+----------------
+key for time series <userid % const><reverse ts><userid>

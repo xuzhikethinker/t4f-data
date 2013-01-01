@@ -2,39 +2,3 @@ T4F Data NoSql Hadoop Server
 ============================
 
 Shows how to start a Hadoop Server from the JAVA code.
-
-Build Hadoop from source
-------------------------
-source jdk6.sh
-cd /o/hadoop-3.0.0.svn
-mvn package -Pdist -Dtar -DskipTests
-rm -fr /w/opt/hadoop-3.0.0-SNAPSHOT
-cp hadoop-dist/target/hadoop-3.0.0-SNAPSHOT.tar.gz /w/opt
-cd /w/opt
-tar xvfz hadoop-3.0.0-SNAPSHOT.tar.gz
-rm hadoop-3.0.0-SNAPSHOT.tar.gz
-cd hadoop-3.0.0-SNAPSHOT
-cp /t/t4f-data.git/nosql/hadoop/common/src/main/resources/*-site.xml etc/hadoop
-start-all.sh
-
-Build Hadoop WEB Site
----------------------
-mvn site; mvn site:stage -DstagingDirectory=/tmp/hadoop-site
-
-Web Admin Default Pages V2
---------------------------
-namenode:                    http://localhost:50070/
-jobtracker:                  http://localhost:50030/
-
-Web Admin Default Pages V3
---------------------------
-namenode:                    http://localhost:50070
-namenode browser:            http://localhost:50075/browseDirectory.jsp?dir=/ http://localhost:50075/browseDirectory.jsp?dir=%2Fuser%2Fecharles&namenodeInfoPort=50070&nnaddr=localhost:54310 
-secondary namenode:          http://localhost:50090
-resource-manager:            http://localhost:8088/cluster
-resource-manager tracker:    http://localhost:9999
-mapreduce jobhistory server: http://localhost:19888
-
-Remote Debugging
-----------------
-export HADOOP_OPTS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=8000"
