@@ -60,122 +60,114 @@ import cascading.pipe.assembly.SumBy;
 import cascading.pipe.assembly.Unique;
 import cascading.pipe.joiner.LeftJoin;
 import cascading.property.AppProps;
-import cascading.scheme.Scheme;
 import cascading.scheme.hadoop.TextDelimited;
 import cascading.tap.Tap;
 import cascading.tap.hadoop.Hfs;
 import cascading.tuple.Fields;
 
+public class Main {
+    public static void main(String[] args) {
+        String docPath = args[0];
+        String wcPath = args[1];
+        String stopPath = args[2];
+        String tfidfPath = args[3];
 
-public class
-  Main
-  {
-  public static void
-  main( String[] args )
-    {
-    String docPath = args[ 0 ];
-    String wcPath = args[ 1 ];
-    String stopPath = args[ 2 ];
-    String tfidfPath = args[ 3 ];
+        Properties properties = new Properties();
+        AppProps.setApplicationJarClass(properties, Main.class);
+        HadoopFlowConnector flowConnector = new HadoopFlowConnector(properties);
 
-    Properties properties = new Properties();
-    AppProps.setApplicationJarClass( properties, Main.class );
-    HadoopFlowConnector flowConnector = new HadoopFlowConnector( properties );
+        // create source and sink taps
+        Tap docTap = new Hfs(new TextDelimited(true, "\t"), docPath);
+        Tap wcTap = new Hfs(new TextDelimited(true, "\t"), wcPath);
 
-    // create source and sink taps
-    Tap docTap = new Hfs( new TextDelimited( true, "\t" ), docPath );
-    Tap wcTap = new Hfs( new TextDelimited( true, "\t" ), wcPath );
+        Fields stop = new Fields("stop");
+        Tap stopTap = new Hfs(new TextDelimited(stop, true, "\t"), stopPath);
+        Tap tfidfTap = new Hfs(new TextDelimited(true, "\t"), tfidfPath);
 
-    Fields stop = new Fields( "stop" );
-    Tap stopTap = new Hfs( new TextDelimited( stop, true, "\t" ), stopPath );
-    Tap tfidfTap = new Hfs( new TextDelimited( true, "\t" ), tfidfPath );
+        // specify a regex operation to split the "document" text lines into a
+        // token stream
+        Fields token = new Fields("token");
+        Fields text = new Fields("text");
+        RegexSplitGenerator splitter = new RegexSplitGenerator(token, "[ \\[\\]\\(\\),.]");
+        Fields fieldSelector = new Fields("doc_id", "token");
+        Pipe docPipe = new Each("token", text, splitter, fieldSelector);
 
-    // specify a regex operation to split the "document" text lines into a token stream
-    Fields token = new Fields( "token" );
-    Fields text = new Fields( "text" );
-    RegexSplitGenerator splitter = new RegexSplitGenerator( token, "[ \\[\\]\\(\\),.]" );
-    Fields fieldSelector = new Fields( "doc_id", "token" );
-    Pipe docPipe = new Each( "token", text, splitter, fieldSelector );
+        // define "ScrubFunction" to clean up the token stream
+        Fields scrubArguments = new Fields("doc_id", "token");
+        docPipe = new Each(docPipe, scrubArguments, new ScrubFunction(scrubArguments), Fields.RESULTS);
 
-    // define "ScrubFunction" to clean up the token stream
-    Fields scrubArguments = new Fields( "doc_id", "token" );
-    docPipe = new Each( docPipe, scrubArguments, new ScrubFunction( scrubArguments ), Fields.RESULTS );
+        // perform a left join to remove stop words, discarding the rows
+        // which joined with stop words, i.e., were non-null after left join
+        Pipe stopPipe = new Pipe("stop");
+        Pipe tokenPipe = new HashJoin(docPipe, token, stopPipe, stop, new LeftJoin());
+        tokenPipe = new Each(tokenPipe, stop, new RegexFilter("^$"));
+        tokenPipe = new Retain(tokenPipe, fieldSelector);
 
-    // perform a left join to remove stop words, discarding the rows
-    // which joined with stop words, i.e., were non-null after left join
-    Pipe stopPipe = new Pipe( "stop" );
-    Pipe tokenPipe = new HashJoin( docPipe, token, stopPipe, stop, new LeftJoin() );
-    tokenPipe = new Each( tokenPipe, stop, new RegexFilter( "^$" ) );
-    tokenPipe = new Retain( tokenPipe, fieldSelector );
+        // one branch of the flow tallies the token counts for term frequency
+        // (TF)
+        Pipe tfPipe = new Pipe("TF", tokenPipe);
+        tfPipe = new GroupBy(tfPipe, new Fields("doc_id", "token"));
 
-    // one branch of the flow tallies the token counts for term frequency (TF)
-    Pipe tfPipe = new Pipe( "TF", tokenPipe );
-    tfPipe = new GroupBy( tfPipe, new Fields( "doc_id", "token" ) );
+        Fields tf_count = new Fields("tf_count");
+        tfPipe = new Every(tfPipe, Fields.ALL, new Count(tf_count), Fields.ALL);
+        Fields tf_token = new Fields("tf_token");
+        tfPipe = new Rename(tfPipe, token, tf_token);
 
-    Fields tf_count = new Fields( "tf_count" );
-    tfPipe = new Every( tfPipe, Fields.ALL, new Count( tf_count ), Fields.ALL );
-    Fields tf_token = new Fields( "tf_token" );
-    tfPipe = new Rename( tfPipe, token, tf_token );
+        // one branch counts the number of documents (D)
+        Fields doc_id = new Fields("doc_id");
+        Fields tally = new Fields("tally");
+        Fields rhs_join = new Fields("rhs_join");
+        Fields n_docs = new Fields("n_docs");
+        Pipe dPipe = new Unique("D", tokenPipe, doc_id);
+        dPipe = new Each(dPipe, new Insert(tally, 1), Fields.ALL);
+        dPipe = new Each(dPipe, new Insert(rhs_join, 1), Fields.ALL);
+        dPipe = new SumBy(dPipe, rhs_join, tally, n_docs, long.class);
 
-    // one branch counts the number of documents (D)
-    Fields doc_id = new Fields( "doc_id" );
-    Fields tally = new Fields( "tally" );
-    Fields rhs_join = new Fields( "rhs_join" );
-    Fields n_docs = new Fields( "n_docs" );
-    Pipe dPipe = new Unique( "D", tokenPipe, doc_id );
-    dPipe = new Each( dPipe, new Insert( tally, 1 ), Fields.ALL );
-    dPipe = new Each( dPipe, new Insert( rhs_join, 1 ), Fields.ALL );
-    dPipe = new SumBy( dPipe, rhs_join, tally, n_docs, long.class );
+        // one branch tallies the token counts for document frequency (DF)
+        Pipe dfPipe = new Unique("DF", tokenPipe, Fields.ALL);
+        dfPipe = new GroupBy(dfPipe, token);
 
-    // one branch tallies the token counts for document frequency (DF)
-    Pipe dfPipe = new Unique( "DF", tokenPipe, Fields.ALL );
-    dfPipe = new GroupBy( dfPipe, token );
+        Fields df_count = new Fields("df_count");
+        Fields df_token = new Fields("df_token");
+        Fields lhs_join = new Fields("lhs_join");
+        dfPipe = new Every(dfPipe, Fields.ALL, new Count(df_count), Fields.ALL);
+        dfPipe = new Rename(dfPipe, token, df_token);
+        dfPipe = new Each(dfPipe, new Insert(lhs_join, 1), Fields.ALL);
 
-    Fields df_count = new Fields( "df_count" );
-    Fields df_token = new Fields( "df_token" );
-    Fields lhs_join = new Fields( "lhs_join" );
-    dfPipe = new Every( dfPipe, Fields.ALL, new Count( df_count ), Fields.ALL );
-    dfPipe = new Rename( dfPipe, token, df_token );
-    dfPipe = new Each( dfPipe, new Insert( lhs_join, 1 ), Fields.ALL );
+        // join to bring together all the components for calculating TF-IDF
+        // the D side of the join is smaller, so it goes on the RHS
+        Pipe idfPipe = new HashJoin(dfPipe, lhs_join, dPipe, rhs_join);
 
-    // join to bring together all the components for calculating TF-IDF 
-    // the D side of the join is smaller, so it goes on the RHS
-    Pipe idfPipe = new HashJoin( dfPipe, lhs_join, dPipe, rhs_join );
+        // the IDF side of the join is smaller, so it goes on the RHS
+        Pipe tfidfPipe = new CoGroup(tfPipe, tf_token, idfPipe, df_token);
 
-    // the IDF side of the join is smaller, so it goes on the RHS
-    Pipe tfidfPipe = new CoGroup( tfPipe, tf_token, idfPipe, df_token );
+        // calculate the TF-IDF weights, per token, per document
+        Fields tfidf = new Fields("tfidf");
+        String expression = "(double) tf_count * Math.log( (double) n_docs / ( 1.0 + df_count ) )";
+        ExpressionFunction tfidfExpression = new ExpressionFunction(tfidf, expression, Double.class);
+        Fields tfidfArguments = new Fields("tf_count", "df_count", "n_docs");
+        tfidfPipe = new Each(tfidfPipe, tfidfArguments, tfidfExpression, Fields.ALL);
 
-    // calculate the TF-IDF weights, per token, per document
-    Fields tfidf = new Fields( "tfidf" );
-    String expression = "(double) tf_count * Math.log( (double) n_docs / ( 1.0 + df_count ) )";
-    ExpressionFunction tfidfExpression = new ExpressionFunction( tfidf, expression, Double.class );
-    Fields tfidfArguments = new Fields( "tf_count", "df_count", "n_docs" );
-    tfidfPipe = new Each( tfidfPipe, tfidfArguments, tfidfExpression, Fields.ALL );
+        fieldSelector = new Fields("tf_token", "doc_id", "tfidf");
+        tfidfPipe = new Retain(tfidfPipe, fieldSelector);
+        tfidfPipe = new Rename(tfidfPipe, tf_token, token);
 
-    fieldSelector = new Fields( "tf_token", "doc_id", "tfidf" );
-    tfidfPipe = new Retain( tfidfPipe, fieldSelector );
-    tfidfPipe = new Rename( tfidfPipe, tf_token, token );
+        // keep the word counts, which are useful for QA
+        Pipe wcPipe = new Pipe("wc", tfPipe);
+        wcPipe = new Retain(wcPipe, tf_token);
+        wcPipe = new GroupBy(wcPipe, tf_token);
+        wcPipe = new Every(wcPipe, Fields.ALL, new Count(), Fields.ALL);
 
-    // keep the word counts, which are useful for QA
-    Pipe wcPipe = new Pipe( "wc", tfPipe );
-    wcPipe = new Retain( wcPipe, tf_token );
-    wcPipe = new GroupBy( wcPipe, tf_token );
-    wcPipe = new Every( wcPipe, Fields.ALL, new Count(), Fields.ALL );
+        Fields count = new Fields("count");
+        wcPipe = new GroupBy(wcPipe, count, count);
 
-    Fields count = new Fields( "count" );
-    wcPipe = new GroupBy( wcPipe, count, count );
+        // connect the taps, pipes, etc., into a flow
+        FlowDef flowDef = FlowDef.flowDef().setName("tfidf").addSource(docPipe, docTap).addSource(stopPipe, stopTap)
+                .addTailSink(tfidfPipe, tfidfTap).addTailSink(wcPipe, wcTap);
 
-    // connect the taps, pipes, etc., into a flow
-    FlowDef flowDef = FlowDef.flowDef()
-     .setName( "tfidf" )
-     .addSource( docPipe, docTap )
-     .addSource( stopPipe, stopTap )
-     .addTailSink( tfidfPipe, tfidfTap )
-     .addTailSink( wcPipe, wcTap );
-
-    // write a DOT file and run the flow
-    Flow tfidfFlow = flowConnector.connect( flowDef );
-    tfidfFlow.writeDOT( "dot/tfidf.dot" );
-    tfidfFlow.complete();
+        // write a DOT file and run the flow
+        Flow tfidfFlow = flowConnector.connect(flowDef);
+        tfidfFlow.writeDOT("dot/tfidf.dot");
+        tfidfFlow.complete();
     }
-  }
+}
