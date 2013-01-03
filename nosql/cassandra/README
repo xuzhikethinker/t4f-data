@@ -1,14 +1,13 @@
 T4F Data NoSql Cassandra
 ========================
 
-Apache Cassandra usage examples.
-
 Build Cassandra
 ---------------
 git clone http://git-wip-us.apache.org/repos/asf/cassandra.git cassandra.git
 cd cassandra.git
-ant artifacts
-result in build/apache-cassandra-xxx-SNAPSHOT-bin.tar.gz
+ant clean artifacts
+rm -fr /w/opt/apache-cassandra-*
+cp build/apache-cassandra-*-SNAPSHOT-bin.tar.gz /w/opt
 
 Configure Cassandra
 -------------------

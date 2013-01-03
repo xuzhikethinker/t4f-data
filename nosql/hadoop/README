@@ -1,13 +1,12 @@
 T4F Data NoSql Hadoop
 =====================
 
-Apache Hadoop usage examples.
-
-Build Hadoop from source
+Build Hadoop from Source
 ------------------------
-source jdk6.sh
 cd /o/hadoop.git
-mvn package -Pdist -Dtar -DskipTests
+git checkout trunk
+source jdk6.sh
+mvn clean package -Pdist -Dtar -DskipTests
 rm -fr /w/opt/hadoop-3.0.0-SNAPSHOT
 cp hadoop-dist/target/hadoop-3.0.0-SNAPSHOT.tar.gz /w/opt
 cd /w/opt
@@ -21,14 +20,10 @@ Build Hadoop Web Site
 ---------------------
 mvn site; mvn site:stage -DstagingDirectory=/tmp/hadoop-site
 
-Web Admin Default Pages V2
---------------------------
-+ namenode:                    http://localhost:50070/
-+ jobtracker:                  http://localhost:50030/
-
-Web Admin Default Pages V3
---------------------------
+Web Admin Default Pages
+-----------------------
 + namenode:                    http://localhost:50070
++ jobtracker:                  http://localhost:50030 (only for hadoop2)
 + namenode browser:            http://localhost:50075/browseDirectory.jsp?dir=/ http://localhost:50075/browseDirectory.jsp?dir=%2Fuser%2Fecharles&namenodeInfoPort=50070&nnaddr=localhost:54310 
 + secondary namenode:          http://localhost:50090
 + resource-manager:            http://localhost:8088/cluster

@@ -4,6 +4,7 @@ Apache Zookeeper usage examples.
 
 Build Zookeeper
 ---------------
+cd /o
 svn checkout http://svn.apache.org/repos/asf/zookeeper/trunk/ zookeeper.svn
 cd zookeeper.svn
 ant -Djavac.args="-Xlint -Xmaxwarns 1000" clean test tar
