@@ -24,23 +24,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import kafka.consumer.Consumer;
 import kafka.consumer.ConsumerConfig;
 import kafka.consumer.ConsumerIterator;
 import kafka.consumer.KafkaStream;
 import kafka.javaapi.consumer.ConsumerConnector;
 import kafka.message.Message;
 
-public class KafkaConsumerMain extends Thread {
+public class KafkaConsumerMain {
 
     public static void main(String[] args) {
 
-        ConsumerConnector consumer;
-        String topic;
-
-        consumer = kafka.consumer.Consumer.createJavaConsumerConnector(createConsumerConfig());
-        topic = "f";
-
+        // Kafka 0.7.2
+        ConsumerConnector consumer = Consumer.createJavaConsumerConnector(createConsumerConfig());
         Map<String, Integer> topicCountMap = new HashMap<String, Integer>();
+        String topic = KafkaQueue.QUEUE_TEST_1.name();
         topicCountMap.put(topic, new Integer(1));
         Map<String, List<KafkaStream<Message>>> consumerMap = consumer.createMessageStreams(topicCountMap);
         KafkaStream<Message> stream = consumerMap.get(topic).get(0);
@@ -49,7 +47,7 @@ public class KafkaConsumerMain extends Thread {
             System.out.println(getMessage(it.next().message()));
         }
 
-        // KAFKA 0.8
+        // Kafka 0.8
         // Map<String, Integer> topicCountMap = new HashMap<String, Integer>();
         // topicCountMap.put(topic, new Integer(1));
         // Map<String, List<KafkaStream<byte[], byte[]>>> consumerMap =
@@ -72,7 +70,7 @@ public class KafkaConsumerMain extends Thread {
 
     private static ConsumerConfig createConsumerConfig() {
         Properties props = new Properties();
-        props.put("zk.connect", "zookeeper.qutics.com:2181");
+        props.put("zk.connect", "localhost:2181");
         props.put("groupid", "CHANGEME");
         props.put("zk.sessiontimeout.ms", "800");
         props.put("zk.synctime.ms", "300");
