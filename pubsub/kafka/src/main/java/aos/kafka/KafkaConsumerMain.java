@@ -35,20 +35,26 @@ public class KafkaConsumerMain {
 
     public static void main(String... args) {
 
+        String zkHost = "127.0.0.1:2181";
+        String topic = KafkaQueue.QUEUE_TEST_1.name();
+
+        if (args.length > 0) {
+            zkHost = args[0];
+            topic = args[1];
+        }
+
         // Kafka 0.7.2
         Properties props = new Properties();
-        // props.put("zk.connect", "localhost:2181");
-        props.put("zk.connect", "localhost:2181");
+        props.put("zk.connect", zkHost);
         props.put("zk.sessiontimeout.ms", "800");
         props.put("zk.synctime.ms", "300");
         props.put("autocommit.interval.ms", "1000");
-        // props.put("groupid", "CHANGEME");
+        props.put("groupid", "test-consumer");
 
         ConsumerConfig consumerConfig = new ConsumerConfig(props);
         ConsumerConnector consumer = Consumer.createJavaConsumerConnector(consumerConfig);
 
         Map<String, Integer> topicCountMap = new HashMap<String, Integer>();
-        String topic = KafkaQueue.QUEUE_TEST_1.name();
         topicCountMap.put(topic, new Integer(1));
 
         Map<String, List<KafkaStream<Message>>> consumerMap = consumer.createMessageStreams(topicCountMap);
