@@ -37,11 +37,12 @@ public class KafkaConsumerMain {
 
         // Kafka 0.7.2
         Properties props = new Properties();
+        // props.put("zk.connect", "localhost:2181");
         props.put("zk.connect", "localhost:2181");
-        props.put("groupid", "CHANGEME");
         props.put("zk.sessiontimeout.ms", "800");
         props.put("zk.synctime.ms", "300");
         props.put("autocommit.interval.ms", "1000");
+        // props.put("groupid", "CHANGEME");
 
         ConsumerConfig consumerConfig = new ConsumerConfig(props);
         ConsumerConnector consumer = Consumer.createJavaConsumerConnector(consumerConfig);
