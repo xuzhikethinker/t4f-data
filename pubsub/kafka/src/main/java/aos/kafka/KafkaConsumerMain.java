@@ -33,18 +33,28 @@ import kafka.message.Message;
 
 public class KafkaConsumerMain {
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
 
         // Kafka 0.7.2
-        ConsumerConnector consumer = Consumer.createJavaConsumerConnector(createConsumerConfig());
+        Properties props = new Properties();
+        props.put("zk.connect", "localhost:2181");
+        props.put("groupid", "CHANGEME");
+        props.put("zk.sessiontimeout.ms", "800");
+        props.put("zk.synctime.ms", "300");
+        props.put("autocommit.interval.ms", "1000");
+
+        ConsumerConfig consumerConfig = new ConsumerConfig(props);
+        ConsumerConnector consumer = Consumer.createJavaConsumerConnector(consumerConfig);
+
         Map<String, Integer> topicCountMap = new HashMap<String, Integer>();
         String topic = KafkaQueue.QUEUE_TEST_1.name();
         topicCountMap.put(topic, new Integer(1));
+
         Map<String, List<KafkaStream<Message>>> consumerMap = consumer.createMessageStreams(topicCountMap);
         KafkaStream<Message> stream = consumerMap.get(topic).get(0);
         ConsumerIterator<Message> it = stream.iterator();
         while (it.hasNext()) {
-            System.out.println(getMessage(it.next().message()));
+            System.out.println(asString(it.next().message()));
         }
 
         // Kafka 0.8
@@ -61,22 +71,11 @@ public class KafkaConsumerMain {
 
     }
 
-    public static String getMessage(Message message) {
+    public static String asString(Message message) {
         ByteBuffer buffer = message.payload();
         byte[] bytes = new byte[buffer.remaining()];
         buffer.get(bytes);
         return new String(bytes);
     }
 
-    private static ConsumerConfig createConsumerConfig() {
-        Properties props = new Properties();
-        props.put("zk.connect", "localhost:2181");
-        props.put("groupid", "CHANGEME");
-        props.put("zk.sessiontimeout.ms", "800");
-        props.put("zk.synctime.ms", "300");
-        props.put("autocommit.interval.ms", "1000");
-
-        return new ConsumerConfig(props);
-
-    }
 }

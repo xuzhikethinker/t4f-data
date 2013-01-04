@@ -8,6 +8,8 @@ import kafka.javaapi.producer.Producer;
 import kafka.javaapi.producer.ProducerData;
 import kafka.producer.ProducerConfig;
 
+import com.google.common.collect.Lists;
+
 public class KafkaProducerMain {
 
     public static void main(String... args) {
@@ -21,18 +23,21 @@ public class KafkaProducerMain {
         ProducerConfig config = new ProducerConfig(props);
         Producer<String, String> producer = new Producer<String, String>(config);
 
-        ProducerData<String, String> data = new ProducerData<String, String>("test-topic", "test-message");
+        ProducerData<String, String> data = new ProducerData<String, String>(KafkaQueue.QUEUE_TEST_1.name(),
+                "test-message-0");
         producer.send(data);
 
-        List<String> messages = new java.util.ArrayList<String>();
-        messages.add("test-message1");
-        messages.add("test-message2");
-        ProducerData<String, String> data1 = new ProducerData<String, String>(KafkaQueue.QUEUE_TEST_1.name(), messages);
-        ProducerData<String, String> data2 = new ProducerData<String, String>(KafkaQueue.QUEUE_TEST_2.name(), messages);
-        List<ProducerData<String, String>> dataForMultipleTopics = new ArrayList<ProducerData<String, String>>();
-        dataForMultipleTopics.add(data1);
-        dataForMultipleTopics.add(data2);
-        producer.send(dataForMultipleTopics);
+        List<String> messages = new ArrayList<String>();
+        messages.add("test-message-1");
+        messages.add("test-message-2");
+
+        ProducerData<String, String> producerData1 = new ProducerData<String, String>(KafkaQueue.QUEUE_TEST_1.name(),
+                messages);
+        ProducerData<String, String> producerData2 = new ProducerData<String, String>(KafkaQueue.QUEUE_TEST_2.name(),
+                messages);
+
+        List<ProducerData<String, String>> producerDataList = Lists.newArrayList(producerData1, producerData2);
+        producer.send(producerDataList);
 
         producer.close();
 
