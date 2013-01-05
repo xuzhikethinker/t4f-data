@@ -19,11 +19,10 @@ import com.netflix.astyanax.thrift.ThriftFamilyFactory;
 public class AstyanaxCassandraTest {
 
     public static final ColumnFamily<String, String> CF_STANDARD_1 = ColumnFamily.newColumnFamily("Standard_1",
-            StringSerializer.get(), StringSerializer.get());
+            StringSerializer.get(), // Key Serializer
+            StringSerializer.get()); // Column Serializer
 
-    public static final ColumnFamily<String, String> CF_STANDARD_2 = new ColumnFamily<String, String>("Standard_2", // Column
-                                                                                                                    // Family
-                                                                                                                    // Name
+    public static final ColumnFamily<String, String> CF_STANDARD_2 = new ColumnFamily<String, String>("Standard_2",
             StringSerializer.get(), // Key Serializer
             StringSerializer.get()); // Column Serializer
 
@@ -34,11 +33,8 @@ public class AstyanaxCassandraTest {
                 .forKeyspace("UVID_TEST_2")
                 .withAstyanaxConfiguration(new AstyanaxConfigurationImpl().setDiscoveryType(NodeDiscoveryType.NONE))
                 .withConnectionPoolConfiguration(
-                        new ConnectionPoolConfigurationImpl("MyConnectionPool")
-                                .setPort(9160)
-                                .setMaxConnsPerHost(1)
-                                .setSeeds(
-                                        "node1.cassandra.staging.qutics.com:9160,node2.cassandra.staging.qutics.com:9160"))
+                        new ConnectionPoolConfigurationImpl("MyConnectionPool").setPort(9160).setMaxConnsPerHost(1)
+                                .setSeeds("localhost:9160"))
                 .withConnectionPoolMonitor(new CountingConnectionPoolMonitor())
                 .buildKeyspace(ThriftFamilyFactory.getInstance());
 
@@ -90,6 +86,7 @@ public class AstyanaxCassandraTest {
         for (Column<String> c : result2.getResult()) {
             System.out.println(c.getName());
         }
+
     }
 
 }

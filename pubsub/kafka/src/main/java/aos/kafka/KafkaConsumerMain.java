@@ -49,6 +49,7 @@ public class KafkaConsumerMain {
         props.put("zk.sessiontimeout.ms", "800");
         props.put("zk.synctime.ms", "300");
         props.put("autocommit.interval.ms", "1000");
+        // props.put("compression.codec", "2");
         props.put("groupid", "test-consumer");
 
         ConsumerConfig consumerConfig = new ConsumerConfig(props);
@@ -62,6 +63,7 @@ public class KafkaConsumerMain {
         ConsumerIterator<Message> it = stream.iterator();
         while (it.hasNext()) {
             System.out.println(asString(it.next().message()));
+            System.out.println("---");
         }
 
         // Kafka 0.8
