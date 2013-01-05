@@ -16,14 +16,27 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package io.aos.math.fibonacci;
-import javax.swing.text.html.*;
+package aos.math.factorial;
 
-public class ParserGetter extends HTMLEditorKit {
-
-  // purely to make this method public
-  public HTMLEditorKit.Parser getParser(){
-    return super.getParser();
+/**
+ * This program computes the factorial of a number
+ */
+public class FactorialMain1 {
+  public static void main(String[] args) {
+    int input = Integer.parseInt(args[0]);
+    double result = factorial(input);
+    System.out.println(result);
   }
-  
+
+  public static double factorial(int x) {
+    if (x < 0) {
+      return 0.0;
+    }
+    double fact = 1.0;
+    while (x > 1) {
+      fact = fact * x;
+      x--;
+    }
+    return fact;
+  }
 }

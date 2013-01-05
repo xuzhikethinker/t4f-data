@@ -29,4 +29,10 @@
   <artifactId>t4f-data-math</artifactId>
   <name>T4F Data Mathematics</name>
   <packaging>jar</packaging>
+  <dependencies>
+    <dependency>
+      <groupId>aos.summer</groupId>
+      <artifactId>aos-summer-console</artifactId>
+    </dependency>
+  </dependencies>
 </project>

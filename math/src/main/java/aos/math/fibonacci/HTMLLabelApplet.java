@@ -16,15 +16,24 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package io.aos.math.factorial;
+package aos.math.fibonacci;
+import javax.swing.*;
 
-public class FactorialMain2 {
-  public static void main(String[] args) {
-    int n = Integer.parseInt(args[0]);
-    System.out.print(n + "! is ");
-    int fact = 1;
-    while (n > 1)
-      fact *= n--;
-    System.out.println(fact);
+
+public class HTMLLabelApplet extends JApplet {
+
+  public void init() {
+  
+    JLabel theText = new JLabel(
+     "<html>"
+     + "Hello! This is a multiline label with <b>bold</b> "
+     + "and <i>italic</i> text. <P> "
+     + "It can use paragraphs, horizontal lines, <hr> "
+     + "<font color=red>colors</font> "
+     + "and most of the other basic features of HTML 3.2</html>");
+   
+    this.getContentPane().add(theText);
+  
   }
+
 }

@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package io.aos.math.fibonacci;
+package aos.math.fibonacci;
 import javax.swing.text.*;
 import javax.swing.text.html.*;
 import javax.swing.text.html.parser.*;
@@ -24,40 +24,45 @@ import java.io.*;
 import java.net.*;
 
 
-public class LineBreakingTagStripper extends HTMLEditorKit.ParserCallback {
+public class TagStripper extends HTMLEditorKit.ParserCallback {
 
   private Writer out;
-  private String lineSeparator;
   
-  public LineBreakingTagStripper(Writer out) {
-    this(out, System.getProperty("line.separator", "\r\n")); 
-  }  
-  
-  public LineBreakingTagStripper(Writer out, String lineSeparator) {
+  public TagStripper(Writer out) {
     this.out = out; 
-    this.lineSeparator = lineSeparator;
   }  
   
   public void handleText(char[] text, int position) {
     try {
+      for (int i =0; i < text.length; i++) {
+        if (text[i] == '\r' || text [i] == '\n') {
+          System.out.println("**********************");
+        }
+      }
       out.write(text);
-      out.flush();
+  //    out.flush(); 
     }
     catch (IOException e) {
       System.err.println(e); 
     }
   }
   
-  public void handleEndTag(HTML.Tag tag, int position) {
-
+  public void handleStartTag(HTML.Tag tag, MutableAttributeSet attributes,
+   int position) {
     try {
-      if (tag.isBlock()) {
-        out.write(lineSeparator);
-        out.write(lineSeparator);
-      }
-      else if (tag.breaksFlow()) {
-        out.write(lineSeparator);
-      }
+      out.write(' ');
+  //    out.flush(); 
+    }
+    catch (IOException e) {
+      System.err.println(e); 
+    }
+     
+  }
+  
+  public void handleEndTag(HTML.Tag tag, int position) {
+    try {
+      out.write(' ');
+  //    out.flush(); 
     }
     catch (IOException e) {
       System.err.println(e); 
@@ -68,29 +73,22 @@ public class LineBreakingTagStripper extends HTMLEditorKit.ParserCallback {
    int position) {
     
     try {
-      if (tag.isBlock()) {
-        out.write(lineSeparator);
-        out.write(lineSeparator);
-      }
-      else if (tag.breaksFlow()) {
-        out.write(lineSeparator);
-      }
-      else {
-        out.write(' '); 
-      }
+      out.write(' ');
+  //    out.flush(); 
     }
     catch (IOException e) {
       System.err.println(e); 
     }
  
   }
+
   
   public static void main(String[] args) {
     
     ParserGetter kit = new ParserGetter();
-    HTMLEditorKit.Parser parser = kit.getParser();
+    HTMLEditorKit.Parser parser = new ParserDelegator(); //kit.getParser();
     HTMLEditorKit.ParserCallback callback 
-     = new LineBreakingTagStripper(new OutputStreamWriter(System.out));
+     = new TagStripper(new OutputStreamWriter(System.out));
     
     try {
       URL u = new URL(args[0]);

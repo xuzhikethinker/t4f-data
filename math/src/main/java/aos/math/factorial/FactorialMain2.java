@@ -16,45 +16,15 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package io.aos.math.fibonacci;
-import javax.swing.text.*;
-import javax.swing.*;
-import java.net.*;
-import java.io.*;
-import java.awt.*;
+package aos.math.factorial;
 
-public class Fibonacci {
-
+public class FactorialMain2 {
   public static void main(String[] args) {
-        
-        
-     StringBuffer result = new StringBuffer("<html><body><h1>Fibonacci Sequence</h1><ol>");   
-     
-     long f1 = 0;
-     long f2 = 1;
-        
-     for (int i = 0; i < 100; i++) {
-       result.append("<li>");
-       result.append(f1);
-       long temp = f2;
-       f2 = f1 + f2;
-       f1 = temp;
-     }  
-        
-     result.append("</ol></body></html>");
-     
-     
-     JEditorPane jep = new JEditorPane("text/html", result.toString());
-     jep.setEditable(false);    
-      
-     JScrollPane scrollPane = new JScrollPane(jep);     
-     JFrame f = new JFrame("Fibonacci Sequence");
-     f.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-     f.getContentPane().add(scrollPane);
-     f.setSize(512, 342);
-     f.show();
-    
+    int n = Integer.parseInt(args[0]);
+    System.out.print(n + "! is ");
+    int fact = 1;
+    while (n > 1)
+      fact *= n--;
+    System.out.println(fact);
   }
-
-
 }

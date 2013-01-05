@@ -16,44 +16,42 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package io.aos.math.fibonacci;
-import javax.swing.text.*;
-import javax.swing.*;
-import java.net.*;
-import java.io.*;
-import java.awt.*;
+package aos.math;
 
-public class SimpleWebBrowser {
+import java.util.Random;
 
+import org.junit.Test;
 
-  public static void main(String[] args) {
+public class MathOperatorTest {
+    
+    @Test
+    public void test() {
         
-    // get the first URL
-    String initialPage = "http://metalab.unc.edu/javafaq/";
-    if (args.length > 0) initialPage = args[0];       
-    
-    // set up the editor pane
-    JEditorPane jep = new JEditorPane();
-    jep.setEditable(false);   
-    jep.addHyperlinkListener(new LinkFollower(jep));
-    
-    try {
-      jep.setPage(initialPage);      
+        Random rand = new Random();
+        int i, j, k;
+        
+        j = rand.nextInt() % 100;
+        k = rand.nextInt() % 100;
+        
+        System.out.println("j= " + j);
+        System.out.println("k= " + k);
+        
+        i = j + k;
+        System.out.println("j+k = " + i);
+        
+        i = j - k;
+        System.out.println("j-k = " + i);
+        
+        i = j * k;
+        System.out.println("j*k = " + i);
+        
+        i = j / k;
+        System.out.println("j/k = " + i);
+        
+        i = j % k;
+        System.out.println("j%k = " + i);
+        
+        k %= j;
+        System.out.println("k%j = " + k);
     }
-    catch (IOException e) {
-      System.err.println("Usage: java SimpleWebBrowser url"); 
-      System.err.println(e);
-      System.exit(-1);
-    }
-      
-    // set up the window
-    JScrollPane scrollPane = new JScrollPane(jep);     
-    JFrame f = new JFrame("Simple Web Browser");
-    f.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-    f.getContentPane().add(scrollPane);
-    f.setSize(512, 342);
-    f.show();
-    
-  }
-
 }

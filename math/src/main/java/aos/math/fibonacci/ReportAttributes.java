@@ -16,79 +16,48 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package io.aos.math.fibonacci;
+package aos.math.fibonacci;
 import javax.swing.text.*;
 import javax.swing.text.html.*;
 import javax.swing.text.html.parser.*;
 import java.io.*;
 import java.net.*;
+import java.util.*;
 
+public class ReportAttributes extends HTMLEditorKit.ParserCallback {
 
-public class TagStripper extends HTMLEditorKit.ParserCallback {
-
-  private Writer out;
-  
-  public TagStripper(Writer out) {
-    this.out = out; 
-  }  
-  
-  public void handleText(char[] text, int position) {
-    try {
-      for (int i =0; i < text.length; i++) {
-        if (text[i] == '\r' || text [i] == '\n') {
-          System.out.println("**********************");
-        }
-      }
-      out.write(text);
-  //    out.flush(); 
-    }
-    catch (IOException e) {
-      System.err.println(e); 
-    }
-  }
-  
   public void handleStartTag(HTML.Tag tag, MutableAttributeSet attributes,
    int position) {
-    try {
-      out.write(' ');
-  //    out.flush(); 
-    }
-    catch (IOException e) {
-      System.err.println(e); 
-    }
-     
+    this.listAttributes(attributes);
   }
   
-  public void handleEndTag(HTML.Tag tag, int position) {
-    try {
-      out.write(' ');
-  //    out.flush(); 
+  private void listAttributes(AttributeSet attributes) {
+    System.out.println();
+    Enumeration e = attributes.getAttributeNames();
+    while (e.hasMoreElements()) {
+      Object name = e.nextElement();
+      Object value = attributes.getAttribute(name);
+      if (!attributes.containsAttribute(name.toString(), value)) {
+        System.out.println("containsAttribute() fails");
+      }
+      if (!attributes.isDefined(name.toString())) {
+        System.out.println("isDefined() fails");
+      }
+      System.out.println(name + "=" + value);
     }
-    catch (IOException e) {
-      System.err.println(e); 
-    }
-    
   }
+  
   public void handleSimpleTag(HTML.Tag tag, MutableAttributeSet attributes, 
    int position) {
-    
-    try {
-      out.write(' ');
-  //    out.flush(); 
-    }
-    catch (IOException e) {
-      System.err.println(e); 
-    }
- 
+    this.listAttributes(attributes);     
   }
 
-  
   public static void main(String[] args) {
     
     ParserGetter kit = new ParserGetter();
-    HTMLEditorKit.Parser parser = new ParserDelegator(); //kit.getParser();
+    HTMLEditorKit.Parser parser = kit.getParser();
     HTMLEditorKit.ParserCallback callback 
-     = new TagStripper(new OutputStreamWriter(System.out));
+     = new ReportAttributes();
     
     try {
       URL u = new URL(args[0]);

@@ -16,29 +16,33 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package io.aos.math.fibonacci;
-import javax.swing.*;
-import javax.swing.event.*;
+package aos.algo.sort;
 
+import java.util.ArrayList;
+import java.util.Collections;
 
-public class LinkFollower implements HyperlinkListener {
+import org.junit.Test;
 
-  private JEditorPane pane;
-  
-  public LinkFollower(JEditorPane pane) {
-    this.pane = pane;
-  }
+public class JdkSortTest {
 
-  public void hyperlinkUpdate(HyperlinkEvent evt) {
-    
-    if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-      try {
-        pane.setPage(evt.getURL());        
-      }
-      catch (Exception e) {        
-      } 
+    @Test
+    public void testAverage() {
+        ArrayList<Long> longList = new ArrayList<Long>();
+        int[] arraysNumbers = { 1, 4, 5, 6, 7, 9, 20, 78, 43 };
+        int sizeDatas = 6;
+        long numbers = 0;
+        for (int i = 0; i < arraysNumbers.length; i++) {
+            numbers = numbers + arraysNumbers[i];
+            System.out.println("xxx=>" + numbers);
+            longList.add(Long.valueOf(numbers));
+        }
+        Collections.sort(longList);
+        long average = numbers / sizeDatas;
+        System.out.println("Numbers =>" + numbers);
+        System.out.println("Average =>" + average);
+        for (Long longCurrent : longList) {
+            System.out.println("LongCurrent =>" + longCurrent);
+        }
     }
-    
-  }
 
 }
