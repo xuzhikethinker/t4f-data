@@ -48,7 +48,7 @@ import org.apache.activemq.transport.stomp.Stomp.Headers.Subscribe;
  */
 public class StompExample {
 
-	public static void main(String args[]) throws Exception {
+	public static void main(String... args) throws Exception {
 		
 		StompConnection connection = new StompConnection();
 		connection.open("localhost", 61613);

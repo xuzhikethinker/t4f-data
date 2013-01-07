@@ -62,7 +62,7 @@ class Name implements Comparable {
 }
 
 class ListExampleSortComparable {
-    public static void main(String args[]) {
+    public static void main(String... args) {
         Name n[] = { new Name("John", "Lennon"), new Name("Karl", "Marx"),
                 new Name("Groucho", "Marx"), new Name("Oscar", "Grouch") };
         List l = Arrays.asList(n);

@@ -78,7 +78,7 @@ public class ReportIncidentRoutes extends RouteBuilder {
             .to("smtp://someone@localhost?password=secret&to=incident@mycompany.com");
     }
     
-    public static void main(String args[]) throws Exception {
+    public static void main(String... args) throws Exception {
         CamelContext camel = new DefaultCamelContext();
         ReportIncidentRoutes routes = new ReportIncidentRoutes();
         routes.setUsingServletTransport(false);

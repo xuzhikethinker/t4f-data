@@ -21,7 +21,7 @@ package aos.data.dup;
 import java.util.*;
 
 public class FindDups2 {
-    public static void main(String args[]) {
+    public static void main(String... args) {
         Set uniques = new HashSet();
         Set dups = new HashSet();
 

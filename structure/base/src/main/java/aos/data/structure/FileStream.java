@@ -116,7 +116,7 @@ public class FileStream extends InputStream {
         }
     }
 
-    public static void main(String args[]) {
+    public static void main(String... args) {
         FileStream in = new FileStream(args[0]);
         Scanner s = new Scanner(in);
         while (s.hasNextLine()) {

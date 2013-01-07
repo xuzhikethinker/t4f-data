@@ -32,7 +32,7 @@ public class ArrayToList {
                 new Integer(3), new Integer(4), };
     }
     
-    public static void main(String args[]) {
+    public static void main(String... args) {
         
         List<Integer> integerList = Arrays.asList(integerArray);
         

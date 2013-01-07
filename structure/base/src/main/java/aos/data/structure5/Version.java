@@ -30,7 +30,7 @@ public class Version
     public final static String name = "structure";
     public final static String author = "duane a. bailey";
 
-    public static void main(String args[])
+    public static void main(String... args)
     {
         int major;
         String date;

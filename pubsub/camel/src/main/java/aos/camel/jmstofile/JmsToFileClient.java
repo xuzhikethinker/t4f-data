@@ -33,7 +33,7 @@ public final class JmsToFileClient {
         //Helper class
     }
     
-    public static void main(String args[]) throws Exception {
+    public static void main(String... args) throws Exception {
 
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:51616");
         

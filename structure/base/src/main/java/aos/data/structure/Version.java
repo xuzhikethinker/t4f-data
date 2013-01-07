@@ -32,7 +32,7 @@ public class Version
     public final static String author = "duane a. bailey";
     public final static String info = "package "+name+", version "+major+"."+minor+", (c) "+year+" "+author;
 
-    public static void main(String args[])
+    public static void main(String... args)
     {
         System.out.println(info);
     }

@@ -62,7 +62,7 @@ public class ChineseDemo {
     new SmartChineseAnalyzer (Version.LUCENE_30)   
   };
 
-  public static void main(String args[]) throws Exception {
+  public static void main(String... args) throws Exception {
 
     for (String string : strings) {
       for (Analyzer analyzer : analyzers) {

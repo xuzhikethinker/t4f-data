@@ -60,7 +60,7 @@ class ListExampleSortComparator {
         }
     };
     
-    public static void main(String args[]) {
+    public static void main(String... args) {
         Name1 n[] = { new Name1("John", "Lennon"), new Name1("Karl", "Marx"),
                 new Name1("Groucho", "Marx"), new Name1("Oscar", "Grouch") };
         List l = Arrays.asList(n);

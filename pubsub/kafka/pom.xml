@@ -31,6 +31,10 @@
   <packaging>jar</packaging>
   <dependencies>
     <dependency>
+      <groupId>aos.summer</groupId>
+      <artifactId>aos-summer-console</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.apache.kafka</groupId>
       <artifactId>kafka-core</artifactId>
     </dependency>

@@ -112,7 +112,7 @@ public class SAXXMLDocument extends DefaultHandler {
     }
   }
 
-  public static void main(String args[]) throws Exception {
+  public static void main(String... args) throws Exception {
     SAXXMLDocument handler = new SAXXMLDocument();
     Document doc = handler.getDocument(
       new FileInputStream(new File(args[0])));

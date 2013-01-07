@@ -24,7 +24,7 @@ import java.util.TreeSet;
 
 public class SetSortedExample {
 
-    public static void main(String args[]) {
+    public static void main(String... args) {
         
         String s = new String ("Eric");
         

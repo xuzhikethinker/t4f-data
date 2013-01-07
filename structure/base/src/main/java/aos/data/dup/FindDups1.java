@@ -21,7 +21,7 @@ package aos.data.dup;
 import java.util.*;
 
 public class FindDups1 {
-    public static void main(String args[]) {
+    public static void main(String... args) {
         Set s = new HashSet();
         for (int i=0; i<args.length; i++)
             if (!s.add(args[i]))

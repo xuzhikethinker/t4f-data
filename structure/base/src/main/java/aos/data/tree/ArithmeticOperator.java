@@ -34,7 +34,7 @@ public enum ArithmeticOperator {
     }
 
     // Test case for using this enum
-    public static void main(String args[]) {
+    public static void main(String... args) {
         double x = Double.parseDouble(args[0]);
         double y = Double.parseDouble(args[1]);
         for(ArithmeticOperator op : ArithmeticOperator.values())

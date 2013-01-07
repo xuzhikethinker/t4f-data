@@ -38,7 +38,7 @@ import org.apache.camel.impl.DefaultCamelContext;
  */
 public final class CamelJmsToFileMain {
 
-	public static void main(String args[]) throws Exception {
+	public static void main(String... args) throws Exception {
 
 		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory("vm://localhost?broker.persistent=false");
 

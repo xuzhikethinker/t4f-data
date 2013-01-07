@@ -1,31 +1,60 @@
 package aos.kafka;
 
+import java.nio.ByteBuffer;
+
 import kafka.api.FetchRequest;
 import kafka.javaapi.consumer.SimpleConsumer;
 import kafka.javaapi.message.ByteBufferMessageSet;
 import kafka.message.MessageAndOffset;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import aos.console.AosConsole;
+
 public class KafkaConsumerSimpleMain {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(KafkaConsumerSimpleMain.class);
+
     public static void main(String[] args) {
-        SimpleConsumer consumer = new SimpleConsumer("localhost", 2181, 10000, 1024000);
-        long offset = 0;
-        while (true) {
-            // Create a fetch request for topic “test”, partition 0, current
-            // offset, and fetch size of 1MB
-            FetchRequest fetchRequest = new FetchRequest("test", 0, offset, 1000000);
-            // Get the message set from the consumer and print them out
-            ByteBufferMessageSet messages = consumer.fetch(fetchRequest);
-            for (MessageAndOffset msg : messages) {
-                // System.out.println("consumed: " + new
-                // Utils().toString(msg.message().payload(), "UTF-8"));
-                System.out.println("consumed: " + msg.message().payload().toString());
-                // advance the offset after consuming each message
-                offset = msg.offset();
-                
-            }
+
+        String zkHost = "127.0.0.1";
+        Integer zkPort = 2181;
+        String topic = KafkaQueue.QUEUE_TEST_1.name();
+
+        if (args.length > 0) {
+            zkHost = args[0];
+            zkPort = new Integer(args[1]);
+            topic = args[2];
         }
 
+        LOGGER.info("zkHost: {}, zkPort: {}, topic: {}", new Object[] { zkHost, zkPort, topic });
+
+        SimpleConsumer consumer = new SimpleConsumer(zkHost, zkPort, 10000, 1024000);
+
+        long offset = -1;
+
+        while (true) {
+
+            FetchRequest fetchRequest = new FetchRequest(topic, 1, offset, 1000000);
+
+            ByteBufferMessageSet messages = consumer.fetch(fetchRequest);
+
+            for (MessageAndOffset message : messages) {
+                AosConsole.println("consumed: " + asString(message));
+                AosConsole.println("---");
+                offset = message.offset();
+            }
+
+        }
+
+    }
+
+    public static String asString(MessageAndOffset message) {
+        ByteBuffer buffer = message.message().payload();
+        byte[] bytes = new byte[buffer.remaining()];
+        buffer.get(bytes);
+        return new String(bytes);
     }
 
 }

@@ -31,7 +31,7 @@ class B extends A {                // Define a subclass of A
 }
 
 public class OverrideTest {
-  public static void main(String args[]) {
+  public static void main(String... args) {
     B b = new B();               // Creates a new object of type B
     System.out.println(b.i);     // Refers to B.i; prints 2
     System.out.println(b.f());   // Refers to B.f(); prints -2

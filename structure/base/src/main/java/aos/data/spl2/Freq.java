@@ -23,7 +23,7 @@ import java.util.*;
 public class Freq {
     private static final Integer ONE = new Integer(1);
 
-    public static void main(String args[]) {
+    public static void main(String... args) {
         Map m = new TreeMap();
 
         // Initialize frequency table from command line

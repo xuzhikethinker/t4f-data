@@ -27,7 +27,7 @@ public class HashTableTest {
   static String[] array1 = {"C","B","A"};
   static String[] array2 = {"1","2","3"};
 
-  public static void main(String args[]) {
+  public static void main(String... args) {
 
     java.util.Hashtable h = new java.util.Hashtable();
     h.put(array1[0], array2[0]);

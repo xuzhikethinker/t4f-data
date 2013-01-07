@@ -44,7 +44,7 @@ import org.apache.camel.impl.DefaultCamelContext;
  */
 public class OrderRouterWithMulticast {
 
-    public static void main(String args[]) throws Exception {
+    public static void main(String... args) throws Exception {
         // create CamelContext
         CamelContext context = new DefaultCamelContext();
         

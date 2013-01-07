@@ -22,7 +22,7 @@ import java.util.*;
 
 class Deal {
 
-    public static void main(String args[]) {
+    public static void main(String... args) {
         int numHands = Integer.parseInt(args[0]);
         int cardsPerHand = Integer.parseInt(args[1]);
 

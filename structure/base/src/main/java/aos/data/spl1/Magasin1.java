@@ -59,7 +59,7 @@ public class Magasin1 {
         return listeClients.contains(client);
     }
     
-    public static void main(String args[]) {
+    public static void main(String... args) {
         new Magasin1();
     }
 

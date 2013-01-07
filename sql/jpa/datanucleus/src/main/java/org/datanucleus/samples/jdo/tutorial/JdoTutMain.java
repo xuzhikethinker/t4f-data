@@ -43,7 +43,7 @@ import org.datanucleus.store.rdbms.SchemaTool;
  **/
 public class JdoTutMain {
 	
-	public static void main(String args[]) throws Exception {
+	public static void main(String... args) throws Exception {
 
      	enhance();
 

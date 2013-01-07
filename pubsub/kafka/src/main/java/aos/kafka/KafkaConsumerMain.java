@@ -30,22 +30,25 @@ import kafka.consumer.ConsumerIterator;
 import kafka.consumer.KafkaStream;
 import kafka.javaapi.consumer.ConsumerConnector;
 import kafka.message.Message;
+import aos.console.AosConsole;
 
 public class KafkaConsumerMain {
 
     public static void main(String... args) {
 
-        String zkHost = "127.0.0.1:2181";
+        String zkHost = "127.0.0.1";
+        int zkPort = 2181;
         String topic = KafkaQueue.QUEUE_TEST_1.name();
 
         if (args.length > 0) {
             zkHost = args[0];
-            topic = args[1];
+            zkPort = new Integer(args[1]);
+            topic = args[2];
         }
 
         // Kafka 0.7.2
         Properties props = new Properties();
-        props.put("zk.connect", zkHost);
+        props.put("zk.connect", zkHost + ":" + zkPort);
         props.put("zk.sessiontimeout.ms", "800");
         props.put("zk.synctime.ms", "300");
         props.put("autocommit.interval.ms", "1000");
@@ -53,17 +56,19 @@ public class KafkaConsumerMain {
         props.put("groupid", "test-consumer");
 
         ConsumerConfig consumerConfig = new ConsumerConfig(props);
-        ConsumerConnector consumer = Consumer.createJavaConsumerConnector(consumerConfig);
+        ConsumerConnector consumerConnector = Consumer.createJavaConsumerConnector(consumerConfig);
+        // consumer.getOffsetsBefore("storm-uvid-out-staging", 0, 1357567820000,
+        // 1)
 
         Map<String, Integer> topicCountMap = new HashMap<String, Integer>();
         topicCountMap.put(topic, new Integer(1));
 
-        Map<String, List<KafkaStream<Message>>> consumerMap = consumer.createMessageStreams(topicCountMap);
+        Map<String, List<KafkaStream<Message>>> consumerMap = consumerConnector.createMessageStreams(topicCountMap);
         KafkaStream<Message> stream = consumerMap.get(topic).get(0);
         ConsumerIterator<Message> it = stream.iterator();
         while (it.hasNext()) {
-            System.out.println(asString(it.next().message()));
-            System.out.println("---");
+            AosConsole.println(asString(it.next().message()));
+            AosConsole.println("---");
         }
 
         // Kafka 0.8
