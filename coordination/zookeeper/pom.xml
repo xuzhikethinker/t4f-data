@@ -29,4 +29,10 @@
   <artifactId>t4f-data-coordination-zookeeper</artifactId>
   <name>T4F Data Coordination Zookeeper</name>
   <packaging>jar</packaging>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.zookeeper</groupId>
+      <artifactId>zookeeper</artifactId>
+    </dependency>
+  </dependencies>
 </project>
