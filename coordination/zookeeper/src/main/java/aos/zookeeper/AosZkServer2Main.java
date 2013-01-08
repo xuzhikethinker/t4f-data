@@ -2,6 +2,7 @@ package aos.zookeeper;
 
 import java.io.IOException;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.zookeeper.server.ServerConfig;
 import org.apache.zookeeper.server.ZooKeeperServerMain;
@@ -12,7 +13,7 @@ import org.slf4j.LoggerFactory;
 public class AosZkServer2Main {
     private final static Logger LOGGER = LoggerFactory.getLogger(AosZkServer2Main.class);
 
-    public static void main(String... args) throws IOException {
+    public static void main(String... args) throws IOException, InterruptedException {
 
         Properties startupProperties = new Properties();
         startupProperties.load(AosZkServer2Main.class.getClassLoader().getResourceAsStream("zoo.cfg"));
@@ -33,12 +34,24 @@ public class AosZkServer2Main {
             public void run() {
                 try {
                     zooKeeperServer.runFromConfig(configuration);
+                    while (true) {
+                        try {
+                            Thread.sleep(Long.MAX_VALUE);
+                        } catch (InterruptedException e) {
+                            LOGGER.error("ZooKeeper Failed", e);
+                            throw new RuntimeException("ZooKeeper Failed", e);
+                        }
+                    }
                 } catch (IOException e) {
                     LOGGER.error("ZooKeeper Failed", e);
                     throw new RuntimeException("ZooKeeper Failed", e);
                 }
             }
         }.start();
+
+        LOGGER.info("Zookeeper Server is started.");
+
+        TimeUnit.MINUTES.sleep(3);
 
     }
 

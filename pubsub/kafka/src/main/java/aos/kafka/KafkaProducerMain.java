@@ -14,7 +14,7 @@ public class KafkaProducerMain {
 
     public static void main(String... args) {
 
-        String zkHost = "127.0.0.1:2181";
+        String zkHost = "localhost:2181";
         if (args.length > 0) {
             zkHost = args[0];
         }

@@ -18,7 +18,7 @@ public class KafkaConsumerSimpleMain {
 
     public static void main(String[] args) {
 
-        String zkHost = "127.0.0.1";
+        String zkHost = "localhost";
         Integer zkPort = 2181;
         String topic = KafkaQueue.QUEUE_TEST_1.name();
 

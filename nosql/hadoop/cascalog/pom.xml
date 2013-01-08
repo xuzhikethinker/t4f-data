@@ -26,7 +26,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>t4f-data-nosql-hadoop-cascalog</artifactId>
-  <name>T4F Data NoSQL Hadoop Cascalog</name>
+  <name>T4F Data NoSql Hadoop Cascalog</name>
   <dependencies>
     <dependency>
       <groupId>cascalog</groupId>

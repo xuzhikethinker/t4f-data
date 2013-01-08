@@ -26,7 +26,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>t4f-data-nosql-hadoop-hdfs</artifactId>
-  <name>T4F Data NoSQL Hadoop HDFS</name>
+  <name>T4F Data NoSql Hadoop HDFS</name>
   <dependencies>
     <dependency>
       <groupId>org.apache.hadoop</groupId>

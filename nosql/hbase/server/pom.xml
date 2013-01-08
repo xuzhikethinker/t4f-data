@@ -26,7 +26,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>t4f-data-nosql-hbase-server</artifactId>
-  <name>T4F Data NoSQL HBase Server</name>
+  <name>T4F Data NoSql HBase Server</name>
   <dependencies>
     <dependency>
       <groupId>org.apache.hbase</groupId>

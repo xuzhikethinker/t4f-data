@@ -27,7 +27,7 @@
     <relativePath>..</relativePath>
   </parent>
   <artifactId>t4f-data-nosql-cassandra</artifactId>
-  <name>T4F Data NoSQL Cassandra</name>
+  <name>T4F Data NoSql Cassandra</name>
   <packaging>jar</packaging>
   <dependencies>
     <dependency>

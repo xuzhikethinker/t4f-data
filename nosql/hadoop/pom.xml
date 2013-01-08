@@ -21,7 +21,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>t4f-data-nosql-hadoop</artifactId>
-  <name>T4F Data NoSQL Hadoop</name>
+  <name>T4F Data NoSql Hadoop</name>
   <parent>
     <groupId>aos.t4f</groupId>
     <artifactId>t4f-data-nosql</artifactId>
