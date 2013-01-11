@@ -24,22 +24,23 @@ import java.util.List;
 public class ArrayToList {
 
     static Integer[] integerArray;
-    
+
     static List<Integer> integerList;
-    
+
     static {
-        integerArray = new Integer[] { new Integer(1), new Integer(2),
-                new Integer(3), new Integer(4), };
+        integerArray = new Integer[] { new Integer(1), new Integer(2), new Integer(3), new Integer(4), };
     }
-    
+
     public static void main(String... args) {
-        
+
         List<Integer> integerList = Arrays.asList(integerArray);
-        
-        for (Integer integer: integerList) {
+
+        for (Integer integer : integerList) {
             System.out.println(integer);
         }
 
+        System.out.println(Arrays.toString(integerList.toArray()));
+
     }
-    
+
 }
