@@ -34,34 +34,23 @@ set hive.exec.max.dynamic.partitions.pernode=10000;
 INSERT OVERWRITE TABLE pageviews
 PARTITION(tracking_ID, record_date)
 SELECT
-    U_R_Visitor_ID,
-    PV_R_PingTime_UNIX,
+        PV_RTime_UNI   PV_R
+    PV_Rrrer
+    PV_Rr,
 
-    PV_R_URL,
-    PV_R_Referrer_URL,
-    PV_R_PageNumber,
+    _CustomVal
+  R_Usergent _UserIPAds,
+    UserWebting   PVlientPing_UNIX,
+    V_R_Sessounte _eView_ID,
+    Group_Visitor_ID,
+    Group_TracIngId   at(PageView_ID,Visitor_ID),
+    at(ID_Visitor_ID,RecateTrackingIG_R_TragID, Recate
 
-    PV_R_CustomValues,
+ FROM 
+  tablename;
 
-    U_R_UserWebAgent,
-    U_R_UserIPAddress,
-    U_R_UserWebAgentSettings,
-
-    PV_R_ClientPingTime_UNIX,
-    V_R_SessionCounters,
-    PV_R_PageView_ID,
-    U_R_Group_Visitor_ID,
-    G_R_Group_Tracking_ID,
-    concat(PV_R_PageView_ID,U_R_Visitor_ID),
-    concat(PV_R_PageView_ID,U_R_Visitor_ID,PV_d_RecordDate,G_R_TrackingID),
-G_R_TrackingID, PV_d_RecordDate
-
-
-    FROM 
-standarddatapipeline.t2_108_pageviews;
-
--- ------------------------------------------------------------------------------------------
-create external table pv_categorised
+-- -------------------------tablename------------------------
+ce external tapv_categorised
 (
         visitor_id                         STRING,
         server_side_time                   BIGINT,
@@ -89,38 +78,35 @@ STORED AS INPUTFORMAT "com.hadoop.mapred.DeprecatedLzoTextInputFormat"
 OUTPUTFORMAT "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
 location 's3n://name-test/data/pv_categorised/';
 
-
 INSERT OVERWRITE TABLE pv_categorised
-PARTITION(tracking_ID, record_date)
+ §PARTITION(tracking_ID, rd_date)
 SELECT
-    U_R_Visitor_ID,
-    PV_R_PingTime_UNIX,
+    Visitor_ID,
+    Pin_UNIX,
 
-    PV_d_URLCategory,
-    PV_d_URLSubCategory,
+    URLgory,
+    URLSubCategory,
 
-    V_d_sdp_ReferrerCategory,
-    V_d_sdp_ReferrerSubCategory,
-    V_d_Visit_Referrer_Details,
+    ReferrerCate,
+    ReferrerSubCategory,
+    V_d_Visitrrer_Details,
 
 
-    V_d_SearchQuery,
+    SearchQuery,
     V_d_SearchQueryCategorisation,
 
-    PV_R_ClientPingTime_UNIX,
-    PV_R_PageView_ID,
+    ClingTime_UNIX,
+    Pag_ID,
 
-    concat(PV_R_PageView_ID,U_R_Visitor_ID),
-    concat(PV_R_PageView_ID,U_R_Visitor_ID,PV_d_RecordDate,G_R_TrackingID),
-G_R_TrackingID, PV_d_RecordDate
+    at(PageVieVisitor_ID),
+    at(PageView_IDVisitor_ID,RecordDate,G_R_TingID),
+G_R_TraID, RecordDate
 
+ FROM table;
 
-    FROM 
-standarddatapipeline.t2_108_pageviews;
+-- -----------------------------------------------
 
--- --------------------------------------------------------
-
-select count(*) from pageviews a JOIN pv_categorised b ON (a.visitor_ID=b.visitor_ID and a.pageview_ID=b.pageview_ID and a.record_date=b.record_date and a.tracking_ID=b.tracking_ID);
+select count(*) tablename (a.visitor_ID=b.visitor_ID and geview_ID=b.pageview_ID and a.record_date=b.record_date and a.trackID=b.tracking;
 
 select count(*) from pageviews a JOIN pv_categorised b ON (a.visitor_ID=b.visitor_ID and a.pageview_ID=b.pageview_ID and a.record_date=b.record_date and a.tracking_ID=b.tracking_ID) 
  where a.record_date='2012-08-01' and b.record_date='2012-08-01' and a.tracking_ID='test' and b.tracking_ID='test';

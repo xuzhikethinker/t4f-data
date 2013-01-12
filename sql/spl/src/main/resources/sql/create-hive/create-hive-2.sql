@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS StandardDataPipeline;
+CREATE DATABASE IF NOT EXISTS dbname;
 
-USE StandardDataPipeline;
+USE dbname;
 
 DROP TABLE IF EXISTS table_hive;
 
