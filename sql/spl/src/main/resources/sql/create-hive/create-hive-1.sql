@@ -20,7 +20,7 @@ create external table table_name
 
         client_side_time        BIGINT,
         session_counters             STRING,
-        pageview_ID                STRING,
+        table_ID                STRING,
         group_visitor_ID            STRING,
         group_tracking_ID           STRING,
 
@@ -33,7 +33,7 @@ FIELDS TERMINATED BY '\t'
 -- STORED AS 
 --  INPUTFORMAT "com.hadoop.mapred.DeprecatedLzoTextInputFormat"
 --  OUTPUTFORMAT "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
--- location 's3n://${DATA_MODEL_BUCKET}/data/pageviews/'
+-- location 's3n://${DATA_MODEL_BUCKET}/data/tables/'
 LOCATION 'hdfs://localhost:9000/name-test/data/table_name';
 
 LOAD DATAnameOCAL INPATH '/w/qbt/name.git/src/csv/table_name_2012-08-01.csv' 

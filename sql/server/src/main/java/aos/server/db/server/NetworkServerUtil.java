@@ -47,7 +47,6 @@ import org.apache.derby.drda.NetworkServerControl;
  * Class for starting the Derby NetworkServer on a separate Thread. This class
  * provides methods to start, and shutdown the server
  */
-
 public class NetworkServerUtil {
 
     private int portNum;

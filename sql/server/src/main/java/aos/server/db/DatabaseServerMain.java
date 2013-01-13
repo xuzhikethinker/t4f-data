@@ -18,11 +18,33 @@
  ****************************************************************/
 package aos.server.db;
 
+import java.io.PrintWriter;
+import java.net.InetAddress;
+
+import org.apache.derby.drda.NetworkServerControl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class DatabaseServerMain {
-	
-	public static void main(String[] args) throws Exception {
-		Thread thread = new Thread(new DatabaseServerRunnable());
-		thread.run();
-	}
+    private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseServerMain.class);
+
+    public static void main(String... args) throws Exception {
+
+        final NetworkServerControl serverControl = new NetworkServerControl(InetAddress.getByName("0.0.0.0"), 1527);
+        final PrintWriter pw = new PrintWriter(System.out, true);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    serverControl.start(pw);
+                } catch (Exception e) {
+                    LOGGER.error("Exception while running the database server", e);
+                    throw new RuntimeException("Exception while running the database server", e);
+                }
+            }
+        }).start();
+
+    }
 
 }

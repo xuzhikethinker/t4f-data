@@ -23,9 +23,9 @@ SELECT table.*
 
 SELECT table.*
   FROM table 
-  LEFT OUTER JOIN raw_pageviews 
+  LEFT OUTER JOIN raw_tables 
     ON (
-      table.composite_id = raw_pageviews.v
+      table.composite_id = raw_tables.v
       )
   WHERE 
     table_hive.composite_id IS NULL;
@@ -61,7 +61,7 @@ hive -e "use database; describe extended table partition (tracking_id='test', re
 s3n://name-model/raw/table/tracking_id=test/recorddate=2012-08-01
 -- -----------------------------------------------------------------------------
 hive -e "use database; describe extended table;"
-s3n://name-test/data/raw_pageviews
+s3n://name-test/data/raw_tables
 -- -----------------------------------------------------------------------------
 create external table table (
         Visitor_ID                  STRING,
@@ -109,9 +109,9 @@ ALTER TABLE table ADD COLUMNS (
 )
 ;
 -- ----------------------------------------------------------------------------
-hive> describe extended pageviews;
+hive> describe extended tables;
 OK
-composite_id    string  pageview level identifier, combining visitor id, tracking id and record date
+composite_id    string  table level identifier, combining visitor id, tracking id and record date
 visitor_id  string  
 server_side_time    bigint  
 url string  
@@ -128,13 +128,13 @@ entrance_referrer_url   string
 tracking_id string  
 record_date string  
          
-Detailed Table Information  Table(tableName:pageviews, dbName:database, owner:batchrunner, createTime:1350985067, lastAccessTime:0, retention:0, sd:StorageDescriptor(cols:[FieldSchema(name:composite_id, type:string, comment:pageview level identifier, combining visitor id, tracking id and record date), FieldSchema(name:visitor_id, type:string, comment:null), FieldSchema(name:server_side_time, type:bigint, comment:null), FieldSchema(name:url, type:string, comment:null), FieldSchema(name:referrer_url, type:string, comment:null), FieldSchema(name:browser_side_page_number, type:bigint, comment:as generated in the javascript), FieldSchema(name:custom_values, type:string, comment:null), FieldSchema(name:user_web_agent, type:string, comment:null), FieldSchema(name:user_ip_address, type:string, comment:null), FieldSchema(name:user_web_agent_settings, type:string, comment:null), FieldSchema(name:client_side_time, type:bigint, comment:null), FieldSchema(name:qtracker_version, type:string, comment:null), FieldSchema(name:session_counters, type:string, comment:null), FieldSchema(name:pageview_id, type:string, comment:null), FieldSchema(name:group_visitor_id, type:string, comment:null), FieldSchema(name:group_tracking_id, type:string, comment:null), FieldSchema(name:page_time, type:bigint, comment:calculated as the difference between successive pageviews), FieldSchema(name:url_category, type:string, comment:null), FieldSchema(name:url_subcategory, type:string, comment:null), FieldSchema(name:user_agent_categorisation, type:string, comment:null), FieldSchema(name:geo_location, type:string, comment:null), FieldSchema(name:clean_search_query, type:string, comment:null), FieldSchema(name:search_categorisation, type:string, comment:null), FieldSchema(name:page_num_in_visit, type:int, comment:null), FieldSchema(name:visit_id, type:string, comment:null), FieldSchema(name:visit_number, type:bigint, comment:null), FieldSchema(name:visit_referrer_type, type:string, comment:null), FieldSchema(name:visit_referrer_details, type:string, comment:null), FieldSchema(name:visit_referrer_label, type:string, comment:null), FieldSchema(name:page_num_in_entrance, type:int, comment:null), FieldSchema(name:entrance_id, type:string, comment:null), FieldSchema(name:entrance_number, type:bigint, comment:null), FieldSchema(name:entrance_referrer_type, type:string, comment:null), FieldSchema(name:entrance_referrer_details, type:string, comment:null), FieldSchema(name:entrance_referrer_label, type:string, comment:null), FieldSchema(name:page_num_in_session, type:int, comment:null), FieldSchema(name:session_id, type:string, comment:null), FieldSchema(name:session_number, type:bigint, comment:null), FieldSchema(name:canonical_url, type:string, comment:null), FieldSchema(name:canonical_referrer_url, type:string, comment:null), FieldSchema(name:raw_time_on_page, type:bigint, comment:calculated as the time from 1st to last ping), FieldSchema(name:entrance_referrer_url, type:string, comment:null), FieldSchema(name:tracking_id, type:string, comment:null), FieldSchema(name:record_date, type:string, comment:null)], location:s3n://name-model-2/data/pageviews, inputFormat:com.hadoop.mapred.DeprecatedLzoTextInputFormat, outputFormat:org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat, compressed:false, numBuckets:-1, serdeInfo:SerDeInfo(name:null, serializationLib:org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe, parameters:{serialization.format= , field.delim=
+Detailed Table Information  Table(tableName:tables, dbName:database, owner:batchrunner, createTime:1350985067, lastAccessTime:0, retention:0, sd:StorageDescriptor(cols:[FieldSchema(name:composite_id, type:string, comment:table level identifier, combining visitor id, tracking id and record date), FieldSchema(name:visitor_id, type:string, comment:null), FieldSchema(name:server_side_time, type:bigint, comment:null), FieldSchema(name:url, type:string, comment:null), FieldSchema(name:referrer_url, type:string, comment:null), FieldSchema(name:browser_side_page_number, type:bigint, comment:as generated in the javascript), FieldSchema(name:custom_values, type:string, comment:null), FieldSchema(name:user_web_agent, type:string, comment:null), FieldSchema(name:user_ip_address, type:string, comment:null), FieldSchema(name:user_web_agent_settings, type:string, comment:null), FieldSchema(name:client_side_time, type:bigint, comment:null), FieldSchema(name:qtracker_version, type:string, comment:null), FieldSchema(name:session_counters, type:string, comment:null), FieldSchema(name:table_id, type:string, comment:null), FieldSchema(name:group_visitor_id, type:string, comment:null), FieldSchema(name:group_tracking_id, type:string, comment:null), FieldSchema(name:page_time, type:bigint, comment:calculated as the difference between successive tables), FieldSchema(name:url_category, type:string, comment:null), FieldSchema(name:url_subcategory, type:string, comment:null), FieldSchema(name:user_agent_categorisation, type:string, comment:null), FieldSchema(name:geo_location, type:string, comment:null), FieldSchema(name:clean_search_query, type:string, comment:null), FieldSchema(name:search_categorisation, type:string, comment:null), FieldSchema(name:page_num_in_visit, type:int, comment:null), FieldSchema(name:visit_id, type:string, comment:null), FieldSchema(name:visit_number, type:bigint, comment:null), FieldSchema(name:visit_referrer_type, type:string, comment:null), FieldSchema(name:visit_referrer_details, type:string, comment:null), FieldSchema(name:visit_referrer_label, type:string, comment:null), FieldSchema(name:page_num_in_entrance, type:int, comment:null), FieldSchema(name:entrance_id, type:string, comment:null), FieldSchema(name:entrance_number, type:bigint, comment:null), FieldSchema(name:entrance_referrer_type, type:string, comment:null), FieldSchema(name:entrance_referrer_details, type:string, comment:null), FieldSchema(name:entrance_referrer_label, type:string, comment:null), FieldSchema(name:page_num_in_session, type:int, comment:null), FieldSchema(name:session_id, type:string, comment:null), FieldSchema(name:session_number, type:bigint, comment:null), FieldSchema(name:canonical_url, type:string, comment:null), FieldSchema(name:canonical_referrer_url, type:string, comment:null), FieldSchema(name:raw_time_on_page, type:bigint, comment:calculated as the time from 1st to last ping), FieldSchema(name:entrance_referrer_url, type:string, comment:null), FieldSchema(name:tracking_id, type:string, comment:null), FieldSchema(name:record_date, type:string, comment:null)], location:s3n://name-model-2/data/tables, inputFormat:com.hadoop.mapred.DeprecatedLzoTextInputFormat, outputFormat:org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat, compressed:false, numBuckets:-1, serdeInfo:SerDeInfo(name:null, serializationLib:org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe, parameters:{serialization.format= , field.delim=
 Time taken: 0.458 seconds
 hive> 
 -- -----------------------------------------------------------------------------
 LOAD DATA 
   LOCAL 
-  INPATH '/q/.../pageviewreducer.out' 
+  INPATH '/q/.../tablereducer.out' 
   OVERWRITE 
   INTO TABLE 
   table 

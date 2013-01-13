@@ -1,6 +1,6 @@
 use test;
 
-create external table pageviews (
+create external table tables (
         visitor_id                         STRING,
         server_side_time                   BIGINT,
 
@@ -9,7 +9,7 @@ create external table pageviews (
 
         group_tracking_ID           STRING,
 
-        visitor_pageview_composite_ID STRING,
+        visitor_table_composite_ID STRING,
         full_composite_ID STRING
         
 )
@@ -18,7 +18,7 @@ ROW FORMAT DELIMITED
 FIELDS TERMINATED BY '\t'
 STORED AS INPUTFORMAT "com.hadoop.mapred.DeprecatedLzoTextInputFormat"
 OUTPUTFORMAT "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
-location 's3n://..../data/pageviews/';
+location 's3n://..../data/tables/';
 
 set mapred.output.compress=true;
 set hive.exec.compress.output=true;
@@ -31,7 +31,7 @@ set hive.exec.max.dynamic.partitions=100000;
 set hive.exec.max.dynamic.partitions.pernode=10000;
 
 
-INSERT OVERWRITE TABLE pageviews
+INSERT OVERWRITE TABLE tables
 PARTITION(tracking_ID, record_date)
 SELECT
         PV_RTime_UNI   PV_R
@@ -65,9 +65,9 @@ ce external tapv_categorised
         search_query_cat               STRING,
 
         client_side_time        BIGINT,
-        pageview_ID                STRING,
+        table_ID                STRING,
 
-        visitor_pageview_composite_ID STRING,
+        visitor_table_composite_ID STRING,
         full_composite_ID STRING
         
 )
@@ -106,9 +106,9 @@ G_R_TraID, RecordDate
 
 -- -----------------------------------------------
 
-select count(*) tablename (a.visitor_ID=b.visitor_ID and geview_ID=b.pageview_ID and a.record_date=b.record_date and a.trackID=b.tracking;
+select count(*) tablename (a.visitor_ID=b.visitor_ID and geview_ID=b.table_ID and a.record_date=b.record_date and a.trackID=b.tracking;
 
-select count(*) from pageviews a JOIN pv_categorised b ON (a.visitor_ID=b.visitor_ID and a.pageview_ID=b.pageview_ID and a.record_date=b.record_date and a.tracking_ID=b.tracking_ID) 
+select count(*) from tables a JOIN pv_categorised b ON (a.visitor_ID=b.visitor_ID and a.table_ID=b.table_ID and a.record_date=b.record_date and a.tracking_ID=b.tracking_ID) 
  where a.record_date='2012-08-01' and b.record_date='2012-08-01' and a.tracking_ID='test' and b.tracking_ID='test';
 
-select count(*) from pageviews a JOIN pv_categorised b on (a.full_composite_ID=b.full_composite_ID) where a.record_date='2012-08-01' and b.record_date='2012-08-01'  and a.tracking_ID='test' and b.tracking_ID='test';
+select count(*) from tables a JOIN pv_categorised b on (a.full_composite_ID=b.full_composite_ID) where a.record_date='2012-08-01' and b.record_date='2012-08-01'  and a.tracking_ID='test' and b.tracking_ID='test';
