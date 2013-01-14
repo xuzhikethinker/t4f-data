@@ -1,1 +1,1 @@
-UPDATE ITEM SET PATH='/Journal/' WHERE PATH='/Journal' ;
+UPDATE ITEM SET PATH='/Journal/' WHERE PATH='/Journal';
