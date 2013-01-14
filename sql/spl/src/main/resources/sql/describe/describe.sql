@@ -1,0 +1,3 @@
+DESCRIBE 
+  table_name
+;
