@@ -28,7 +28,7 @@ public class MatchesLooking {
     private static Pattern pattern;
     private static Matcher matcher;
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
    
       // Initialize
         pattern = Pattern.compile(REGEX);

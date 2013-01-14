@@ -53,7 +53,7 @@ public class StopAnalyzerAlternativesTest extends TestCase {
   /**
    * Illustrates that "the" is not removed, although it is lowercased
    */
-  public static void main(String[] args) throws Exception {
+  public static void main(String... args) throws Exception {
     AnalyzerUtils.displayTokens(
       new StopAnalyzerFlawed(), "The quick brown...");
   }

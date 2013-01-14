@@ -33,7 +33,7 @@ hdfs namenode
 public class HdfsNameNodeFormatter {
     private static final Logger LOGGER = Logger.getLogger(HdfsNameNodeFormatter.class);
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
         NameNode.main(new String[]{"-format"});
     }
 

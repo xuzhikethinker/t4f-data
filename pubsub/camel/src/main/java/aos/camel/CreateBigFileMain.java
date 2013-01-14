@@ -28,7 +28,7 @@ import java.io.FileOutputStream;
  */
 public class CreateBigFileMain {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
         new File("target/inventory").mkdirs();
         File file = new File("target/inventory/bigfile.csv");
         if (file.exists()) {

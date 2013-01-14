@@ -26,7 +26,7 @@ public class SplitDemo {
     private static final String INPUT = "one:two:three:four:five";
 //    private static final String INPUT = "one9two4three7four1five";
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         Pattern p = Pattern.compile(REGEX);
         String[] items = p.split(INPUT);
         for (String s : items) {

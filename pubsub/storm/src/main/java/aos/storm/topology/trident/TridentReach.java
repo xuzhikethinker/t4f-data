@@ -44,7 +44,7 @@ import backtype.storm.tuple.Fields;
 import backtype.storm.tuple.Values;
 
 public class TridentReach {
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
         LocalDRPC drpc = new LocalDRPC();
 
         Config conf = new Config();

@@ -19,8 +19,8 @@
 package aos.algo.sort.quick;
 
 import aos.algo.list.ListSorter;
-import aos.data.comparator.Comparator;
-import aos.data.list.List;
+import aos.data.aos.comparator.Comparator;
+import aos.data.aos.list.List;
 
 /**
  * Sample solution to exercise 7-5.

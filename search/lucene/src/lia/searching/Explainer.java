@@ -49,7 +49,7 @@ import java.io.File;
 
 // From chapter 3
 public class Explainer {
-  public static void main(String[] args) throws Exception {
+  public static void main(String... args) throws Exception {
     if (args.length != 2) {
       System.err.println("Usage: Explainer <index dir> <query>");
       System.exit(1);

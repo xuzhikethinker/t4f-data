@@ -41,7 +41,7 @@ public final class ActiveMQWebMain {
 	private ActiveMQWebMain() {
 	}
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String... args) throws Exception {
 
 		// now lets start the web server
 		int port = PORT;

@@ -70,7 +70,7 @@ public class ProducerTool {
     private boolean transacted;
     private boolean persistent;
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         ProducerTool producerTool = new ProducerTool();
         String[] unknown = CommandLineSupport.setOptions(producerTool, args);
         if (unknown.length > 0) {

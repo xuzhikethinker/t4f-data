@@ -51,7 +51,7 @@ public class SearchServer {
   private static final String ALPHABET =
       "abcdefghijklmnopqrstuvwxyz";
 
-  public static void main(String[] args) throws Exception {
+  public static void main(String... args) throws Exception {
     if (args.length != 1) {
       System.err.println("Usage: SearchServer <basedir>");
       System.exit(-1);

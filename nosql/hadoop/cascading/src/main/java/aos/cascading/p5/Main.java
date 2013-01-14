@@ -66,7 +66,7 @@ import cascading.tap.hadoop.Hfs;
 import cascading.tuple.Fields;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String... args) {
         String docPath = args[0];
         String wcPath = args[1];
         String stopPath = args[2];

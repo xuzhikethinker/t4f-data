@@ -28,7 +28,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public final class EmbeddedBrokerSpring {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
     	
     	ApplicationContext ac = new ClassPathXmlApplicationContext("amq-spring-spl.xml");
     	

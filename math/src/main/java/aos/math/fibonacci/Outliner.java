@@ -112,7 +112,7 @@ public class Outliner extends HTMLEditorKit.ParserCallback {
     }
   } 
   
-  public static void main(String[] args) { 
+  public static void main(String... args) { 
     
     ParserGetter kit = new ParserGetter();
     HTMLEditorKit.Parser parser = kit.getParser();

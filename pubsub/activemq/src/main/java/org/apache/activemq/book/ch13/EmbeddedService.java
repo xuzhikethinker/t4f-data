@@ -86,7 +86,7 @@ public class EmbeddedService {
         }
     }
     
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
         EmbeddedService service = new EmbeddedService();
         service.service();
         service.requestor();

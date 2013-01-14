@@ -46,7 +46,7 @@ public class AOSTextFileIndexer {
 
 	//-------------------------------------------------------------------------
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String... args) throws IOException {
 
 		System.out.println("Enter the path where the index will be created: ");
 

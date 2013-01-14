@@ -21,7 +21,7 @@ package aos.algo.sort.bubble;
 import aos.algo.list.ListSorter;
 import aos.algo.sort.AbstractListSorterTestCase;
 import aos.algo.sort.bubble.BubblesortListSorter;
-import aos.data.comparator.Comparator;
+import aos.data.aos.comparator.Comparator;
 
 /**
  */

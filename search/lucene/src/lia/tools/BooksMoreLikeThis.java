@@ -46,7 +46,7 @@ import java.io.File;
 
 // From chapter 8
 public class BooksMoreLikeThis {
-  public static void main(String[] args) throws Throwable {
+  public static void main(String... args) throws Throwable {
 
     String indexDir = System.getProperty("index.dir");
     FSDirectory directory = FSDirectory.open(new File(indexDir));

@@ -21,7 +21,7 @@ import java.net.*;
 
 public class GeneralFormatExample {
 
-  public static void main(String[] args) throws MalformedURLException {
+  public static void main(String... args) throws MalformedURLException {
     URL u = new URL("http://www.example.com/Article.html");
     System.out.printf("boolean:   %b\n", u);
     System.out.printf("BOOLEAN:   %B\n", u);

@@ -50,7 +50,7 @@ import cascading.tap.hadoop.Hfs;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String... args) {
 
 		String inPath = args[0];
 		String outPath = args[1];

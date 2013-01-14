@@ -57,7 +57,7 @@ public class HighlightIt {
     "We begin with the simplest search of all: searching for all " +
     "documents that contain a single term.";
 
-  public static void main(String[] args) throws Exception {
+  public static void main(String... args) throws Exception {
 
     if (args.length != 1) {
       System.err.println("Usage: HighlightIt <filename-out>");

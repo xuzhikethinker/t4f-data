@@ -32,7 +32,7 @@ public class GreetMeBean {
         System.out.println(greeter.sayHello());        
     }
     
-    public static void main(String[] args) {
+    public static void main(String... args) {
         ApplicationContext context = 
             new ClassPathXmlApplicationContext("greeter-beans.xml");
         GreetMeBean bean = (GreetMeBean) context.getBean("greetMeBean");

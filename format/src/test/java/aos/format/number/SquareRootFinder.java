@@ -26,7 +26,7 @@ import java.text.ParseException;
 
 public class SquareRootFinder {
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
 
         Number input = null;
 

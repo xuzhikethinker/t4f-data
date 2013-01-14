@@ -24,7 +24,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class FileToJmsSpringMain {
     
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
     	
         AbstractApplicationContext applicationContext = new ClassPathXmlApplicationContext(new String[]{"camel-context-file2jms.xml"});
 

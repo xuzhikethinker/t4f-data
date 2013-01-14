@@ -22,7 +22,7 @@ import java.util.*;
 
 public class SequencePrinter {
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String... args) throws IOException {
 
     Vector theStreams = new Vector();
 

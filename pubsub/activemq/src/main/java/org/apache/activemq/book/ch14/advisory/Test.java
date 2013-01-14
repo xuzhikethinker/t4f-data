@@ -43,7 +43,7 @@ public class Test {
         session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
     }
     
-	public static void main(String[] args) throws Exception {
+	public static void main(String... args) throws Exception {
 		Test advisory = new Test();
 		Session session = advisory.getSession();
     	for (String job : advisory.jobs) {

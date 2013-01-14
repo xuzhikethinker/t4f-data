@@ -64,7 +64,7 @@ import org.apache.log4j.Logger;
 public class YarnNodeManager {
     private static final Logger LOGGER = Logger.getLogger(YarnNodeManager.class);
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
 
         new AosProcessLauncher() {
             @Override

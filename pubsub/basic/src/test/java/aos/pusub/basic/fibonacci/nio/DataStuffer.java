@@ -24,7 +24,7 @@ public class DataStuffer {
 
   private static byte[] data = new byte[255];
   
-  public static void main(String[] args) throws IOException {
+  public static void main(String... args) throws IOException {
     
     int port = 9000;
     for (int i = 0; i < data.length; i++) data[i] = (byte) i;

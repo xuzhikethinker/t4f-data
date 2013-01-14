@@ -18,8 +18,8 @@
  ****************************************************************/
 package aos.algo.tree;
 
-import aos.data.iterable.ArrayIterator;
-import aos.data.iterator.AosIterator;
+import aos.data.aos.iterable.ArrayIterator;
+import aos.data.aos.iterator.AosIterator;
 
 import java.io.File;
 
@@ -42,7 +42,7 @@ public final class RecursiveDirectoryTreePrinter {
      *
      * @param args Command-line arguments.
      */
-    public static void main(String[] args) {
+    public static void main(String... args) {
         assert args != null : "args can't be null";
 
         if (args.length != 1) {

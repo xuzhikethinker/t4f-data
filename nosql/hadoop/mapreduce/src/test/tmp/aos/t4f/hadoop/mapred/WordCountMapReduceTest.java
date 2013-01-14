@@ -102,7 +102,7 @@ public class WordCountMapReduceTest extends Configured implements Tool {
   }
   
   
-  public static void main(String[] args) throws Exception {
+  public static void main(String... args) throws Exception {
     int res = ToolRunner.run(new Configuration(), new WordCountMapReduceTest(), args);
     System.exit(res);
   }

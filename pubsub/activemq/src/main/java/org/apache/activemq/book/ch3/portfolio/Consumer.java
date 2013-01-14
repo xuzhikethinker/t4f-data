@@ -47,7 +47,7 @@ public class Consumer {
         }
     }    
     
-    public static void main(String[] args) throws JMSException {
+    public static void main(String... args) throws JMSException {
     	Consumer consumer = new Consumer();
     	for (String stock : args) {
     		Destination destination = consumer.getSession().createTopic("STOCKS." + stock);

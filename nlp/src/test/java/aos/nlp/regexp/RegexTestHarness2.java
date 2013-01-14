@@ -25,7 +25,7 @@ import java.util.regex.PatternSyntaxException;
 
 public class RegexTestHarness2 {
 
-    public static void main(String[] args){
+    public static void main(String... args){
         Pattern pattern = null;
         Matcher matcher = null;
 

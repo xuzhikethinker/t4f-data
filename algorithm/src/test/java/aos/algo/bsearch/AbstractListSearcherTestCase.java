@@ -19,10 +19,10 @@
 package aos.algo.bsearch;
 
 import aos.algo.list.ListSearcher;
-import aos.data.comparator.Comparator;
-import aos.data.comparator.NaturalComparator;
-import aos.data.list.ArrayList;
-import aos.data.list.List;
+import aos.data.aos.comparator.Comparator;
+import aos.data.aos.comparator.NaturalComparator;
+import aos.data.aos.list.ArrayList;
+import aos.data.aos.list.List;
 import junit.framework.TestCase;
 
 /**

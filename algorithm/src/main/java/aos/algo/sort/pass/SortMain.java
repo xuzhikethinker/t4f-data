@@ -41,7 +41,7 @@ public class SortMain {
 	private static SortApplet sortApplet;
 	private static SortStub sortStub;
 
-	public static void main(String[] args) {
+	public static void main(String... args) {
 
 		Frame sortFrame = new Frame("Applet as an Application");
 

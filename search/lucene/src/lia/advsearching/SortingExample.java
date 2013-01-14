@@ -114,7 +114,7 @@ public class SortingExample {
   explanation of score . For now, itùs commented out (#7).
 */
 
-  public static void main(String[] args) throws Exception {
+  public static void main(String... args) throws Exception {
     Query allBooks = new MatchAllDocsQuery();
 
     QueryParser parser = new QueryParser(Version.LUCENE_30,                 // #1

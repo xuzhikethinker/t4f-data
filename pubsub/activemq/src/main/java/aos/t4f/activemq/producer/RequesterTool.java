@@ -79,7 +79,7 @@ public class RequesterTool {
     private MessageConsumer consumer;
     private Session session;
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         RequesterTool requesterTool = new RequesterTool();
         String[] unknown = CommandLineSupport.setOptions(requesterTool, args);
         if (unknown.length > 0) {

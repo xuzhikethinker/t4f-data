@@ -33,7 +33,7 @@ hadoop fs
 public class HdfsFsShell {
     private static final Logger LOGGER = Logger.getLogger(HdfsFsShell.class);
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
         FsShell.main(new String[]{"-ls", "/"});
     }
 

@@ -41,7 +41,7 @@ import org.apache.log4j.Logger;
 public class HdfsSecondaryNameNode {
     private static final Logger LOGGER = Logger.getLogger(HdfsSecondaryNameNode.class);
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
 
         new AosProcessLauncher() {
             @Override

@@ -55,7 +55,7 @@ public final class SimpleConsumer {
     /**
      * @param args the queue used by the example
      */
-    public static void main(String[] args) {
+    public static void main(String... args) {
         String destinationName = null;
         Context jndiContext = null;
         ConnectionFactory connectionFactory = null;

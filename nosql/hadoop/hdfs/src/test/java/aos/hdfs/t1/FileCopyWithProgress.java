@@ -32,7 +32,7 @@ import org.apache.hadoop.util.Progressable;
 
 // vv FileCopyWithProgress
 public class FileCopyWithProgress {
-  public static void main(String[] args) throws Exception {
+  public static void main(String... args) throws Exception {
     String localSrc = args[0];
     String dst = args[1];
     

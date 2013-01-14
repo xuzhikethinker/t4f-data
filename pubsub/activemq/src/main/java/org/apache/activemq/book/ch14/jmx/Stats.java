@@ -30,7 +30,7 @@ import org.apache.activemq.broker.jmx.QueueViewMBean;
 
 public class Stats {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String... args) throws Exception {
 		JMXServiceURL url = new JMXServiceURL(
 				"service:jmx:rmi:///jndi/rmi://localhost:2011/jmxrmi");
 		JMXConnector connector = JMXConnectorFactory.connect(url, null);

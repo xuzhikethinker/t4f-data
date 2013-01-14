@@ -88,7 +88,7 @@ public class NsSample {
     private static final String CS_NS_DBURL = "jdbc:derby:net://localhost:" + NETWORKSERVER_PORT
             + "/NSSampledb;create=true;retrieveMessagesFromServerOnGetMessage=true;deferPrepares=true;";
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
 
         NetworkServerUtil nwServer;
 

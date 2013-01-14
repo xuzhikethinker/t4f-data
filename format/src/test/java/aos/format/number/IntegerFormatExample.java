@@ -20,7 +20,7 @@ package aos.format.number;
 
 public class IntegerFormatExample {
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         int n = 1023;
         System.out.printf("Decimal:               %d\n", n);
         System.out.printf("Octal:                 %o\n", n);

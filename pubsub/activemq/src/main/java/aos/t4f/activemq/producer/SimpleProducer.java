@@ -61,7 +61,7 @@ public final class SimpleProducer {
      * @param args the destination name to send to and optionally, the number of
      *                messages to send
      */
-    public static void main(String[] args) {
+    public static void main(String... args) {
         Context jndiContext = null;
         ConnectionFactory connectionFactory = null;
         Connection connection = null;

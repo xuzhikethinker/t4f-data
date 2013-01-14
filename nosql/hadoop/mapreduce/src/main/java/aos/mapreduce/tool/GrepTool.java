@@ -104,7 +104,7 @@ public class GrepTool extends Configured implements Tool {
         return 0;
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
         int res = ToolRunner.run(new Configuration(), new GrepTool(), new String[]{"in", "out", "*"});
         System.exit(res);
     }

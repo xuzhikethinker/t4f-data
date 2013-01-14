@@ -26,7 +26,7 @@ import org.apache.camel.impl.DefaultCamelContext;
  */
 public class UseCaseMain {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
         UseCaseMain client = new UseCaseMain();
         System.out.println("Starting client... press ctrl + c to stop it");
         client.start();

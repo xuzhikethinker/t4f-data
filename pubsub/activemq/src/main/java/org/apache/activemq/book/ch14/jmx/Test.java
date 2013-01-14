@@ -31,7 +31,7 @@ public class Test {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) throws Exception {
+	public static void main(String... args) throws Exception {
 		JMXServiceURL url = new JMXServiceURL(
 				"service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi");
 		JMXConnector connector = JMXConnectorFactory.connect(url, null);

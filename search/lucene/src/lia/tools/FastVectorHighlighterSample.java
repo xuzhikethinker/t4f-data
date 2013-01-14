@@ -75,7 +75,7 @@ public class FastVectorHighlighterSample {
   static Directory dir = new RAMDirectory();
   static Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_30);
 
-  public static void main(String[] args) throws Exception {
+  public static void main(String... args) throws Exception {
     if (args.length != 1) {
       System.err.println("Usage: FastVectorHighlighterSample <filename>");
       System.exit(-1);

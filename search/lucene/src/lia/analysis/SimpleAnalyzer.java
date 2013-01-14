@@ -55,7 +55,7 @@ public final class SimpleAnalyzer extends Analyzer {
     return tokenizer;
   }
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String... args) throws IOException {
     AnalyzerUtils.displayTokensWithFullDetails(new SimpleAnalyzer(),
         "The quick brown fox....");
   }

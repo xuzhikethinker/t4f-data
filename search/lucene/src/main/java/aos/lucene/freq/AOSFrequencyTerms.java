@@ -52,7 +52,7 @@ public class AOSFrequencyTerms {
 	public static final int DEFAULTnumTerms = 100;
 	public static int numTerms = DEFAULTnumTerms;
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String... args) throws Exception {
 		IndexReader reader = null;
 		FSDirectory dir = null;
 		String field = null;

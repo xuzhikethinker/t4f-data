@@ -24,7 +24,7 @@ import java.awt.*;
 
 public class OReillyHomePage {
 
-  public static void main(String[] args) {
+  public static void main(String... args) {
         
      JEditorPane jep = new JEditorPane();
      jep.setEditable(false);   

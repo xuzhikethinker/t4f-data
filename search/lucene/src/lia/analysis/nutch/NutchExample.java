@@ -46,7 +46,7 @@ import java.io.StringReader;
 // From chapter 4
 public class NutchExample {
                               
-  public static void main(String[] args) throws IOException {
+  public static void main(String... args) throws IOException {
 //    Configuration conf = new Configuration();
 //    conf.addResource("nutch-default.xml");
 //    NutchDocumentAnalyzer analyzer = new NutchDocumentAnalyzer(conf);   //1

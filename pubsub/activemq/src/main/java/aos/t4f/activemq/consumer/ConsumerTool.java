@@ -84,7 +84,7 @@ public class ConsumerTool implements MessageListener, ExceptionListener {
     private long sleepTime;
     private long receiveTimeOut;
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         ConsumerTool consumerTool = new ConsumerTool();
         String[] unknown = CommandLineSupport.setOptions(consumerTool, args);
         if (unknown.length > 0) {

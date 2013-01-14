@@ -40,7 +40,7 @@ import org.apache.log4j.Logger;
 public class HdfsDataNode {
     private static final Logger LOGGER = Logger.getLogger(HdfsDataNode.class);
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
 
         new AosProcessLauncher() {
             @Override

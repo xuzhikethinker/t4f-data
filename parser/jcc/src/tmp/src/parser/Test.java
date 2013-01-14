@@ -38,7 +38,7 @@ package aos.t4f.lucene.util.parser;
 import java.io.*;
 
 class Test {
-  public static void main(String[] argv) throws IOException, InterruptedException {
+  public static void main(String... argv) throws IOException, InterruptedException {
     if ("-dir".equals(argv[0])) {
       String[] files = new File(argv[1]).list();
       java.util.Arrays.sort(files);

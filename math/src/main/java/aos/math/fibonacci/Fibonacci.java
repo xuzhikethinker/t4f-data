@@ -17,44 +17,41 @@
  * under the License.                                           *
  ****************************************************************/
 package aos.math.fibonacci;
-import javax.swing.text.*;
-import javax.swing.*;
-import java.net.*;
-import java.io.*;
-import java.awt.*;
+
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.WindowConstants;
 
 public class Fibonacci {
 
-  public static void main(String[] args) {
-        
-        
-     StringBuffer result = new StringBuffer("<html><body><h1>Fibonacci Sequence</h1><ol>");   
-     
-     long f1 = 0;
-     long f2 = 1;
-        
-     for (int i = 0; i < 100; i++) {
-       result.append("<li>");
-       result.append(f1);
-       long temp = f2;
-       f2 = f1 + f2;
-       f1 = temp;
-     }  
-        
-     result.append("</ol></body></html>");
-     
-     
-     JEditorPane jep = new JEditorPane("text/html", result.toString());
-     jep.setEditable(false);    
-      
-     JScrollPane scrollPane = new JScrollPane(jep);     
-     JFrame f = new JFrame("Fibonacci Sequence");
-     f.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-     f.getContentPane().add(scrollPane);
-     f.setSize(512, 342);
-     f.show();
-    
-  }
+    public static void main(String... args) {
 
+        StringBuffer result = new StringBuffer("<html><body><h1>Fibonacci Sequence</h1><ol>");
+
+        long f1 = 0;
+        long f2 = 1;
+
+        for (int i = 0; i < 100; i++) {
+            result.append("<li>");
+            result.append(f1);
+            long temp = f2;
+            f2 = f1 + f2;
+            f1 = temp;
+        }
+
+        result.append("</ol></body></html>");
+
+        JEditorPane jep = new JEditorPane("text/html", result.toString());
+        jep.setEditable(false);
+
+        JScrollPane scrollPane = new JScrollPane(jep);
+        JFrame f = new JFrame("Fibonacci Sequence");
+        f.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        f.getContentPane().add(scrollPane);
+        f.setSize(512, 342);
+        f.show();
+
+    }
 
 }

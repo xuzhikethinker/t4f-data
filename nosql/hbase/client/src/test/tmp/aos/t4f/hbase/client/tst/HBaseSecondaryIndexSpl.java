@@ -39,7 +39,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 
 public class SecondaryIndexTest {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String... args) throws IOException {
 
         SecondaryIndexTest test = new SecondaryIndexTest();
         test.createTableWithSecondaryIndexes();

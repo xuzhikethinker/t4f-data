@@ -20,7 +20,7 @@ package aos.format.number;
 
 public class FloatingPointFormatExample {
 
-  public static void main(String[] args) {
+  public static void main(String... args) {
     System.out.printf("Decimal:               %f\n", Math.PI);
     System.out.printf("Scientific notation:   %e\n", Math.PI);
     System.out.printf("Scientific notation:   %E\n", Math.PI);

@@ -19,7 +19,7 @@
 package aos.algo.string.search;
 
 
-import aos.data.iterator.AosIterator;
+import aos.data.aos.iterator.AosIterator;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -59,7 +59,7 @@ public final class ComparativeStringSearcher {
         _pattern = pattern;
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String... args) throws IOException {
         assert args != null : "args can't be null";
 
         if (args.length < NUMBER_OF_ARGS) {

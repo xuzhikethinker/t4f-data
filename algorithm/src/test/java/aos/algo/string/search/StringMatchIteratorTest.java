@@ -21,8 +21,8 @@ package aos.algo.string.search;
 import aos.algo.string.search.BruteForceStringSearcher;
 import aos.algo.string.search.StringMatch;
 import aos.algo.string.search.StringMatchIterator;
-import aos.data.iterator.AosIterator;
-import aos.data.iterator.IteratorOutOfBoundsException;
+import aos.data.aos.iterator.AosIterator;
+import aos.data.aos.iterator.IteratorOutOfBoundsException;
 import junit.framework.TestCase;
 
 /**

@@ -102,7 +102,7 @@ public class Retailer implements Runnable {
 		}
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String... args) {
 		String url = "tcp://localhost:61616";
 		String user = null;
 		String password = null;

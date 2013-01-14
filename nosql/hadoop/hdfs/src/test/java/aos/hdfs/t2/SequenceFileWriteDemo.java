@@ -40,7 +40,7 @@ public class SequenceFileWriteDemo {
     "Nine, ten, a big fat hen"
   };
   
-  public static void main(String[] args) throws IOException {
+  public static void main(String... args) throws IOException {
     String uri = args[0];
     Configuration conf = new Configuration();
     FileSystem fs = FileSystem.get(URI.create(uri), conf);

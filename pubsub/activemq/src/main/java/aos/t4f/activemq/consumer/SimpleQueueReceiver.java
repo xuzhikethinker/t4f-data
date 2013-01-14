@@ -54,7 +54,7 @@ public final class SimpleQueueReceiver {
      * 
      * @param args the queue used by the example
      */
-    public static void main(String[] args) {
+    public static void main(String... args) {
         String queueName = null;
         Context jndiContext = null;
         QueueConnectionFactory queueConnectionFactory = null;

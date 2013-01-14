@@ -42,7 +42,7 @@ public final class EmbeddedBrokerService {
 	 * @param args
 	 * @throws Exception 
 	 */
-	public static void main(String[] args) throws Exception {
+	public static void main(String... args) throws Exception {
 
 		BrokerService broker = new BrokerService();
 		broker.setPersistent(false);

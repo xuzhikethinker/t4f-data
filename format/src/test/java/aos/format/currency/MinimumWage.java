@@ -23,7 +23,7 @@ import java.util.Locale;
 
 public class MinimumWage {
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
 
         NumberFormat dollarFormat = NumberFormat.getCurrencyInstance(Locale.ENGLISH);
         double minimumWage = 5.15;

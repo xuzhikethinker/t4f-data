@@ -180,7 +180,7 @@ public class AnalyzerUtils {
     }   
   }
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String... args) throws IOException {
     System.out.println("SimpleAnalyzer");
     displayTokensWithFullDetails(new SimpleAnalyzer(),
         "The quick brown fox....");

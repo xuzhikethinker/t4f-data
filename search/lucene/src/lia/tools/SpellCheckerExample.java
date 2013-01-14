@@ -46,7 +46,7 @@ import org.apache.lucene.index.IndexReader;
 // From chapter 8
 public class SpellCheckerExample {
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String... args) throws IOException {
 
     if (args.length != 2) {
       System.out.println("Usage: java lia.tools.SpellCheckerTest SpellCheckerIndexDir wordToRespell");

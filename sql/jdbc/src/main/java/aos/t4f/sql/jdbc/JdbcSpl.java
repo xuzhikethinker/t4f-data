@@ -36,7 +36,7 @@ public class JdbcSpl {
 
     private static final String SELECT_SQL = "SELECT * FROM MAPS";
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String... args) throws SQLException {
 
         Connection connection = DriverManager.getConnection("jdbc:derby:memory:JdbcDb;create=true");
         System.out.println("autocommit=" + connection.getAutoCommit());

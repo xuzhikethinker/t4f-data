@@ -100,7 +100,7 @@ public class Server implements MessageListener {
 		return "Response to '" + messageText + "'";
 	}
 	
-	public static void main(String[] args) throws Exception {
+	public static void main(String... args) throws Exception {
 		Server server = new Server();
 		server.start();
 		

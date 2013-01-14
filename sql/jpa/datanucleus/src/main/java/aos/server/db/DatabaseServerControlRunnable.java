@@ -169,7 +169,7 @@ import org.apache.derby.impl.drda.NetworkServerControlImpl;
 public class DatabaseServerControlRunnable implements Runnable {
 
 	
-	public static void main(String[] args) {
+	public static void main(String... args) {
 		Thread databaseServerControlThread;
 		try {
 			databaseServerControlThread = new Thread(new DatabaseServerControlRunnable(), "DatabaseServerControlThread");

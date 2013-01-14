@@ -20,13 +20,13 @@ package aos.algo.geometry;
 
 import aos.algo.bsearch.IterativeBinaryListSearcher;
 import aos.algo.list.ListInserter;
-import aos.data.comparator.XYPointComparator;
-import aos.data.geometry.Point;
-import aos.data.iterator.AosIterator;
-import aos.data.list.ArrayList;
-import aos.data.list.List;
-import aos.data.set.ListSet;
-import aos.data.set.Set;
+import aos.data.aos.comparator.XYPointComparator;
+import aos.data.aos.geometry.Point;
+import aos.data.aos.iterator.AosIterator;
+import aos.data.aos.list.ArrayList;
+import aos.data.aos.list.List;
+import aos.data.aos.set.ListSet;
+import aos.data.aos.set.Set;
 
 /**
  * Implementation of a brute force algorithm for finding the closest pair among a set of points.

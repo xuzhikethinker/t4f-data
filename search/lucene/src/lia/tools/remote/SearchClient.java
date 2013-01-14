@@ -49,7 +49,7 @@ import java.util.HashMap;
 public class SearchClient {
   private static HashMap searcherCache = new HashMap();
 
-  public static void main(String[] args) throws Exception {
+  public static void main(String... args) throws Exception {
     if (args.length != 1) {
       System.err.println("Usage: SearchClient <query>");
       System.exit(-1);

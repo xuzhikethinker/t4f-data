@@ -364,7 +364,7 @@ public class MessageTreeViewMain extends JPanel implements TreeSelectionListener
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         try {
             args = new String[]{"/d/t4f-visualizations.git/parser/mime4j/src/test/resources/io/aos/mime4j/pongr-email-1.txt"};
             final MessageBuilder builder = new DefaultMessageBuilder();

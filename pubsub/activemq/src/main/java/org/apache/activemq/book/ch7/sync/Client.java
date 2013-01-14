@@ -90,7 +90,7 @@ public class Client implements MessageListener {
 		}
 	}
 	
-	public static void main(String[] args) throws Exception {
+	public static void main(String... args) throws Exception {
 		Client client = new Client();
 		client.start();
 		int i = 0;

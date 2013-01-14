@@ -41,7 +41,7 @@ import org.apache.lucene.util.Version;
 
 public class LuceneSpl {
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         try {
             IndexFile("/Users/androidyou/Documents/lucence/data/test.txt",
                     "/Users/androidyou/Documents/lucence/index");

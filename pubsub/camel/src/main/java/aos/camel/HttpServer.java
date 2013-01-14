@@ -31,7 +31,7 @@ public class HttpServer {
 
     private static String url = "http://localhost:8765/rider";
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
         HttpServer server = new HttpServer();
         System.out.println("Starting HttpServer... press ctrl + c to stop it");
         server.server();

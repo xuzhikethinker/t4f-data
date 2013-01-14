@@ -19,8 +19,8 @@
 package aos.algo.bsearch;
 
 import aos.algo.list.ListSearcher;
-import aos.data.comparator.Comparator;
-import aos.data.list.List;
+import aos.data.aos.comparator.Comparator;
+import aos.data.aos.list.List;
 
 /**
  * A {@link ListSearcher} that uses recursion.

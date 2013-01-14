@@ -39,7 +39,7 @@ import backtype.storm.tuple.Values;
 
 public class TridentWordCount {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
 
         Config conf = new Config();
         conf.setMaxSpoutPending(20);

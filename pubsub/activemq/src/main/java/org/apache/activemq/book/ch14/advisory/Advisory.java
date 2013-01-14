@@ -50,7 +50,7 @@ public class Advisory {
         session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
     }
     
-	public static void main(String[] args) throws Exception {
+	public static void main(String... args) throws Exception {
 		Advisory advisory = new Advisory();
 		Session session = advisory.getSession();
     	for (String stock : args) {

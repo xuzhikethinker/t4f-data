@@ -50,7 +50,7 @@ import java.io.File;
 
 // From chapter 9
 public class BerkeleyDbJESearcher {
-  public static void main(String[] args) throws IOException, DatabaseException {
+  public static void main(String... args) throws IOException, DatabaseException {
     if (args.length != 1) {
       System.err.println("Usage: BerkeleyDbSearcher <index dir>");
       System.exit(-1);

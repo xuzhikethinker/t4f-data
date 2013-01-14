@@ -51,7 +51,7 @@ import org.apache.lucene.benchmark.quality.trec.*;
 
 public class PrecisionRecall {
 
-  public static void main(String[] args) throws Throwable {
+  public static void main(String... args) throws Throwable {
 
     File topicsFile = new File("src/lia/benchmark/topics.txt");
     File qrelsFile = new File("src/lia/benchmark/qrels.txt");

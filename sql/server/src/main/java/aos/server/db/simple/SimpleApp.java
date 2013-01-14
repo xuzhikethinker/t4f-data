@@ -75,7 +75,7 @@ public class SimpleApp
     public String protocol = "jdbc:derby:";
     private String dbName = "DB-Simple";
 
-    public static void main(String[] args)
+    public static void main(String... args)
     {
         new SimpleApp().go(args);
     }

@@ -54,7 +54,7 @@ import org.apache.lucene.util.Version;
 
 // From chapter 9
 public class BerkeleyDbIndexer {
-  public static void main(String[] args) throws IOException, DatabaseException {
+  public static void main(String... args) throws IOException, DatabaseException {
     if (args.length != 1) {
       System.err.println("Usage: BerkeleyDbIndexer <index dir>");
       System.exit(-1);

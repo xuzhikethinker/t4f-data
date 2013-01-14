@@ -27,7 +27,7 @@ public class RegexDemo {
     
     private static String REPLACE = "-";
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         Pattern p = Pattern.compile(REGEX);
         Matcher m = p.matcher(INPUT); // get a matcher object
         StringBuffer sb = new StringBuffer();

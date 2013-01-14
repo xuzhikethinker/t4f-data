@@ -27,7 +27,7 @@ import org.apache.camel.spring.Main;
  */
 public class InventoryMain {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
         // use the Main class from camel-spring
         Main main = new Main();
         // to load Spring XML file

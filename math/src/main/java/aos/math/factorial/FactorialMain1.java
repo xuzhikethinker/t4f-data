@@ -22,7 +22,7 @@ package aos.math.factorial;
  * This program computes the factorial of a number
  */
 public class FactorialMain1 {
-  public static void main(String[] args) {
+  public static void main(String... args) {
     int input = Integer.parseInt(args[0]);
     double result = factorial(input);
     System.out.println(result);

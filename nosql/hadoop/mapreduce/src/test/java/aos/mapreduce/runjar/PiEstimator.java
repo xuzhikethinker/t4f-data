@@ -27,7 +27,7 @@ public class PiEstimator {
      * @param args
      * @throws Exception 
      */
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
         MapReduceRunJar.main("pi", "10", "10");
     }
 

@@ -22,7 +22,7 @@ import org.datanucleus.enhancer.DataNucleusEnhancer;
 
 public class ClassEnhancer {
 	
-	public static void main(String[] args) throws Exception {
+	public static void main(String... args) throws Exception {
 		DataNucleusEnhancer.main(new String[]{"-pu", "Tutorial", "-v"});
 	}
 

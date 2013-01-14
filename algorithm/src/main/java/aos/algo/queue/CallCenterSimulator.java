@@ -49,7 +49,7 @@ public final class CallCenterSimulator {
      *
      * @param args Command-line arguments.
      */
-    public static void main(String[] args) {
+    public static void main(String... args) {
         assert args != null : "args can't be null";
 
         if (args.length != NUMBER_OF_ARGS) {

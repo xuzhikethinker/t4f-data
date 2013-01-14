@@ -49,7 +49,7 @@ import aos.t4f.activemq.util.CommandLineSupport;
  */
 public class ProducerAndConsumerTool extends ConsumerTool implements MessageListener {
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
 
         ConsumerTool consumerTool = new ConsumerTool();
         String[] unknown = CommandLineSupport.setOptions(consumerTool, args);

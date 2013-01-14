@@ -19,7 +19,7 @@
 package aos.math.factorial;
 
 public class FactorialMain2 {
-  public static void main(String[] args) {
+  public static void main(String... args) {
     int n = Integer.parseInt(args[0]);
     System.out.print(n + "! is ");
     int fact = 1;

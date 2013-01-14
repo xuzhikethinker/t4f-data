@@ -18,9 +18,9 @@
  ****************************************************************/
 package aos.algo.list;
 
-import aos.data.comparator.Comparator;
-import aos.data.iterator.AosIterator;
-import aos.data.list.List;
+import aos.data.aos.comparator.Comparator;
+import aos.data.aos.iterator.AosIterator;
+import aos.data.aos.list.List;
 
 /**
  * A {@link ListSearcher} that performs a linear scan.

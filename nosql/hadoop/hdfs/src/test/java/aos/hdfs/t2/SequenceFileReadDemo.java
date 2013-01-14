@@ -32,7 +32,7 @@ import org.apache.hadoop.util.ReflectionUtils;
 // vv SequenceFileReadDemo
 public class SequenceFileReadDemo {
   
-  public static void main(String[] args) throws IOException {
+  public static void main(String... args) throws IOException {
     String uri = args[0];
     Configuration conf = new Configuration();
     FileSystem fs = FileSystem.get(URI.create(uri), conf);

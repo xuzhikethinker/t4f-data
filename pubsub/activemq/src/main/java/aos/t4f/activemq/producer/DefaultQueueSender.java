@@ -53,7 +53,7 @@ public final class DefaultQueueSender {
     private DefaultQueueSender() {    
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
 
         String uri = "tcp://localhost:61616";
         String text = "Hello World!";

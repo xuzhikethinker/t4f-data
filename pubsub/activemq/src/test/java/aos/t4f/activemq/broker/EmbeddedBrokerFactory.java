@@ -30,7 +30,7 @@ import org.apache.activemq.broker.BrokerService;
  */
 public final class EmbeddedBrokerFactory {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
 
         BrokerService broker = BrokerFactory.createBroker(new URI("broker:tcp://localhost:61616"));
         broker.setUseJmx(true);

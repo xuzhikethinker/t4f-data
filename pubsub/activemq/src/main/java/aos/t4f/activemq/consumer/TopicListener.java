@@ -65,7 +65,7 @@ public class TopicListener implements MessageListener {
 
     private String url = "tcp://localhost:61616";
 
-    public static void main(String[] argv) throws Exception {
+    public static void main(String... argv) throws Exception {
         TopicListener l = new TopicListener();
         String[] unknown = CommandLineSupport.setOptions(l, argv);
         if (unknown.length > 0) {

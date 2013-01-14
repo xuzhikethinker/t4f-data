@@ -41,7 +41,7 @@ import backtype.storm.utils.Utils;
 public class TridentWordCount3 {
     public static final boolean RUN_LOCALLY = true;
 
-    public static void main(String[] args) throws AlreadyAliveException, InvalidTopologyException, TException,
+    public static void main(String... args) throws AlreadyAliveException, InvalidTopologyException, TException,
             DRPCExecutionException {
 
         String topologyName = "trident-word-count";

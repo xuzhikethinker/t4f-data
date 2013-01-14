@@ -46,7 +46,7 @@ import org.apache.activemq.broker.BrokerService;
  */
 public final class EmbeddedBrokerXBean {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String... args) throws Exception {
 
 		BrokerService broker = BrokerFactory.createBroker(new URI("xbean:amq-xbean-spl.xml"));
 		broker.setUseJmx(true);

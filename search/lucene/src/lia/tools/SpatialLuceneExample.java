@@ -173,7 +173,7 @@ public class SpatialLuceneExample {
   #D Get distances map
 */
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String... args) throws IOException {
     SpatialLuceneExample spatial = new SpatialLuceneExample();
     spatial.addData();
     spatial.findNear("Restaurant", 38.8725000, -77.3829000, 8);

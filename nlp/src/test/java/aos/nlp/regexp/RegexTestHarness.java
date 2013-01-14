@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 
 public class RegexTestHarness {
     
-    public static void main(String[] args) throws IOException{
+    public static void main(String... args) throws IOException{
 
         while (true) {
             Pattern pattern = Pattern.compile(Console.readLine("Enter your regex: "));

@@ -51,7 +51,7 @@ import org.apache.log4j.spi.LoggingEvent;
  */
 public class Log4jJMSAppenderExample implements MessageListener {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String... args) throws Exception {
 		new Log4jJMSAppenderExample();
 	}
 

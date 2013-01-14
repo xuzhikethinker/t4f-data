@@ -47,7 +47,7 @@ import aos.server.db.DatabaseServerRunnable;
 
 public class EmbeddablesOpenJPAMain {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
 
     	Thread databaseThread = new Thread(new DatabaseServerRunnable());
 		databaseThread.start();

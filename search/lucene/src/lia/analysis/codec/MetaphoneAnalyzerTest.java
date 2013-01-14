@@ -94,7 +94,7 @@ public class MetaphoneAnalyzerTest extends TestCase {
     #D Retrieve original value
   */
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String... args) throws IOException {
     MetaphoneReplacementAnalyzer analyzer =
                                  new MetaphoneReplacementAnalyzer();
     AnalyzerUtils.displayTokens(analyzer,

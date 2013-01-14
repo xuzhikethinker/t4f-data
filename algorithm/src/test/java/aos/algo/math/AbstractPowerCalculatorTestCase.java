@@ -18,7 +18,7 @@
  ****************************************************************/
 package aos.algo.math;
 
-import aos.data.iterable.PowerCalculator;
+import aos.data.aos.iterable.PowerCalculator;
 import junit.framework.TestCase;
 
 /**

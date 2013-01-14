@@ -23,7 +23,7 @@ import java.text.NumberFormat;
 
 public class Table3Format {
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
 
         NumberFormat myFormat = NumberFormat.getNumberInstance();
         FieldPosition fp = new FieldPosition(NumberFormat.INTEGER_FIELD);

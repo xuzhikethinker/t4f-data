@@ -51,7 +51,7 @@ public class Consumer {
         }
     }    
     
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
     	Consumer consumer = new Consumer();
     	try {
 	    	for (String stock : args) {

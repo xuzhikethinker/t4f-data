@@ -32,7 +32,7 @@ public class HibernateT4fMain {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) throws Exception {
+	public static void main(String... args) throws Exception {
 		
 		Thread databaseThread = new Thread(new DatabaseServerControlRunnable());
 		databaseThread.start();

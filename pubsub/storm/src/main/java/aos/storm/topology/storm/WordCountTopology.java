@@ -35,7 +35,7 @@ import backtype.storm.utils.Utils;
 public class WordCountTopology {
     public static final boolean RUN_LOCALLY = true;
 
-    public static void main(String[] args) throws AlreadyAliveException, InvalidTopologyException {
+    public static void main(String... args) throws AlreadyAliveException, InvalidTopologyException {
 
         String topologyName = "word-count";
 

@@ -63,7 +63,7 @@ public class VerboseIndexing {
     writer.close();
   }
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String... args) throws IOException {
     VerboseIndexing vi = new VerboseIndexing();
     vi.index();
   }

@@ -185,7 +185,7 @@ public class DigesterXMLDocument {
     }
   }
 
-  public static void main(String[] args) throws Exception {
+  public static void main(String... args) throws Exception {
     DigesterXMLDocument handler = new DigesterXMLDocument();
     Document doc =
       handler.getDocument(new FileInputStream(new File(args[0])));

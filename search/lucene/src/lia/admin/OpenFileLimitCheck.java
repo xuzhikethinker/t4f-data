@@ -44,7 +44,7 @@ import java.util.ArrayList;
 /** Run this to see what your JRE's open file limit is. */
 
 public class OpenFileLimitCheck {
-  public static void main(String[] args) throws IOException {
+  public static void main(String... args) throws IOException {
     List<RandomAccessFile> files = new ArrayList<RandomAccessFile>();
     try {
       while(true) {

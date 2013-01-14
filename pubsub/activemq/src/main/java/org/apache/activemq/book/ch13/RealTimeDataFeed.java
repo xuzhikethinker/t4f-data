@@ -103,7 +103,7 @@ public class RealTimeDataFeed {
         
     }
     
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
         RealTimeDataFeed rtdf = new RealTimeDataFeed();
         rtdf.startBroker();
         rtdf.consumer();

@@ -75,7 +75,7 @@ public class TopicPublisher implements MessageListener {
 
     private byte[] payload;
 
-    public static void main(String[] argv) throws Exception {
+    public static void main(String... argv) throws Exception {
         TopicPublisher p = new TopicPublisher();
         String[] unknown = CommandLineSupport.setOptions(p, argv);
         if (unknown.length > 0) {

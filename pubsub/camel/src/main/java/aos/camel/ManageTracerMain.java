@@ -37,7 +37,7 @@ public class ManageTracerMain {
 	private CamelContext context;
 	private ProducerTemplate template;
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String... args) throws Exception {
 		ManageTracerMain main = new ManageTracerMain();
 		main.run();
 	}

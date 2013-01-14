@@ -8,7 +8,7 @@ import kafka.server.KafkaServer;
 
 public class AosKafkaServer {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String... args) throws IOException {
         Properties kafkaProperties = new Properties();
         kafkaProperties.load(AosKafkaServer.class.getClassLoader().getResourceAsStream("kafka.properties"));
         KafkaConfig kafkaConfig = new KafkaConfig(kafkaProperties);

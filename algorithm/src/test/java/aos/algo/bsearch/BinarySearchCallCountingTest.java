@@ -22,10 +22,10 @@ import aos.algo.bsearch.IterativeBinaryListSearcher;
 import aos.algo.bsearch.RecursiveBinaryListSearcher;
 import aos.algo.list.LinearListSearcher;
 import aos.algo.list.ListSearcher;
-import aos.data.comparator.CallCountingComparator;
-import aos.data.comparator.NaturalComparator;
-import aos.data.list.ArrayList;
-import aos.data.list.List;
+import aos.data.aos.comparator.CallCountingComparator;
+import aos.data.aos.comparator.NaturalComparator;
+import aos.data.aos.list.ArrayList;
+import aos.data.aos.list.List;
 import junit.framework.TestCase;
 
 /**

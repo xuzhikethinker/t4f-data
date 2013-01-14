@@ -60,7 +60,7 @@ public class IndexHTML {
 	private static IndexWriter writer; // new index being built
 
 	/** Indexer for HTML files. */
-	public static void main(String[] argv) {
+	public static void main(String... argv) {
 		try {
 			File index = new File("index");
 			boolean create = false;

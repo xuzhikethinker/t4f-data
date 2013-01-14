@@ -29,7 +29,7 @@ import org.apache.hadoop.io.SequenceFile;
 // vv MapFileFixer
 public class MapFileFixer {
 
-  public static void main(String[] args) throws Exception {
+  public static void main(String... args) throws Exception {
     String mapUri = args[0];
     
     Configuration conf = new Configuration();

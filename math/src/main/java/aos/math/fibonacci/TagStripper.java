@@ -83,7 +83,7 @@ public class TagStripper extends HTMLEditorKit.ParserCallback {
   }
 
   
-  public static void main(String[] args) {
+  public static void main(String... args) {
     
     ParserGetter kit = new ParserGetter();
     HTMLEditorKit.Parser parser = new ParserDelegator(); //kit.getParser();

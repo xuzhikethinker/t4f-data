@@ -54,7 +54,7 @@ import java.io.FileReader;
  */
 public class Indexer {
 
-  public static void main(String[] args) throws Exception {
+  public static void main(String... args) throws Exception {
     if (args.length != 2) {
       throw new IllegalArgumentException("Usage: java " + Indexer.class.getName()
         + " <index dir> <data dir>");

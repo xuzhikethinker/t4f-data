@@ -22,7 +22,7 @@ import java.text.NumberFormat;
 
 public class FormatTest {
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
 
         NumberFormat nf = NumberFormat.getInstance();
         for (double x = Math.PI; x < 100000; x *= 10) {

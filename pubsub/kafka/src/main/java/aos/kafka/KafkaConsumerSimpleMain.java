@@ -16,7 +16,7 @@ public class KafkaConsumerSimpleMain {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaConsumerSimpleMain.class);
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
 
         String zkHost = "localhost";
         Integer zkPort = 2181;

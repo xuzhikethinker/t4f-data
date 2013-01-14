@@ -142,7 +142,7 @@ Special constructs (non-capturing)
  */
 public class MatcherDemo {
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
 //        match("Exemple dog", "Exempl. ", "");
 //        match("Exemple dog", "Exe.++", "");
 //        match("Exemple http://dog dfd", "://", "");

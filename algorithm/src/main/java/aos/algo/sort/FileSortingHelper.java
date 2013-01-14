@@ -19,11 +19,11 @@
 package aos.algo.sort;
 
 
-import aos.data.comparator.Comparator;
-import aos.data.comparator.ReverseStringComparator;
-import aos.data.iterator.AosIterator;
-import aos.data.list.ArrayList;
-import aos.data.list.List;
+import aos.data.aos.comparator.Comparator;
+import aos.data.aos.comparator.ReverseStringComparator;
+import aos.data.aos.iterator.AosIterator;
+import aos.data.aos.list.ArrayList;
+import aos.data.aos.list.List;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -48,7 +48,7 @@ public final class FileSortingHelper {
      * @param args
      * @throws IOException if input cannot be read.
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String... args) throws IOException {
         sort(loadWords());
 
         System.err.println("Finished...press CTRL-C to exit");

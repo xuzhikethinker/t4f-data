@@ -47,7 +47,7 @@ public class FlexJsonPathExpressionTest extends TestCase {
         return new TestSuite( FlexJsonPathExpressionTest.class );
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         TestRunner.run( suite() );
     }
     

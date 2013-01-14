@@ -32,7 +32,7 @@ public final class MyMain {
         // to comply with check style
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
         Main main = new Main();
         main.setApplicationContextUri("META-INF/spring/camel-config.xml");
         main.start();

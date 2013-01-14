@@ -25,7 +25,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class BrokerFactoryBeanExample {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String... args) throws Exception {
 //    	if (args.length == 0) {
 //    		System.err.println("Please define a configuration file!");
 //    		return;

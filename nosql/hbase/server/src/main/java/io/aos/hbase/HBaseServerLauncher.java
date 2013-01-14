@@ -40,7 +40,7 @@ import org.apache.log4j.Logger;
 public class HBaseServerLauncher {
     private static final Logger LOGGER = Logger.getLogger(HBaseServerLauncher.class);
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
         
         runHBaseProcess(new HBaseProcessRunner() {
             @Override

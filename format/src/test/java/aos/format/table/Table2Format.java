@@ -22,7 +22,7 @@ import java.text.NumberFormat;
 
 public class Table2Format {
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
 
         System.out.println("Degrees Radians Grads");
         NumberFormat myFormat = NumberFormat.getInstance();

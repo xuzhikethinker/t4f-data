@@ -74,7 +74,7 @@ public class TikaIndexer extends Indexer {
     textualMetadataFields.add(Metadata.SUBJECT);     //2
   }
 
-  public static void main(String[] args) throws Exception {
+  public static void main(String... args) throws Exception {
     if (args.length != 2) {
       throw new IllegalArgumentException("Usage: java " + TikaIndexer.class.getName()
         + " <index dir> <data dir>");

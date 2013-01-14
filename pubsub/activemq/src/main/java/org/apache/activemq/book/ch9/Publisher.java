@@ -64,7 +64,7 @@ public class Publisher {
         }
     }
     
-    public static void main(String[] args) throws JMSException, XMLStreamException {
+    public static void main(String... args) throws JMSException, XMLStreamException {
     	Publisher publisher = new Publisher();
         while (total < 1000) {
             for (int i = 0; i < count; i++) {

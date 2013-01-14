@@ -51,7 +51,7 @@ import java.io.File;
 // From chapter 5
 public class BooksLikeThis {
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String... args) throws IOException {
     Directory dir = TestUtil.getBookIndexDirectory();
 
     IndexReader reader = IndexReader.open(dir);

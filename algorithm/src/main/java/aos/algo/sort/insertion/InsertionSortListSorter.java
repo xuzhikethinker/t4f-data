@@ -19,10 +19,10 @@
 package aos.algo.sort.insertion;
 
 import aos.algo.list.ListSorter;
-import aos.data.comparator.Comparator;
-import aos.data.iterator.AosIterator;
-import aos.data.list.LinkedList;
-import aos.data.list.List;
+import aos.data.aos.comparator.Comparator;
+import aos.data.aos.iterator.AosIterator;
+import aos.data.aos.list.LinkedList;
+import aos.data.aos.list.List;
 
 /**
  * A {@link ListSorter} that uses an insertion sort algorithm.

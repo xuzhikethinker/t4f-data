@@ -31,7 +31,7 @@ public class URLCat {
     URL.setURLStreamHandlerFactory(new FsUrlStreamHandlerFactory());
   }
   
-  public static void main(String[] args) throws Exception {
+  public static void main(String... args) throws Exception {
     InputStream in = null;
     try {
       in = new URL(args[0]).openStream();

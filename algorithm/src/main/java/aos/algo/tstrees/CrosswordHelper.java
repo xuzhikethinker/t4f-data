@@ -19,10 +19,10 @@
 package aos.algo.tstrees;
 
 
-import aos.data.iterator.AosIterator;
-import aos.data.list.LinkedList;
-import aos.data.list.List;
-import aos.data.tstree.TernarySearchTree;
+import aos.data.aos.iterator.AosIterator;
+import aos.data.aos.list.LinkedList;
+import aos.data.aos.list.List;
+import aos.data.aos.tstree.TernarySearchTree;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -39,7 +39,7 @@ public final class CrosswordHelper {
     private CrosswordHelper() {
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String... args) throws IOException {
         assert args != null : "args can't be null";
 
         if (args.length < 2) {

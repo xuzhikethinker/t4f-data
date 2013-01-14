@@ -60,7 +60,7 @@ public class AnalyzerDemo {
     new StandardAnalyzer(Version.LUCENE_30)
   };
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String... args) throws IOException {
 
     String[] strings = examples;
     if (args.length > 0) {    // A

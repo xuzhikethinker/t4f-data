@@ -58,7 +58,7 @@ public final class SimpleQueueSender {
      * @param args the queue used by the example and, optionally, the number of
      *                messages to send
      */
-    public static void main(String[] args) {
+    public static void main(String... args) {
         String queueName = null;
         Context jndiContext = null;
         QueueConnectionFactory queueConnectionFactory = null;

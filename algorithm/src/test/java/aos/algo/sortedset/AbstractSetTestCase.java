@@ -18,12 +18,12 @@
  ****************************************************************/
 package aos.algo.sortedset;
 
-import aos.data.iterable.ReverseIterator;
-import aos.data.iterator.AosIterator;
-import aos.data.iterator.IteratorOutOfBoundsException;
-import aos.data.list.LinkedList;
-import aos.data.list.List;
-import aos.data.set.Set;
+import aos.data.aos.iterable.ReverseIterator;
+import aos.data.aos.iterator.AosIterator;
+import aos.data.aos.iterator.IteratorOutOfBoundsException;
+import aos.data.aos.list.LinkedList;
+import aos.data.aos.list.List;
+import aos.data.aos.set.Set;
 import junit.framework.TestCase;
 
 /**

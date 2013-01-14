@@ -56,7 +56,7 @@ public class DeleteFiles {
     } // singleton
 
     /** Deletes documents from an index that do not contain a term. */
-    public static void main(String[] args) {
+    public static void main(String... args) {
 
         String usage = "java org.apache.lucene.demo.DeleteFiles <unique_term>";
 

@@ -20,7 +20,7 @@ package aos.format.table;
 
 public class Table1Format {
 
-	public static void main(String[] args) {
+	public static void main(String... args) {
 
 		System.out.println("Degrees \tRadians \tGrads");
 		for (double degrees = 0.0; degrees < 360.0; degrees++) {

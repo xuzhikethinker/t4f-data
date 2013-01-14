@@ -32,7 +32,7 @@ import org.apache.hadoop.io.compress.CompressionCodecFactory;
 // vv FileDecompressor
 public class FileDecompressor {
 
-  public static void main(String[] args) throws Exception {
+  public static void main(String... args) throws Exception {
     String uri = args[0];
     Configuration conf = new Configuration();
     FileSystem fs = FileSystem.get(URI.create(uri), conf);

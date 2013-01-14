@@ -69,7 +69,7 @@ public class WordCountMapReduceTest2 {
         return argList;
     }
 
-    public static int main(String[] args) throws Exception {
+    public static int main(String... args) throws Exception {
 
         // Get the default configuration object
         Configuration conf = new Configuration();

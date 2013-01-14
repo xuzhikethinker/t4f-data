@@ -39,7 +39,7 @@ import java.io.IOException;
 // From chapter 4
 public class SynonymAnalyzerViewer {
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String... args) throws IOException {
     //SynonymEngine engine = new WordNetSynonymEngine(new File(args[0]));
     SynonymEngine engine = new TestSynonymEngine();
 

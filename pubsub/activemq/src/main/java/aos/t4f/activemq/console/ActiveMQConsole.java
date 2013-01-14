@@ -56,7 +56,7 @@ public class ActiveMQConsole {
     private Set<File> extensions = new HashSet<File>(5);
     private Set<File> activeMQClassPath = new HashSet<File>(5);
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         ActiveMQConsole app = new ActiveMQConsole();
 
         // Convert arguments to collection for easier management

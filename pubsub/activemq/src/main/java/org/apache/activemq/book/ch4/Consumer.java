@@ -47,7 +47,7 @@ public class Consumer {
         }
     }    
     
-    public static void main(String[] args) throws JMSException {
+    public static void main(String... args) throws JMSException {
     	if (args.length == 0) {
     		System.err.println("Please define connection URI!");
     		return;

@@ -26,7 +26,7 @@ import java.awt.*;
 public class SimpleWebBrowser {
 
 
-  public static void main(String[] args) {
+  public static void main(String... args) {
         
     // get the first URL
     String initialPage = "http://metalab.unc.edu/javafaq/";

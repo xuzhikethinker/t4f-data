@@ -49,7 +49,7 @@ public class Consumer {
         }
     }    
     
-    public static void main(String[] args) throws JMSException {
+    public static void main(String... args) throws JMSException {
     	Consumer consumer = new Consumer();
     	for (String job : consumer.jobs) {
     		Destination destination = consumer.getSession().createQueue("JOBS." + job);

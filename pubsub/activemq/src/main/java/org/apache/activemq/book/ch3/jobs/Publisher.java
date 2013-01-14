@@ -57,7 +57,7 @@ public class Publisher {
         }
     }    
     
-	public static void main(String[] args) throws JMSException {
+	public static void main(String... args) throws JMSException {
     	Publisher publisher = new Publisher();
         while (total < 1000) {
             for (int i = 0; i < count; i++) {

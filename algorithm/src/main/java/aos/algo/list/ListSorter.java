@@ -18,7 +18,7 @@
  ****************************************************************/
 package aos.algo.list;
 
-import aos.data.list.List;
+import aos.data.aos.list.List;
 
 /**
  * Generic interface for list sorting algorithms.
