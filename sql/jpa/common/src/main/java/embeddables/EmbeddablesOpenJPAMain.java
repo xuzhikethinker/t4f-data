@@ -43,24 +43,23 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import aos.server.db.DatabaseServerRunnable;
+import aos.server.db.DatabaseServerMain;
 
 public class EmbeddablesOpenJPAMain {
 
     public static void main(String... args) throws Exception {
 
-    	Thread databaseThread = new Thread(new DatabaseServerRunnable());
-		databaseThread.start();
-		
+        DatabaseServerMain.main();
+
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("embeddables", System.getProperties());
         EntityManager em = emf.createEntityManager();
         init(em);
         runQueries(em);
-        
+
     }
 
     public static void runQueries(EntityManager em) {
-    	
+
         // Find all users that have a secondary address that is in MI
         Query q = em.createQuery("SELECT u FROM User u , in (u.addresses) a " + "WHERE a.state='xx'");
 
@@ -96,7 +95,7 @@ public class EmbeddablesOpenJPAMain {
     }
 
     public static void init(EntityManager em) {
-    	
+
         Coordinates c = new Coordinates("37.0", "23.516");
         Coordinates c1 = new Coordinates("38", "23.516");
         Coordinates c2 = new Coordinates("39", "23.516");

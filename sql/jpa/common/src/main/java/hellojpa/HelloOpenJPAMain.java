@@ -43,7 +43,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import aos.server.db.DatabaseServerRunnable;
+import aos.server.db.DatabaseServerMain;
 
 /**
  * A very simple, stand-alone program that stores a new entity in the database
@@ -51,52 +51,51 @@ import aos.server.db.DatabaseServerRunnable;
  */
 public class HelloOpenJPAMain {
 
-	@SuppressWarnings("unchecked")
-	public static void main(String... args) throws Exception {
-		
-		Thread databaseThread = new Thread(new DatabaseServerRunnable());
-		databaseThread.start();
-		
-		// Create a new EntityManagerFactory using the System properties.
-		// The "hellojpa" name will be used to configure based on the
-		// corresponding name in the META-INF/persistence.xml file
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("hellojpa", System.getProperties());
+    @SuppressWarnings("unchecked")
+    public static void main(String... args) throws Exception {
 
-		// Create a new EntityManager from the EntityManagerFactory. The
-		// EntityManager is the main object in the persistence API, and is
-		// used to create, delete, and query objects, as well as access
-		// the current transaction
-		EntityManager em = factory.createEntityManager();
+        DatabaseServerMain.main();
 
-		// Begin a new local transaction so that we can persist a new entity
-		em.getTransaction().begin();
+        // Create a new EntityManagerFactory using the System properties.
+        // The "hellojpa" name will be used to configure based on the
+        // corresponding name in the META-INF/persistence.xml file
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("hellojpa", System.getProperties());
 
-		// Create and persist a new Message entity
-		em.persist(new Message("Hello Persistence!"));
+        // Create a new EntityManager from the EntityManagerFactory. The
+        // EntityManager is the main object in the persistence API, and is
+        // used to create, delete, and query objects, as well as access
+        // the current transaction
+        EntityManager em = factory.createEntityManager();
 
-		// Commit the transaction, which will cause the entity to
-		// be stored in the database
-		em.getTransaction().commit();
+        // Begin a new local transaction so that we can persist a new entity
+        em.getTransaction().begin();
 
-		// It is always good practice to close the EntityManager so that
-		// resources are conserved.
-		em.close();
+        // Create and persist a new Message entity
+        em.persist(new Message("Hello Persistence!"));
 
-		// Create a fresh, new EntityManager
-		EntityManager em2 = factory.createEntityManager();
+        // Commit the transaction, which will cause the entity to
+        // be stored in the database
+        em.getTransaction().commit();
 
-		// Perform a simple query for all the Message entities
-		Query q = em2.createQuery("select m from Message m");
+        // It is always good practice to close the EntityManager so that
+        // resources are conserved.
+        em.close();
 
-		// Go through each of the entities and print out each of their
-		// messages, as well as the date on which it was created
-		for (Message m : (List<Message>) q.getResultList()) {
-			System.out.println(m.getMessage() + " (created on: " + m.getCreated() + ")");
-		}
+        // Create a fresh, new EntityManager
+        EntityManager em2 = factory.createEntityManager();
 
-		// Again, it is always good to clean up after ourselves
-		em2.close();
-		factory.close();
-		
-	}
+        // Perform a simple query for all the Message entities
+        Query q = em2.createQuery("select m from Message m");
+
+        // Go through each of the entities and print out each of their
+        // messages, as well as the date on which it was created
+        for (Message m : (List<Message>) q.getResultList()) {
+            System.out.println(m.getMessage() + " (created on: " + m.getCreated() + ")");
+        }
+
+        // Again, it is always good to clean up after ourselves
+        em2.close();
+        factory.close();
+
+    }
 }
