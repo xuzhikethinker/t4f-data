@@ -5,7 +5,7 @@ SELECT composite_id, count
     SELECT 
       composite_id, count(*) AS count 
     FROM 
-      table 
+      TABLE 
     GROUP BY 
       composite_id
     ) t 
@@ -13,7 +13,7 @@ SELECT composite_id, count
     count > 1;   
 
 SELECT table.*
-  FROM table 
+  FROM TABLE 
   LEFT OUTER JOIN table_hive 
     ON (
       table.composite_id = table_hive.composite_id
@@ -22,18 +22,18 @@ SELECT table.*
     table_hive.composite_id IS NULL;
 
 SELECT table.*
-  FROM table 
-  LEFT OUTER JOIN raw_tables 
+  FROM TABLE 
+  LEFT OUTER JOIN raw_table_sample 
     ON (
-      table.composite_id = raw_tables.v
+      table.composite_id = raw_table_sample.v
       )
   WHERE 
     table_hive.composite_id IS NULL;
 
 SELECT table.*
-  FROM table 
+  FROM TABLE 
   LEFT OUTER JOIN 
-    (SELECT * from table_hive 
+    (SELECT * FROM table_hive 
       WHERE table_hive.record_date='2012-08-01') table_hive
     ON (table_hive.composite_id = table.composite_id)
   WHERE table_hive.composite_id IS NULL;
@@ -57,13 +57,13 @@ SELECT distinct table_hive.composite_id
   WHERE table.composite_id IS NULL;
 
 -- -----------------------------------------------------------------------------
-hive -e "use database; describe extended table partition (tracking_id='test', recorddate='2012-08-01')"
+hive -e "use database; describe extended TABLE PARTITION (tracking_id='test', recorddate='2012-08-01')"
 s3n://name-model/raw/table/tracking_id=test/recorddate=2012-08-01
 -- -----------------------------------------------------------------------------
 hive -e "use database; describe extended table;"
-s3n://name-test/data/raw_tables
+s3n://name-test/data/raw_table_sample
 -- -----------------------------------------------------------------------------
-create external table table (
+CREATE external TABLE TABLE (
         Visitor_ID                  STRING,
         PingTime_UNIX              BIGINT,
 
@@ -92,8 +92,8 @@ create external table table (
         Group_Tracking_ID           STRING,
         
         V_d_SearchQuery                 STRING,
-        V_d_SearchQueryCategorisation   STRING,
-        V_d_ElementCategorisation       STRING
+        V_d_SearchQueryCategorisatiON   STRING,
+        V_d_ElementCategorisatiON       STRING
         
   )
   PARTITIONED BY (SiteID string, RecordDate string)
@@ -101,17 +101,17 @@ create external table table (
   FIELDS TERMINATED BY '\t'
   -- STORED AS INPUTFORMAT "com.hadoop.mapred.DeprecatedLzoTextInputFormat"
   -- OUTPUTFORMAT "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
-  -- location 's3n://${DATA_MODEL_BUCKET}/data/table/'
+  -- LOCATION 's3n://${DATA_MODEL_BUCKET}/data/table/'
 ;
 -- -----------------------------------------------------------------------------
-ALTER TABLE table ADD COLUMNS (
-  V_d_GeoLocation    STRING COMMENT '2 letter country code based on IP of user'
+ALTER TABLE TABLE ADD COLUMNS (
+  V_d_GeoLocatiON    STRING COMMENT '2 letter country code based ON IP of user'
 )
 ;
 -- ----------------------------------------------------------------------------
-hive> describe extended tables;
+hive> describe extended table_sample;
 OK
-composite_id    string  table level identifier, combining visitor id, tracking id and record date
+composite_id    string  TABLE level identifier, combining visitor id, tracking id and record date
 visitor_id  string  
 server_side_time    bigint  
 url string  
@@ -123,12 +123,12 @@ user_ip_address string
 user_web_agent_settings string  
 ...
 canonical_referrer_url  string  
-raw_time_on_page    bigint  calculated as the time from 1st to last ping
+raw_time_on_page    bigint  calculated as the time FROM 1st to last ping
 entrance_referrer_url   string  
 tracking_id string  
 record_date string  
          
-Detailed Table Information  Table(tableName:tables, dbName:database, owner:batchrunner, createTime:1350985067, lastAccessTime:0, retention:0, sd:StorageDescriptor(cols:[FieldSchema(name:composite_id, type:string, comment:table level identifier, combining visitor id, tracking id and record date), FieldSchema(name:visitor_id, type:string, comment:null), FieldSchema(name:server_side_time, type:bigint, comment:null), FieldSchema(name:url, type:string, comment:null), FieldSchema(name:referrer_url, type:string, comment:null), FieldSchema(name:browser_side_page_number, type:bigint, comment:as generated in the javascript), FieldSchema(name:custom_values, type:string, comment:null), FieldSchema(name:user_web_agent, type:string, comment:null), FieldSchema(name:user_ip_address, type:string, comment:null), FieldSchema(name:user_web_agent_settings, type:string, comment:null), FieldSchema(name:client_side_time, type:bigint, comment:null), FieldSchema(name:qtracker_version, type:string, comment:null), FieldSchema(name:session_counters, type:string, comment:null), FieldSchema(name:table_id, type:string, comment:null), FieldSchema(name:group_visitor_id, type:string, comment:null), FieldSchema(name:group_tracking_id, type:string, comment:null), FieldSchema(name:page_time, type:bigint, comment:calculated as the difference between successive tables), FieldSchema(name:url_category, type:string, comment:null), FieldSchema(name:url_subcategory, type:string, comment:null), FieldSchema(name:user_agent_categorisation, type:string, comment:null), FieldSchema(name:geo_location, type:string, comment:null), FieldSchema(name:clean_search_query, type:string, comment:null), FieldSchema(name:search_categorisation, type:string, comment:null), FieldSchema(name:page_num_in_visit, type:int, comment:null), FieldSchema(name:visit_id, type:string, comment:null), FieldSchema(name:visit_number, type:bigint, comment:null), FieldSchema(name:visit_referrer_type, type:string, comment:null), FieldSchema(name:visit_referrer_details, type:string, comment:null), FieldSchema(name:visit_referrer_label, type:string, comment:null), FieldSchema(name:page_num_in_entrance, type:int, comment:null), FieldSchema(name:entrance_id, type:string, comment:null), FieldSchema(name:entrance_number, type:bigint, comment:null), FieldSchema(name:entrance_referrer_type, type:string, comment:null), FieldSchema(name:entrance_referrer_details, type:string, comment:null), FieldSchema(name:entrance_referrer_label, type:string, comment:null), FieldSchema(name:page_num_in_session, type:int, comment:null), FieldSchema(name:session_id, type:string, comment:null), FieldSchema(name:session_number, type:bigint, comment:null), FieldSchema(name:canonical_url, type:string, comment:null), FieldSchema(name:canonical_referrer_url, type:string, comment:null), FieldSchema(name:raw_time_on_page, type:bigint, comment:calculated as the time from 1st to last ping), FieldSchema(name:entrance_referrer_url, type:string, comment:null), FieldSchema(name:tracking_id, type:string, comment:null), FieldSchema(name:record_date, type:string, comment:null)], location:s3n://name-model-2/data/tables, inputFormat:com.hadoop.mapred.DeprecatedLzoTextInputFormat, outputFormat:org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat, compressed:false, numBuckets:-1, serdeInfo:SerDeInfo(name:null, serializationLib:org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe, parameters:{serialization.format= , field.delim=
+Detailed Table InformatiON  Table(tableName:table_sample, dbName:database, owner:batchrunner, CREATETime:1350985067, lastAccessTime:0, retention:0, sd:StorageDescriptor(cols:[FieldSchema(name:composite_id, type:string, comment:TABLE level identifier, combining visitor id, tracking id and record date), FieldSchema(name:visitor_id, type:string, comment:null), FieldSchema(name:server_side_time, type:bigint, comment:null), FieldSchema(name:url, type:string, comment:null), FieldSchema(name:referrer_url, type:string, comment:null), FieldSchema(name:browser_side_page_number, type:bigint, comment:as generated in the javascript), FieldSchema(name:custom_values, type:string, comment:null), FieldSchema(name:user_web_agent, type:string, comment:null), FieldSchema(name:user_ip_address, type:string, comment:null), FieldSchema(name:user_web_agent_settings, type:string, comment:null), FieldSchema(name:client_side_time, type:bigint, comment:null), FieldSchema(name:qtracker_version, type:string, comment:null), FieldSchema(name:session_counters, type:string, comment:null), FieldSchema(name:table_id, type:string, comment:null), FieldSchema(name:group_visitor_id, type:string, comment:null), FieldSchema(name:group_tracking_id, type:string, comment:null), FieldSchema(name:page_time, type:bigint, comment:calculated as the difference between successive table_sample), FieldSchema(name:url_category, type:string, comment:null), FieldSchema(name:url_subcategory, type:string, comment:null), FieldSchema(name:user_agent_categorisation, type:string, comment:null), FieldSchema(name:geo_location, type:string, comment:null), FieldSchema(name:clean_search_query, type:string, comment:null), FieldSchema(name:search_categorisation, type:string, comment:null), FieldSchema(name:page_num_in_visit, type:int, comment:null), FieldSchema(name:visit_id, type:string, comment:null), FieldSchema(name:visit_number, type:bigint, comment:null), FieldSchema(name:visit_referrer_type, type:string, comment:null), FieldSchema(name:visit_referrer_details, type:string, comment:null), FieldSchema(name:visit_referrer_label, type:string, comment:null), FieldSchema(name:page_num_in_entrance, type:int, comment:null), FieldSchema(name:entrance_id, type:string, comment:null), FieldSchema(name:entrance_number, type:bigint, comment:null), FieldSchema(name:entrance_referrer_type, type:string, comment:null), FieldSchema(name:entrance_referrer_details, type:string, comment:null), FieldSchema(name:entrance_referrer_label, type:string, comment:null), FieldSchema(name:page_num_in_session, type:int, comment:null), FieldSchema(name:session_id, type:string, comment:null), FieldSchema(name:session_number, type:bigint, comment:null), FieldSchema(name:canonical_url, type:string, comment:null), FieldSchema(name:canonical_referrer_url, type:string, comment:null), FieldSchema(name:raw_time_on_page, type:bigint, comment:calculated as the time FROM 1st to last ping), FieldSchema(name:entrance_referrer_url, type:string, comment:null), FieldSchema(name:tracking_id, type:string, comment:null), FieldSchema(name:record_date, type:string, comment:null)], location:s3n://name-model-2/data/table_sample, inputFormat:com.hadoop.mapred.DeprecatedLzoTextInputFormat, outputFormat:org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat, compressed:false, numBuckets:-1, serdeInfo:SerDeInfo(name:null, serializationLib:org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe, parameters:{serialization.format= , field.delim=
 Time taken: 0.458 seconds
 hive> 
 -- -----------------------------------------------------------------------------
@@ -137,7 +137,7 @@ LOAD DATA
   INPATH '/q/.../tablereducer.out' 
   OVERWRITE 
   INTO TABLE 
-  table 
+  TABLE 
   PARTITION (
     SiteID='test', 
     RecordDate='2012/09/13'
