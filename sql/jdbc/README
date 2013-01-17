@@ -1,0 +1,42 @@
+DERBY
+-----
+
+jdbc:derby:[subprotocol:][databaseName][;attribute=value]*
+
+Embedded
+org.apache.derby.jdbc.EmbeddedDriver in derby.jar
+org.apache.derby.jdbc.EmbeddedDriver in derby.jar
+jdbc:derby:database-name;create=true
+ 
+Embedded Directory
+org.apache.derby.jdbc.EmbeddedDriver in derby.jar
+jdbc:derby:directory:/var/store/derby;create=true
+
+Embedded Memory
+org.apache.derby.jdbc.EmbeddedDriver in derby.jar
+jdbc:derby:memory:DbName;create=true
+
+Network
+org.apache.derby.jdbc.ClientDriver in derbyclient.jar
+jdbc:derby://localhost:1527/sample;user=judy;password=no12see
+jdbc:derby:net://localhost:1621/DBAOS;create=true;upgrade=true;retrieveMessagesFromServerOnGetMessage=true;deferPrepares=true;
+
+H2
+---
+
+H2 In Memory MySql compatible
+jdbc:h2:mem:test;MODE=MySQL
+
+MySQL
+----
+
+jdbc:mysql://[host][,failoverhost...][:port]/[database] »
+[?propertyName1][=propertyValue1][&propertyName2][=propertyValue2]...
+
+com.mysql.jdbc.Driver
+com.mysql.jdbc.jdbc2.optional.MysqlDataSource
+com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource
+
+jdbc:mysql://localhost:3306/sakila?profileSQL=true
+
+http://dev.mysql.com/doc/refman/5.0/en/connector-j-reference-configuration-properties.html
