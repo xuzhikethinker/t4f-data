@@ -21,25 +21,15 @@
 <configuration>
   <property>
     <name>hbase.rootdir</name>
-    <value>hdfs://localhost:9000/hbase</value>
-<!--     <value>file:///tmp/hbase</value> -->
+    <value>file:///var/data/hbase-local</value>
   </property>
   <property>
-    <name>dfs.replication</name>
-    <value>1</value>
+    <name>hbase.zookeeper.property.dataDir</name>
+    <value>/var/data/zookeeper-local</value>
   </property>
   <property>
-    <name>hbase.cluster.distributed</name>
-    <value>true</value>
+    <name>hbase.master.port</name>
+    <value>60000</value>
+    <description>The port the HBase Master should bind to.</description>
   </property>
-<!-- 
-  <property>
-    <name>hbase.zookeeper.quorum</name>
-    <value>localhost</value>
-  </property>
-  <property>
-    <name>hbase.zookeeper.property.clientPort</name>
-    <value>2181</value>
-  </property>
--->
 </configuration>

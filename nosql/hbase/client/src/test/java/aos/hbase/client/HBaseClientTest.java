@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package aos.t4f.hbase.client;
+package aos.hbase.client;
 
 import java.io.IOException;
 

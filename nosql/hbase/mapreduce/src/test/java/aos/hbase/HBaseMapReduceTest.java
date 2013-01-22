@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package aos.nosql.hbase;
+package aos.hbase;
 
 /**
  * Implement a test based on: - http://wiki.apache.org/hadoop/Hbase/MapReduce -
