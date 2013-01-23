@@ -16,10 +16,5 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
-#   http://www.apache.org/licenses/LICENSE-2.0
-#
-#   http://www.apache.org/licenses/LICENSE-2.0
-#
-# under the License.
-tr ";" "," < in.csv | tr "\"" "" > out.csv
 
+find . -name "$1" -print0 | xargs -0 wc -l

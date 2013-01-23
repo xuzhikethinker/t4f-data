@@ -32,6 +32,6 @@
   <modules>
     <module>distributed</module>
     <module>lucene</module>
-    <module>sh</module>
+    <module>shell</module>
   </modules>
 </project>
