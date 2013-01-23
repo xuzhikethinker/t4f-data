@@ -27,9 +27,4 @@
     <name>hbase.zookeeper.property.dataDir</name>
     <value>/var/data/zookeeper-local</value>
   </property>
-  <property>
-    <name>hbase.master.port</name>
-    <value>60000</value>
-    <description>The port the HBase Master should bind to.</description>
-  </property>
 </configuration>

@@ -46,8 +46,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 @Ignore
-public class HBaseClientTest {
-    private static final Logger LOGGER = Logger.getLogger(HBaseClientTest.class);
+public class HBaseEmbeddedClusterTest {
+    private static final Logger LOGGER = Logger.getLogger(HBaseEmbeddedClusterTest.class);
 
     private static final byte[] TABLE_NAME_1 = Bytes.toBytes("TableName1");
     private static final byte[] COLUMN_FAMILY_NAME_1 = Bytes.toBytes("ColumnFamilyName1");

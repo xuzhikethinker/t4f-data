@@ -3,13 +3,23 @@ T4F Data NoSql HBase
 
 Build HBase from Source (Hadoop2)
 ---------------------------------
+
 mvn clean install assembly:assembly help:active-profiles -DskipTests -Dhadoop.profile=2.0
+cp target/hbase-0.95-SNAPSHOT.tar.gz /w/opt
 
 Build HBase from Source (Hadoop3)
 ---------------------------------
+
 ./build-hbase.sh
+
+To point HBase at an existing ZooKeeper cluster, one that is not managed by HBase, 
+set HBASE_MANAGES_ZK in conf/hbase-env.sh to 'false'.
+Next set ensemble locations and client port, if non-standard, in hbase-site.xml, 
+or add a suitably configured zoo.cfg to HBase's CLASSPATH. 
+HBase will prefer the configuration found in zoo.cfg over any settings in hbase-site.xml.
+
 cd bin
-./start-hbase.sh 
+./start-hbase.sh
 ./hbase shell
 help
 create 'test', 'cf'
@@ -26,8 +36,14 @@ exit
 
 Import with m2eclipse with profile='!hadoop-1.0, hadoop-3.0'
 
+Default ports
+--------------
+
++ HMaster: 6000
+
 Manage HBase
 ------------
+
 + HMaster web-interface:      http://localhost:60010
 + RegionServer web-interface: http://localhost:60030
 

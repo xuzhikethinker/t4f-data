@@ -22,7 +22,6 @@
   <property>
     <name>hbase.rootdir</name>
     <value>hdfs://localhost:9000/hbase</value>
-<!--     <value>file:///tmp/hbase</value> -->
   </property>
   <property>
     <name>dfs.replication</name>
@@ -31,13 +30,5 @@
   <property>
     <name>hbase.cluster.distributed</name>
     <value>true</value>
-  </property>
-  <property>
-    <name>hbase.zookeeper.property.clientPort</name>
-    <value>2181</value>
-  </property>
-  <property>
-    <name>hbase.zookeeper.quorum</name>
-    <value>localhost</value>
   </property>
 </configuration>

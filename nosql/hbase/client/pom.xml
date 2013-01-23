@@ -29,9 +29,14 @@
   <name>T4F Data NoSql HBase Client</name>
   <dependencies>
     <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-common</artifactId>
+<!--       <scope>test</scope> -->
+    </dependency>
+    <dependency>
       <groupId>org.apache.hbase</groupId>
       <artifactId>hbase-server</artifactId>
-      <scope>test</scope>
+<!--       <scope>test</scope> -->
     </dependency>
     <dependency>
       <groupId>org.apache.hbase</groupId>
