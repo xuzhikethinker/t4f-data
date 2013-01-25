@@ -36,9 +36,6 @@ import org.apache.thrift.transport.TTransportException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * 
- */
 public class AosEmbeddedCassandra {
     private static final Logger log = LoggerFactory.getLogger(AosEmbeddedCassandra.class);
 
@@ -86,7 +83,8 @@ public class AosEmbeddedCassandra {
         try {
             TimeUnit.SECONDS.sleep(3);
             log.info("Done sleeping");
-        } catch (InterruptedException e) {
+        }
+        catch (InterruptedException e) {
             throw new AssertionError(e);
         }
     }

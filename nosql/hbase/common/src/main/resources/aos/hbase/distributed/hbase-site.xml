@@ -31,4 +31,20 @@
     <name>hbase.cluster.distributed</name>
     <value>true</value>
   </property>
+  <property>
+    <name>hbase.config.read.zookeeper.config</name>
+    <value>false</value>
+  </property>
+  <property>
+    <name>hbase.zookeeper.property.clientPort</name>
+    <value>2181</value>
+  </property>
+  <property>
+    <name>hbase.zookeeper.property.tickTime</name>
+    <value>2000</value>
+  </property>
+  <property>
+    <name>hbase.zookeeper.property.server.0</name>
+    <value>localhost:2181</value>
+  </property>
 </configuration>

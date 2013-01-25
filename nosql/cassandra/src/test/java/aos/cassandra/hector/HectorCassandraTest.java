@@ -59,12 +59,10 @@ import org.apache.commons.io.FileUtils;
 import org.apache.thrift.transport.TTransportException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import aos.cassandra.support.AosEmbeddedCassandra;
 
-@Ignore
 public class HectorCassandraTest {
     private static final String CLUSTER_NAME = "TestCluster";
     private static final String KEYSPACE_NAME = "KEYSPACE";
@@ -76,7 +74,7 @@ public class HectorCassandraTest {
     private Cluster cluster;
     private Keyspace keyspace;
 
-    private StringSerializer stringSerializer = StringSerializer.get();
+    private final StringSerializer stringSerializer = StringSerializer.get();
 
     @BeforeClass
     public static void startCassandra() throws TTransportException, IOException, InterruptedException,
@@ -119,7 +117,8 @@ public class HectorCassandraTest {
     private void dropKeyspace() {
         try {
             cluster.dropKeyspace(KEYSPACE_NAME);
-        } catch (RuntimeException e) {
+        }
+        catch (RuntimeException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -495,7 +494,7 @@ public class HectorCassandraTest {
         mutator.discardPendingMutations();
         // delete the odd rows
         for (int i = 0; i < 10; i++) {
-            if (i % 2 == 0)
+            if ((i % 2) == 0)
                 continue;
             mutator.addDeletion("fake_key_" + i, COLUMN_FAMILY_NAME_1, null, stringSerializer);
         }
@@ -518,10 +517,11 @@ public class HectorCassandraTest {
         for (Row<String, String, String> row : orderedRows) {
             int keyNum = Integer.valueOf(row.getKey().substring(9));
             System.out.println("+-----------------------------------");
-            if (keyNum % 2 == 0) {
+            if ((keyNum % 2) == 0) {
                 System.out.println("| result key:" + row.getKey() + " which should have values: "
                         + row.getColumnSlice());
-            } else {
+            }
+            else {
                 System.out.println("| TOMBSTONED result key:" + row.getKey() + " has values: " + row.getColumnSlice());
             }
             SliceQuery<String, String, String> q = HFactory.createSliceQuery(keyspace, stringSerializer,

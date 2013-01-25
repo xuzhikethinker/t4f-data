@@ -10,7 +10,7 @@ cp target/hbase-0.95-SNAPSHOT.tar.gz /w/opt
 Build HBase from Source (Hadoop3)
 ---------------------------------
 
-./build-hbase.sh
+./src/main/shell/build-hbase.sh
 
 To point HBase at an existing ZooKeeper cluster, one that is not managed by HBase, 
 set HBASE_MANAGES_ZK in conf/hbase-env.sh to 'false'.
