@@ -5,12 +5,22 @@ Build HBase from Source (Hadoop2)
 ---------------------------------
 
 mvn clean install assembly:assembly help:active-profiles -DskipTests -Dhadoop.profile=2.0
-cp target/hbase-0.95-SNAPSHOT.tar.gz /w/opt
+cp target/hbase-0.95-HADOOP3-SNAPSHOT.tar.gz /w/opt
 
 Build HBase from Source (Hadoop3)
 ---------------------------------
 
-./src/main/shell/build-hbase.sh
+cd /o/hbase.git
+git checkout hadoop3
+source jdk6.sh
+mvn clean package assembly:assembly help:active-profiles -DskipTests -P'!hadoop-1.0, hadoop-3.0'
+rm -fr /w/opt/hbase-0.95-HADOOP3-SNAPSHOT
+cp target/hbase-0.95-HADOOP3-SNAPSHOT.tar.gz /w/opt
+cd /w/opt
+tar xvfz hbase-0.95-HADOOP3-SNAPSHOT.tar.gz
+rm hbase-0.95-HADOOP3-SNAPSHOT.tar.gz
+cd hbase-0.95-HADOOP3-SNAPSHOT
+cp /t/t4f-data.git/nosql/hbase/common/src/main/resources/aos/hbase/distributed/* conf/
 
 To point HBase at an existing ZooKeeper cluster, one that is not managed by HBase, 
 set HBASE_MANAGES_ZK in conf/hbase-env.sh to 'false'.
@@ -19,8 +29,11 @@ or add a suitably configured zoo.cfg to HBase's CLASSPATH.
 HBase will prefer the configuration found in zoo.cfg over any settings in hbase-site.xml.
 
 cd bin
-./start-hbase.sh
-./hbase shell
+#start-hbase.sh
+hbase-daemons.sh start master
+hbase-daemons.sh start regionserver
+
+hbase shell
 help
 create 'test', 'cf'
 list 'test'
@@ -32,7 +45,7 @@ get 'test', 'row1'
 disable 'test'
 drop 'test'
 exit
-./stop-hbase.sh
+stop-hbase.sh
 
 Import with m2eclipse with profile='!hadoop-1.0, hadoop-3.0'
 

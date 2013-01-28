@@ -7,13 +7,15 @@ cd /o/hadoop.git
 git checkout trunk
 source jdk6.sh
 mvn clean package -Pdist -Dtar -DskipTests
-rm -fr /w/opt/hadoop-3.0.0-SNAPSHOT
-cp hadoop-dist/target/hadoop-3.0.0-SNAPSHOT.tar.gz /w/opt
+rm -fr /w/opt/hadoop-3.0.0-AOS-SNAPSHOT
+cp hadoop-dist/target/hadoop-3.0.0-AOS-SNAPSHOT.tar.gz /w/opt
 cd /w/opt
-tar xvfz hadoop-3.0.0-SNAPSHOT.tar.gz
-rm hadoop-3.0.0-SNAPSHOT.tar.gz
-cd hadoop-3.0.0-SNAPSHOT
-cp /t/t4f-data.git/nosql/hadoop/common/src/main/resources/*-site.xml etc/hadoop
+tar xvfz hadoop-3.0.0-AOS-SNAPSHOT.tar.gz
+rm hadoop-3.0.0-AOS-SNAPSHOT.tar.gz
+cd hadoop-3.0.0-AOS-SNAPSHOT
+cp /Users/eric/wrk/t4f/t4f-data.git/nosql/hadoop/common/src/main/resources/aos/hadoop/h3/distributed/* etc/hadoop
+rm -fr /var/data/hadoop-3.0.0-*
+hadoop namenode -format
 start-all.sh
 
 Build Hadoop Web Site
