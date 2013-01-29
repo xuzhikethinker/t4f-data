@@ -1,7 +1,6 @@
-T4F Data Anaylysis Hive
-=======================
+T4F Data Analysis Hive
+======================
 
--------------------------------------------------------------------------------
 mapreduce stage syntax
 ----------------------
 map stage syntax
@@ -64,4 +63,3 @@ CASE
   END
 -----------
 -- SELECT isTrueSelfReferrer, count(*) FROM (...) GROUP BY isTrueSelfReferrer;
--------------------------------------------------------------------------------
