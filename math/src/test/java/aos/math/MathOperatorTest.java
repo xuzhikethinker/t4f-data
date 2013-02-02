@@ -33,7 +33,7 @@ public class MathOperatorTest {
 
         j = rand.nextInt() % 100;
         k = 0;
-        while (k != 0) {
+        while (k == 0) {
             k = rand.nextInt() % 100;
         }
 
