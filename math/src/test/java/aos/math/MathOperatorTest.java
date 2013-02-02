@@ -23,34 +23,38 @@ import java.util.Random;
 import org.junit.Test;
 
 public class MathOperatorTest {
-    
+
     @Test
     public void test() {
-        
+
         Random rand = new Random();
+
         int i, j, k;
-        
+
         j = rand.nextInt() % 100;
-        k = rand.nextInt() % 100;
-        
+        k = 0;
+        while (k != 0) {
+            k = rand.nextInt() % 100;
+        }
+
         System.out.println("j= " + j);
         System.out.println("k= " + k);
-        
+
         i = j + k;
         System.out.println("j+k = " + i);
-        
+
         i = j - k;
         System.out.println("j-k = " + i);
-        
+
         i = j * k;
         System.out.println("j*k = " + i);
-        
+
         i = j / k;
         System.out.println("j/k = " + i);
-        
+
         i = j % k;
         System.out.println("j%k = " + i);
-        
+
         k %= j;
         System.out.println("k%j = " + k);
     }
