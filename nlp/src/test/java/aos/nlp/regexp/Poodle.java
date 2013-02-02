@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-
 package aos.nlp.regexp;
 
 import java.util.regex.Pattern;
@@ -27,10 +26,6 @@ import java.util.LinkedList;
  * Demonstrate behavior of splitting strings.  The XML output created
  * here can be styled into HTML or some other useful form.
  * See poodle.xsl.
- *
- * Created: April, 2002
- * @author Ron Hitchens (ron@ronsoft.com)
- * @version $Id: Poodle.java,v 1.3 2002/05/01 03:47:07 ron Exp $
  */
 public class Poodle
 {

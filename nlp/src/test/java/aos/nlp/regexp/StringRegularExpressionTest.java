@@ -24,24 +24,20 @@ public class StringRegularExpressionTest {
 
     @Test
     public void testReplace() {
-        
         String test = new String("lkfjdlkdfjqlkf<dc:creator");
         test = test.replaceAll("creator", "creator1");
         System.out.println(test);
         test = test.replaceAll("<dc:creator1", "<author");
         System.out.println(test);
-
     }
 
     @Test
     public void testStartWth() {
-        
         String test = new String("/aos/test");
         System.out.println(test);
         System.out.println(test.startsWith("/aosd/"));
         System.out.println(test.startsWith("/aos/"));
         System.out.println(test.startsWith("//aos//"));
-
     }
 
 }

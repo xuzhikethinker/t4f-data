@@ -19,8 +19,8 @@
 package aos.nlp.regexp;
 
 import java.io.Console;
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 public class RegexTestHarness2 {

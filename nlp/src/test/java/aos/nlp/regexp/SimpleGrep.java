@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-
 package aos.nlp.regexp;
 
 import java.io.BufferedReader;

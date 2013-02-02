@@ -16,16 +16,15 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-
 package aos.nlp.regexp;
 
 import java.io.File;
 import java.io.FileReader;
-import java.io.LineNumberReader;
 import java.io.IOException;
-import java.util.List;
-import java.util.LinkedList;
+import java.io.LineNumberReader;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,13 +33,8 @@ import java.util.regex.Pattern;
  * lines matched in the specified files.  Instances of this class are tied
  * to a specific regular expression pattern and may be applied repeatedly
  * to multiple files.  Instances of Grep are thread safe, they may be shared.
- *
- * @author Michael Daudel (mgd@ronsoft.com) (original)
- * @author Ron Hitchens (ron@ronsoft.com) (hacked)
- * @version $Id: Grep.java,v 1.3 2002/04/11 02:58:04 ron Exp $
  */
-public class Grep
-{
+public class Grep {
 	// The pattern to use for this instance
 	private Pattern pattern;
 

@@ -16,22 +16,16 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-
 package aos.nlp.regexp;
 
 import java.util.regex.Pattern;
 
 /**
- * Demonstrate Pattern.matches().
- *
- * Created: April, 2002
- * @author Ron Hitchens (ron@ronsoft.com)
- * @version $Id: RegexMatches.java,v 1.1 2002/05/07 02:21:08 ron Exp $
+ * Demonstrate Pattern.matches(). 
  */
-public class RegexMatches
-{
-	public static void main (String [] argv)
-	{
+public class RegexMatches {
+
+    public static void main (String [] argv) {
 		if (goodAnswer (argv [0])) {
 			System.out.println ("Good Answer");
 		} else {
@@ -39,8 +33,8 @@ public class RegexMatches
 		}
 	}
 
-	private static boolean goodAnswer (String answer)
-	{
+	private static boolean goodAnswer (String answer) {
 		return (Pattern.matches ("[Yy]es|[Yy]|[Oo][Kk]|[Tt]rue", answer));
 	}
+
 }

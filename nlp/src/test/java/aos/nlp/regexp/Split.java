@@ -16,20 +16,14 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-
 package aos.nlp.regexp;
 
-import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
-import java.nio.charset.Charset;
 import java.util.regex.Pattern;
 
 /**
  * Test regex splitting.  Splitting CharBuffers does not work reliably on
  * JDK 1.4.0.  Fixed in 1.4.1 release.
- *
- * @author Ron Hitchens
- * @version $Id: Split.java,v 1.1 2002/04/28 01:48:07 ron Exp $
  */
 public class Split
 {

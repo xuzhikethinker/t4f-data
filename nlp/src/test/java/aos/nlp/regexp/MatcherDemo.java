@@ -21,6 +21,7 @@ package aos.nlp.regexp;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -100,26 +101,32 @@ public class MatcherDemo {
 
     @Test
     public void test() {
-        match("Exemple dog", "Exempl. ", "");
-        match("Exemple dog", "Exe.++", "");
-        match("Exemple http://dog dfd", "://", "");
-        match("Exemple dog dddoggg dfd", "\\bdog\\b", "");
-        match("http://dfq Exemple dog http://dfq.com/sfdqf?dsf&% dsfqd", "http://[a-zA-Z0-9./&\"'%?]*", "");
+        
+        String regexp = "^(tlf|mito).*";
+        match("tlf_2", regexp, "", "");
+        match("mito", regexp, "", "");
+        match("mito_1", regexp, "", "");
+        match("test", regexp, "", "test");
+        match("Exemple dog", "Exempl. ", "dog", "dogdog");
+        match("Exemple dog", "Exe.++", "", "");
+        match("Exemple http://dog dfd", "://", "", "Exemple httpdog dfd");
+        match("Exemple dog dddoggg dfd", "\\bdog\\b", "", "Exemple  dddoggg dfd");
+        match("http://dfq Exemple dog http://dfq.com/sfdqf?dsf&% dsfqd", "http://[a-zA-Z0-9./&\"'%?]*", "", " Exemple dog  dsfqd");
         match("Exemple dog http://dfq.com/sfdqf%213\"dfq fds  ff f  http://sdklfj332/é%& dsfqd é\"éçà_\"é http://sdklfj332/%&/dfez&&%%545",
-                "\\bhttp://[a-zA-Z0-9./&\"'%?]++\\b", "");
-        match("@test Exemple @test dog http://dfq.com/sfdqf dsfqd @ldkjf", "@[a-zA-Z./]*", "");
-        match("#ldf dog dog #ldfjds #dlkfj dskfjqks#333trtrdkfljqkdf #3333dkfjdkf.", "#[a-zA-Z/1-9]*", "");
-        match("dog dog #ldfjds #dlkfj dskfjqks#333trtrdkfljqkdf #3333dkfjdkf.", "\\b#[a-zA-Z/1-9]++\\b", "");
-        match("dog dog dog doggie dogg", "\\bdog\\b ", "");
-        match("dog  dog       dog              doggie dogg", "\\p{Space}++", " ");
-        match("RT rt RT sqdkflj RT", "\\bRT\\b", " ");
-        match("RT rt RT sqdkflj RT", "\\bRT\\b", "\\bRT\\b");
-        match("abc", "[a-e].*", "test");
-        match("zbc", "^[a-e].*", "test");
+                "\\bhttp://[a-zA-Z0-9./&\"'%?]++\\b", "", "Exemple dog  fds  ff f  é%& dsfqd é\"éçà_\"é ");
+        match("@test Exemple @test dog http://dfq.com/sfdqf dsfqd @ldkjf", "@[a-zA-Z./]*", "", " Exemple  dog http://dfq.com/sfdqf dsfqd ");
+        match("#ldf dog dog #ldfjds #dlkfj dskfjqks#333trtrdkfljqkdf #3333dkfjdkf.", "#[a-zA-Z/1-9]*", "", " dog dog   dskfjqks .");
+        match("dog dog #ldfjds #dlkfj dskfjqks#333trtrdkfljqkdf #3333dkfjdkf.", "\\b#[a-zA-Z/1-9]++\\b", "", "dog dog #ldfjds #dlkfj dskfjqks #3333dkfjdkf.");
+        match("dog dog dog doggie dogg", "\\bdog\\b ", "", "doggie dogg");
+        match("dog  dog       dog              doggie dogg", "\\p{Space}++", " ", "dog dog dog doggie dogg");
+        match("RT rt RT sqdkflj RT", "\\bRT\\b", " ", "  rt   sqdkflj  ");
+        match("RT rt RT sqdkflj RT", "\\bRT\\b", "\\bRT\\b", "bRTb rt bRTb sqdkflj bRTb");
+        match("abc", "[a-e].*", "test", "test");
+        match("zbc", "^[a-e].*", "test", "zbc");
     }
 
-    private void match(String input, String regexp, String replace) {
-        System.out.println("input=\"" + input + "\" - regexp=\"" + regexp + "\" - replace=\"" + replace + "\"");
+    private void match(String input, String regexp, String replacement, String expectedOutput) {
+        System.out.println("input=\"" + input + "\" - regexp=\"" + regexp + "\" - output=\"" + replacement + "\"");
         Pattern pattern = Pattern.compile(regexp);
         Matcher matcher = pattern.matcher(input);
         int count = 0;
@@ -128,8 +135,11 @@ public class MatcherDemo {
             System.out.println(count + ". start:" + matcher.start() + " - end:" + matcher.end() + " = \""
                     + input.substring(matcher.start(), matcher.end()) + "\"");
         }
-        System.out.println("output=\"" + input.replaceAll(regexp, replace) + "\"");
+        String actualOutput = input.replaceAll(regexp, replacement);
+        System.out.println("actualOutput=\"" + actualOutput + "\"");
+        System.out.println("expectedOutput=\"" + expectedOutput + "\"");
         System.out.println("-----------------------------------------------------");
+        Assert.assertEquals(expectedOutput, actualOutput);
     }
 
 }
