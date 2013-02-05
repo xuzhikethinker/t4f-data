@@ -31,7 +31,7 @@
   </parent>
   <modules>
     <module>avro</module>
-    <module>base</module>
+    <module>core</module>
     <module>json</module>
     <module>xml</module>
     <module>xsd</module>

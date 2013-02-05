@@ -32,7 +32,7 @@
   <dependencies>
     <dependency>
       <groupId>aos.t4f</groupId>
-      <artifactId>t4f-data-structure-base</artifactId>
+      <artifactId>t4f-data-structure-core</artifactId>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
