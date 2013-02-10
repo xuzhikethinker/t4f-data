@@ -20,31 +20,35 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  <artifactId>t4f-data-text</artifactId>
+  <name>T4F Data Text</name>
+  <packaging>jar</packaging>
   <parent>
     <groupId>aos.t4f</groupId>
-    <artifactId>t4f-parent</artifactId>
+    <artifactId>t4f-data</artifactId>
+    <relativePath>..</relativePath>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
-  <artifactId>t4f-data</artifactId>
-  <name>T4F Data</name>
-  <packaging>pom</packaging>
-  <modules>
-    <module>algorithm</module>
-    <module>analysis</module>
-    <module>cloud</module>
-    <module>coordination</module>
-    <module>format</module>
-    <module>game</module>
-    <module>graph</module>
-    <module>math</module>
-    <module>ml</module>
-    <module>models</module>
-    <module>nosql</module>
-    <module>parser</module>
-    <module>pubsub</module>
-    <module>search</module>
-    <module>structure</module>
-    <module>sql</module>
-    <module>text</module>
-  </modules>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.opennlp</groupId>
+      <artifactId>opennlp-tools</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>uk.ac.gate</groupId>
+	  <artifactId>gate-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.twitter</groupId>
+      <artifactId>twitter-text</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+  </dependencies>
 </project>
