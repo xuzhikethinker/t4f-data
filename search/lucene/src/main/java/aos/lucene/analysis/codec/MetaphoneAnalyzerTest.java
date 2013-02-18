@@ -18,90 +18,60 @@
  ****************************************************************/
 package aos.lucene.analysis.codec;
 
-/**
- * Copyright Manning Publications Co.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific lan      
-*/
+import java.io.IOException;
 
 import junit.framework.TestCase;
 
-import org.apache.lucene.util.Version;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.store.RAMDirectory;
+import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.StoredDocument;
+import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
-import org.apache.lucene.search.TopScoreDocCollector;
 import org.apache.lucene.search.TopDocs;
-import org.apache.lucene.queryParser.QueryParser;
-import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.TokenStream;
-import org.apache.lucene.analysis.tokenattributes.TermAttribute;
-import org.apache.lucene.analysis.tokenattributes.PositionIncrementAttribute;
+import org.apache.lucene.store.RAMDirectory;
+import org.apache.lucene.util.Version;
 
 import aos.lucene.analysis.AnalyzerUtils;
 
-import java.io.IOException;
-import java.io.StringReader;
-
-// From chapter 4
 public class MetaphoneAnalyzerTest extends TestCase {
-  public void testKoolKat() throws Exception {
-    RAMDirectory directory = new RAMDirectory();
-    Analyzer analyzer = new MetaphoneReplacementAnalyzer();
 
-    IndexWriter writer = new IndexWriter(directory, analyzer, true,
-                                         IndexWriter.MaxFieldLength.UNLIMITED);
+    public void testKoolKat() throws Exception {
 
-    Document doc = new Document();
-    doc.add(new Field("contents", //#A
-                      "cool cat",
-                      Field.Store.YES,
-                      Field.Index.ANALYZED));
-    writer.addDocument(doc);
-    writer.close();
+        RAMDirectory directory = new RAMDirectory();
+        Analyzer analyzer = new MetaphoneReplacementAnalyzer();
 
-    IndexSearcher searcher = new IndexSearcher(directory);
+        IndexWriter writer = new IndexWriter(directory, analyzer, true, IndexWriter.MaxFieldLength.UNLIMITED);
 
-    Query query = new QueryParser(Version.LUCENE_30,  //#B
-                                  "contents", analyzer)    //#B
-                              .parse("kool kat");          //#B
+        Document doc = new Document();
+        doc.add(new Field("contents", "cool cat", Field.Store.YES, Field.Index.ANALYZED));
+        writer.addDocument(doc);
+        writer.close();
 
-    TopDocs hits = searcher.search(query, 1);
-    assertEquals(1, hits.totalHits);   //#C
-    int docID = hits.scoreDocs[0].doc;
-    doc = searcher.doc(docID);
-    assertEquals("cool cat", doc.get("contents"));   //#D
+        IndexSearcher searcher = new IndexSearcher(directory);
 
-    searcher.close();
-  }
+        Query query = new QueryParser(Version.LUCENE_50, "contents", analyzer).parse("kool kat");
 
-  /*
-    #A Index document
-    #B Parse query text
-    #C Verify match
-    #D Retrieve original value
-  */
+        TopDocs hits = searcher.search(query, 1);
+        assertEquals(1, hits.totalHits);
+        int docID = hits.scoreDocs[0].doc;
+        StoredDocument storedDoc = searcher.doc(docID);
+        assertEquals("cool cat", storedDoc.get("contents"));
 
-  public static void main(String[] args) throws IOException {
-    MetaphoneReplacementAnalyzer analyzer =
-                                 new MetaphoneReplacementAnalyzer();
-    AnalyzerUtils.displayTokens(analyzer,
-                   "The quick brown fox jumped over the lazy dog");
+        searcher.close();
+    }
 
-    System.out.println("");
-    AnalyzerUtils.displayTokens(analyzer,
-                   "Tha quik brown phox jumpd ovvar tha lazi dag");
-  }
+    /*
+     * #A Index document #B Parse query text #C Verify match #D Retrieve
+     * original value
+     */
+    public static void main(String[] args) throws IOException {
+        MetaphoneReplacementAnalyzer analyzer = new MetaphoneReplacementAnalyzer();
+        AnalyzerUtils.displayTokens(analyzer, "The quick brown fox jumped over the lazy dog");
+
+        System.out.println("");
+        AnalyzerUtils.displayTokens(analyzer, "Tha quik brown phox jumpd ovvar tha lazi dag");
+    }
 }

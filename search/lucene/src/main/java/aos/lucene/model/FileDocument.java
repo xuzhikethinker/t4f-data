@@ -22,8 +22,14 @@ import java.io.File;
 
 import org.apache.lucene.document.Document;
 
-/** A utility for making Lucene Documents from a File. */
+/**
+ * A utility for making Lucene Documents from a File.
+ */
 public class FileDocument {
+
+    private FileDocument() {
+    }
+
     /**
      * Makes a document for a File.
      * <p>
@@ -45,16 +51,15 @@ public class FileDocument {
         // Add the path of the file as a field named "path". Use a field that is
         // indexed (i.e. searchable), but don't tokenize the field into words.
         // doc.add(new Field("path", f.getPath(), Field.Store.YES,
-        // Field.Index.NOT_ANALYZED));
+        // field.Index.NOT_ANALYZED));
 
         // Add the last modified date of the file a field named "modified". Use
         // a field that is indexed (i.e. searchable), but don't tokenize the
-        // field
-        // into words.
+        // field into words.
         // doc.add(new Field("modified",
-        // DateTools.timeToString(f.lastModified(),
-        // DateTools.Resolution.MINUTE),
-        // Field.Store.YES, Field.Index.NOT_ANALYZED));
+        // dateTools.timeToString(f.lastModified(),
+        // dateTools.Resolution.MINUTE),
+        // field.Store.YES, Field.Index.NOT_ANALYZED));
 
         // Add the contents of the file to a field named "contents". Specify a
         // Reader,
@@ -65,10 +70,8 @@ public class FileDocument {
         // If that's not the case searching for special characters will fail.
         // doc.add(new Field("contents", new FileReader(f)));
 
-        // return the document
         return doc;
+
     }
 
-    private FileDocument() {
-    }
 }

@@ -18,21 +18,6 @@
  ****************************************************************/
 package aos.lucene.search.simple2;
 
-/**
- * Copyright Manning Publications Co.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific lan      
-*/
-
 import junit.framework.TestCase;
 import org.apache.lucene.analysis.WhitespaceAnalyzer;
 import org.apache.lucene.document.Document;
@@ -55,13 +40,13 @@ public class PhraseQueryTest extends TestCase {
   protected void setUp() throws IOException {
     dir = new RAMDirectory();
     IndexWriter writer = new IndexWriter(dir,
-                                         new WhitespaceAnalyzer(),
+                                         new WhitespaceAnalyzer(Version.LUCENE_50),
                                          IndexWriter.MaxFieldLength.UNLIMITED);
     Document doc = new Document();
-    doc.add(new Field("field",                                    // 1
-              "the quick brown fox jumped over the lazy dog",     // 1
-              Field.Store.YES,                                    // 1
-              Field.Index.ANALYZED));                             // 1
+    doc.add(new Field("field",                                    
+              "the quick brown fox jumped over the lazy dog",     
+              Field.Store.YES,                                    
+              Field.Index.ANALYZED));                             
     writer.addDocument(doc);
     writer.close();
 
@@ -75,12 +60,12 @@ public class PhraseQueryTest extends TestCase {
 
   private boolean matched(String[] phrase, int slop)
       throws IOException {
-    PhraseQuery query = new PhraseQuery();              // 2
-    query.setSlop(slop);                                // 2
+    PhraseQuery query = new PhraseQuery();              
+    query.setSlop(slop);                                
 
-    for (String word : phrase) {             // 3
-      query.add(new Term("field", word));          // 3
-    }                                                   // 3
+    for (String word : phrase) {             
+      query.add(new Term("field", word));          
+    }                                                   
 
     TopDocs matches = searcher.search(query, 10);
     return matches.totalHits > 0;

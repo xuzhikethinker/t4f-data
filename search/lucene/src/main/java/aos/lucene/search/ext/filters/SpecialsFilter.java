@@ -37,14 +37,14 @@ public class SpecialsFilter extends Filter {
     public DocIdSet getDocIdSet(IndexReader reader) throws IOException {
         OpenBitSet bits = new OpenBitSet(reader.maxDoc());
 
-        String[] isbns = accessor.isbns(); // #1
+        String[] isbns = accessor.isbns(); //
 
         int[] docs = new int[1];
         int[] freqs = new int[1];
 
         for (String isbn : isbns) {
             if (isbn != null) {
-                TermDocs termDocs = reader.termDocs(new Term("isbn", isbn)); // #2
+                TermDocs termDocs = reader.termDocs(new Term("isbn", isbn)); //
                 int count = termDocs.read(docs, freqs);
                 if (count == 1) {
                     bits.set(docs[0]);
@@ -58,9 +58,9 @@ public class SpecialsFilter extends Filter {
     /*
      * #1 Fetch ISBNs #2 Jump to term #3 Set corresponding bit
      */
-
     @Override
     public String toString() {
         return "SpecialsFilter";
     }
+
 }

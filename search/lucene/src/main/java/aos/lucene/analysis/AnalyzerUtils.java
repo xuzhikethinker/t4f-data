@@ -29,19 +29,21 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
 import org.apache.lucene.analysis.tokenattributes.PositionIncrementAttribute;
 import org.apache.lucene.analysis.tokenattributes.TypeAttribute;
+import org.apache.lucene.analysis.tokenattributes.TypeAttributeImpl;
 import org.apache.lucene.util.AttributeSource;
 import org.apache.lucene.util.Version;
 
 public class AnalyzerUtils {
+
     public static void displayTokens(Analyzer analyzer, String text) throws IOException {
-        displayTokens(analyzer.tokenStream("contents", new StringReader(text))); // A
+        displayTokens(analyzer.tokenStream("contents", new StringReader(text)));
     }
 
     public static void displayTokens(TokenStream stream) throws IOException {
 
-        TermAttribute term = stream.addAttribute(TermAttribute.class);
+        AttributeSource term = stream.addAttribute(AttributeSource.class);
         while (stream.incrementToken()) {
-            System.out.print("[" + term.term() + "] "); // B
+            System.out.print("[" + term.term() + "] ");
         }
     }
 
@@ -55,12 +57,12 @@ public class AnalyzerUtils {
     }
 
     public static String getTerm(AttributeSource source) {
-        TermAttribute attr = source.addAttribute(TermAttribute.class);
-        return attr.term();
+        TypeAttributeImpl attr = source.addAttribute(TypeAttributeImpl.class);
+        return attr.type();
     }
 
     public static String getType(AttributeSource source) {
-        TypeAttribute attr = source.addAttribute(TypeAttribute.class);
+        TypeAttributeImpl attr = source.addAttribute(TypeAttributeImpl.class);
         return attr.type();
     }
 
@@ -135,6 +137,7 @@ public class AnalyzerUtils {
      */
 
     public static void assertAnalyzesTo(Analyzer analyzer, String input, String[] output) throws Exception {
+
         TokenStream stream = analyzer.tokenStream("field", new StringReader(input));
 
         TermAttribute termAttr = stream.addAttribute(TermAttribute.class);
@@ -142,8 +145,10 @@ public class AnalyzerUtils {
             Assert.assertTrue(stream.incrementToken());
             Assert.assertEquals(expected, termAttr.term());
         }
+
         Assert.assertFalse(stream.incrementToken());
         stream.close();
+
     }
 
     public static void displayPositionIncrements(Analyzer analyzer, String text) throws IOException {
@@ -160,7 +165,7 @@ public class AnalyzerUtils {
 
         System.out.println("\n----");
         System.out.println("StandardAnalyzer");
-        displayTokensWithFullDetails(new StandardAnalyzer(Version.LUCENE_30), "I'll email you at xyz@example.com");
+        displayTokensWithFullDetails(new StandardAnalyzer(Version.LUCENE_50), "I'll email you at xyz@example.com");
     }
 }
 

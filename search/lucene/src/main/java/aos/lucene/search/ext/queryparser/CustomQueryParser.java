@@ -18,21 +18,6 @@
  ****************************************************************/
 package aos.lucene.search.ext.queryparser;
 
-/**
- * Copyright Manning Publications Co.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific lan      
-*/
-
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.ParseException;
@@ -62,21 +47,21 @@ public class CustomQueryParser extends QueryParser {
    * phrase matching rather than reverse.
    */
   protected Query getFieldQuery(String field, String queryText, int slop) throws ParseException {
-    Query orig = super.getFieldQuery(field, queryText, slop);  // #1
+    Query orig = super.getFieldQuery(field, queryText, slop);  //
 
-    if (!(orig instanceof PhraseQuery)) {         // #2
-      return orig;                                // #2
-    }                                             // #2
+    if (!(orig instanceof PhraseQuery)) {         //
+      return orig;                                //
+    }                                             //
 
     PhraseQuery pq = (PhraseQuery) orig;
-    Term[] terms = pq.getTerms();                 // #3
+    Term[] terms = pq.getTerms();                 //
     SpanTermQuery[] clauses = new SpanTermQuery[terms.length];
     for (int i = 0; i < terms.length; i++) {
       clauses[i] = new SpanTermQuery(terms[i]);
     }
 
-    SpanNearQuery query = new SpanNearQuery(      // #4
-                    clauses, slop, true);         // #4
+    SpanNearQuery query = new SpanNearQuery(      //
+                    clauses, slop, true);         //
 
     return query;
   }

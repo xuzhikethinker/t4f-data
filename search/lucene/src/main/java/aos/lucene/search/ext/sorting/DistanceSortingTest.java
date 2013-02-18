@@ -18,21 +18,6 @@
  ****************************************************************/
 package aos.lucene.search.ext.sorting;
 
-/**
- * Copyright Manning Publications Co.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific lan      
-*/
-
 import junit.framework.TestCase;
 import org.apache.lucene.analysis.WhitespaceAnalyzer;
 import org.apache.lucene.document.Document;
@@ -61,7 +46,7 @@ public class DistanceSortingTest extends TestCase {
   protected void setUp() throws Exception {
     directory = new RAMDirectory();
     IndexWriter writer =
-        new IndexWriter(directory, new WhitespaceAnalyzer(),
+        new IndexWriter(directory, new WhitespaceAnalyzer(Version.LUCENE_50),
                         IndexWriter.MaxFieldLength.UNLIMITED);
     addPoint(writer, "El Charro", "restaurant", 1, 2);
     addPoint(writer, "Cafe Poca Cosa", "restaurant", 5, 9);
@@ -102,18 +87,18 @@ public class DistanceSortingTest extends TestCase {
     Sort sort = new Sort(new SortField("unused",
         new DistanceComparatorSource(10, 10)));
 
-    TopFieldDocs docs = searcher.search(query, null, 3, sort);  // #1
+    TopFieldDocs docs = searcher.search(query, null, 3, sort);  //
 
-    assertEquals(4, docs.totalHits);              // #2
-    assertEquals(3, docs.scoreDocs.length);       // #3
+    assertEquals(4, docs.totalHits);              //
+    assertEquals(3, docs.scoreDocs.length);       //
 
-    FieldDoc fieldDoc = (FieldDoc) docs.scoreDocs[0];     // #4
+    FieldDoc fieldDoc = (FieldDoc) docs.scoreDocs[0];     //
 
     assertEquals("(10,10) -> (9,6) = sqrt(17)",
         new Float(Math.sqrt(17)),
-        fieldDoc.fields[0]);                         // #5
+        fieldDoc.fields[0]);                         //
 
-    Document document = searcher.doc(fieldDoc.doc);  // #6
+    Document document = searcher.doc(fieldDoc.doc);  //
     assertEquals("Los Betos", document.get("name"));
 
     //dumpDocs(sort, docs);
@@ -134,7 +119,7 @@ public class DistanceSortingTest extends TestCase {
     for (int i = 0; i < scoreDocs.length; i++) {
       FieldDoc fieldDoc = (FieldDoc) scoreDocs[i];
       Float distance = (Float) fieldDoc.fields[0];
-      Document doc = searcher.doc(fieldDoc.doc);
+      StoredDocument doc = searcher.doc(fieldDoc.doc);
       System.out.println("   " + doc.get("name") +
                          " @ (" + doc.get("x") + "," + doc.get("y") + ") -> " + distance);
     }

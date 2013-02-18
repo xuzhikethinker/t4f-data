@@ -20,6 +20,8 @@ package aos.lucene.admin;
 
 import java.io.IOException;
 
+import org.apache.lucene.index.AtomicReader;
+import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.search.IndexSearcher;
@@ -27,35 +29,37 @@ import org.apache.lucene.store.Directory;
 
 /**
  * Utility class to get/refresh searchers when you are using multiple threads.
+ * 
+ * #A Current IndexSearcher #B Create searcher from Directory #C Create searcher
+ * from near-real-time reader #D Implement in subclass #E Reopen searcher #F
+ * Returns current searcher #G Release searcher
  */
 public class SearcherManager {
 
-    private IndexSearcher currentSearcher; // A
+    private IndexSearcher currentSearcher;
     private IndexWriter writer;
 
-    public SearcherManager(Directory dir) throws IOException { // 1
-        currentSearcher = new IndexSearcher(IndexReader.open(dir)); // B
+    public SearcherManager(Directory dir) throws IOException {
+        currentSearcher = new IndexSearcher(DirectoryReader.open(dir));
         warm(currentSearcher);
     }
 
     public SearcherManager(IndexWriter writer) throws IOException {
 
         this.writer = writer;
-        currentSearcher = new IndexSearcher(writer.getReader()); // C
+        IndexReader reader = DirectoryReader.open(writer.getDirectory());
+        currentSearcher = new IndexSearcher(reader);
         warm(currentSearcher);
-
-        writer.setMergedSegmentWarmer( // 3
-        new IndexWriter.IndexReaderWarmer() { // 3
-            public void warm(IndexReader reader) throws IOException { // 3
-                SearcherManager.this.warm(new IndexSearcher(reader)); // 3
-            } // 3
-        }); // 3
+        
+        writer.getConfig().setMergedSegmentWarmer(new IndexWriter.IndexReaderWarmer() {
+            public void warm(AtomicReader reader) throws IOException {
+                SearcherManager.this.warm(new IndexSearcher(reader));
+            }
+        });
     }
 
-    public void warm(IndexSearcher searcher) // D
-            throws IOException // D
-    {
-    } // D
+    public void warm(IndexSearcher searcher) throws IOException {
+    }
 
     private boolean reopening;
 
@@ -71,9 +75,7 @@ public class SearcherManager {
         notifyAll();
     }
 
-    public void maybeReopen() // E
-            throws InterruptedException, // E
-            IOException { // E
+    public void maybeReopen() throws InterruptedException, IOException {
 
         startReopen();
 
@@ -98,13 +100,12 @@ public class SearcherManager {
         }
     }
 
-    public synchronized IndexSearcher get() { // F
+    public synchronized IndexSearcher get() {
         currentSearcher.getIndexReader().incRef();
         return currentSearcher;
     }
 
-    public synchronized void release(IndexSearcher searcher) // G
-            throws IOException {
+    public synchronized void release(IndexSearcher searcher) throws IOException {
         searcher.getIndexReader().decRef();
     }
 
@@ -116,10 +117,5 @@ public class SearcherManager {
     public void close() throws IOException {
         swapSearcher(null);
     }
-}
 
-/*
- * #A Current IndexSearcher #B Create searcher from Directory #C Create searcher
- * from near-real-time reader #D Implement in subclass #E Reopen searcher #F
- * Returns current searcher #G Release searcher
- */
+}

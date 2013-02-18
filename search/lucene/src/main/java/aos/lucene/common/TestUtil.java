@@ -21,7 +21,7 @@ package aos.lucene.common;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.lucene.document.Document;
+import org.apache.lucene.index.StoredDocument;
 import org.apache.lucene.search.Filter;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
@@ -34,7 +34,7 @@ public class TestUtil {
 
     public static boolean hitsIncludeTitle(IndexSearcher searcher, TopDocs hits, String title) throws IOException {
         for (ScoreDoc match : hits.scoreDocs) {
-            Document doc = searcher.doc(match.doc);
+            StoredDocument doc = searcher.doc(match.doc);
             if (title.equals(doc.get("title"))) {
                 return true;
             }
@@ -57,7 +57,7 @@ public class TestUtil {
         }
 
         for (ScoreDoc match : hits.scoreDocs) {
-            Document doc = searcher.doc(match.doc);
+            StoredDocument doc = searcher.doc(match.doc);
             System.out.println(match.score + ":" + doc.get("title"));
         }
     }
@@ -78,4 +78,5 @@ public class TestUtil {
             dir.delete();
         }
     }
+
 }

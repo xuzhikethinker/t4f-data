@@ -63,8 +63,16 @@
       <artifactId>tika-core</artifactId>
     </dependency>
     <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+    </dependency>
+    <dependency>
       <groupId>commons-digester</groupId>
       <artifactId>commons-digester</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.sleepycat</groupId>
+      <artifactId>je</artifactId>
+    </dependency>    
   </dependencies>
 </project>

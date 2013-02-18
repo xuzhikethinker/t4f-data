@@ -18,21 +18,6 @@
  ****************************************************************/
 package aos.lucene.search.advanced;
 
-/**
- * Copyright Manning Publications Co.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific lan      
-*/
-
 import junit.framework.TestCase;
 
 import java.util.Date;
@@ -83,7 +68,7 @@ public class FunctionQueryTest extends TestCase {
     Directory dir = new RAMDirectory();
     w = new IndexWriter(dir,
                         new StandardAnalyzer(
-                                 Version.LUCENE_30),
+                                 Version.LUCENE_50),
                         IndexWriter.MaxFieldLength.UNLIMITED);
     addDoc(7, "this hat is green");
     addDoc(42, "this hat is blue");
@@ -100,8 +85,8 @@ public class FunctionQueryTest extends TestCase {
   public void testFieldScoreQuery() throws Throwable {
     Query q = new FieldScoreQuery("score", FieldScoreQuery.Type.BYTE);
     TopDocs hits = s.search(q, 10);
-    assertEquals(2, hits.scoreDocs.length);       // #1
-    assertEquals(1, hits.scoreDocs[0].doc);       // #2
+    assertEquals(2, hits.scoreDocs.length);       //
+    assertEquals(1, hits.scoreDocs[0].doc);       //
     assertEquals(42, (int) hits.scoreDocs[0].score);
     assertEquals(0, hits.scoreDocs[1].doc);
     assertEquals(7, (int) hits.scoreDocs[1].score);
@@ -114,10 +99,10 @@ public class FunctionQueryTest extends TestCase {
   */
 
   public void testCustomScoreQuery() throws Throwable {
-    Query q = new QueryParser(Version.LUCENE_30,
+    Query q = new QueryParser(Version.LUCENE_50,
                               "content",
                               new StandardAnalyzer(
-                                Version.LUCENE_30))
+                                Version.LUCENE_50))
                  .parse("the green hat");
     FieldScoreQuery qf = new FieldScoreQuery("score",
                                              FieldScoreQuery.Type.BYTE);
@@ -136,7 +121,7 @@ public class FunctionQueryTest extends TestCase {
     TopDocs hits = s.search(customQ, 10);
     assertEquals(2, hits.scoreDocs.length);
     
-    assertEquals(1, hits.scoreDocs[0].doc);           // #1
+    assertEquals(1, hits.scoreDocs[0].doc);           //
     assertEquals(0, hits.scoreDocs[1].doc);
   }
 
@@ -201,15 +186,15 @@ public class FunctionQueryTest extends TestCase {
 
   public void testRecency() throws Throwable {
     Directory dir = TestUtil.getBookIndexDirectory();
-    IndexReader r = IndexReader.open(dir);
+    IndexReader r = DirectoryReader.open(dir);
     IndexSearcher s = new IndexSearcher(r);
     s.setDefaultFieldSortScoring(true, true);
 
     QueryParser parser = new QueryParser(
-                            Version.LUCENE_30,
+                            Version.LUCENE_50,
                             "contents",
                             new StandardAnalyzer(
-                              Version.LUCENE_30));
+                              Version.LUCENE_50));
     Query q = parser.parse("java in action");       // #A
     Query q2 = new RecencyBoostingQuery(q,          // #B
                                         2.0, 2*365,

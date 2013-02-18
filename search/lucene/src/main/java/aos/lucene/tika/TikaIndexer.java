@@ -44,17 +44,17 @@ import aos.lucene.intro.Indexer;
 
 public class TikaIndexer extends Indexer {
 
-    private final boolean DEBUG = false; // 1
+    private final boolean DEBUG = false; 
 
-    static Set<String> textualMetadataFields // 2
-    = new HashSet<String>(); // 2
-    static { // 2
-        textualMetadataFields.add(Metadata.TITLE); // 2
-        textualMetadataFields.add(Metadata.AUTHOR); // 2
-        textualMetadataFields.add(Metadata.COMMENTS); // 2
-        textualMetadataFields.add(Metadata.KEYWORDS); // 2
-        textualMetadataFields.add(Metadata.DESCRIPTION); // 2
-        textualMetadataFields.add(Metadata.SUBJECT); // 2
+    static Set<String> textualMetadataFields 
+    = new HashSet<String>(); 
+    static { 
+        textualMetadataFields.add(Metadata.TITLE); 
+        textualMetadataFields.add(Metadata.AUTHOR); 
+        textualMetadataFields.add(Metadata.COMMENTS); 
+        textualMetadataFields.add(Metadata.KEYWORDS); 
+        textualMetadataFields.add(Metadata.DESCRIPTION); 
+        textualMetadataFields.add(Metadata.SUBJECT); 
     }
 
     public static void main(String[] args) throws Exception {
@@ -62,15 +62,15 @@ public class TikaIndexer extends Indexer {
             throw new IllegalArgumentException("Usage: java " + TikaIndexer.class.getName() + " <index dir> <data dir>");
         }
 
-        TikaConfig config = TikaConfig.getDefaultConfig(); // 3
-        List<String> parsers = new ArrayList<String>(config.getParsers().keySet()); // 3
-        Collections.sort(parsers); // 3
-        Iterator<String> it = parsers.iterator(); // 3
-        System.out.println("Mime type parsers:"); // 3
-        while (it.hasNext()) { // 3
-            System.out.println("  " + it.next()); // 3
-        } // 3
-        System.out.println(); // 3
+        TikaConfig config = TikaConfig.getDefaultConfig(); 
+        List<String> parsers = new ArrayList<String>(config.getParsers().keySet()); 
+        Collections.sort(parsers); 
+        Iterator<String> it = parsers.iterator(); 
+        System.out.println("Mime type parsers:"); 
+        while (it.hasNext()) { 
+            System.out.println("  " + it.next()); 
+        } 
+        System.out.println(); 
 
         String indexDir = args[0];
         String dataDir = args[1];
@@ -92,7 +92,7 @@ public class TikaIndexer extends Indexer {
     protected Document getDocument(File f) throws Exception {
 
         Metadata metadata = new Metadata();
-        metadata.set(Metadata.RESOURCE_NAME_KEY, f.getName()); // 4
+        metadata.set(Metadata.RESOURCE_NAME_KEY, f.getName()); 
 
         // If you know content type (eg because this document
         // was loaded from an HTTP server), then you should also
@@ -102,15 +102,15 @@ public class TikaIndexer extends Indexer {
         // document was loaded from an HTTP server), then you
         // should also set Metadata.CONTENT_ENCODING
 
-        InputStream is = new FileInputStream(f); // 5
-        Parser parser = new AutoDetectParser(); // 6
-        ContentHandler handler = new BodyContentHandler(); // 7
-        ParseContext context = new ParseContext(); // 8
-        context.set(Parser.class, parser); // 8
+        InputStream is = new FileInputStream(f); 
+        Parser parser = new AutoDetectParser(); 
+        ContentHandler handler = new BodyContentHandler(); 
+        ParseContext context = new ParseContext(); 
+        context.set(Parser.class, parser); 
 
         try {
-            parser.parse(is, handler, metadata, // 9
-                    new ParseContext()); // 9
+            parser.parse(is, handler, metadata, 
+                    new ParseContext()); 
         }
         finally {
             is.close();
@@ -118,22 +118,22 @@ public class TikaIndexer extends Indexer {
 
         Document doc = new Document();
 
-        doc.add(new Field("contents", handler.toString(), // 10
-                Field.Store.NO, Field.Index.ANALYZED)); // 10
+        doc.add(new Field("contents", handler.toString(), 0
+                Field.Store.NO, Field.Index.ANALYZED)); 0
 
         if (DEBUG) {
             System.out.println("  all text: " + handler.toString());
         }
 
-        for (String name : metadata.names()) { // 11
+        for (String name : metadata.names()) { 1
             String value = metadata.get(name);
 
             if (textualMetadataFields.contains(name)) {
-                doc.add(new Field("contents", value, // 12
+                doc.add(new Field("contents", value, 2
                         Field.Store.NO, Field.Index.ANALYZED));
             }
 
-            doc.add(new Field(name, value, Field.Store.YES, Field.Index.NO)); // 13
+            doc.add(new Field(name, value, Field.Store.YES, Field.Index.NO)); 3
 
             if (DEBUG) {
                 System.out.println("  " + name + ": " + value);
@@ -144,7 +144,7 @@ public class TikaIndexer extends Indexer {
             System.out.println();
         }
 
-        doc.add(new Field("filename", f.getCanonicalPath(), // 14
+        doc.add(new Field("filename", f.getCanonicalPath(), 4
                 Field.Store.YES, Field.Index.NOT_ANALYZED));
 
         return doc;

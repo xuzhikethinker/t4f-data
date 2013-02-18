@@ -18,21 +18,6 @@
  ****************************************************************/
 package aos.lucene.search.advanced;
 
-/**
- * Copyright Manning Publications Co.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific lan      
-*/
-
 import junit.framework.TestCase;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
@@ -82,7 +67,7 @@ public class SpanQueryTest extends TestCase {
   protected void setUp() throws Exception {
     directory = new RAMDirectory();
 
-    analyzer = new WhitespaceAnalyzer();
+    analyzer = new WhitespaceAnalyzer(Version.LUCENE_50);
     IndexWriter writer = new IndexWriter(directory,
                                          analyzer,
                                          IndexWriter.MaxFieldLength.UNLIMITED);
@@ -150,15 +135,15 @@ public class SpanQueryTest extends TestCase {
     SpanQuery[] quick_brown_dog =
         new SpanQuery[]{quick, brown, dog};
     SpanNearQuery snq =
-      new SpanNearQuery(quick_brown_dog, 0, true);                // #1
+      new SpanNearQuery(quick_brown_dog, 0, true);                //
     assertNoMatches(snq);
     dumpSpans(snq);
 
-    snq = new SpanNearQuery(quick_brown_dog, 4, true);            // #2
+    snq = new SpanNearQuery(quick_brown_dog, 4, true);            //
     assertNoMatches(snq);
     dumpSpans(snq);
 
-    snq = new SpanNearQuery(quick_brown_dog, 5, true);            // #3
+    snq = new SpanNearQuery(quick_brown_dog, 5, true);            //
     assertOnlyBrownFox(snq);
     dumpSpans(snq);
 
@@ -168,14 +153,14 @@ public class SpanQueryTest extends TestCase {
     assertOnlyBrownFox(snq);
     dumpSpans(snq);
 
-    PhraseQuery pq = new PhraseQuery();                           // #5
-    pq.add(new Term("f", "lazy"));                                // #5
-    pq.add(new Term("f", "fox"));                                 // #5
-    pq.setSlop(4);                                                // #5
+    PhraseQuery pq = new PhraseQuery();                           //
+    pq.add(new Term("f", "lazy"));                                //
+    pq.add(new Term("f", "fox"));                                 //
+    pq.setSlop(4);                                                //
     assertNoMatches(pq);
 
-    pq.setSlop(5);                                                // #6
-    assertOnlyBrownFox(pq);                                       // #6
+    pq.setSlop(5);                                                //
+    assertOnlyBrownFox(pq);                                       //
   }
 
   /*
@@ -270,27 +255,27 @@ public class SpanQueryTest extends TestCase {
       scores[sd.doc] = sd.score;
     }
 
-    while (spans.next()) {                 // A
+    while (spans.next()) {                 
       numSpans++;
 
       int id = spans.doc();
-      Document doc = reader.document(id);  // B
+      Document doc = reader.document(id);  
 
-      TokenStream stream = analyzer.tokenStream("contents",      // C
-                              new StringReader(doc.get("f")));   // C
+      TokenStream stream = analyzer.tokenStream("contents",     
+                              new StringReader(doc.get("f")));  
       TermAttribute term = stream.addAttribute(TermAttribute.class);
       
       StringBuilder buffer = new StringBuilder();
       buffer.append("   ");
       int i = 0;
-      while(stream.incrementToken()) {     // D
-        if (i == spans.start()) {          // E
-          buffer.append("<");              // E
-        }                                  // E
-        buffer.append(term.term());        // E
-        if (i + 1 == spans.end()) {        // E
-          buffer.append(">");              // E
-        }                                  // E
+      while(stream.incrementToken()) {    
+        if (i == spans.start()) {         
+          buffer.append("<");             
+        }                                 
+        buffer.append(term.term());       
+        if (i + 1 == spans.end()) {       
+          buffer.append(">");             
+        }                                 
         buffer.append(" ");
         i++;
       }
@@ -304,9 +289,9 @@ public class SpanQueryTest extends TestCase {
     System.out.println();
   }
 
-  // A Step through each span
-  // B Retrieve document
-  // C Re-analyze text
-  // D Step through all tokens
-  // E Print < and > around span
+   Step through each span
+   Retrieve document
+  Re-analyze text
+  Step through all tokens
+  Print < and > around span
 }

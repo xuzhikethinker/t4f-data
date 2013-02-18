@@ -23,23 +23,27 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.DateTools;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
+import org.apache.lucene.document.StoredField;
 import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.IOContext;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
 
-/** Just to test the code compiles. */
-class Fragments {
+import aos.lucene.analyser.AosAnalyser;
+import aos.lucene.analysis.SimpleAnalyzer;
+
+public class Fragments {
 
     public static void indexNumbersMethod() {
-        new Field("size", "4096", Field.Store.YES, Field.Index.NOT_ANALYZED);
-        new Field("price", "10.99", Field.Store.YES, Field.Index.NOT_ANALYZED);
-        new Field("author", "Arthur C. Clark", Field.Store.YES, Field.Index.NOT_ANALYZED);
+        new StoredField("size", 4096);
+        new StoredField("price", 10.99);
+        new StoredField("author", "Arthur C. Clark");
     }
 
     public static final String COMPANY_DOMAIN = "example.com";
@@ -74,39 +78,35 @@ class Fragments {
     }
 
     public void ramDirExample() throws Exception {
-        Analyzer analyzer = new WhitespaceAnalyzer();
-        // START
         Directory ramDir = new RAMDirectory();
-        IndexWriter writer = new IndexWriter(ramDir, analyzer, IndexWriter.MaxFieldLength.UNLIMITED);
-        // END
+        IndexWriter writer = new IndexWriter(ramDir, AosAnalyser.NO_LIMIT_TOKEN_COUNT_WHITE_SPACE_ANALYSER);
+
     }
 
     public void dirCopy() throws Exception {
         Directory otherDir = null;
 
-        // START
-        Directory ramDir = new RAMDirectory(otherDir);
-        // END
+        Directory ramDir = new RAMDirectory(otherDir, new IOContext());
+
     }
 
     public void addIndexes() throws Exception {
+
         Directory otherDir = null;
         Directory ramDir = null;
         Analyzer analyzer = null;
 
-        // START
-        IndexWriter writer = new IndexWriter(otherDir, analyzer, IndexWriter.MaxFieldLength.UNLIMITED);
-        writer.addIndexesNoOptimize(new Directory[] { ramDir });
-        // END
+        IndexWriter writer = new IndexWriter(otherDir, new IndexWriterConfig(Version.LUCENE_50, new SimpleAnalyzer()));
+        writer.addIndexes(new Directory[] { ramDir });
+
     }
 
     public void docBoostMethod() throws IOException {
 
         Directory dir = new RAMDirectory();
-        IndexWriter writer = new IndexWriter(dir, new StandardAnalyzer(Version.LUCENE_30),
+        IndexWriter writer = new IndexWriter(dir, new StandardAnalyzer(Version.LUCENE_50),
                 IndexWriter.MaxFieldLength.UNLIMITED);
 
-        // START
         Document doc = new Document();
         String senderEmail = getSenderEmail();
         String senderName = getSenderName();
@@ -118,13 +118,13 @@ class Fragments {
         doc.add(new Field("body", body, Field.Store.NO, Field.Index.ANALYZED));
         String lowerDomain = getSenderDomain().toLowerCase();
         if (isImportant(lowerDomain)) {
-            doc.setBoost(1.5F); // 1
+            doc.setBoost(1.5F);
         }
         else if (isUnimportant(lowerDomain)) {
-            doc.setBoost(0.1F); // 2
+            doc.setBoost(0.1F);
         }
         writer.addDocument(doc);
-        // END
+
         writer.close();
 
         /*
@@ -137,44 +137,39 @@ class Fragments {
         String senderName = getSenderName();
         String subject = getSubject();
 
-        // START
         Field subjectField = new Field("subject", subject, Field.Store.YES, Field.Index.ANALYZED);
         subjectField.setBoost(1.2F);
-        // END
+
     }
 
     public void numberField() {
         Document doc = new Document();
-        // START
+
         doc.add(new NumericField("price").setDoubleValue(19.99));
-        // END
+
     }
 
     public void numberTimestamp() {
         Document doc = new Document();
-        // START
         doc.add(new NumericField("timestamp").setLongValue(new Date().getTime()));
-        // END
 
-        // START
         doc.add(new NumericField("day").setIntValue((int) (new Date().getTime() / 24 / 3600)));
-        // END
 
         Date date = new Date();
-        // START
+
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         doc.add(new NumericField("dayOfMonth").setIntValue(cal.get(Calendar.DAY_OF_MONTH)));
-        // END
+
     }
 
     public void setInfoStream() throws Exception {
         Directory dir = null;
         Analyzer analyzer = null;
-        // START
+
         IndexWriter writer = new IndexWriter(dir, analyzer, true, IndexWriter.MaxFieldLength.UNLIMITED);
         writer.setInfoStream(System.out);
-        // END
+
     }
 
     public void dateMethod() {
@@ -201,12 +196,14 @@ class Fragments {
     }
 
     public void indexAuthors() throws Exception {
+
         String[] authors = new String[] { "lisa", "tom" };
-        // START
+
         Document doc = new Document();
         for (String author : authors) {
             doc.add(new Field("author", author, Field.Store.YES, Field.Index.ANALYZED));
         }
-        // END
+
     }
+
 }

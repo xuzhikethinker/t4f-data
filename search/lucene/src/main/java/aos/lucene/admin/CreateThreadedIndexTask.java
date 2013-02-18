@@ -24,28 +24,29 @@ import org.apache.lucene.benchmark.byTask.PerfRunData;
 import org.apache.lucene.benchmark.byTask.tasks.CreateIndexTask;
 import org.apache.lucene.benchmark.byTask.utils.Config;
 import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.util.Version;
 
-/** A task that you can use from a contrib/benchmark
- *  algorithm to create a ThreadedIndexWriter. */
-
+/**
+ * A task that you can use from a contrib/benchmark algorithm to create a
+ * ThreadedIndexWriter.
+ */
 public class CreateThreadedIndexTask extends CreateIndexTask {
 
-  public CreateThreadedIndexTask(PerfRunData runData) {
-    super(runData);
-  }
+    public CreateThreadedIndexTask(PerfRunData runData) {
+        super(runData);
+    }
 
-  public int doLogic() throws IOException {
-    PerfRunData runData = getRunData();
-    Config config = runData.getConfig();
-    IndexWriter writer = new ThreadedIndexWriter(
-                                runData.getDirectory(),
-                                runData.getAnalyzer(),
-                                true,
-                                config.get("writer.num.threads", 4),
-                                config.get("writer.max.thread.queue.size", 20),        
-                                IndexWriter.MaxFieldLength.UNLIMITED);
-    CreateIndexTask.setIndexWriterConfig(writer, config);
-    runData.setIndexWriter(writer);
-    return 1;
-  }
+    @Override
+    public int doLogic() throws IOException {
+        PerfRunData runData = getRunData();
+        Config config = runData.getConfig();
+        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_50, runData.getAnalyzer());
+        IndexWriter writer = new ThreadedIndexWriter(runData.getDirectory(), conf, true, config.get(
+                "writer.num.threads", 4), config.get("writer.max.thread.queue.size", 20));
+        // CreateIndexTask.configureWriter(writer, config);
+        runData.setIndexWriter(writer);
+        return 1;
+    }
+
 }

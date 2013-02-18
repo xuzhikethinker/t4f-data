@@ -18,21 +18,6 @@
  ****************************************************************/
 package aos.lucene.search.simple2;
 
-/**
- * Copyright Manning Publications Co.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific lan      
-*/
-
 import junit.framework.TestCase;
 
 import org.apache.lucene.index.Term;
@@ -79,19 +64,19 @@ public class BooleanQueryTest extends TestCase {
 */
 
   public void testOr() throws Exception {
-    TermQuery methodologyBooks = new TermQuery(                       // #1
-               new Term("category",                                   // #1
-                 "/technology/computers/programming/methodology"));   // #1
+    TermQuery methodologyBooks = new TermQuery(                       //
+               new Term("category",                                   //
+                 "/technology/computers/programming/methodology"));   //
 
-    TermQuery easternPhilosophyBooks = new TermQuery(                 // #2
-        new Term("category",                                          // #2
-            "/philosophy/eastern"));                                  // #2
+    TermQuery easternPhilosophyBooks = new TermQuery(                 //
+        new Term("category",                                          //
+            "/philosophy/eastern"));                                  //
 
-    BooleanQuery enlightenmentBooks = new BooleanQuery();             // #3
-    enlightenmentBooks.add(methodologyBooks,                          // #3
-                           BooleanClause.Occur.SHOULD);               // #3
-    enlightenmentBooks.add(easternPhilosophyBooks,                    // #3
-                           BooleanClause.Occur.SHOULD);               // #3
+    BooleanQuery enlightenmentBooks = new BooleanQuery();             //
+    enlightenmentBooks.add(methodologyBooks,                          //
+                           BooleanClause.Occur.SHOULD);               //
+    enlightenmentBooks.add(easternPhilosophyBooks,                    //
+                           BooleanClause.Occur.SHOULD);               //
 
     Directory dir = TestUtil.getBookIndexDirectory();
     IndexSearcher searcher = new IndexSearcher(dir);

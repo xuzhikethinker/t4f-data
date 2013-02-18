@@ -46,7 +46,13 @@ public class SaxXmlDocument extends DefaultHandler {
 
     private Document doc;
 
-    public Document getDocument(InputStream is) // #1
+    public static void main(String... args) throws Exception {
+        SaxXmlDocument handler = new SaxXmlDocument();
+        Document doc = handler.getDocument(new FileInputStream(new File(args[0])));
+        System.out.println(doc);
+    }
+
+    public Document getDocument(InputStream is) //
             throws DocumentHandlerException {
 
         SAXParserFactory spf = SAXParserFactory.newInstance();
@@ -62,14 +68,14 @@ public class SaxXmlDocument extends DefaultHandler {
     }
 
     @Override
-    public void startDocument() { // #2
+    public void startDocument() { //
         doc = new Document();
     }
 
     @Override
-    public void startElement(String uri, String localName, // #3
-            String qName, Attributes atts) // #3
-            throws SAXException { // #3
+    public void startElement(String uri, String localName, //
+            String qName, Attributes atts) //
+            throws SAXException { //
 
         elementBuffer.setLength(0);
         attributeMap.clear();
@@ -82,12 +88,12 @@ public class SaxXmlDocument extends DefaultHandler {
     }
 
     @Override
-    public void characters(char[] text, int start, int length) { // #4
+    public void characters(char[] text, int start, int length) { //
         elementBuffer.append(text, start, length);
     }
 
     @Override
-    public void endElement(String uri, String localName, String qName) // #5
+    public void endElement(String uri, String localName, String qName) //
             throws SAXException {
         if (qName.equals("address-book")) {
             return;
@@ -104,9 +110,4 @@ public class SaxXmlDocument extends DefaultHandler {
         }
     }
 
-    public static void main(String... args) throws Exception {
-        SaxXmlDocument handler = new SaxXmlDocument();
-        Document doc = handler.getDocument(new FileInputStream(new File(args[0])));
-        System.out.println(doc);
-    }
 }

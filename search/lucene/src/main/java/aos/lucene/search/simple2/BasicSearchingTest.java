@@ -22,10 +22,11 @@ import java.io.File;
 
 import junit.framework.TestCase;
 
-import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.index.StoredDocument;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.TermQuery;
@@ -34,8 +35,12 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 
+import aos.lucene.analysis.SimpleAnalyzer;
 import aos.lucene.common.TestUtil;
 
+/**
+ * #A Create QueryParser #B Parse user's text
+ */
 public class BasicSearchingTest extends TestCase {
 
     public void testTerm() throws Exception {
@@ -47,24 +52,20 @@ public class BasicSearchingTest extends TestCase {
         Term t = new Term("subject", "ant");
         Query query = new TermQuery(t);
         TopDocs docs = searcher.search(query, 10);
-        assertEquals("Ant in Action", // C
-                1, docs.totalHits); // C
+        assertEquals("Ant in Action", 1, docs.totalHits);
 
         t = new Term("subject", "junit");
         docs = searcher.search(new TermQuery(t), 10);
-        assertEquals("Ant in Action, " + // D
-                "JUnit in Action, Second Edition", // D
-                2, docs.totalHits); // D
+        assertEquals("Ant in Action, " + "JUnit in Action, Second Edition", 2, docs.totalHits);
 
         reader.close();
         dir.close();
     }
 
-    /*
+    /**
      * #A Obtain directory from TestUtil #B Create IndexSearcher #C Confirm one
      * hit for "ant" #D Confirm two hits for "junit"
      */
-
     public void testKeyword() throws Exception {
         Directory dir = TestUtil.getBookIndexDirectory();
         IndexSearcher searcher = new IndexSearcher(dir);
@@ -82,24 +83,20 @@ public class BasicSearchingTest extends TestCase {
         Directory dir = TestUtil.getBookIndexDirectory();
         IndexSearcher searcher = new IndexSearcher(dir);
 
-        QueryParser parser = new QueryParser(Version.LUCENE_30, // A
-                "contents", // A
-                new SimpleAnalyzer()); // A
+        QueryParser parser = new QueryParser(Version.LUCENE_50, "contents", new SimpleAnalyzer());
 
-        Query query = parser.parse("+JUNIT +ANT -MOCK"); // B
+        Query query = parser.parse("+JUNIT +ANT -MOCK");
         TopDocs docs = searcher.search(query, 10);
         assertEquals(1, docs.totalHits);
-        Document d = searcher.doc(docs.scoreDocs[0].doc);
+        StoredDocument d = searcher.doc(docs.scoreDocs[0].doc);
         assertEquals("Ant in Action", d.get("title"));
 
-        query = parser.parse("mock OR junit"); // B
+        query = parser.parse("mock OR junit");
         docs = searcher.search(query, 10);
         assertEquals("Ant in Action, " + "JUnit in Action, Second Edition", 2, docs.totalHits);
 
         searcher.close();
         dir.close();
     }
-    /*
-     * #A Create QueryParser #B Parse user's text
-     */
+
 }

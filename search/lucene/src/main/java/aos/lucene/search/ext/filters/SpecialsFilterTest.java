@@ -39,6 +39,7 @@ import aos.lucene.common.TestUtil;
  * "logo" in subject #4 Combine queries
  */
 public class SpecialsFilterTest extends TestCase {
+
     private Query allBooks;
     private IndexSearcher searcher;
 
@@ -58,22 +59,19 @@ public class SpecialsFilterTest extends TestCase {
     }
 
     public void testFilteredQuery() throws Exception {
-        String[] isbns = new String[] { "9780880105118" }; // #1
+        String[] isbns = new String[] { "9780880105118" };
 
         SpecialsAccessor accessor = new TestSpecialsAccessor(isbns);
         Filter filter = new SpecialsFilter(accessor);
 
-        WildcardQuery educationBooks = // #2
-        new WildcardQuery(new Term("category", "*education*")); // #2
-        FilteredQuery edBooksOnSpecial = // #2
-        new FilteredQuery(educationBooks, filter); // #2
+        WildcardQuery educationBooks = new WildcardQuery(new Term("category", "*education*"));
+        FilteredQuery edBooksOnSpecial = new FilteredQuery(educationBooks, filter);
 
-        TermQuery logoBooks = // #3
-        new TermQuery(new Term("subject", "logo")); // #3
+        TermQuery logoBooks = new TermQuery(new Term("subject", "logo"));
 
-        BooleanQuery logoOrEdBooks = new BooleanQuery(); // #4
-        logoOrEdBooks.add(logoBooks, BooleanClause.Occur.SHOULD); // #4
-        logoOrEdBooks.add(edBooksOnSpecial, BooleanClause.Occur.SHOULD); // #4
+        BooleanQuery logoOrEdBooks = new BooleanQuery();
+        logoOrEdBooks.add(logoBooks, BooleanClause.Occur.SHOULD);
+        logoOrEdBooks.add(edBooksOnSpecial, BooleanClause.Occur.SHOULD);
 
         TopDocs hits = searcher.search(logoOrEdBooks, 10);
         System.out.println(logoOrEdBooks.toString());

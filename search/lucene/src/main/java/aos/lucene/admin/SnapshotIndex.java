@@ -20,8 +20,6 @@ package aos.lucene.admin;
 
 import java.util.Collection;
 
-import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.miscellaneous.LimitTokenCountAnalyzer;
 import org.apache.lucene.index.IndexCommit;
 import org.apache.lucene.index.IndexDeletionPolicy;
 import org.apache.lucene.index.IndexWriter;
@@ -31,28 +29,29 @@ import org.apache.lucene.index.SnapshotDeletionPolicy;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.util.Version;
 
-import aos.lucene.analysis.SimpleAnalyzer;
+import aos.lucene.analyser.AosAnalyser;
 
-public class Fragments {
+public class SnapshotIndex {
 
     public void test() throws Exception {
 
         Directory dir = null;
-        Analyzer analyzer = new LimitTokenCountAnalyzer(new SimpleAnalyzer(), Integer.MAX_VALUE);
 
         IndexDeletionPolicy policy = new KeepOnlyLastCommitDeletionPolicy();
         SnapshotDeletionPolicy snapshotter = new SnapshotDeletionPolicy(policy);
-        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_50, analyzer);
+        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_50,
+                AosAnalyser.NO_LIMIT_TOKEN_COUNT_SIMPLE_ANALYSER);
         conf.setIndexDeletionPolicy(snapshotter);
         IndexWriter writer = new IndexWriter(dir, conf);
 
         try {
-            IndexCommit commit = (IndexCommit) snapshotter.snapshot();
+            IndexCommit commit = snapshotter.snapshot("unique-id");
             Collection<String> fileNames = commit.getFileNames();
             /* <iterate over & copy files from fileNames> */
         }
         finally {
-            snapshotter.release();
+            snapshotter.release("unique-id");
         }
     }
+
 }

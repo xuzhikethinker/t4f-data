@@ -18,21 +18,6 @@
  ****************************************************************/
 package aos.lucene.search.advanced;
 
-/**
- * Copyright Manning Publications Co.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific lan      
-*/
-
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.WhitespaceAnalyzer;
 import org.apache.lucene.document.Document;
@@ -59,10 +44,10 @@ public class IndexSearcherTest extends TestCase {
                        "tarantula", "uromastyx", "vicuna",
                        "walrus", "xiphias", "yak", "zebra"};
 
-    Analyzer analyzer = new WhitespaceAnalyzer();
+    Analyzer analyzer = new WhitespaceAnalyzer(Version.LUCENE_50);
 
-    Directory aTOmDirectory = new RAMDirectory();     // #1
-    Directory nTOzDirectory = new RAMDirectory();     // #1
+    Directory aTOmDirectory = new RAMDirectory();     //
+    Directory nTOzDirectory = new RAMDirectory();     //
 
     IndexWriter aTOmWriter = new IndexWriter(aTOmDirectory,
                                              analyzer,
@@ -77,9 +62,9 @@ public class IndexSearcherTest extends TestCase {
       String animal = animals[i];
       doc.add(new Field("animal", animal, Field.Store.YES, Field.Index.NOT_ANALYZED));
       if (animal.charAt(0) < 'n') {
-        aTOmWriter.addDocument(doc);                 // #2
+        aTOmWriter.addDocument(doc);                 //
       } else {                                       
-        nTOzWriter.addDocument(doc);                 // #2
+        nTOzWriter.addDocument(doc);                 //
       }
     }
 
@@ -95,9 +80,9 @@ public class IndexSearcherTest extends TestCase {
 
     IndexSearcher searcher = new IndexSearcher(searchers);
 
-    TermRangeQuery query = new TermRangeQuery("animal",   // #3
-                                              "h",        // #3
-                                              "t",        // #3
+    TermRangeQuery query = new TermRangeQuery("animal",   //
+                                              "h",        //
+                                              "t",        //
                                               true, true);// #3
 
     TopDocs hits = searcher.search(query, 10);

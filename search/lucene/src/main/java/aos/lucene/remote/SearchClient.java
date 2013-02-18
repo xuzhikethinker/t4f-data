@@ -22,18 +22,23 @@ import java.rmi.Naming;
 import java.util.Date;
 import java.util.HashMap;
 
-import org.apache.lucene.document.Document;
+import org.apache.lucene.index.StoredDocument;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
 
+/**
+ * #1 Multiple identical searches #2 Cache searchers #3 Wrap IndexSearcher in
+ * IndexSearcher #4 Time searching #5 Don't close searcher! #6 RMI lookup
+ */
 public class SearchClient {
 
     private static HashMap searcherCache = new HashMap();
 
     public static void main(String[] args) throws Exception {
+
         if (args.length != 1) {
             System.err.println("Usage: SearchClient <query>");
             System.exit(-1);
@@ -41,9 +46,9 @@ public class SearchClient {
 
         String word = args[0];
 
-        for (int i = 0; i < 5; i++) { // 1
-            search("LIA_Multi", word); // 1
-            search("LIA_Parallel", word); // 1
+        for (int i = 0; i < 5; i++) {
+            search("LIA_Multi", word);
+            search("LIA_Parallel", word);
         }
 
     }
@@ -51,18 +56,16 @@ public class SearchClient {
     private static void search(String name, String word) throws Exception {
         TermQuery query = new TermQuery(new Term("word", word));
 
-        IndexSearcher searcher = (IndexSearcher) searcherCache.get(name); // 2
+        IndexSearcher searcher = (IndexSearcher) searcherCache.get(name);
 
         if (searcher == null) {
-            searcher = // 3
-            new IndexSearcher( // 3
-                    new Searchable[] { lookupRemote(name) }); // 3
+            searcher = new IndexSearcher(new IndexSearcher[] { lookupRemote(name) });
             searcherCache.put(name, searcher);
         }
 
-        long begin = new Date().getTime(); // 4
-        TopDocs hits = searcher.search(query, 10); // 4
-        long end = new Date().getTime(); // 4
+        long begin = new Date().getTime();
+        TopDocs hits = searcher.search(query, 10);
+        long end = new Date().getTime();
 
         System.out.print("Searched " + name + " for '" + word + "' (" + (end - begin) + " ms): ");
 
@@ -71,7 +74,7 @@ public class SearchClient {
         }
 
         for (ScoreDoc sd : hits.scoreDocs) {
-            Document doc = searcher.doc(sd.doc);
+            StoredDocument doc = searcher.doc(sd.doc);
             String[] values = doc.getValues("syn");
             for (String syn : values) {
                 System.out.print(syn + " ");
@@ -79,15 +82,11 @@ public class SearchClient {
         }
         System.out.println();
         System.out.println();
-        // 5
+
     }
 
-    private static Searchable lookupRemote(String name) throws Exception {
-        return (Searchable) Naming.lookup("//localhost/" + name); // 6
+    private static IndexSearcher lookupRemote(String name) throws Exception {
+        return (IndexSearcher) Naming.lookup("//localhost/" + name);
     }
+
 }
-
-/*
- * #1 Multiple identical searches #2 Cache searchers #3 Wrap Searchable in
- * IndexSearcher #4 Time searching #5 Don't close searcher! #6 RMI lookup
- */

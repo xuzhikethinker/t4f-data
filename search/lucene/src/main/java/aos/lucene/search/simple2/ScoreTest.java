@@ -18,21 +18,6 @@
  ****************************************************************/
 package aos.lucene.search.simple2;
 
-/**
- * Copyright Manning Publications Co.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific lan      
-*/
-
 import junit.framework.TestCase;
 
 import org.apache.lucene.analysis.WhitespaceAnalyzer;
@@ -85,7 +70,7 @@ public class ScoreTest extends TestCase {
 
   private void indexSingleFieldDocs(Field[] fields) throws Exception {
     IndexWriter writer = new IndexWriter(directory,
-        new WhitespaceAnalyzer(), IndexWriter.MaxFieldLength.UNLIMITED);
+        new WhitespaceAnalyzer(Version.LUCENE_50), IndexWriter.MaxFieldLength.UNLIMITED);
     for (Field f : fields) {
       Document doc = new Document();
       doc.add(f);
@@ -136,7 +121,7 @@ public class ScoreTest extends TestCase {
     assertTrue("wuzzy closer than fuzzy",
                matches.scoreDocs[0].score != matches.scoreDocs[1].score);
 
-    Document doc = searcher.doc(matches.scoreDocs[0].doc);
+    StoredDocument doc = searcher.doc(matches.scoreDocs[0].doc);
     assertEquals("wuzza bear", "wuzzy", doc.get("contents"));
     searcher.close();
   }
@@ -158,7 +143,7 @@ public class ScoreTest extends TestCase {
       return 2.0f;
     }
 
-    public float idf(Vector terms, Searcher searcher) {
+    public float idf(Vector terms, SimpleSearcher searcher) {
       return 1.0f;
     }
 

@@ -18,21 +18,6 @@
  ****************************************************************/
 package aos.lucene.search.simple2;
 
-/**
- * Copyright Manning Publications Co.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific lan      
-*/
-
 import junit.framework.TestCase;
 
 import org.apache.lucene.analysis.Analyzer;
@@ -62,7 +47,7 @@ public class QueryParserTest extends TestCase {
   private IndexSearcher searcher;
 
   protected void setUp() throws Exception {
-    analyzer = new WhitespaceAnalyzer();
+    analyzer = new WhitespaceAnalyzer(Version.LUCENE_50);
     dir = TestUtil.getBookIndexDirectory();
     searcher = new IndexSearcher(dir);
   }
@@ -83,15 +68,15 @@ public class QueryParserTest extends TestCase {
   }
 
   public void testPrefixQuery() throws Exception {
-    QueryParser parser = new QueryParser(Version.LUCENE_30,
+    QueryParser parser = new QueryParser(Version.LUCENE_50,
                                          "category",
-                                         new StandardAnalyzer(Version.LUCENE_30));
+                                         new StandardAnalyzer(Version.LUCENE_50));
     parser.setLowercaseExpandedTerms(false);
     System.out.println(parser.parse("/Computers/technology*").toString("category"));
   }
 
   public void testFuzzyQuery() throws Exception {
-    QueryParser parser = new QueryParser(Version.LUCENE_30,
+    QueryParser parser = new QueryParser(Version.LUCENE_50,
                                          "subject", analyzer);
     Query query = parser.parse("kountry~");
     System.out.println("fuzzy: " + query);
@@ -102,7 +87,7 @@ public class QueryParserTest extends TestCase {
 
   public void testGrouping() throws Exception {
     Query query = new QueryParser(
-        Version.LUCENE_30,
+        Version.LUCENE_50,
         "subject",
         analyzer).parse("(agile OR extreme) AND methodology");
     TopDocs matches = searcher.search(query, 10);
@@ -115,14 +100,14 @@ public class QueryParserTest extends TestCase {
   }
 
   public void testTermQuery() throws Exception {
-    QueryParser parser = new QueryParser(Version.LUCENE_30,
+    QueryParser parser = new QueryParser(Version.LUCENE_50,
                                          "subject", analyzer);
     Query query = parser.parse("computers");
     System.out.println("term: " + query);
   }
 
   public void testTermRangeQuery() throws Exception {
-    Query query = new QueryParser(Version.LUCENE_30,                        //A
+    Query query = new QueryParser(Version.LUCENE_50,                        //A
                                   "subject", analyzer).parse("title2:[Q TO V]"); //A
     assertTrue(query instanceof TermRangeQuery);
 
@@ -130,10 +115,10 @@ public class QueryParserTest extends TestCase {
     assertTrue(TestUtil.hitsIncludeTitle(searcher, matches,
                       "Tapestry in Action"));
 
-    query = new QueryParser(Version.LUCENE_30, "subject", analyzer)  //B
+    query = new QueryParser(Version.LUCENE_50, "subject", analyzer)  //B
                             .parse("title2:{Q TO \"Tapestry in Action\"}");    //B
     matches = searcher.search(query, 10);
-    assertFalse(TestUtil.hitsIncludeTitle(searcher, matches,  // C
+    assertFalse(TestUtil.hitsIncludeTitle(searcher, matches, 
                       "Tapestry in Action"));
   }
   /*
@@ -143,27 +128,27 @@ public class QueryParserTest extends TestCase {
   */
 
   public void testPhraseQuery() throws Exception {
-    Query q = new QueryParser(Version.LUCENE_30,
+    Query q = new QueryParser(Version.LUCENE_50,
                               "field",
                               new StandardAnalyzer(
-                                Version.LUCENE_30))
+                                Version.LUCENE_50))
                 .parse("\"This is Some Phrase*\"");
     assertEquals("analyzed",
         "\"? ? some phrase\"", q.toString("field"));
 
-    q = new QueryParser(Version.LUCENE_30,
+    q = new QueryParser(Version.LUCENE_50,
                         "field", analyzer).parse("\"term\"");
     assertTrue("reduced to TermQuery", q instanceof TermQuery);
   }
 
   public void testSlop() throws Exception {
-    Query q = new QueryParser(Version.LUCENE_30,
+    Query q = new QueryParser(Version.LUCENE_50,
                               "field", analyzer)
             .parse("\"exact phrase\"");
     assertEquals("zero slop",
         "\"exact phrase\"", q.toString("field"));
 
-    QueryParser qp = new QueryParser(Version.LUCENE_30,
+    QueryParser qp = new QueryParser(Version.LUCENE_50,
                                      "field", analyzer);
     qp.setPhraseSlop(5);
     q = qp.parse("\"sloppy phrase\"");
@@ -172,12 +157,12 @@ public class QueryParserTest extends TestCase {
   }
 
   public void testLowercasing() throws Exception {
-    Query q = new QueryParser(Version.LUCENE_30,
+    Query q = new QueryParser(Version.LUCENE_50,
                               "field", analyzer).parse("PrefixQuery*");
     assertEquals("lowercased",
         "prefixquery*", q.toString("field"));
 
-    QueryParser qp = new QueryParser(Version.LUCENE_30,
+    QueryParser qp = new QueryParser(Version.LUCENE_50,
                                      "field", analyzer);
     qp.setLowercaseExpandedTerms(false);
     q = qp.parse("PrefixQuery*");
@@ -187,7 +172,7 @@ public class QueryParserTest extends TestCase {
 
   public void testWildcard() {
     try {
-      new QueryParser(Version.LUCENE_30,
+      new QueryParser(Version.LUCENE_50,
                       "field", analyzer).parse("*xyz");
       fail("Leading wildcard character should not be allowed");
     } catch (ParseException expected) {
@@ -196,14 +181,14 @@ public class QueryParserTest extends TestCase {
   }
 
   public void testBoost() throws Exception {
-    Query q = new QueryParser(Version.LUCENE_30,
+    Query q = new QueryParser(Version.LUCENE_50,
                               "field", analyzer).parse("term^2");
     assertEquals("term^2.0", q.toString("field"));
   }
 
   public void testParseException() {
     try {
-      new QueryParser(Version.LUCENE_30,
+      new QueryParser(Version.LUCENE_50,
                       "contents", analyzer).parse("^&#");
     } catch (ParseException expected) {
       // expression is invalid, as expected

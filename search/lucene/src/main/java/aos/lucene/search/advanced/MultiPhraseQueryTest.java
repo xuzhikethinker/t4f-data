@@ -18,21 +18,6 @@
  ****************************************************************/
 package aos.lucene.search.advanced;
 
-/**
- * Copyright Manning Publications Co.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific lan      
-*/
-
 import junit.framework.TestCase;
 
 import org.apache.lucene.queryParser.QueryParser;
@@ -65,7 +50,7 @@ public class MultiPhraseQueryTest extends TestCase {
   protected void setUp() throws Exception {
     Directory directory = new RAMDirectory();
     IndexWriter writer = new IndexWriter(directory,
-                                         new WhitespaceAnalyzer(),
+                                         new WhitespaceAnalyzer(Version.LUCENE_50),
                                          IndexWriter.MaxFieldLength.UNLIMITED);
     Document doc1 = new Document();
     doc1.add(new Field("field",
@@ -130,7 +115,7 @@ public class MultiPhraseQueryTest extends TestCase {
         }
       };
 
-    Query q = new QueryParser(Version.LUCENE_30,
+    Query q = new QueryParser(Version.LUCENE_50,
                               "field",
                               new SynonymAnalyzer(engine))
       .parse("\"quick fox\"");
@@ -142,7 +127,7 @@ public class MultiPhraseQueryTest extends TestCase {
 
   private void debug(TopDocs hits) throws IOException {
     for (ScoreDoc sd : hits.scoreDocs) {
-      Document doc = searcher.doc(sd.doc);
+      StoredDocument doc = searcher.doc(sd.doc);
       System.out.println(sd.score + ": " + doc.get("field"));
     }
 

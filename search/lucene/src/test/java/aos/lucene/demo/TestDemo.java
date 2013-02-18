@@ -38,10 +38,8 @@ public class TestDemo {
             System.setOut(fakeSystemOut);
             SearchFiles.main(new String[] { "-query", query, "-index", indexPath.getPath() });
             fakeSystemOut.flush();
-            String output = bytes.toString(Charset.defaultCharset().name()); // intentionally
-                                                                             // use
-                                                                             // default
-                                                                             // encoding
+            // intentionally use default encoding
+            String output = bytes.toString(Charset.defaultCharset().name());
             assertTrue("output=" + output, output.contains(expectedHitCount + " total matching documents"));
         }
         finally {

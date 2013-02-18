@@ -18,21 +18,6 @@
  ****************************************************************/
 package aos.lucene.search.advanced;
 
-/**
- * Copyright Manning Publications Co.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific lan      
-*/
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.search.ScoreDoc;
@@ -63,16 +48,16 @@ public class SortingExample {
     this.directory = directory;
   }
 
-  public void displayResults(Query query, Sort sort)            // #1
+  public void displayResults(Query query, Sort sort)            //
       throws IOException {
     IndexSearcher searcher = new IndexSearcher(directory);
 
-    searcher.setDefaultFieldSortScoring(true, false);            // #2
+    searcher.setDefaultFieldSortScoring(true, false);            //
 
-    TopDocs results = searcher.search(query, null,         // #3
-                                      20, sort);           // #3
+    TopDocs results = searcher.search(query, null,         //
+                                      20, sort);           //
 
-    System.out.println("\nResults for: " +                      // #4
+    System.out.println("\nResults for: " +                      //
         query.toString() + " sorted by " + sort);
 
     System.out.println(StringUtils.rightPad("Title", 30) +
@@ -80,22 +65,22 @@ public class SortingExample {
       StringUtils.center("id", 4) +
       StringUtils.center("score", 15));
 
-    PrintStream out = new PrintStream(System.out, true, "UTF-8");    // #5
+    PrintStream out = new PrintStream(System.out, true, "UTF-8");    //
 
     DecimalFormat scoreFormatter = new DecimalFormat("0.######");
     for (ScoreDoc sd : results.scoreDocs) {
       int docID = sd.doc;
       float score = sd.score;
-      Document doc = searcher.doc(docID);
+      StoredDocument doc = searcher.doc(docID);
       out.println(
-          StringUtils.rightPad(                                                  // #6
-              StringUtils.abbreviate(doc.get("title"), 29), 30) +                // #6
-          StringUtils.rightPad(doc.get("pubmonth"), 10) +                        // #6
-          StringUtils.center("" + docID, 4) +                                    // #6
-          StringUtils.leftPad(                                                   // #6
-             scoreFormatter.format(score), 12));                                 // #6
+          StringUtils.rightPad(                                                  //
+              StringUtils.abbreviate(doc.get("title"), 29), 30) +                //
+          StringUtils.rightPad(doc.get("pubmonth"), 10) +                        //
+          StringUtils.center("" + docID, 4) +                                    //
+          StringUtils.leftPad(                                                   //
+             scoreFormatter.format(score), 12));                                 //
       out.println("   " + doc.get("category"));
-      //out.println(searcher.explain(query, docID));   // #7
+      //out.println(searcher.explain(query, docID));   //
     }
 
     searcher.close();
@@ -117,16 +102,16 @@ public class SortingExample {
   public static void main(String[] args) throws Exception {
     Query allBooks = new MatchAllDocsQuery();
 
-    QueryParser parser = new QueryParser(Version.LUCENE_30,                 // #1
-                                         "contents",                             // #1
-                                         new StandardAnalyzer(                   // #1
-                                           Version.LUCENE_30));             // #1
-    BooleanQuery query = new BooleanQuery();                                     // #1
-    query.add(allBooks, BooleanClause.Occur.SHOULD);                             // #1
-    query.add(parser.parse("java OR action"), BooleanClause.Occur.SHOULD);       // #1
+    QueryParser parser = new QueryParser(Version.LUCENE_50,                 //
+                                         "contents",                             //
+                                         new StandardAnalyzer(                   //
+                                           Version.LUCENE_50));             //
+    BooleanQuery query = new BooleanQuery();                                     //
+    query.add(allBooks, BooleanClause.Occur.SHOULD);                             //
+    query.add(parser.parse("java OR action"), BooleanClause.Occur.SHOULD);       //
 
-    Directory directory = TestUtil.getBookIndexDirectory();                     // #2
-    SortingExample example = new SortingExample(directory);                     // #2
+    Directory directory = TestUtil.getBookIndexDirectory();                     //
+    SortingExample example = new SortingExample(directory);                     //
 
     example.displayResults(query, Sort.RELEVANCE);
 

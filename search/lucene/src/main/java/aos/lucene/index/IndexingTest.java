@@ -22,12 +22,13 @@ import java.io.IOException;
 
 import junit.framework.TestCase;
 
-import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
-import org.apache.lucene.document.FieldType;
+import org.apache.lucene.document.StoredField;
+import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
@@ -36,8 +37,14 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
 
+import aos.lucene.analyser.AosAnalyser;
 import aos.lucene.common.TestUtil;
+import aos.lucene.field.AosFieldType;
 
+/**
+ * #1 One initial document has bridges #2 Create writer with maxFieldLength 1 #3
+ * Index document with bridges #4 Document can't be found
+ */
 public class IndexingTest extends TestCase {
     protected String[] ids = { "1", "2" };
     protected String[] unindexed = { "Netherlands", "Italy" };
@@ -47,47 +54,46 @@ public class IndexingTest extends TestCase {
     private Directory directory;
 
     @Override
-    protected void setUp() throws Exception { // 1
+    protected void setUp() throws Exception {
+
         directory = new RAMDirectory();
 
-        IndexWriter writer = getWriter(); // 2
+        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_50,
+                AosAnalyser.NO_LIMIT_TOKEN_COUNT_WHITE_SPACE_ANALYSER);
 
-        for (int i = 0; i < ids.length; i++) { // 3
+        IndexWriter writer = new IndexWriter(directory, conf);
+
+        for (int i = 0; i < ids.length; i++) {
             Document doc = new Document();
-            FieldType ft = new FieldType();
-            doc.add(new Field("id", ids[i], Field.Store.YES, Field.Index.NOT_ANALYZED));
-            doc.add(new Field("country", unindexed[i], Field.Store.YES, Field.Index.NO));
-            doc.add(new Field("contents", unstored[i], Field.Store.NO, Field.Index.ANALYZED));
-            doc.add(new Field("city", text[i], Field.Store.YES, Field.Index.ANALYZED));
+            doc.add(new Field("id", ids[i], AosFieldType.INDEXED_STORED_TERMVECTOR));
+            doc.add(new Field("country", unindexed[i], AosFieldType.NOTINDEXED_STORED_TERMVECTOR));
+            doc.add(new Field("contents", unstored[i], AosFieldType.INDEXED_NOTSTORED_TERMVECTOR));
+            doc.add(new Field("city", text[i], AosFieldType.INDEXED_STORED_TERMVECTOR));
             writer.addDocument(doc);
         }
         writer.close();
     }
 
-    private IndexWriter getWriter() throws IOException { // 2
-        return new IndexWriter(directory, new WhitespaceAnalyzer(), // 2
-                IndexWriter.MaxFieldLength.UNLIMITED); // 2
-    }
-
     protected int getHitCount(String fieldName, String searchString) throws IOException {
-        IndexSearcher searcher = new IndexSearcher(directory); // 4
+        IndexReader reader = DirectoryReader.open(directory);
+        IndexSearcher searcher = new IndexSearcher(reader);
         Term t = new Term(fieldName, searchString);
-        Query query = new TermQuery(t); // 5
-        int hitCount = TestUtil.hitCount(searcher, query); // 6
-        searcher.close();
+        Query query = new TermQuery(t);
+        int hitCount = TestUtil.hitCount(searcher, query);
+        reader.close();
         return hitCount;
     }
 
     public void testIndexWriter() throws IOException {
         IndexWriter writer = getWriter();
-        assertEquals(ids.length, writer.numDocs()); // 7
+        assertEquals(ids.length, writer.numDocs());
         writer.close();
     }
 
     public void testIndexReader() throws IOException {
-        IndexReader reader = IndexReader.open(directory);
-        assertEquals(ids.length, reader.maxDoc()); // 8
-        assertEquals(ids.length, reader.numDocs()); // 8
+        IndexReader reader = DirectoryReader.open(directory);
+        assertEquals(ids.length, reader.maxDoc());
+        assertEquals(ids.length, reader.numDocs());
         reader.close();
     }
 
@@ -96,15 +102,14 @@ public class IndexingTest extends TestCase {
      * new searcher #5 Build simple single-term query #6 Get number of hits #7
      * Verify writer document count #8 Verify reader document count
      */
-
     public void testDeleteBeforeOptimize() throws IOException {
         IndexWriter writer = getWriter();
-        assertEquals(2, writer.numDocs()); // A
-        writer.deleteDocuments(new Term("id", "1")); // B
+        assertEquals(2, writer.numDocs());
+        writer.deleteDocuments(new Term("id", "1"));
         writer.commit();
-        assertTrue(writer.hasDeletions()); // 1
-        assertEquals(2, writer.maxDoc()); // 2
-        assertEquals(1, writer.numDocs()); // 2
+        assertTrue(writer.hasDeletions());
+        assertEquals(2, writer.maxDoc());
+        assertEquals(1, writer.numDocs());
         writer.close();
     }
 
@@ -112,64 +117,59 @@ public class IndexingTest extends TestCase {
         IndexWriter writer = getWriter();
         assertEquals(2, writer.numDocs());
         writer.deleteDocuments(new Term("id", "1"));
-        writer.optimize(); // 3
+        // writer.optimize();
         writer.commit();
         assertFalse(writer.hasDeletions());
-        assertEquals(1, writer.maxDoc()); // C
-        assertEquals(1, writer.numDocs()); // C
+        assertEquals(1, writer.maxDoc());
+        assertEquals(1, writer.numDocs());
         writer.close();
     }
 
-    /*
+    /**
      * #A 2 docs in the index #B Delete first document #C 1 indexed document, 0
      * deleted documents #1 Index contains deletions #2 1 indexed document, 1
      * deleted document #3 Optimize compacts deletes
      */
-
     public void testUpdate() throws IOException {
 
         assertEquals(1, getHitCount("city", "Amsterdam"));
 
         IndexWriter writer = getWriter();
 
-        Document doc = new Document(); // A
-        doc.add(new Field("id", "1", Field.Store.YES, Field.Index.NOT_ANALYZED)); // A
-        doc.add(new Field("country", "Netherlands", Field.Store.YES, Field.Index.NO)); // A
-        doc.add(new Field("contents", "Den Haag has a lot of museums", Field.Store.NO, Field.Index.ANALYZED)); // A
-        doc.add(new Field("city", "Den Haag", Field.Store.YES, Field.Index.ANALYZED)); // A
+        Document doc = new Document();
+        doc.add(new StoredField("id", "1"));
+        doc.add(new StoredField("country", "Netherlands"));
+        doc.add(new Field("contents", "Den Haag has a lot of museums", AosFieldType.INDEXED_NOTSTORED_TERMVECTOR));
+        doc.add(new Field("city", "Den Haag", AosFieldType.INDEXED_NOTSTORED_TERMVECTOR));
 
-        writer.updateDocument(new Term("id", "1"), // B
-                doc); // B
+        writer.updateDocument(new Term("id", "1"), doc);
         writer.close();
 
-        assertEquals(0, getHitCount("city", "Amsterdam"));// C
-        assertEquals(1, getHitCount("city", "Haag")); // D
+        assertEquals(0, getHitCount("city", "Amsterdam"));
+        assertEquals(1, getHitCount("city", "Haag"));
     }
 
-    /*
+    /**
      * #A Create new document with "Haag" in city field #B Replace original
      * document with new version #C Verify old document is gone #D Verify new
      * document is indexed
      */
-
     public void testMaxFieldLength() throws IOException {
 
-        assertEquals(1, getHitCount("contents", "bridges")); // 1
+        assertEquals(1, getHitCount("contents", "bridges"));
 
-        IndexWriter writer = new IndexWriter(directory, new WhitespaceAnalyzer(Version.LUCENE_50),
-                new IndexWriter.MaxFieldLength(1));
-        Document doc = new Document(); // 3
-        doc.add(new Field("contents", "these bridges can't be found", // 3
-                Field.Store.NO, Field.Index.ANALYZED)); // 3
-        writer.addDocument(doc); // 3
-        writer.close(); // 3
-
-        assertEquals(1, getHitCount("contents", "bridges")); // 4
+        IndexWriter writer = new IndexWriter(directory, new IndexWriterConfig(Version.LUCENE_50,
+                AosAnalyser.ONE_TOKEN_COUNT_WHITE_SPACE_ANALYSER));
+        Document doc = new Document();
+        doc.add(new Field("contents", "these bridges can't be found", AosFieldType.INDEXED_NOTSTORED_TERMVECTOR));
+        writer.addDocument(doc);
+        writer.close();
+        assertEquals(1, getHitCount("contents", "bridges"));
     }
 
-    /*
-     * #1 One initial document has bridges #2 Create writer with maxFieldLength
-     * 1 #3 Index document with bridges #4 Document can't be found
-     */
+    private IndexWriter getWriter() throws IOException {
+        return new IndexWriter(directory, new IndexWriterConfig(Version.LUCENE_50,
+                AosAnalyser.NO_LIMIT_TOKEN_COUNT_WHITE_SPACE_ANALYSER));
+    }
 
 }

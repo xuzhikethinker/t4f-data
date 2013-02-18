@@ -18,21 +18,6 @@
  ****************************************************************/
 package aos.lucene.search.advanced;
 
-/**
- * Copyright Manning Publications Co.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific lan      
-*/
-
 import junit.framework.TestCase;
 
 import org.apache.lucene.analysis.WhitespaceAnalyzer;
@@ -58,29 +43,29 @@ public class SecurityFilterTest extends TestCase {
   protected void setUp() throws Exception {
     Directory directory = new RAMDirectory();
     IndexWriter writer = new IndexWriter(directory,
-                                         new WhitespaceAnalyzer(),
+                                         new WhitespaceAnalyzer(Version.LUCENE_50),
                                          IndexWriter.MaxFieldLength.UNLIMITED);
 
-    Document document = new Document();                  // 1
-    document.add(new Field("owner",                      // 1
-                           "elwood",                     // 1
-                           Field.Store.YES,              // 1
-                           Field.Index.NOT_ANALYZED));   // 1
-    document.add(new Field("keywords",                   // 1
-                           "elwood's sensitive info",    // 1
-                           Field.Store.YES,              // 1
-                           Field.Index.ANALYZED));       // 1
+    Document document = new Document();                  
+    document.add(new Field("owner",                      
+                           "elwood",                     
+                           Field.Store.YES,              
+                           Field.Index.NOT_ANALYZED));   
+    document.add(new Field("keywords",                   
+                           "elwood's sensitive info",    
+                           Field.Store.YES,              
+                           Field.Index.ANALYZED));       
     writer.addDocument(document);
 
-    document = new Document();                           // 2
-    document.add(new Field("owner",                      // 2
-                           "jake",                       // 2
-                           Field.Store.YES,              // 2
-                           Field.Index.NOT_ANALYZED));   // 2
-    document.add(new Field("keywords",                   // 2
-                           "jake's sensitive info",      // 2
-                           Field.Store.YES,              // 2
-                           Field.Index.ANALYZED));       // 2
+    document = new Document();                           
+    document.add(new Field("owner",                      
+                           "jake",                       
+                           Field.Store.YES,              
+                           Field.Index.NOT_ANALYZED));   
+    document.add(new Field("keywords",                   
+                           "jake's sensitive info",      
+                           Field.Store.YES,              
+                           Field.Index.ANALYZED));       
     writer.addDocument(document);
 
     writer.close();

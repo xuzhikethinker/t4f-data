@@ -18,21 +18,6 @@
  ****************************************************************/
 package aos.lucene.analysis.positional;
 
-/**
- * Copyright Manning Publications Co.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific lan      
-*/
-
 import junit.framework.TestCase;
 
 import org.apache.lucene.document.Document;
@@ -71,7 +56,7 @@ public class PositionalPorterStopAnalyzerTest extends TestCase {
     writer.addDocument(doc);
     writer.close();
     searcher = new IndexSearcher(directory, true);
-    parser = new QueryParser(Version.LUCENE_30,
+    parser = new QueryParser(Version.LUCENE_50,
                              "contents",
                              porterAnalyzer);
   }
@@ -85,7 +70,7 @@ public class PositionalPorterStopAnalyzerTest extends TestCase {
   }
 
   public void testStems() throws Exception {
-    Query query = new QueryParser(Version.LUCENE_30,
+    Query query = new QueryParser(Version.LUCENE_50,
                          "contents", porterAnalyzer).parse(
                            "laziness");
     assertEquals("lazi", 1, TestUtil.hitCount(searcher, query));

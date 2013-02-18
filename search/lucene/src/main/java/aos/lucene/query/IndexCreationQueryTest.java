@@ -25,6 +25,7 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.StoredDocument;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
@@ -90,7 +91,7 @@ public class IndexCreationQueryTest {
         System.out.println("Found " + hits.length + " hits.");
         for (int i = 0; i < hits.length; ++i) {
             int docId = hits[i].doc;
-            // Document d = indexSearcher.doc(docId);
+            StoredDocument d = indexSearcher.doc(docId);
             // System.out.println((i + 1) + ". " + d.get("title"));
         }
 

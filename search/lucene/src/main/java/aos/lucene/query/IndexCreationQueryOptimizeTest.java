@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.StoredDocument;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
@@ -16,6 +17,7 @@ public class IndexCreationQueryOptimizeTest {
 
     // String indexDir = "./aos.index.test/test2";
     // Directory dir = FSDirectory.open(new File(indexDir));
+
     //
     // IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_50, new
     // StandardAnalyzer(Version.LUCENE_50));
@@ -103,8 +105,6 @@ public class IndexCreationQueryOptimizeTest {
     //
     // }
 
-    // -------------------------------------------------------------------------
-
     private static void addDocuments(IndexWriter indexWriter) throws IOException {
         addDocument(
                 indexWriter,
@@ -140,7 +140,7 @@ public class IndexCreationQueryOptimizeTest {
 
         for (int i = 0; i < hits.length; ++i) {
             int docId = hits[i].doc;
-            // Document d = indexSearcher.doc(docId);
+            StoredDocument d = indexSearcher.doc(docId);
             // System.out.println((i + 1) + ". " + d.get("title"));
         }
 

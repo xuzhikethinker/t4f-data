@@ -39,34 +39,34 @@ public class AgoFilterBuilder implements FilterBuilder {
 
     @Override
     public Filter getFilter(Element element) throws ParserException {
-        String fieldName = DOMUtils.getAttributeWithInheritanceOrFail(element, // A
-                "fieldName"); // A
-        String timeUnit = DOMUtils.getAttribute(element, "timeUnit", "days"); // A
-        Integer calUnit = timeUnits.get(timeUnit); // A
-        if (calUnit == null) { // A
-            throw new ParserException("Illegal time unit:" // A
-                    + timeUnit + " - must be days, months or years"); // A
-        } // A
-        int agoStart = DOMUtils.getAttribute(element, "from", 0); // A
-        int agoEnd = DOMUtils.getAttribute(element, "to", 0); // A
+        String fieldName = DOMUtils.getAttributeWithInheritanceOrFail(element, 
+                "fieldName"); 
+        String timeUnit = DOMUtils.getAttribute(element, "timeUnit", "days"); 
+        Integer calUnit = timeUnits.get(timeUnit); 
+        if (calUnit == null) { 
+            throw new ParserException("Illegal time unit:" 
+                    + timeUnit + " - must be days, months or years"); 
+        } 
+        int agoStart = DOMUtils.getAttribute(element, "from", 0); 
+        int agoEnd = DOMUtils.getAttribute(element, "to", 0); 
         if (agoStart < agoEnd) {
             int oldAgoStart = agoStart;
             agoStart = agoEnd;
             agoEnd = oldAgoStart;
         }
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd"); // B
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd"); 
 
-        Calendar start = Calendar.getInstance(); // B
-        start.add(calUnit, agoStart * -1); // B
+        Calendar start = Calendar.getInstance(); 
+        start.add(calUnit, agoStart * -1); 
 
-        Calendar end = Calendar.getInstance(); // B
-        end.add(calUnit, agoEnd * -1); // B
+        Calendar end = Calendar.getInstance(); 
+        end.add(calUnit, agoEnd * -1); 
 
-        return NumericRangeFilter.newIntRange( // C
-                fieldName, // C
-                Integer.valueOf(sdf.format(start.getTime())), // C
-                Integer.valueOf(sdf.format(end.getTime())), // C
-                true, true); // C
+        return NumericRangeFilter.newIntRange(
+                fieldName,
+                Integer.valueOf(sdf.format(start.getTime())),
+                Integer.valueOf(sdf.format(end.getTime())),
+                true, true);
     }
 
     static {

@@ -18,21 +18,6 @@
  ****************************************************************/
 package aos.lucene.search.ext.queryparser;
 
-/**
- * Copyright Manning Publications Co.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific lan      
-*/
-
 import junit.framework.TestCase;
 
 import org.apache.lucene.search.TopDocs;
@@ -59,7 +44,7 @@ public class NumericQueryParserTest extends TestCase {
   private Directory dir;
 
   protected void setUp() throws Exception {
-    analyzer = new WhitespaceAnalyzer();
+    analyzer = new WhitespaceAnalyzer(Version.LUCENE_50);
     dir = TestUtil.getBookIndexDirectory();
     searcher = new IndexSearcher(dir, true);
   }
@@ -79,20 +64,20 @@ public class NumericQueryParserTest extends TestCase {
                                String part2,
                                boolean inclusive)
         throws ParseException {
-      TermRangeQuery query = (TermRangeQuery)            // A
-        super.getRangeQuery(field, part1, part2,         // A
-                              inclusive);                // A
+      TermRangeQuery query = (TermRangeQuery)            
+        super.getRangeQuery(field, part1, part2,         
+                              inclusive);                
       if ("price".equals(field)) {
-        return NumericRangeQuery.newDoubleRange(         // B
-                      "price",                           // B
-                      Double.parseDouble(                // B
-                           query.getLowerTerm()),        // B
-                      Double.parseDouble(                // B
-                           query.getUpperTerm()),        // B
-                      query.includesLower(),             // B
-                      query.includesUpper());            // B
+        return NumericRangeQuery.newDoubleRange(         
+                      "price",                           
+                      Double.parseDouble(                
+                           query.getLowerTerm()),        
+                      Double.parseDouble(                
+                           query.getUpperTerm()),        
+                      query.includesLower(),             
+                      query.includesUpper());            
       } else {
-        return query;                                    // C
+        return query;                                   
       }
     }
   }
@@ -106,7 +91,7 @@ public class NumericQueryParserTest extends TestCase {
   public void testNumericRangeQuery() throws Exception {
     String expression = "price:[10 TO 20]";
 
-    QueryParser parser = new NumericRangeQueryParser(Version.LUCENE_30,
+    QueryParser parser = new NumericRangeQueryParser(Version.LUCENE_50,
                                                      "subject", analyzer);
 
     Query query = parser.parse(expression);
@@ -140,7 +125,7 @@ public class NumericQueryParserTest extends TestCase {
   }
 
   public void testDefaultDateRangeQuery() throws Exception {
-    QueryParser parser = new QueryParser(Version.LUCENE_30,
+    QueryParser parser = new QueryParser(Version.LUCENE_50,
                                          "subject", analyzer);
     Query query = parser.parse("pubmonth:[1/1/04 TO 12/31/04]");
     System.out.println("default date parsing: " + query);
@@ -149,10 +134,10 @@ public class NumericQueryParserTest extends TestCase {
   public void testDateRangeQuery() throws Exception {
     String expression = "pubmonth:[01/01/2010 TO 06/01/2010]";
 
-    QueryParser parser = new NumericDateRangeQueryParser(Version.LUCENE_30,
+    QueryParser parser = new NumericDateRangeQueryParser(Version.LUCENE_50,
                                                          "subject", analyzer);
     
-    parser.setDateResolution("pubmonth", DateTools.Resolution.MONTH);    // 1
+    parser.setDateResolution("pubmonth", DateTools.Resolution.MONTH);    
     parser.setLocale(Locale.US);
 
     Query query = parser.parse(expression);

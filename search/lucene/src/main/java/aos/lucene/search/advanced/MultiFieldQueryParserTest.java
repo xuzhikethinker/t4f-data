@@ -18,21 +18,6 @@
  ****************************************************************/
 package aos.lucene.search.advanced;
 
-/**
- * Copyright Manning Publications Co.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific lan      
-*/
-
 import junit.framework.TestCase;
 
 import org.apache.lucene.analysis.SimpleAnalyzer;
@@ -49,7 +34,7 @@ import aos.lucene.common.TestUtil;
 // From chapter 5
 public class MultiFieldQueryParserTest extends TestCase {
   public void testDefaultOperator() throws Exception {
-    Query query = new MultiFieldQueryParser(Version.LUCENE_30,
+    Query query = new MultiFieldQueryParser(Version.LUCENE_50,
                                             new String[]{"title", "subject"},
         new SimpleAnalyzer()).parse("development");
 
@@ -73,7 +58,7 @@ public class MultiFieldQueryParserTest extends TestCase {
   }
 
   public void testSpecifiedOperator() throws Exception {
-    Query query = MultiFieldQueryParser.parse(Version.LUCENE_30,
+    Query query = MultiFieldQueryParser.parse(Version.LUCENE_50,
         "lucene",
         new String[]{"title", "subject"},
         new BooleanClause.Occur[]{BooleanClause.Occur.MUST,

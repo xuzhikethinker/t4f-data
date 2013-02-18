@@ -16,38 +16,44 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package aos.lucene.intro;
+package aos.lucene.index;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileReader;
 import java.io.IOException;
 
-import org.apache.lucene.analysis.miscellaneous.LimitTokenCountAnalyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
-import org.apache.lucene.document.FieldType;
+import org.apache.lucene.document.StoredField;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 
+import aos.lucene.analyser.AosAnalyser;
+import aos.lucene.field.AosFieldType;
+
 /**
- * 
+ * #1 Create index in this directory #2 Index *.txt files from this directory #3
+ * Create Lucene IndexWriter #4 Close IndexWriter #5 Return number of documents
+ * indexed #6 Index .txt files only, using FileFilter #7 Index file content #8
+ * Index file name #9 Index file full path #10 Add document to Lucene index
  */
-public class Indexer {
+public class SimpleIndexer {
 
     public static void main(String[] args) throws Exception {
+
         if (args.length != 2) {
-            throw new IllegalArgumentException("Usage: java " + Indexer.class.getName() + " <index dir> <data dir>");
+            throw new IllegalArgumentException("Usage: java " + SimpleIndexer.class.getName() + " <index dir> <data dir>");
         }
+
         String indexDir = args[0];
         String dataDir = args[1];
 
         long start = System.currentTimeMillis();
-        Indexer indexer = new Indexer(indexDir);
+        SimpleIndexer indexer = new SimpleIndexer(indexDir);
         int numIndexed;
         try {
             numIndexed = indexer.index(dataDir, new TextFilesFilter());
@@ -62,12 +68,15 @@ public class Indexer {
 
     private final IndexWriter writer;
 
-    public Indexer(String indexDir) throws IOException {
+    public SimpleIndexer(String indexDir) throws IOException {
+
         Directory dir = FSDirectory.open(new File(indexDir));
-        LimitTokenCountAnalyzer ltca = new LimitTokenCountAnalyzer(new StandardAnalyzer(Version.LUCENE_50),
-                Integer.MAX_VALUE);
-        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_50, ltca);
+
+        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_50,
+                AosAnalyser.NO_LIMIT_TOKEN_COUNT_SIMPLE_ANALYSER);
+
         writer = new IndexWriter(dir, conf);
+
     }
 
     public void close() throws IOException {
@@ -84,40 +93,28 @@ public class Indexer {
             }
         }
 
-        return writer.numDocs(); // 5
+        return writer.numDocs();
 
     }
 
     private static class TextFilesFilter implements FileFilter {
         @Override
         public boolean accept(File path) {
-            return path.getName().toLowerCase() // 6
-                    .endsWith(".txt"); // 6
+            return path.getName().toLowerCase().endsWith(".txt");
         }
     }
 
     protected Document getDocument(File f) throws Exception {
         Document doc = new Document();
-        FieldType ft = new FieldType();
-        ft.setIndexed(true);
-        ft.setStored(true);
-        doc.add(new Field("contents", new FileReader(f), ft)); // 7
-        doc.add(new Field("filename", f.getName(), Field.Store.YES, Field.Index.NOT_ANALYZED));// 8
-        doc.add(new Field("fullpath", f.getCanonicalPath(), // 9
-                Field.Store.YES, Field.Index.NOT_ANALYZED));// 9
+        doc.add(new Field("contents", new FileReader(f), AosFieldType.INDEXED_STORED_TERMVECTOR));
+        doc.add(new StoredField("filename", f.getName()));
+        doc.add(new StoredField("fullpath", f.getCanonicalPath()));
         return doc;
     }
 
     private void indexFile(File f) throws Exception {
         System.out.println("Indexing " + f.getCanonicalPath());
         Document doc = getDocument(f);
-        writer.addDocument(doc); // 10
+        writer.addDocument(doc);
     }
 }
-
-/*
- * #1 Create index in this directory #2 Index *.txt files from this directory #3
- * Create Lucene IndexWriter #4 Close IndexWriter #5 Return number of documents
- * indexed #6 Index .txt files only, using FileFilter #7 Index file content #8
- * Index file name #9 Index file full path #10 Add document to Lucene index
- */

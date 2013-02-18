@@ -32,52 +32,49 @@ import org.apache.lucene.benchmark.quality.trec.TrecJudge;
 import org.apache.lucene.benchmark.quality.trec.TrecTopicsReader;
 import org.apache.lucene.benchmark.quality.utils.SimpleQQParser;
 import org.apache.lucene.benchmark.quality.utils.SubmissionReport;
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
-// From appendix C
-
-/* This code was extracted from the Lucene
- contrib/benchmark sources */
-
+/**
+ * #1 Read TREC topics as QualityQuery[] #2 Create Judge from TREC Qrel file #3
+ * Verify query and Judge match #4 Create parser to translate queries into
+ * Lucene queries #5 Run benchmark #6 Print precision and recall measures
+ */
 public class PrecisionRecall {
 
     public static void main(String[] args) throws Throwable {
 
-        File topicsFile = new File("src/lia/benchmark/topics.txt");
-        File qrelsFile = new File("src/lia/benchmark/qrels.txt");
+        File topicsFile = new File("aos/lucene/benchmark/topics.txt");
+        File qrelsFile = new File("aos/lucene/benchmark/qrels.txt");
         Directory dir = FSDirectory.open(new File("indexes/MeetLucene"));
-        IndexSearcher searcher = new IndexSearcher(dir, true);
+        IndexReader reader = DirectoryReader.open(dir);
+        IndexSearcher searcher = new IndexSearcher(reader);
 
         String docNameField = "filename";
 
         PrintWriter LOGGER = new PrintWriter(System.out, true);
 
-        TrecTopicsReader qReader = new TrecTopicsReader(); // #1
-        QualityQuery qqs[] = qReader.readQueries( // #1
-                new BufferedReader(new FileReader(topicsFile))); // #1
+        TrecTopicsReader qReader = new TrecTopicsReader(); //
+        QualityQuery qqs[] = qReader.readQueries( //
+                new BufferedReader(new FileReader(topicsFile))); //
 
-        Judge judge = new TrecJudge(new BufferedReader( // #2
-                new FileReader(qrelsFile))); // #2
+        Judge judge = new TrecJudge(new BufferedReader( //
+                new FileReader(qrelsFile))); //
 
-        judge.validateData(qqs, LOGGER); // #3
+        judge.validateData(qqs, LOGGER); //
 
-        QualityQueryParser qqParser = new SimpleQQParser("title", "contents"); // #4
+        QualityQueryParser qqParser = new SimpleQQParser("title", "contents"); //
 
         QualityBenchmark qrun = new QualityBenchmark(qqs, qqParser, searcher, docNameField);
         SubmissionReport submitLog = null;
-        QualityStats stats[] = qrun.execute(judge, // #5
+        QualityStats stats[] = qrun.execute(judge, //
                 submitLog, LOGGER);
 
-        QualityStats avg = QualityStats.average(stats); // #6
+        QualityStats avg = QualityStats.average(stats); //
         avg.log("SUMMARY", 2, LOGGER, "  ");
         dir.close();
     }
 }
-
-/*
- * #1 Read TREC topics as QualityQuery[] #2 Create Judge from TREC Qrel file #3
- * Verify query and Judge match #4 Create parser to translate queries into
- * Lucene queries #5 Run benchmark #6 Print precision and recall measures
- */

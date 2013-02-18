@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package aos.lucene.intro;
+package aos.lucene.search.simple;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,15 +34,18 @@ import org.apache.lucene.store.FSDirectory;
 /**
  * 
  */
-public class Fragments {
+public class SimpleQuery {
 
     public void simpleSearch() throws IOException {
+
         Directory dir = FSDirectory.open(new File("/tmp/index"));
         IndexReader reader = DirectoryReader.open(dir);
         IndexSearcher searcher = new IndexSearcher(reader);
+
         Query q = new TermQuery(new Term("contents", "lucene"));
         TopDocs hits = searcher.search(q, 10);
         reader.close();
+
     }
 
 }

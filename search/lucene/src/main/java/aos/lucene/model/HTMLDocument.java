@@ -27,17 +27,22 @@ import org.apache.lucene.document.Document;
 
 import aos.lucene.demo.parser.HTMLParser;
 
-/** A utility for making Lucene Documents for HTML documents. */
-
+/**
+ * A utility for making Lucene Documents for HTML documents.
+ */
 public class HtmlDocument {
-    static char dirSep = System.getProperty("file.separator").charAt(0);
+
+    private static char DIR_SEPARATOR = System.getProperty("file.separator").charAt(0);
+
+    private HtmlDocument() {
+    }
 
     public static String uid(File f) {
         // Append path and date into a string in such a way that lexicographic
         // sorting gives the same results as a walk of the file hierarchy. Thus
         // null (\u0000) is used both to separate directory components and to
         // separate the path from the date.
-        return f.getPath().replace(dirSep, '\u0000') + "\u0000"
+        return f.getPath().replace(DIR_SEPARATOR, '\u0000') + "\u0000"
                 + DateTools.timeToString(f.lastModified(), DateTools.Resolution.SECOND);
     }
 
@@ -91,6 +96,4 @@ public class HtmlDocument {
         return doc;
     }
 
-    private HtmlDocument() {
-    }
 }

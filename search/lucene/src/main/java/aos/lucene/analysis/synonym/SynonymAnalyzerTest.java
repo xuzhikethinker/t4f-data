@@ -18,21 +18,6 @@
  ****************************************************************/
 package aos.lucene.analysis.synonym;
 
-/**
- * Copyright Manning Publications Co.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific lan      
-*/
-
 import java.io.StringReader;
 
 import junit.framework.TestCase;
@@ -133,17 +118,17 @@ public class SynonymAnalyzerTest extends TestCase {
   */
 
   public void testWithQueryParser() throws Exception {
-    Query query = new QueryParser(Version.LUCENE_30,                   // 1
-                                  "content",                                // 1
-                                  synonymAnalyzer).parse("\"fox jumps\"");  // 1
-    assertEquals(1, TestUtil.hitCount(searcher, query));                   // 1
+    Query query = new QueryParser(Version.LUCENE_50,                   
+                                  "content",                                
+                                  synonymAnalyzer).parse("\"fox jumps\"");  
+    assertEquals(1, TestUtil.hitCount(searcher, query));                   
     System.out.println("With SynonymAnalyzer, \"fox jumps\" parses to " +
                                          query.toString("content"));
 
-    query = new QueryParser(Version.LUCENE_30,                         // 2
-                            "content",                                      // 2
-                            new StandardAnalyzer(Version.LUCENE_30)).parse("\"fox jumps\""); // B
-    assertEquals(1, TestUtil.hitCount(searcher, query));                   // 2
+    query = new QueryParser(Version.LUCENE_50,                         
+                            "content",                                      
+                            new StandardAnalyzer(Version.LUCENE_50)).parse("\"fox jumps\""); 
+    assertEquals(1, TestUtil.hitCount(searcher, query));                   
     System.out.println("With StandardAnalyzer, \"fox jumps\" parses to " +
                                          query.toString("content"));
   }
