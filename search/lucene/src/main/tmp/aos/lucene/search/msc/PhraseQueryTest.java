@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package aos.lucene.search.simple2;
+package aos.lucene.search.msc;
 
 import junit.framework.TestCase;
 import org.apache.lucene.analysis.WhitespaceAnalyzer;

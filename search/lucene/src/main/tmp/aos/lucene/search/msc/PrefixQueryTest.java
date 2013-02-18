@@ -16,54 +16,43 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package aos.lucene.search.simple2;
+package aos.lucene.search.msc;
 
 import junit.framework.TestCase;
 
+import org.apache.lucene.index.Term;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.IndexSearcher;
-import org.apache.lucene.search.NumericRangeQuery;
+import org.apache.lucene.search.PrefixQuery;
+import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.store.Directory;
 
 import aos.lucene.util.TestUtil;
 
 // From chapter 3
-public class NumericRangeQueryTest extends TestCase {
-  public void testInclusive() throws Exception {
-    Directory dir = TestUtil.getBookIndexDirectory();
-    IndexSearcher searcher = new IndexSearcher(dir);
-    // pub date of TTC was September 2006
-    NumericRangeQuery query = NumericRangeQuery.newIntRange("pubmonth",
-                                                            200605,
-                                                            200609,
-                                                            true,
-                                                            true);
-
-    TopDocs matches = searcher.search(query, 10);
-    /*
-    for(int i=0;i<matches.totalHits;i++) {
-      System.out.println("match " + i + ": " + searcher.doc(matches.scoreDocs[i].doc).get("author"));
-    }
-    */
-    assertEquals(1, matches.totalHits);
-    searcher.close();
-    dir.close();
-  }
-
-  public void testExclusive() throws Exception {
+public class PrefixQueryTest extends TestCase {
+  public void testPrefix() throws Exception {
     Directory dir = TestUtil.getBookIndexDirectory();
     IndexSearcher searcher = new IndexSearcher(dir);
 
-    // pub date of TTC was September 2006
-    NumericRangeQuery query = NumericRangeQuery.newIntRange("pubmonth",
-                                                            200605,
-                                                            200609,
-                                                            false,
-                                                            false);
-    TopDocs matches = searcher.search(query, 10);
-    assertEquals(0, matches.totalHits);
+    Term term = new Term("category",                              //#A
+                         "/technology/computers/programming");    //#A
+    PrefixQuery query = new PrefixQuery(term);                    //#A
+
+    TopDocs matches = searcher.search(query, 10);                 //#A
+    int programmingAndBelow = matches.totalHits;
+
+    matches = searcher.search(new TermQuery(term), 10);           //#B
+    int justProgramming = matches.totalHits;
+
+    assertTrue(programmingAndBelow > justProgramming);
     searcher.close();
     dir.close();
   }
-
 }
+
+/*
+  #A Search, including subcategories
+  #B Search, without subcategories
+*/
+

@@ -44,17 +44,16 @@ import aos.lucene.intro.Indexer;
 
 public class TikaIndexer extends Indexer {
 
-    private final boolean DEBUG = false; 
+    private final boolean DEBUG = false;
 
-    static Set<String> textualMetadataFields 
-    = new HashSet<String>(); 
-    static { 
-        textualMetadataFields.add(Metadata.TITLE); 
-        textualMetadataFields.add(Metadata.AUTHOR); 
-        textualMetadataFields.add(Metadata.COMMENTS); 
-        textualMetadataFields.add(Metadata.KEYWORDS); 
-        textualMetadataFields.add(Metadata.DESCRIPTION); 
-        textualMetadataFields.add(Metadata.SUBJECT); 
+    static Set<String> textualMetadataFields = new HashSet<String>();
+    static {
+        textualMetadataFields.add(Metadata.TITLE);
+        textualMetadataFields.add(Metadata.AUTHOR);
+        textualMetadataFields.add(Metadata.COMMENTS);
+        textualMetadataFields.add(Metadata.KEYWORDS);
+        textualMetadataFields.add(Metadata.DESCRIPTION);
+        textualMetadataFields.add(Metadata.SUBJECT);
     }
 
     public static void main(String[] args) throws Exception {
@@ -62,15 +61,15 @@ public class TikaIndexer extends Indexer {
             throw new IllegalArgumentException("Usage: java " + TikaIndexer.class.getName() + " <index dir> <data dir>");
         }
 
-        TikaConfig config = TikaConfig.getDefaultConfig(); 
-        List<String> parsers = new ArrayList<String>(config.getParsers().keySet()); 
-        Collections.sort(parsers); 
-        Iterator<String> it = parsers.iterator(); 
-        System.out.println("Mime type parsers:"); 
-        while (it.hasNext()) { 
-            System.out.println("  " + it.next()); 
-        } 
-        System.out.println(); 
+        TikaConfig config = TikaConfig.getDefaultConfig();
+        List<String> parsers = new ArrayList<String>(config.getParsers().keySet());
+        Collections.sort(parsers);
+        Iterator<String> it = parsers.iterator();
+        System.out.println("Mime type parsers:");
+        while (it.hasNext()) {
+            System.out.println("  " + it.next());
+        }
+        System.out.println();
 
         String indexDir = args[0];
         String dataDir = args[1];

@@ -37,12 +37,38 @@ import org.apache.lucene.analysis.util.StopwordAnalyzerBase;
 import org.apache.lucene.document.DateTools;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
+import org.apache.lucene.document.StoredField;
 import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 
+import aos.lucene.field.AosFieldType;
+
+/**
+ * #1 Get category #2 Pull fields #3 Add fields to Document instance #4 Flag
+ * subject field #5 Add catch-all contents field #6 Custom analyzer to override
+ * multi-valued position increment
+ */
 public class CreateTestIndex {
+
+    public static void main(String[] args) throws IOException {
+        String dataDir = args[0];
+        String indexDir = args[1];
+        List<File> results = new ArrayList<File>();
+        findFiles(results, new File(dataDir));
+        System.out.println(results.size() + " books to index");
+        Directory dir = FSDirectory.open(new File(indexDir));
+        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_50, new MyStandardAnalyzer(Version.LUCENE_50));
+        IndexWriter w = new IndexWriter(dir, conf);
+        for (File file : results) {
+            Document doc = getDocument(dataDir, file);
+            w.addDocument(doc);
+        }
+        w.close();
+        dir.close();
+    }
 
     public static Document getDocument(String rootDir, File file) throws IOException {
         Properties props = new Properties();
@@ -64,25 +90,21 @@ public class CreateTestIndex {
 
         System.out.println(title + "\n" + author + "\n" + subject + "\n" + pubmonth + "\n" + category + "\n---------");
 
-        doc.add(new Field("isbn", isbn, Field.Store.YES, Field.Index.NOT_ANALYZED));
-        doc.add(new Field("category", category, Field.Store.YES, Field.Index.NOT_ANALYZED));
-        doc.add(new Field("title", title, Field.Store.YES, Field.Index.ANALYZED,
-                Field.TermVector.WITH_POSITIONS_OFFSETS));
-        doc.add(new Field("title2", title.toLowerCase(), Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS,
-                Field.TermVector.WITH_POSITIONS_OFFSETS));
+        doc.add(new StoredField("isbn", isbn));
+        doc.add(new StoredField("category", category));
+        doc.add(new Field("title", title, AosFieldType.INDEXED_STORED_TERMVECTOR));
+        doc.add(new Field("title2", title.toLowerCase(), AosFieldType.INDEXED_STORED_TERMVECTOR));
 
         // split multiple authors into unique field instances
         String[] authors = author.split(",");
         for (String a : authors) {
-            doc.add(new Field("author", a, Field.Store.YES, Field.Index.NOT_ANALYZED,
-                    Field.TermVector.WITH_POSITIONS_OFFSETS));
+            doc.add(new Field("author", a, AosFieldType.INDEXED_STORED_TERMVECTOR));
         }
 
-        doc.add(new Field("url", url, Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
-        doc.add(new Field("subject", subject, Field.Store.YES, Field.Index.ANALYZED,
-                Field.TermVector.WITH_POSITIONS_OFFSETS));
+        doc.add(new StoredField("url", url));
+        doc.add(new Field("subject", subject, AosFieldType.INDEXED_NOTSTORED_TERMVECTOR));
 
-        doc.add(new NumericField("pubmonth", Field.Store.YES, true).setIntValue(Integer.parseInt(pubmonth)));
+        doc.add(new StoredField("pubmonth", Integer.parseInt(pubmonth)));
 
         Date d;
         try {
@@ -91,13 +113,10 @@ public class CreateTestIndex {
         catch (ParseException pe) {
             throw new RuntimeException(pe);
         }
-        doc.add(new NumericField("pubmonthAsDay").setIntValue((int) (d.getTime() / (1000 * 3600 * 24))));
+        doc.add(new StoredField("pubmonthAsDay", (int) (d.getTime() / (1000 * 3600 * 24))));
 
         for (String text : new String[] { title, subject, author, category }) {
-            // //
-
-            doc.add(new Field("contents", text, Field.Store.NO, Field.Index.ANALYZED,
-                    Field.TermVector.WITH_POSITIONS_OFFSETS));
+            doc.add(new Field("contents", text, AosFieldType.INDEXED_NOTSTORED_TERMVECTOR));
         }
 
         return doc;
@@ -164,26 +183,4 @@ public class CreateTestIndex {
 
     }
 
-    public static void main(String[] args) throws IOException {
-        String dataDir = args[0];
-        String indexDir = args[1];
-        List<File> results = new ArrayList<File>();
-        findFiles(results, new File(dataDir));
-        System.out.println(results.size() + " books to index");
-        Directory dir = FSDirectory.open(new File(indexDir));
-        IndexWriter w = new IndexWriter(dir, new MyStandardAnalyzer(Version.LUCENE_50), true,
-                IndexWriter.MaxFieldLength.UNLIMITED);
-        for (File file : results) {
-            Document doc = getDocument(dataDir, file);
-            w.addDocument(doc);
-        }
-        w.close();
-        dir.close();
-    }
 }
-
-/*
- * #1 Get category #2 Pull fields #3 Add fields to Document instance #4 Flag
- * subject field #5 Add catch-all contents field #6 Custom analyzer to override
- * multi-valued position increment
- */

@@ -22,8 +22,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.analysis.core.SimpleAnalyzer;
 import org.apache.lucene.document.DateTools;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
@@ -36,7 +35,6 @@ import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
 
 import aos.lucene.analyser.AosAnalyser;
-import aos.lucene.analysis.SimpleAnalyzer;
 import aos.lucene.field.AosFieldType;
 
 public class Fragments {
@@ -97,7 +95,8 @@ public class Fragments {
         Directory otherDir = null;
         Directory ramDir = null;
 
-        IndexWriter writer = new IndexWriter(otherDir, new IndexWriterConfig(Version.LUCENE_50, new SimpleAnalyzer()));
+        IndexWriter writer = new IndexWriter(otherDir, new IndexWriterConfig(Version.LUCENE_50, new SimpleAnalyzer(
+                Version.LUCENE_50)));
         writer.addIndexes(new Directory[] { ramDir });
 
     }
@@ -123,11 +122,12 @@ public class Fragments {
         doc.add(new Field("body", body, AosFieldType.INDEXED_STORED_TERMVECTOR));
         String lowerDomain = getSenderDomain().toLowerCase();
         if (isImportant(lowerDomain)) {
-            doc.setBoost(1.5F);
+            // doc.setBoost(1.5F);
         }
         else if (isUnimportant(lowerDomain)) {
-            doc.setBoost(0.1F);
+            // doc.setBoost(0.1F);
         }
+
         writer.addDocument(doc);
 
         writer.close();
@@ -139,7 +139,7 @@ public class Fragments {
         String senderName = getSenderName();
         String subject = getSubject();
 
-        Field subjectField = new Field("subject", subject, Field.Store.YES, Field.Index.ANALYZED);
+        Field subjectField = new Field("subject", subject, AosFieldType.INDEXED_STORED_TERMVECTOR);
         subjectField.setBoost(1.2F);
 
     }
@@ -161,15 +161,15 @@ public class Fragments {
 
     public void setInfoStream() throws Exception {
         Directory dir = null;
-        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_50, AosAnalyser.NO_LIMIT_TOKEN_COUNT_SIMPLE_ANALYSER));
+        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_50,
+                AosAnalyser.NO_LIMIT_TOKEN_COUNT_SIMPLE_ANALYSER);
         conf.setInfoStream(System.out);
         IndexWriter writer = new IndexWriter(dir, conf);
     }
 
     public void dateMethod() {
         Document doc = new Document();
-        doc.add(new Field("indexDate", DateTools.dateToString(new Date(), DateTools.Resolution.DAY), Field.Store.YES,
-                Field.Index.NOT_ANALYZED));
+        doc.add(new StoredField("indexDate", DateTools.dateToString(new Date(), DateTools.Resolution.DAY)));
     }
 
     public void numericField() throws Exception {
@@ -190,7 +190,7 @@ public class Fragments {
         String[] authors = new String[] { "lisa", "tom" };
         Document doc = new Document();
         for (String author : authors) {
-            doc.add(new Field("author", author, Field.Store.YES, Field.Index.ANALYZED));
+            doc.add(new StoredField("author", author));
         }
     }
 

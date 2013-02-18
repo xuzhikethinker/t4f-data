@@ -29,7 +29,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
+import org.apache.lucene.document.StoredField;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -102,11 +102,11 @@ public class SaxXmlDocument extends DefaultHandler {
             for (Entry<String, String> attribute : attributeMap.entrySet()) {
                 String attName = attribute.getKey();
                 String attValue = attribute.getValue();
-                doc.add(new Field(attName, attValue, Field.Store.YES, Field.Index.NOT_ANALYZED));
+                doc.add(new StoredField(attName, attValue));
             }
         }
         else {
-            doc.add(new Field(qName, elementBuffer.toString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+            doc.add(new StoredField(qName, elementBuffer.toString()));
         }
     }
 

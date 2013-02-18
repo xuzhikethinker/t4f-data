@@ -7,7 +7,7 @@
  * "License"); you may not use this file except in compliance   *
  * with the License.  You may obtain a copy of the License at   *
  *                                                              *
- *   http://www.apache.org/licenses/LICENSE-2.0                 *
+ *   http:www.apache.org/licenses/LICENSE-2.0                 *
  *                                                              *
  * Unless required by applicable law or agreed to in writing,   *
  * software distributed under the License is distributed on an  *
@@ -25,7 +25,7 @@ import java.io.InputStream;
 
 import org.apache.commons.digester.Digester;
 import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
+import org.apache.lucene.document.StoredField;
 import org.xml.sax.SAXException;
 
 public class DigesterXmlDocument {
@@ -38,13 +38,12 @@ public class DigesterXmlDocument {
         dig = new Digester();
         dig.setValidating(false);
 
-        dig.addObjectCreate("address-book", DigesterXmlDocument.class); //
-        dig.addObjectCreate("address-book/contact", Contact.class); //
+        dig.addObjectCreate("address-book", DigesterXmlDocument.class);
+        dig.addObjectCreate("address-book/contact", Contact.class);
 
-        dig.addSetProperties("address-book/contact", "type", "type"); //
+        dig.addSetProperties("address-book/contact", "type", "type");
 
-        dig.addCallMethod("address-book/contact/name", //
-                "setName", 0); //
+        dig.addCallMethod("address-book/contact/name", "setName", 0);
         dig.addCallMethod("address-book/contact/address", "setAddress", 0);
         dig.addCallMethod("address-book/contact/city", "setCity", 0);
         dig.addCallMethod("address-book/contact/province", "setProvince", 0);
@@ -52,13 +51,13 @@ public class DigesterXmlDocument {
         dig.addCallMethod("address-book/contact/country", "setCountry", 0);
         dig.addCallMethod("address-book/contact/telephone", "setTelephone", 0);
 
-        dig.addSetNext("address-book/contact", "populateDocument"); //
+        dig.addSetNext("address-book/contact", "populateDocument");
     }
 
     public synchronized Document getDocument(InputStream is) throws DocumentHandlerException {
 
         try {
-            dig.parse(is); //
+            dig.parse(is);
         }
         catch (IOException e) {
             throw new DocumentHandlerException("Cannot parse XML document", e);
@@ -70,18 +69,18 @@ public class DigesterXmlDocument {
         return doc;
     }
 
-    public void populateDocument(Contact contact) { //
+    public void populateDocument(Contact contact) {
 
         doc = new Document();
 
-        doc.add(new Field("type", contact.getType(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-        doc.add(new Field("name", contact.getName(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-        doc.add(new Field("address", contact.getAddress(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-        doc.add(new Field("city", contact.getCity(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-        doc.add(new Field("province", contact.getProvince(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-        doc.add(new Field("postalcode", contact.getPostalcode(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-        doc.add(new Field("country", contact.getCountry(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-        doc.add(new Field("telephone", contact.getTelephone(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+        doc.add(new StoredField("type", contact.getType()));
+        doc.add(new StoredField("name", contact.getName()));
+        doc.add(new StoredField("address", contact.getAddress()));
+        doc.add(new StoredField("city", contact.getCity()));
+        doc.add(new StoredField("province", contact.getProvince()));
+        doc.add(new StoredField("postalcode", contact.getPostalcode()));
+        doc.add(new StoredField("country", contact.getCountry()));
+        doc.add(new StoredField("telephone", contact.getTelephone()));
     }
 
     public static class Contact {
