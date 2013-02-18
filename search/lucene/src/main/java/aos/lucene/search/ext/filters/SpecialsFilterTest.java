@@ -32,7 +32,7 @@ import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.WildcardQuery;
 
-import aos.lucene.common.TestUtil;
+import aos.lucene.util.TestUtil;
 
 /**
  * #1 Rudolf Steiner's book #2 All education books on special #3 All books with

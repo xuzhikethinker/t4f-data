@@ -29,7 +29,7 @@ import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.util.Version;
 import org.apache.lucene.store.Directory;
 
-import aos.lucene.common.TestUtil;
+import aos.lucene.util.TestUtil;
 
 // From chapter 5
 public class MultiFieldQueryParserTest extends TestCase {

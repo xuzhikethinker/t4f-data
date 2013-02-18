@@ -37,7 +37,7 @@ import org.apache.lucene.search.highlight.SimpleSpanFragmenter;
 import org.apache.lucene.search.highlight.TokenSources;
 
 import aos.lucene.analysis.SimpleAnalyzer;
-import aos.lucene.common.TestUtil;
+import aos.lucene.util.TestUtil;
 
 // From chapter 8
 public class HighlightTest extends TestCase {

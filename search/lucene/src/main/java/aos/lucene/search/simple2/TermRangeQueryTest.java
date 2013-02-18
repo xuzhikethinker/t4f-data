@@ -25,7 +25,7 @@ import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.TermRangeQuery;
 import org.apache.lucene.store.Directory;
 
-import aos.lucene.common.TestUtil;
+import aos.lucene.util.TestUtil;
 
 // From chapter 3
 public class TermRangeQueryTest extends TestCase {

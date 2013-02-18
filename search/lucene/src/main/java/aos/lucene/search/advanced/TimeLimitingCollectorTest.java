@@ -29,7 +29,7 @@ import org.apache.lucene.search.TopScoreDocCollector;
 import org.apache.lucene.search.TimeLimitingCollector;
 import org.apache.lucene.search.TimeLimitingCollector.TimeExceededException;
 
-import aos.lucene.common.TestUtil;
+import aos.lucene.util.TestUtil;
 
 // From chapter 5
 public class TimeLimitingCollectorTest extends TestCase {

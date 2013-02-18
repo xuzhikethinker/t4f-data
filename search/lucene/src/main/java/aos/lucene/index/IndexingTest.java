@@ -38,8 +38,8 @@ import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
 
 import aos.lucene.analyser.AosAnalyser;
-import aos.lucene.common.TestUtil;
 import aos.lucene.field.AosFieldType;
+import aos.lucene.util.TestUtil;
 
 /**
  * #1 One initial document has bridges #2 Create writer with maxFieldLength 1 #3

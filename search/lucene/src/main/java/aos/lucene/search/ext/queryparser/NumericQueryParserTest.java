@@ -33,7 +33,7 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.document.DateTools;
 import org.apache.lucene.util.Version;
 
-import aos.lucene.common.TestUtil;
+import aos.lucene.util.TestUtil;
 
 import java.util.Locale;
 

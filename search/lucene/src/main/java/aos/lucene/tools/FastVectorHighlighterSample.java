@@ -42,7 +42,6 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
 
-// From chapter 8
 public class FastVectorHighlighterSample {
 
     static final String[] DOCS = { // #A
@@ -97,7 +96,6 @@ public class FastVectorHighlighterSample {
         }
         writer.write("</body></html>");
         writer.close();
-        searcher.close();
     }
 
     static FastVectorHighlighter getHighlighter() {

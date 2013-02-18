@@ -26,7 +26,7 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.Directory;
 
-import aos.lucene.common.AllDocCollector;
+import aos.lucene.util.AllDocCollector;
 
 import java.io.File;
 import java.io.IOException;

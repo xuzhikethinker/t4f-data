@@ -37,7 +37,7 @@ import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.util.Version;
 
-import aos.lucene.common.TestUtil;
+import aos.lucene.util.TestUtil;
 
 // From chapter 3
 public class QueryParserTest extends TestCase {

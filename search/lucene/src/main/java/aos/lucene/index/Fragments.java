@@ -37,6 +37,7 @@ import org.apache.lucene.util.Version;
 
 import aos.lucene.analyser.AosAnalyser;
 import aos.lucene.analysis.SimpleAnalyzer;
+import aos.lucene.field.AosFieldType;
 
 public class Fragments {
 
@@ -79,8 +80,9 @@ public class Fragments {
 
     public void ramDirExample() throws Exception {
         Directory ramDir = new RAMDirectory();
-        IndexWriter writer = new IndexWriter(ramDir, AosAnalyser.NO_LIMIT_TOKEN_COUNT_WHITE_SPACE_ANALYSER);
-
+        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_50,
+                AosAnalyser.NO_LIMIT_TOKEN_COUNT_SIMPLE_ANALYSER);
+        IndexWriter writer = new IndexWriter(ramDir, conf);
     }
 
     public void dirCopy() throws Exception {
@@ -94,28 +96,31 @@ public class Fragments {
 
         Directory otherDir = null;
         Directory ramDir = null;
-        Analyzer analyzer = null;
 
         IndexWriter writer = new IndexWriter(otherDir, new IndexWriterConfig(Version.LUCENE_50, new SimpleAnalyzer()));
         writer.addIndexes(new Directory[] { ramDir });
 
     }
 
+    /**
+     * #1 Good domain boost factor: 1.5 #2 Bad domain boost factor: 0.1
+     */
     public void docBoostMethod() throws IOException {
 
         Directory dir = new RAMDirectory();
-        IndexWriter writer = new IndexWriter(dir, new StandardAnalyzer(Version.LUCENE_50),
-                IndexWriter.MaxFieldLength.UNLIMITED);
+        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_50,
+                AosAnalyser.NO_LIMIT_TOKEN_COUNT_SIMPLE_ANALYSER);
+        IndexWriter writer = new IndexWriter(dir, conf);
 
         Document doc = new Document();
         String senderEmail = getSenderEmail();
         String senderName = getSenderName();
         String subject = getSubject();
         String body = getBody();
-        doc.add(new Field("senderEmail", senderEmail, Field.Store.YES, Field.Index.NOT_ANALYZED));
-        doc.add(new Field("senderName", senderName, Field.Store.YES, Field.Index.ANALYZED));
-        doc.add(new Field("subject", subject, Field.Store.YES, Field.Index.ANALYZED));
-        doc.add(new Field("body", body, Field.Store.NO, Field.Index.ANALYZED));
+        doc.add(new StoredField("senderEmail", senderEmail));
+        doc.add(new Field("senderName", senderName, AosFieldType.INDEXED_STORED_TERMVECTOR));
+        doc.add(new Field("subject", subject, AosFieldType.INDEXED_STORED_TERMVECTOR));
+        doc.add(new Field("body", body, AosFieldType.INDEXED_STORED_TERMVECTOR));
         String lowerDomain = getSenderDomain().toLowerCase();
         if (isImportant(lowerDomain)) {
             doc.setBoost(1.5F);
@@ -127,9 +132,6 @@ public class Fragments {
 
         writer.close();
 
-        /*
-         * #1 Good domain boost factor: 1.5 #2 Bad domain boost factor: 0.1
-         */
     }
 
     public void fieldBoostMethod() throws IOException {
@@ -144,32 +146,24 @@ public class Fragments {
 
     public void numberField() {
         Document doc = new Document();
-
-        doc.add(new NumericField("price").setDoubleValue(19.99));
-
+        doc.add(new StoredField("price", 19.99));
     }
 
     public void numberTimestamp() {
         Document doc = new Document();
-        doc.add(new NumericField("timestamp").setLongValue(new Date().getTime()));
-
-        doc.add(new NumericField("day").setIntValue((int) (new Date().getTime() / 24 / 3600)));
-
+        doc.add(new StoredField("timestamp", new Date().getTime()));
+        doc.add(new StoredField("day", (int) (new Date().getTime() / 24 / 3600)));
         Date date = new Date();
-
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        doc.add(new NumericField("dayOfMonth").setIntValue(cal.get(Calendar.DAY_OF_MONTH)));
-
+        doc.add(new StoredField("dayOfMonth", cal.get(Calendar.DAY_OF_MONTH)));
     }
 
     public void setInfoStream() throws Exception {
         Directory dir = null;
-        Analyzer analyzer = null;
-
-        IndexWriter writer = new IndexWriter(dir, analyzer, true, IndexWriter.MaxFieldLength.UNLIMITED);
-        writer.setInfoStream(System.out);
-
+        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_50, AosAnalyser.NO_LIMIT_TOKEN_COUNT_SIMPLE_ANALYSER));
+        conf.setInfoStream(System.out);
+        IndexWriter writer = new IndexWriter(dir, conf);
     }
 
     public void dateMethod() {
@@ -180,30 +174,24 @@ public class Fragments {
 
     public void numericField() throws Exception {
         Document doc = new Document();
-        NumericField price = new NumericField("price");
-        price.setDoubleValue(19.99);
+        StoredField price = new StoredField("price", 19.99);
         doc.add(price);
 
-        NumericField timestamp = new NumericField("timestamp");
-        timestamp.setLongValue(new Date().getTime());
+        StoredField timestamp = new StoredField("timestamp", new Date().getTime());
         doc.add(timestamp);
 
         Date b = new Date();
-        NumericField birthday = new NumericField("birthday");
         String v = DateTools.dateToString(b, DateTools.Resolution.DAY);
-        birthday.setIntValue(Integer.parseInt(v));
+        StoredField birthday = new StoredField("birthday", v);
         doc.add(birthday);
     }
 
     public void indexAuthors() throws Exception {
-
         String[] authors = new String[] { "lisa", "tom" };
-
         Document doc = new Document();
         for (String author : authors) {
             doc.add(new Field("author", author, Field.Store.YES, Field.Index.ANALYZED));
         }
-
     }
 
 }

@@ -29,7 +29,7 @@ import org.apache.lucene.search.Query;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
 
-import aos.lucene.common.TestUtil;
+import aos.lucene.util.TestUtil;
 
 // From chapter 4
 public class PositionalPorterStopAnalyzerTest extends TestCase {

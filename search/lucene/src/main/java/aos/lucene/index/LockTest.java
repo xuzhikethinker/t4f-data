@@ -31,7 +31,7 @@ import org.apache.lucene.store.LockObtainFailedException;
 import org.apache.lucene.util.Version;
 
 import aos.lucene.analyser.AosAnalyser;
-import aos.lucene.common.TestUtil;
+import aos.lucene.util.TestUtil;
 
 /**
  * #A Expected exception: only one IndexWriter allowed at once

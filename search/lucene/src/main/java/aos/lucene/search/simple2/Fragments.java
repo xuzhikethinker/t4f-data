@@ -34,7 +34,7 @@ import org.apache.lucene.analysis.*;
 import org.apache.lucene.index.*;
 import org.apache.lucene.util.*;
 
-import aos.lucene.common.TestUtil;
+import aos.lucene.util.TestUtil;
 
 // From chapter 3
 public class Fragments {

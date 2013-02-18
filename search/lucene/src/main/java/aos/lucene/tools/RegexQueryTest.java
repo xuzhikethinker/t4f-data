@@ -26,7 +26,7 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.store.Directory;
 
-import aos.lucene.common.TestUtil;
+import aos.lucene.util.TestUtil;
 
 // From chapter 8
 public class RegexQueryTest extends TestCase {

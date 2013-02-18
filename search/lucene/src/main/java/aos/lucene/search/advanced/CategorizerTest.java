@@ -24,7 +24,7 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.TermFreqVector;
 
-import aos.lucene.common.TestUtil;
+import aos.lucene.util.TestUtil;
 
 import java.io.IOException;
 import java.util.Iterator;

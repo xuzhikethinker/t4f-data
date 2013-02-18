@@ -35,7 +35,7 @@ import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.util.Version;
 
-import aos.lucene.common.TestUtil;
+import aos.lucene.util.TestUtil;
 
 // From chapter 4
 public class KeywordAnalyzerTest extends TestCase {

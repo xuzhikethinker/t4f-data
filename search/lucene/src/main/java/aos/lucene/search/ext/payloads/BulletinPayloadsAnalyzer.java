@@ -25,22 +25,25 @@ import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.util.Version;
 
-// From chapter 6
 public class BulletinPayloadsAnalyzer extends Analyzer {
-  private boolean isBulletin;
-  private float boost;
 
-  BulletinPayloadsAnalyzer(float boost) {
-    this.boost = boost;
-  }
+    private boolean isBulletin;
+    private final float boost;
 
-  void setIsBulletin(boolean v) {
-    isBulletin = v;
-  }
+    BulletinPayloadsAnalyzer(float boost) {
+        this.boost = boost;
+    }
 
-  public TokenStream tokenStream(String fieldName, Reader reader) {
-    BulletinPayloadsFilter stream = new BulletinPayloadsFilter(new StandardAnalyzer(Version.LUCENE_50).tokenStream(fieldName, reader), boost);
-    stream.setIsBulletin(isBulletin);
-    return stream;
-  }
+    void setIsBulletin(boolean v) {
+        isBulletin = v;
+    }
+
+    @Override
+    public TokenStream tokenStream(String fieldName, Reader reader) {
+        BulletinPayloadsFilter stream = new BulletinPayloadsFilter(new StandardAnalyzer(Version.LUCENE_50).tokenStream(
+                fieldName, reader), boost);
+        stream.setIsBulletin(isBulletin);
+        return stream;
+    }
+
 }

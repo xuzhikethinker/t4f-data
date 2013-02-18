@@ -27,7 +27,7 @@ import org.apache.lucene.search.PrefixQuery;
 import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.store.Directory;
 
-import aos.lucene.common.TestUtil;
+import aos.lucene.util.TestUtil;
 
 // From chapter 3
 public class PrefixQueryTest extends TestCase {

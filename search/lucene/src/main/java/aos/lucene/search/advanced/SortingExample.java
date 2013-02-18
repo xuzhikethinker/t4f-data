@@ -34,7 +34,7 @@ import org.apache.lucene.util.Version;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 
-import aos.lucene.common.TestUtil;
+import aos.lucene.util.TestUtil;
 
 import java.io.IOException;
 import java.io.PrintStream;

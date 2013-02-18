@@ -40,7 +40,7 @@ import org.apache.lucene.search.PrefixFilter;
 import org.apache.lucene.search.MatchAllDocsQuery;
 import org.apache.lucene.store.Directory;
 
-import aos.lucene.common.TestUtil;
+import aos.lucene.util.TestUtil;
 
 // From chapter 5
 public class FilterTest extends TestCase {

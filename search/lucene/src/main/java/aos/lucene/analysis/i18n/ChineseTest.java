@@ -26,7 +26,7 @@ import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.store.Directory;
 
-import aos.lucene.common.TestUtil;
+import aos.lucene.util.TestUtil;
 
 // From chapter 4
 public class ChineseTest extends TestCase {

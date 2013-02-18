@@ -38,7 +38,7 @@ import org.apache.lucene.util.Version;
 import org.apache.lucene.analysis.tokenattributes.TermAttribute;
 import org.apache.lucene.analysis.tokenattributes.PositionIncrementAttribute;
 
-import aos.lucene.common.TestUtil;
+import aos.lucene.util.TestUtil;
 
 // From chapter 4
 public class SynonymAnalyzerTest extends TestCase {

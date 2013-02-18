@@ -36,7 +36,7 @@ import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.payloads.PayloadTermQuery;
 import org.apache.lucene.search.payloads.AveragePayloadFunction;
 
-import aos.lucene.common.TestUtil;
+import aos.lucene.util.TestUtil;
 
 // From chapter 6
 public class PayloadsTest extends TestCase {

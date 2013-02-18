@@ -43,7 +43,7 @@ import org.apache.lucene.search.function.CustomScoreProvider;
 import org.apache.lucene.search.FieldCache;
 import org.apache.lucene.util.Version;
 
-import aos.lucene.common.TestUtil;
+import aos.lucene.util.TestUtil;
 
 // From chapter 5
 public class FunctionQueryTest extends TestCase {

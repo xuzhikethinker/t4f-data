@@ -36,7 +36,7 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 
 import aos.lucene.analysis.SimpleAnalyzer;
-import aos.lucene.common.TestUtil;
+import aos.lucene.util.TestUtil;
 
 /**
  * #A Create QueryParser #B Parse user's text
