@@ -21,7 +21,6 @@ package aos.lucene.query;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.lucene.demo.html.ParseException;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
@@ -32,6 +31,8 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocsCollector;
 import org.apache.lucene.search.TopScoreDocCollector;
 import org.apache.lucene.store.FSDirectory;
+
+import aos.lucene.demo.parser.ParseException;
 
 public class IndexCreationQueryTest {
 

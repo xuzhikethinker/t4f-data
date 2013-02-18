@@ -33,6 +33,8 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 import org.junit.Assert;
 
+import aos.lucene.index.IndexDir;
+
 public class AosIndexerTest {
 
     protected Directory dir;

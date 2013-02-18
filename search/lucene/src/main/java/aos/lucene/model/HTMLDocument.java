@@ -22,9 +22,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import org.apache.lucene.demo.html.HTMLParser;
 import org.apache.lucene.document.DateTools;
 import org.apache.lucene.document.Document;
+
+import aos.lucene.demo.parser.HTMLParser;
 
 /** A utility for making Lucene Documents for HTML documents. */
 

@@ -31,7 +31,7 @@
   <packaging>pom</packaging>
   <modules>
     <module>elasticsearch</module>
-    <module>lucene</module>
+<!--     <module>lucene</module> -->
     <module>shell</module>
     <module>solr</module>
     <module>solrcloud</module>
