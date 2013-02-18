@@ -21,7 +21,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>t4f-data-graph-giraph</artifactId>
-  <name>T4F Data MPI Giraph</name>
+  <name>T4F Data Graph Giraph</name>
   <packaging>jar</packaging>
   <parent>
     <groupId>aos.t4f</groupId>

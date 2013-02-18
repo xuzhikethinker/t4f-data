@@ -51,8 +51,8 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 
 /** Indexer for HTML files. */
-public class IndexHTML {
-	private IndexHTML() {
+public class IndexHtml {
+	private IndexHtml() {
 	}
 
 	private static boolean deleting = false; // true during deletion pass
@@ -97,7 +97,7 @@ public class IndexHTML {
 				deleting = true;
 				indexDocs(root, index, create);
 			}
-			IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_40, new StandardAnalyzer(Version.LUCENE_40));
+			IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_50, new StandardAnalyzer(Version.LUCENE_50));
 			writer = new IndexWriter(FSDirectory.open(index), conf);
 			indexDocs(root, index, create); // add new docs
 

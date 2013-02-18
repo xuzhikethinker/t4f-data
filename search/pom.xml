@@ -30,8 +30,10 @@
   <name>T4F Data NoSQL</name>
   <packaging>pom</packaging>
   <modules>
-    <module>distributed</module>
+    <module>elasticsearch</module>
     <module>lucene</module>
     <module>shell</module>
+    <module>solr</module>
+    <module>solrcloud</module>
   </modules>
 </project>

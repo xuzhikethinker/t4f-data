@@ -33,18 +33,13 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 import org.junit.Assert;
 
-import aos.lucene.index.IndexDir;
-
 public class AosIndexerTest {
 
     protected Directory dir;
 
     protected String[] keywords = { "1", "2" };
-
     protected String[] unindexed = { "Netherlands", "Italy" };
-
     protected String[] unstored = { "Amsterdam has lots of bridges", "Venice has lots of canals" };
-
     protected String[] text = { "Amsterdam", "Venice" };
 
     protected void setUp() throws IOException {
@@ -54,7 +49,7 @@ public class AosIndexerTest {
     }
 
     public void testIndexWriter() throws IOException {
-        IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_40, getAnalyzer());
+        IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_50, getAnalyzer());
         IndexWriter writer = new IndexWriter(dir, config);
         Assert.assertEquals(keywords.length, writer.maxDoc());
         writer.close();
@@ -68,7 +63,7 @@ public class AosIndexerTest {
     }
 
     protected void addDocuments(Directory dir) throws IOException {
-        IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_40, getAnalyzer());
+        IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_50, getAnalyzer());
         IndexWriter indexWriter = new IndexWriter(dir, config);
         for (int i = 0; i < keywords.length; i++) {
             Document doc = new Document();
@@ -84,7 +79,7 @@ public class AosIndexerTest {
     }
 
     protected Analyzer getAnalyzer() {
-        return new SimpleAnalyzer(Version.LUCENE_40);
+        return new SimpleAnalyzer(Version.LUCENE_50);
     }
 
     protected boolean isCompound() {

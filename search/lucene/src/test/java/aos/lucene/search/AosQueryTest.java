@@ -64,21 +64,21 @@ public class AosQueryTest extends TestCase {
 
     public void testSingleFieldQuery1() throws Exception {
         String fieldName = "title";
-        Query query = new QueryParser(Version.LUCENE_40, fieldName, new StandardAnalyzer(Version.LUCENE_40))
+        Query query = new QueryParser(Version.LUCENE_50, fieldName, new StandardAnalyzer(Version.LUCENE_50))
                 .parse("lucene");
         queryIndex(query, fieldName);
     }
 
     public void testSingleFieldQuery2() throws Exception {
         String fieldName = "com.twitter.status.text.token";
-        Query query = new QueryParser(Version.LUCENE_40, fieldName, new StandardAnalyzer(Version.LUCENE_40))
+        Query query = new QueryParser(Version.LUCENE_50, fieldName, new StandardAnalyzer(Version.LUCENE_50))
                 .parse("american");
         queryIndex(query, fieldName);
     }
 
     public void testSingleFieldQuery3() throws Exception {
         String fieldName = "com.twitter.status.text.url";
-        Query query = new QueryParser(Version.LUCENE_40, fieldName, new StandardAnalyzer(Version.LUCENE_40))
+        Query query = new QueryParser(Version.LUCENE_50, fieldName, new StandardAnalyzer(Version.LUCENE_50))
                 .parse("http*");
         queryIndex(query, "com.twitter.status.user.id");
     }
@@ -93,7 +93,7 @@ public class AosQueryTest extends TestCase {
 
     public void testQuerySingleFieldRange2() throws Exception {
         String fieldName = "com.twitter.status.date.creation";
-        Query query = new QueryParser(Version.LUCENE_40, fieldName, new StandardAnalyzer(Version.LUCENE_40))
+        Query query = new QueryParser(Version.LUCENE_50, fieldName, new StandardAnalyzer(Version.LUCENE_50))
                 .parse("[20090424150351000 TO 20090424150354000]");
         queryIndex(query, fieldName);
     }
@@ -102,7 +102,7 @@ public class AosQueryTest extends TestCase {
         String queryString = "com.twitter.status.text.url:h* AND com.twitter.status.id:(1604330852 OR 1604330857)";
         String[] queryFieldNames = new String[] { "com.twitter.status.text.url", "com.twitter.status.id" };
         BooleanClause.Occur[] flags = { BooleanClause.Occur.MUST, BooleanClause.Occur.MUST };
-        Query query = MultiFieldQueryParser.parse(Version.LUCENE_40, queryString, queryFieldNames, flags,
+        Query query = MultiFieldQueryParser.parse(Version.LUCENE_50, queryString, queryFieldNames, flags,
                 new KeywordAnalyzer());
         queryIndex(query, "com.twitter.status.text.url");
     }
@@ -111,7 +111,7 @@ public class AosQueryTest extends TestCase {
         String queryString = "com.twitter.status.text.url:h* AND com.twitter.status.date.creation:[20090424150351000 TO 20090424150354000]";
         String[] queryFieldNames = new String[] { "com.twitter.status.text.url", "com.twitter.status.id" };
         BooleanClause.Occur[] flags = { BooleanClause.Occur.MUST, BooleanClause.Occur.MUST };
-        Query query = MultiFieldQueryParser.parse(Version.LUCENE_40, queryString, queryFieldNames, flags,
+        Query query = MultiFieldQueryParser.parse(Version.LUCENE_50, queryString, queryFieldNames, flags,
                 new KeywordAnalyzer());
         queryIndex(query, "com.twitter.status.text.url");
     }
@@ -123,7 +123,7 @@ public class AosQueryTest extends TestCase {
                 + nowString + "]";
         String[] queryFieldNames = new String[] { "com.twitter.status.text.url", "com.twitter.status.id" };
         BooleanClause.Occur[] flags = { BooleanClause.Occur.MUST, BooleanClause.Occur.MUST };
-        Query query = MultiFieldQueryParser.parse(Version.LUCENE_40, queryString, queryFieldNames, flags,
+        Query query = MultiFieldQueryParser.parse(Version.LUCENE_50, queryString, queryFieldNames, flags,
                 new KeywordAnalyzer());
         queryIndex(query, "com.twitter.status.text.url");
     }
@@ -132,7 +132,7 @@ public class AosQueryTest extends TestCase {
         String[] fieldQueries = new String[] { "h*", "1604330852 OR 1604330857 OR 1604330866" };
         String[] queryFieldNames = new String[] { "com.twitter.status.text.url", "com.twitter.status.id" };
         BooleanClause.Occur[] flags = { BooleanClause.Occur.MUST, BooleanClause.Occur.MUST };
-        Query query = MultiFieldQueryParser.parse(Version.LUCENE_40, fieldQueries, queryFieldNames, flags,
+        Query query = MultiFieldQueryParser.parse(Version.LUCENE_50, fieldQueries, queryFieldNames, flags,
                 new KeywordAnalyzer());
         queryIndex(query, "com.twitter.status.text.url");
     }

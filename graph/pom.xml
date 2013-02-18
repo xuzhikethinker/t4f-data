@@ -30,7 +30,10 @@
   <name>T4F Data MPI</name>
   <packaging>pom</packaging>
   <modules>
+    <module>gephi</module>
     <module>giraph</module>
     <module>hama</module>
+    <module>jgrapht</module>
+    <module>jung</module>
   </modules>
 </project>

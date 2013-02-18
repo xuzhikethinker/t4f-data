@@ -45,8 +45,8 @@ import org.slf4j.LoggerFactory;
  * frequencey. If the -t flag is and reports both their document frequency and
  * their total tf (total number of occurences) in order of highest total tf
  */
-public class AOSFrequencyTerms {
-	private static final Logger LOG = LoggerFactory.getLogger(AOSFrequencyTerms.class);
+public class AosFrequencyTerms {
+	private static final Logger LOG = LoggerFactory.getLogger(AosFrequencyTerms.class);
 
 	// The top numTerms will be displayed
 	public static final int DEFAULTnumTerms = 100;

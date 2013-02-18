@@ -104,8 +104,8 @@ public class IndexFiles {
 			System.out.println("Indexing to directory '" + indexPath + "'...");
 
 			Directory dir = FSDirectory.open(new File(indexPath));
-			Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_40);
-			IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_40, analyzer);
+			Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_50);
+			IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_50, analyzer);
 
 			if (create) {
 				// Create a new index in the directory, removing any
