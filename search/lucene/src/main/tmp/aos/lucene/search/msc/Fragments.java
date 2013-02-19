@@ -78,7 +78,7 @@ public class Fragments {
   public void queryParserOperator() throws Exception {
     Analyzer analyzer = null;
     
-    QueryParser parser = new QueryParser(Version.LUCENE_50,
+    QueryParser parser = new QueryParser(Version.LUCENE_41,
                                          "contents", analyzer);
     parser.setDefaultOperator(QueryParser.AND_OPERATOR);
   

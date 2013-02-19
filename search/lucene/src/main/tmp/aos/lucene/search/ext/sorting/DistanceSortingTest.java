@@ -46,7 +46,7 @@ public class DistanceSortingTest extends TestCase {
   protected void setUp() throws Exception {
     directory = new RAMDirectory();
     IndexWriter writer =
-        new IndexWriter(directory, new WhitespaceAnalyzer(Version.LUCENE_50),
+        new IndexWriter(directory, new WhitespaceAnalyzer(Version.LUCENE_41),
                         IndexWriter.MaxFieldLength.UNLIMITED);
     addPoint(writer, "El Charro", "restaurant", 1, 2);
     addPoint(writer, "Cafe Poca Cosa", "restaurant", 5, 9);

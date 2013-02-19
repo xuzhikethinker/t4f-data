@@ -27,7 +27,7 @@ import aos.lucene.analysis.AnalyzerUtils;
 
 // From chapter 4
 public class StopAnalyzerTest extends TestCase {
-  private StopAnalyzer stopAnalyzer = new StopAnalyzer(Version.LUCENE_50);
+  private StopAnalyzer stopAnalyzer = new StopAnalyzer(Version.LUCENE_41);
 
   public void testHoles() throws Exception {
     String[] expected = { "one", "enough"};

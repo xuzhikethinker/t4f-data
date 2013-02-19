@@ -27,18 +27,18 @@ import java.nio.charset.Charset;
 
 import org.junit.Test;
 
-import aos.lucene.index.IndexFiles;
-import aos.lucene.search.simple.SearchFiles;
-import aos.lucene.util.DirPath;
+import aos.lucene.util.AosDirectory;
 import aos.lucene.util.TestUtil;
+import aos.lucene2.index.IndexFiles;
+import aos.lucene2.search.SearchFiles;
 
 public class DemoTest {
 
     @Test
     public void testIndexSearch() throws Exception {
 
-        File fileDir = new File(DirPath.DOC_PATH_TXT_TEST);
-        File indexDir = TestUtil.createIndexFile(DirPath.INDEX_DIR);
+        File fileDir = new File(AosDirectory.DOC_PATH_TXT_TEST);
+        File indexDir = TestUtil.createIndexFile(AosDirectory.INDEX_DIR);
 
         IndexFiles.main(new String[] { "-create", "-docs", fileDir.getPath(), "-index", indexDir.getPath() });
 

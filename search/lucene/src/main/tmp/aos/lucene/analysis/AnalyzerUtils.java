@@ -165,7 +165,7 @@ public class AnalyzerUtils {
 
         LOGGER.info("\n----");
         LOGGER.info("StandardAnalyzer");
-        displayTokensWithFullDetails(new StandardAnalyzer(Version.LUCENE_50), "I'll email you at xyz@example.com");
+        displayTokensWithFullDetails(new StandardAnalyzer(Version.LUCENE_41), "I'll email you at xyz@example.com");
     }
 }
 

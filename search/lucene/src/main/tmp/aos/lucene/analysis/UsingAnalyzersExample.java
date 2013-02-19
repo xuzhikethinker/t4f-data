@@ -38,7 +38,7 @@ public class UsingAnalyzersExample {
     public void someMethod() throws IOException, ParseException {
         RAMDirectory directory = new RAMDirectory();
 
-        Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_50);
+        Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_41);
         IndexWriter writer = new IndexWriter(directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED);
 
         Document doc = new Document();
@@ -50,9 +50,9 @@ public class UsingAnalyzersExample {
 
         String expression = "some query";
 
-        Query query = new QueryParser(Version.LUCENE_50, "contents", analyzer).parse(expression);
+        Query query = new QueryParser(Version.LUCENE_41, "contents", analyzer).parse(expression);
 
-        QueryParser parser = new QueryParser(Version.LUCENE_50, "contents", analyzer);
+        QueryParser parser = new QueryParser(Version.LUCENE_41, "contents", analyzer);
         query = parser.parse(expression);
     }
 }

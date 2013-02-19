@@ -83,7 +83,7 @@ public class BasicSearchingTest extends TestCase {
         Directory dir = TestUtil.getBookIndexDirectory();
         IndexSearcher searcher = new IndexSearcher(dir);
 
-        QueryParser parser = new QueryParser(Version.LUCENE_50, "contents", new SimpleAnalyzer());
+        QueryParser parser = new QueryParser(Version.LUCENE_41, "contents", new SimpleAnalyzer());
 
         Query query = parser.parse("+JUNIT +ANT -MOCK");
         TopDocs docs = searcher.search(query, 10);

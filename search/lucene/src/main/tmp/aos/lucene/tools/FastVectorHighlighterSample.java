@@ -53,7 +53,7 @@ public class FastVectorHighlighterSample {
     static final String QUERY = "quick OR fox OR \"lazy dog\"~1"; // #B
     static final String F = "f";
     static Directory dir = new RAMDirectory();
-    static Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_50);
+    static Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_41);
 
     public static void main(String[] args) throws Exception {
         if (args.length != 1) {
@@ -75,7 +75,7 @@ public class FastVectorHighlighterSample {
     }
 
     static void searchIndex(String filename) throws Exception {
-        QueryParser parser = new QueryParser(Version.LUCENE_50, F, analyzer);
+        QueryParser parser = new QueryParser(Version.LUCENE_41, F, analyzer);
         Query query = parser.parse(QUERY);
         FastVectorHighlighter highlighter = getHighlighter(); // #C
         FieldQuery fieldQuery = highlighter.getFieldQuery(query); // #D

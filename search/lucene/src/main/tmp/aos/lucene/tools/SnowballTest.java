@@ -29,14 +29,14 @@ import aos.lucene.analysis.AnalyzerUtils;
 // From chapter 8
 public class SnowballTest extends TestCase {
   public void testEnglish() throws Exception {
-    Analyzer analyzer = new SnowballAnalyzer(Version.LUCENE_50, "English");
+    Analyzer analyzer = new SnowballAnalyzer(Version.LUCENE_41, "English");
     AnalyzerUtils.assertAnalyzesTo(analyzer,
                                    "stemming algorithms",
                                    new String[] {"stem", "algorithm"});
   }
 
   public void testSpanish() throws Exception {
-    Analyzer analyzer = new SnowballAnalyzer(Version.LUCENE_50, "Spanish");
+    Analyzer analyzer = new SnowballAnalyzer(Version.LUCENE_41, "Spanish");
     AnalyzerUtils.assertAnalyzesTo(analyzer,
                                    "algoritmos",
                                    new String[] {"algoritm"});

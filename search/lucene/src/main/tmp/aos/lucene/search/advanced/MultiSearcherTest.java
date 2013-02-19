@@ -44,7 +44,7 @@ public class IndexSearcherTest extends TestCase {
                        "tarantula", "uromastyx", "vicuna",
                        "walrus", "xiphias", "yak", "zebra"};
 
-    Analyzer analyzer = new WhitespaceAnalyzer(Version.LUCENE_50);
+    Analyzer analyzer = new WhitespaceAnalyzer(Version.LUCENE_41);
 
     Directory aTOmDirectory = new RAMDirectory();     //
     Directory nTOzDirectory = new RAMDirectory();     //

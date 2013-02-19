@@ -32,7 +32,7 @@ public class Fragments {
   public void frag1() throws Exception {
     Directory directory = null;
     
-    Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_50);
+    Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_41);
     IndexWriter writer = new IndexWriter(directory, analyzer, 
                             IndexWriter.MaxFieldLength.UNLIMITED);
   

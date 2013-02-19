@@ -70,7 +70,7 @@ import org.apache.lucene.util.Version;
 public class NearRealTimeTest extends TestCase {
     public void testNearRealTime() throws Exception {
         Directory dir = new RAMDirectory();
-        IndexWriter writer = new IndexWriter(dir, new StandardAnalyzer(Version.LUCENE_50),
+        IndexWriter writer = new IndexWriter(dir, new StandardAnalyzer(Version.LUCENE_41),
                 IndexWriter.MaxFieldLength.UNLIMITED);
         for (int i = 0; i < 10; i++) {
             Document doc = new Document();

@@ -32,7 +32,7 @@ import org.apache.lucene.util.Version;
 public class FlexibleQueryParserTest extends TestCase {
 
     public void testSimple() throws Exception {
-        Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_50);
+        Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_41);
         StandardQueryParser parser = new StandardQueryParser(analyzer);
         Query q = null;
         try {
@@ -45,7 +45,7 @@ public class FlexibleQueryParserTest extends TestCase {
     }
 
     public void testNoFuzzyOrWildcard() throws Exception {
-        Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_50);
+        Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_41);
         StandardQueryParser parser = new CustomFlexibleQueryParser(analyzer);
         try {
             parser.parse("agil*", "subject");
@@ -65,7 +65,7 @@ public class FlexibleQueryParserTest extends TestCase {
     }
 
     public void testPhraseQuery() throws Exception {
-        Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_50);
+        Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_41);
         StandardQueryParser parser = new CustomFlexibleQueryParser(analyzer);
 
         Query query = parser.parse("singleTerm", "subject");

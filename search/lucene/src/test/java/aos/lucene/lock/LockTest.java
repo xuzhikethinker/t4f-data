@@ -30,8 +30,8 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.LockObtainFailedException;
 import org.apache.lucene.util.Version;
 
-import aos.lucene.analyser.AosAnalyser;
 import aos.lucene.util.TestUtil;
+import aos.lucene2.analyser.AosAnalyser;
 
 /**
  * #A Expected exception: only one IndexWriter allowed at once
@@ -52,7 +52,7 @@ public class LockTest extends TestCase {
 
     public void testWriteLock() throws IOException {
 
-        IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_50,
+        IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_41,
                 AosAnalyser.NO_LIMIT_TOKEN_COUNT_SIMPLE_ANALYSER);
         IndexWriter writer1 = new IndexWriter(dir, config);
 

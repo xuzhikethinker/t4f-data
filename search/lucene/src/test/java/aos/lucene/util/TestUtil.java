@@ -24,7 +24,7 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.lucene.index.StoredDocument;
+import org.apache.lucene.document.Document;
 import org.apache.lucene.search.Filter;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
@@ -49,7 +49,7 @@ public class TestUtil {
 
     public static boolean hitsIncludeTitle(IndexSearcher searcher, TopDocs hits, String title) throws IOException {
         for (ScoreDoc match : hits.scoreDocs) {
-            StoredDocument doc = searcher.doc(match.doc);
+            Document doc = searcher.doc(match.doc);
             if (title.equals(doc.get("title"))) {
                 return true;
             }
@@ -71,7 +71,7 @@ public class TestUtil {
             LOGGER.info("No hits");
         }
         for (ScoreDoc match : hits.scoreDocs) {
-            StoredDocument doc = searcher.doc(match.doc);
+            Document doc = searcher.doc(match.doc);
             LOGGER.info(match.score + ":" + doc.get("title"));
         }
     }

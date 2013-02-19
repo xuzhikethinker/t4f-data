@@ -67,7 +67,7 @@ public class SpanQueryTest extends TestCase {
   protected void setUp() throws Exception {
     directory = new RAMDirectory();
 
-    analyzer = new WhitespaceAnalyzer(Version.LUCENE_50);
+    analyzer = new WhitespaceAnalyzer(Version.LUCENE_41);
     IndexWriter writer = new IndexWriter(directory,
                                          analyzer,
                                          IndexWriter.MaxFieldLength.UNLIMITED);

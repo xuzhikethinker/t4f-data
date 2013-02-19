@@ -27,7 +27,6 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.StoredDocument;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
@@ -42,8 +41,8 @@ public class IndexCreationQueryTest {
 
     // String indexDir = "./aos.index.test/test1";
     // Directory dir = FSDirectory.open(new File(indexDir));
-    // IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_50, new
-    // StandardAnalyzer(Version.LUCENE_50));
+    // IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_41, new
+    // StandardAnalyzer(Version.LUCENE_41));
     // IndexWriter indexWriter = new IndexWriter(dir, config);
     //
     // addDoc(indexWriter,
@@ -61,12 +60,12 @@ public class IndexCreationQueryTest {
     // String querystr = "lucene"; // the "title" arg specifies the default
     // // field to use - when no field is
     // // explicitly specified in the query.
-    // Query q = new QueryParser(Version.LUCENE_50, "title",
+    // Query q = new QueryParser(Version.LUCENE_41, "title",
     // analyzer).parse(querystr);
     // query(indexDir, q);
     //
     // querystr = "tag4";
-    // q = new QueryParser(Version.LUCENE_50, "tag", analyzer).parse(querystr);
+    // q = new QueryParser(Version.LUCENE_41, "tag", analyzer).parse(querystr);
     // query(indexDir, q);
     //
     // }
@@ -94,7 +93,7 @@ public class IndexCreationQueryTest {
         LOGGER.info("Found " + hits.length + " hits.");
         for (int i = 0; i < hits.length; ++i) {
             int docId = hits[i].doc;
-            StoredDocument d = indexSearcher.doc(docId);
+            Document d = indexSearcher.doc(docId);
             // LOGGER.info((i + 1) + ". " + d.get("title"));
         }
 

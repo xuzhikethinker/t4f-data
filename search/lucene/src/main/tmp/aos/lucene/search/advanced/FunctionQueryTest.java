@@ -68,7 +68,7 @@ public class FunctionQueryTest extends TestCase {
     Directory dir = new RAMDirectory();
     w = new IndexWriter(dir,
                         new StandardAnalyzer(
-                                 Version.LUCENE_50),
+                                 Version.LUCENE_41),
                         IndexWriter.MaxFieldLength.UNLIMITED);
     addDoc(7, "this hat is green");
     addDoc(42, "this hat is blue");
@@ -99,10 +99,10 @@ public class FunctionQueryTest extends TestCase {
   */
 
   public void testCustomScoreQuery() throws Throwable {
-    Query q = new QueryParser(Version.LUCENE_50,
+    Query q = new QueryParser(Version.LUCENE_41,
                               "content",
                               new StandardAnalyzer(
-                                Version.LUCENE_50))
+                                Version.LUCENE_41))
                  .parse("the green hat");
     FieldScoreQuery qf = new FieldScoreQuery("score",
                                              FieldScoreQuery.Type.BYTE);
@@ -191,10 +191,10 @@ public class FunctionQueryTest extends TestCase {
     s.setDefaultFieldSortScoring(true, true);
 
     QueryParser parser = new QueryParser(
-                            Version.LUCENE_50,
+                            Version.LUCENE_41,
                             "contents",
                             new StandardAnalyzer(
-                              Version.LUCENE_50));
+                              Version.LUCENE_41));
     Query q = parser.parse("java in action");       // #A
     Query q2 = new RecencyBoostingQuery(q,          // #B
                                         2.0, 2*365,

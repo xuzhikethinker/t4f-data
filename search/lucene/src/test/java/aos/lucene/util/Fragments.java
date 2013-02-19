@@ -34,8 +34,8 @@ import org.apache.lucene.store.IOContext;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
 
-import aos.lucene.analyser.AosAnalyser;
-import aos.lucene.field.AosFieldType;
+import aos.lucene2.analyser.AosAnalyser;
+import aos.lucene2.field.AosFieldType;
 
 public class Fragments {
 
@@ -50,7 +50,7 @@ public class Fragments {
 
     public void ramDirExample() throws Exception {
         Directory ramDir = new RAMDirectory();
-        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_50,
+        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_41,
                 AosAnalyser.NO_LIMIT_TOKEN_COUNT_SIMPLE_ANALYSER);
         IndexWriter writer = new IndexWriter(ramDir, conf);
     }
@@ -63,8 +63,8 @@ public class Fragments {
     public void addIndexes() throws Exception {
         Directory otherDir = null;
         Directory ramDir = null;
-        IndexWriter writer = new IndexWriter(otherDir, new IndexWriterConfig(Version.LUCENE_50, new SimpleAnalyzer(
-                Version.LUCENE_50)));
+        IndexWriter writer = new IndexWriter(otherDir, new IndexWriterConfig(Version.LUCENE_41, new SimpleAnalyzer(
+                Version.LUCENE_41)));
         writer.addIndexes(new Directory[] { ramDir });
     }
 
@@ -74,7 +74,7 @@ public class Fragments {
     public void docBoostMethod() throws IOException {
 
         Directory dir = new RAMDirectory();
-        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_50,
+        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_41,
                 AosAnalyser.NO_LIMIT_TOKEN_COUNT_SIMPLE_ANALYSER);
         IndexWriter writer = new IndexWriter(dir, conf);
 
@@ -123,7 +123,7 @@ public class Fragments {
 
     public void setInfoStream() throws Exception {
         Directory dir = null;
-        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_50,
+        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_41,
                 AosAnalyser.NO_LIMIT_TOKEN_COUNT_SIMPLE_ANALYSER);
         conf.setInfoStream(System.out);
         IndexWriter writer = new IndexWriter(dir, conf);

@@ -34,7 +34,7 @@ import aos.lucene.util.TestUtil;
 // From chapter 5
 public class MultiFieldQueryParserTest extends TestCase {
   public void testDefaultOperator() throws Exception {
-    Query query = new MultiFieldQueryParser(Version.LUCENE_50,
+    Query query = new MultiFieldQueryParser(Version.LUCENE_41,
                                             new String[]{"title", "subject"},
         new SimpleAnalyzer()).parse("development");
 
@@ -58,7 +58,7 @@ public class MultiFieldQueryParserTest extends TestCase {
   }
 
   public void testSpecifiedOperator() throws Exception {
-    Query query = MultiFieldQueryParser.parse(Version.LUCENE_50,
+    Query query = MultiFieldQueryParser.parse(Version.LUCENE_41,
         "lucene",
         new String[]{"title", "subject"},
         new BooleanClause.Occur[]{BooleanClause.Occur.MUST,

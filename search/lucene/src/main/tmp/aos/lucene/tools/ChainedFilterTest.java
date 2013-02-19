@@ -60,7 +60,7 @@ public class ChainedFilterTest extends TestCase {
 
         directory = new RAMDirectory();
 
-        IndexWriter writer = new IndexWriter(directory, new WhitespaceAnalyzer(Version.LUCENE_50),
+        IndexWriter writer = new IndexWriter(directory, new WhitespaceAnalyzer(Version.LUCENE_41),
                 IndexWriter.MaxFieldLength.UNLIMITED);
 
         Calendar cal = Calendar.getInstance();

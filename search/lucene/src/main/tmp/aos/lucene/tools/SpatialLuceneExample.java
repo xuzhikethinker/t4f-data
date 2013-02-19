@@ -56,7 +56,7 @@ public class SpatialLuceneExample {
 
   SpatialLuceneExample() throws IOException {
     directory = new RAMDirectory();
-    writer = new IndexWriter(directory, new WhitespaceAnalyzer(Version.LUCENE_50),
+    writer = new IndexWriter(directory, new WhitespaceAnalyzer(Version.LUCENE_41),
                              MaxFieldLength.UNLIMITED);
   }
 

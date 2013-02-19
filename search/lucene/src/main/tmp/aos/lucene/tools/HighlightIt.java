@@ -51,16 +51,16 @@ public class HighlightIt {
         String filename = args[0];
 
         String searchText = "term"; //
-        QueryParser parser = new QueryParser(Version.LUCENE_50, //
+        QueryParser parser = new QueryParser(Version.LUCENE_41, //
                 "f", //
-                new StandardAnalyzer(Version.LUCENE_50));// #1
+                new StandardAnalyzer(Version.LUCENE_41));// #1
         Query query = parser.parse(searchText); //
 
         SimpleHTMLFormatter formatter = //
         new SimpleHTMLFormatter("<span class=\"highlight\">", //
                 "</span>"); //
 
-        TokenStream tokens = new StandardAnalyzer(Version.LUCENE_50) //
+        TokenStream tokens = new StandardAnalyzer(Version.LUCENE_41) //
                 .tokenStream("f", new StringReader(text)); //
 
         QueryScorer scorer = new QueryScorer(query, "f"); //

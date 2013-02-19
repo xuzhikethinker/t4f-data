@@ -70,7 +70,7 @@ public class ScoreTest extends TestCase {
 
   private void indexSingleFieldDocs(Field[] fields) throws Exception {
     IndexWriter writer = new IndexWriter(directory,
-        new WhitespaceAnalyzer(Version.LUCENE_50), IndexWriter.MaxFieldLength.UNLIMITED);
+        new WhitespaceAnalyzer(Version.LUCENE_41), IndexWriter.MaxFieldLength.UNLIMITED);
     for (Field f : fields) {
       Document doc = new Document();
       doc.add(f);

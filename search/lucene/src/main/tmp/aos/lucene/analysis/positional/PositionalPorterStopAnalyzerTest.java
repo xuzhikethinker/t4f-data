@@ -56,7 +56,7 @@ public class PositionalPorterStopAnalyzerTest extends TestCase {
     writer.addDocument(doc);
     writer.close();
     searcher = new IndexSearcher(directory, true);
-    parser = new QueryParser(Version.LUCENE_50,
+    parser = new QueryParser(Version.LUCENE_41,
                              "contents",
                              porterAnalyzer);
   }
@@ -70,7 +70,7 @@ public class PositionalPorterStopAnalyzerTest extends TestCase {
   }
 
   public void testStems() throws Exception {
-    Query query = new QueryParser(Version.LUCENE_50,
+    Query query = new QueryParser(Version.LUCENE_41,
                          "contents", porterAnalyzer).parse(
                            "laziness");
     assertEquals("lazi", 1, TestUtil.hitCount(searcher, query));

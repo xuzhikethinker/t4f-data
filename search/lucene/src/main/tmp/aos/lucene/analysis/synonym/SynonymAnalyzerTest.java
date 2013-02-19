@@ -118,16 +118,16 @@ public class SynonymAnalyzerTest extends TestCase {
   */
 
   public void testWithQueryParser() throws Exception {
-    Query query = new QueryParser(Version.LUCENE_50,                   
+    Query query = new QueryParser(Version.LUCENE_41,                   
                                   "content",                                
                                   synonymAnalyzer).parse("\"fox jumps\"");  
     assertEquals(1, TestUtil.hitCount(searcher, query));                   
     LOGGER.info("With SynonymAnalyzer, \"fox jumps\" parses to " +
                                          query.toString("content"));
 
-    query = new QueryParser(Version.LUCENE_50,                         
+    query = new QueryParser(Version.LUCENE_41,                         
                             "content",                                      
-                            new StandardAnalyzer(Version.LUCENE_50)).parse("\"fox jumps\""); 
+                            new StandardAnalyzer(Version.LUCENE_41)).parse("\"fox jumps\""); 
     assertEquals(1, TestUtil.hitCount(searcher, query));                   
     LOGGER.info("With StandardAnalyzer, \"fox jumps\" parses to " +
                                          query.toString("content"));

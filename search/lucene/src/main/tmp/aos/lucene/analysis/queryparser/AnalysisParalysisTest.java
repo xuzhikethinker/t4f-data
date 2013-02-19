@@ -30,10 +30,10 @@ import org.apache.lucene.util.Version;
 // From chapter 4
 public class AnalysisParalysisTest extends TestCase {
   public void testAnalyzer() throws Exception {
-    Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_50);
+    Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_41);
     String queryString = "category:/philosophy/eastern";
 
-    Query query = new QueryParser(Version.LUCENE_50,
+    Query query = new QueryParser(Version.LUCENE_41,
                                   "contents",
                                   analyzer).parse(queryString);
     assertEquals("path got split, yikes!",
@@ -43,8 +43,8 @@ public class AnalysisParalysisTest extends TestCase {
     PerFieldAnalyzerWrapper perFieldAnalyzer =
                             new PerFieldAnalyzerWrapper(analyzer);
     perFieldAnalyzer.addAnalyzer("category",
-                                       new WhitespaceAnalyzer(Version.LUCENE_50));
-    query = new QueryParser(Version.LUCENE_50,
+                                       new WhitespaceAnalyzer(Version.LUCENE_41));
+    query = new QueryParser(Version.LUCENE_41,
                             "contents",
                             perFieldAnalyzer).parse(queryString);
     assertEquals("leave category field alone",

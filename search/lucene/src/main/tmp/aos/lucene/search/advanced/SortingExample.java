@@ -102,10 +102,10 @@ public class SortingExample {
   public static void main(String[] args) throws Exception {
     Query allBooks = new MatchAllDocsQuery();
 
-    QueryParser parser = new QueryParser(Version.LUCENE_50,                 //
+    QueryParser parser = new QueryParser(Version.LUCENE_41,                 //
                                          "contents",                             //
                                          new StandardAnalyzer(                   //
-                                           Version.LUCENE_50));             //
+                                           Version.LUCENE_41));             //
     BooleanQuery query = new BooleanQuery();                                     //
     query.add(allBooks, BooleanClause.Occur.SHOULD);                             //
     query.add(parser.parse("java OR action"), BooleanClause.Occur.SHOULD);       //

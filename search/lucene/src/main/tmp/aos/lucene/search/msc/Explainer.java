@@ -44,7 +44,7 @@ public class Explainer {
     String queryExpression = args[1];
 
     Directory directory = FSDirectory.open(new File(indexDir));
-    QueryParser parser = new QueryParser(Version.LUCENE_50,
+    QueryParser parser = new QueryParser(Version.LUCENE_41,
                                          "contents", new SimpleAnalyzer());
     Query query = parser.parse(queryExpression);
 

@@ -40,7 +40,7 @@ public class PhraseQueryTest extends TestCase {
   protected void setUp() throws IOException {
     dir = new RAMDirectory();
     IndexWriter writer = new IndexWriter(dir,
-                                         new WhitespaceAnalyzer(Version.LUCENE_50),
+                                         new WhitespaceAnalyzer(Version.LUCENE_41),
                                          IndexWriter.MaxFieldLength.UNLIMITED);
     Document doc = new Document();
     doc.add(new Field("field",                                    

@@ -6,7 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.StoredDocument;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
@@ -22,8 +21,8 @@ public class IndexCreationQueryOptimizeTest {
     // Directory dir = FSDirectory.open(new File(indexDir));
 
     //
-    // IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_50, new
-    // StandardAnalyzer(Version.LUCENE_50));
+    // IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_41, new
+    // StandardAnalyzer(Version.LUCENE_41));
     // IndexWriter indexWriter = new IndexWriter(dir, config);
     // addDocuments(indexWriter);
     // // indexWriter.optimize();
@@ -35,18 +34,18 @@ public class IndexCreationQueryOptimizeTest {
     // String queryString = "lucene"; // the "title" arg specifies the default
     // // field to use - when no field is
     // // explicitly specified in the query.
-    // Query query = new QueryParser(Version.LUCENE_50, "title",
+    // Query query = new QueryParser(Version.LUCENE_41, "title",
     // analyzer).parse(queryString);
     // query(indexSearcher, query);
     // queryString = "tag4";
-    // query = new QueryParser(Version.LUCENE_50, "tag",
+    // query = new QueryParser(Version.LUCENE_41, "tag",
     // analyzer).parse(queryString);
     // query(indexSearcher, query);
     //
     // LOGGER.info("\n==============================");
     //
-    // config = new IndexWriterConfig(Version.LUCENE_50, new
-    // StandardAnalyzer(Version.LUCENE_50));
+    // config = new IndexWriterConfig(Version.LUCENE_41, new
+    // StandardAnalyzer(Version.LUCENE_41));
     // indexWriter = new IndexWriter(dir, config);
     // addDocuments(indexWriter);
     // addDocuments(indexWriter);
@@ -56,11 +55,11 @@ public class IndexCreationQueryOptimizeTest {
     // queryString = "lucene"; // the "title" arg specifies the default field
     // // to use - when no field is explicitly
     // // specified in the query.
-    // query = new QueryParser(Version.LUCENE_50, "title",
+    // query = new QueryParser(Version.LUCENE_41, "title",
     // analyzer).parse(queryString);
     // query(indexSearcher, query);
     // queryString = "tag4";
-    // query = new QueryParser(Version.LUCENE_50, "tag",
+    // query = new QueryParser(Version.LUCENE_41, "tag",
     // analyzer).parse(queryString);
     // query(indexSearcher, query);
     //
@@ -70,8 +69,8 @@ public class IndexCreationQueryOptimizeTest {
     //
     // LOGGER.info("\n==============================");
     //
-    // config = new IndexWriterConfig(Version.LUCENE_50, new
-    // StandardAnalyzer(Version.LUCENE_50));
+    // config = new IndexWriterConfig(Version.LUCENE_41, new
+    // StandardAnalyzer(Version.LUCENE_41));
     // indexWriter = new IndexWriter(dir, config);
     // addDocuments(indexWriter);
     // addDocuments(indexWriter);
@@ -82,11 +81,11 @@ public class IndexCreationQueryOptimizeTest {
     // queryString = "lucene"; // the "title" arg specifies the default field
     // // to use - when no field is explicitly
     // // specified in the query.
-    // query = new QueryParser(Version.LUCENE_50, "title",
+    // query = new QueryParser(Version.LUCENE_41, "title",
     // analyzer).parse(queryString);
     // query(indexSearcher, query);
     // queryString = "tag4";
-    // query = new QueryParser(Version.LUCENE_50, "tag",
+    // query = new QueryParser(Version.LUCENE_41, "tag",
     // analyzer).parse(queryString);
     // query(indexSearcher, query);
     // // indexSearcher.close();
@@ -97,11 +96,11 @@ public class IndexCreationQueryOptimizeTest {
     // queryString = "lucene"; // the "title" arg specifies the default field
     // // to use - when no field is explicitly
     // // specified in the query.
-    // query = new QueryParser(Version.LUCENE_50, "title",
+    // query = new QueryParser(Version.LUCENE_41, "title",
     // analyzer).parse(queryString);
     // query(indexSearcher2, query);
     // queryString = "tag4";
-    // query = new QueryParser(Version.LUCENE_50, "tag",
+    // query = new QueryParser(Version.LUCENE_41, "tag",
     // analyzer).parse(queryString);
     // query(indexSearcher2, query);
     // // indexSearcher2.close();
@@ -143,8 +142,8 @@ public class IndexCreationQueryOptimizeTest {
 
         for (int i = 0; i < hits.length; ++i) {
             int docId = hits[i].doc;
-            StoredDocument d = indexSearcher.doc(docId);
-            // LOGGER.info((i + 1) + ". " + d.get("title"));
+            Document d = indexSearcher.doc(docId);
+            LOGGER.info((i + 1) + ". " + d.get("title"));
         }
 
     }

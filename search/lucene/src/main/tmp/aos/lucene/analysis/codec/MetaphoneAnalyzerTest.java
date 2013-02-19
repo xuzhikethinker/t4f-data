@@ -52,7 +52,7 @@ public class MetaphoneAnalyzerTest extends TestCase {
 
         IndexSearcher searcher = new IndexSearcher(directory);
 
-        Query query = new QueryParser(Version.LUCENE_50, "contents", analyzer).parse("kool kat");
+        Query query = new QueryParser(Version.LUCENE_41, "contents", analyzer).parse("kool kat");
 
         TopDocs hits = searcher.search(query, 1);
         assertEquals(1, hits.totalHits);

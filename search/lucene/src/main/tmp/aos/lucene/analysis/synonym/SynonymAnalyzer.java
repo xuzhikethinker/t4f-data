@@ -42,7 +42,7 @@ public class SynonymAnalyzer extends Analyzer {
                             new LowerCaseFilter(
                               new StandardFilter(
                                 new StandardTokenizer(
-                                 Version.LUCENE_50, reader))),
+                                 Version.LUCENE_41, reader))),
                             StopAnalyzer.ENGLISH_STOP_WORDS_SET),
                           engine
                          );

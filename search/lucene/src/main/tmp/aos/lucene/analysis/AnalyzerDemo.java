@@ -37,8 +37,8 @@ public class AnalyzerDemo {
     private static final String[] examples = { "The quick brown fox jumped over the lazy dog",
             "XY&Z Corporation - xyz@example.com" };
 
-    private static final Analyzer[] analyzers = new Analyzer[] { new WhitespaceAnalyzer(Version.LUCENE_50),
-            new SimpleAnalyzer(), new StopAnalyzer(Version.LUCENE_50), new StandardAnalyzer(Version.LUCENE_50) };
+    private static final Analyzer[] analyzers = new Analyzer[] { new WhitespaceAnalyzer(Version.LUCENE_41),
+            new SimpleAnalyzer(), new StopAnalyzer(Version.LUCENE_41), new StandardAnalyzer(Version.LUCENE_41) };
 
     public static void main(String[] args) throws IOException {
 

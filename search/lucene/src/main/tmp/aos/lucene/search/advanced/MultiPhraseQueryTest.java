@@ -50,7 +50,7 @@ public class MultiPhraseQueryTest extends TestCase {
   protected void setUp() throws Exception {
     Directory directory = new RAMDirectory();
     IndexWriter writer = new IndexWriter(directory,
-                                         new WhitespaceAnalyzer(Version.LUCENE_50),
+                                         new WhitespaceAnalyzer(Version.LUCENE_41),
                                          IndexWriter.MaxFieldLength.UNLIMITED);
     Document doc1 = new Document();
     doc1.add(new Field("field",
@@ -115,7 +115,7 @@ public class MultiPhraseQueryTest extends TestCase {
         }
       };
 
-    Query q = new QueryParser(Version.LUCENE_50,
+    Query q = new QueryParser(Version.LUCENE_41,
                               "field",
                               new SynonymAnalyzer(engine))
       .parse("\"quick fox\"");

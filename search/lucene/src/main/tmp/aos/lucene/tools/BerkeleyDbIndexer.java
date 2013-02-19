@@ -76,7 +76,7 @@ public class BerkeleyDbIndexer {
         txn = env.beginTransaction(null, null);
         DbDirectory directory = new DbDirectory(txn, index, blocks);
 
-        IndexWriter writer = new IndexWriter(directory, new StandardAnalyzer(Version.LUCENE_50), true,
+        IndexWriter writer = new IndexWriter(directory, new StandardAnalyzer(Version.LUCENE_41), true,
                 IndexWriter.MaxFieldLength.UNLIMITED);
 
         Document doc = new Document();

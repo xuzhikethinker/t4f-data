@@ -40,9 +40,9 @@ public class SearchServletFragment extends HttpServlet {
                        HttpServletResponse response) 
       throws ServletException, IOException {
     
-    QueryParser parser = new NumericDateRangeQueryParser(Version.LUCENE_50,
+    QueryParser parser = new NumericDateRangeQueryParser(Version.LUCENE_41,
                                                   "contents",
-        new StandardAnalyzer(Version.LUCENE_50));
+        new StandardAnalyzer(Version.LUCENE_41));
     
     parser.setLocale(request.getLocale());
     parser.setDateResolution(DateTools.Resolution.DAY);

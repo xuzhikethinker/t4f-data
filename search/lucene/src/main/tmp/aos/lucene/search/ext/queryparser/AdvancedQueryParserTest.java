@@ -29,11 +29,11 @@ import org.apache.lucene.util.Version;
 
 // From chapter 6
 public class AdvancedQueryParserTest extends TestCase {
-  private Analyzer analyzer = new WhitespaceAnalyzer(Version.LUCENE_50);
+  private Analyzer analyzer = new WhitespaceAnalyzer(Version.LUCENE_41);
 
   public void testCustomQueryParser() {
     CustomQueryParser parser =
-      new CustomQueryParser(Version.LUCENE_50,
+      new CustomQueryParser(Version.LUCENE_41,
                             "field", analyzer);
     try {
       parser.parse("a?t");
@@ -55,7 +55,7 @@ public class AdvancedQueryParserTest extends TestCase {
 
   public void testPhraseQuery() throws Exception {
     CustomQueryParser parser =
-      new CustomQueryParser(Version.LUCENE_50,
+      new CustomQueryParser(Version.LUCENE_41,
                             "field", analyzer);
 
     Query query = parser.parse("singleTerm");

@@ -71,7 +71,7 @@ public class KeywordAnalyzerTest extends TestCase {
   }
 
   public void testBasicQueryParser() throws Exception {
-    Query query = new QueryParser(Version.LUCENE_50,                //1
+    Query query = new QueryParser(Version.LUCENE_41,                //1
                                   "description",                //1
                                   new SimpleAnalyzer())            //1
                       .parse("partnum:Q36 AND SPACE");                //1
@@ -93,7 +93,7 @@ public class KeywordAnalyzerTest extends TestCase {
                                               new SimpleAnalyzer());
     analyzer.addAnalyzer("partnum", new KeywordAnalyzer());
 
-    Query query = new QueryParser(Version.LUCENE_50,
+    Query query = new QueryParser(Version.LUCENE_41,
                                   "description", analyzer).parse(
                 "partnum:Q36 AND SPACE");
 

@@ -41,10 +41,10 @@ public class ChineseDemo {
 
   private static Analyzer[] analyzers = {
     new SimpleAnalyzer(),
-    new StandardAnalyzer(Version.LUCENE_50),
+    new StandardAnalyzer(Version.LUCENE_41),
     new ChineseAnalyzer (),    //B
-    new CJKAnalyzer (Version.LUCENE_50),
-    new SmartChineseAnalyzer (Version.LUCENE_50)   
+    new CJKAnalyzer (Version.LUCENE_41),
+    new SmartChineseAnalyzer (Version.LUCENE_41)   
   };
 
   public static void main(String... args) throws Exception {

@@ -38,31 +38,37 @@ import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
-import aos.lucene.analyser.AosAnalyser;
-import aos.lucene.field.AosFieldType;
 import aos.lucene.util.TestUtil;
+import aos.lucene2.analyser.AosAnalyser;
+import aos.lucene2.field.AosFieldType;
 
 /**
- * #1 One initial document has bridges #2 Create writer with maxFieldLength 1 #3
- * Index document with bridges #4 Document can't be found
+ * #1 One initial document has bridges
+ * 
+ * #2 Create writer with maxFieldLength 1
+ * 
+ * #3 Index document with bridges
+ * 
+ * #4 Document can't be found
  */
 public class AdvancedIndexTest {
-    protected String[] ids = { "1", "2" };
-    protected String[] unindexed = { "Netherlands", "Italy" };
-    protected String[] unstored = { "Amsterdam has lots of bridges", "Venice has lots of canals" };
-    protected String[] text = { "Amsterdam", "Venice" };
 
-    private Directory directory;
+    private static String[] ids = { "1", "2" };
+    private static String[] unindexed = { "Netherlands", "Italy" };
+    private static String[] unstored = { "Amsterdam has lots of bridges", "Venice has lots of canals" };
+    private static String[] text = { "Amsterdam", "Venice" };
 
-    @Before
-    public void setUp() throws Exception {
+    private static Directory directory;
+
+    @BeforeClass
+    public static void setUp() throws Exception {
 
         directory = new RAMDirectory();
 
-        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_50,
+        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_41,
                 AosAnalyser.NO_LIMIT_TOKEN_COUNT_WHITE_SPACE_ANALYSER);
 
         IndexWriter writer = new IndexWriter(directory, conf);
@@ -94,9 +100,21 @@ public class AdvancedIndexTest {
     }
 
     /**
-     * #1 Run before every test #2 Create IndexWriter #3 Add documents #4 Create
-     * new searcher #5 Build simple single-term query #6 Get number of hits #7
-     * Verify writer document count #8 Verify reader document count
+     * #1 Run before every test
+     * 
+     * #2 Create IndexWriter
+     * 
+     * #3 Add documents
+     * 
+     * #4 Create new searcher
+     * 
+     * #5 Build simple single-term query
+     * 
+     * #6 Get number of hits
+     * 
+     * #7 Verify writer document count
+     * 
+     * #8 Verify reader document count
      */
     @Test
     public void testDeleteBeforeOptimize() throws IOException {
@@ -149,22 +167,27 @@ public class AdvancedIndexTest {
     }
 
     /**
-     * #A Create new document with "Haag" in city field #B Replace original
-     * document with new version #C Verify old document is gone #D Verify new
-     * document is indexed
+     * #A Create new document with "Haag" in city field
+     * 
+     * #B Replace original document with new version
+     * 
+     * #C Verify old document is gone #D Verify new document is indexed
      */
     @Test
     public void testMaxFieldLength() throws IOException {
 
         assertEquals(1, getHitCount("contents", "bridges"));
 
-        IndexWriter writer = new IndexWriter(directory, new IndexWriterConfig(Version.LUCENE_50,
+        IndexWriter writer = new IndexWriter(directory, new IndexWriterConfig(Version.LUCENE_41,
                 AosAnalyser.ONE_TOKEN_COUNT_WHITE_SPACE_ANALYSER));
+
         Document doc = new Document();
         doc.add(new Field("contents", "these bridges can't be found", AosFieldType.INDEXED_NOTSTORED_TERMVECTOR));
         writer.addDocument(doc);
         writer.close();
+
         assertEquals(1, getHitCount("contents", "bridges"));
+
     }
 
     private int getHitCount(String fieldName, String searchString) throws IOException {
@@ -178,7 +201,7 @@ public class AdvancedIndexTest {
     }
 
     private IndexWriter getWriter() throws IOException {
-        return new IndexWriter(directory, new IndexWriterConfig(Version.LUCENE_50,
+        return new IndexWriter(directory, new IndexWriterConfig(Version.LUCENE_41,
                 AosAnalyser.NO_LIMIT_TOKEN_COUNT_WHITE_SPACE_ANALYSER));
     }
 
