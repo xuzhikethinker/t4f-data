@@ -16,9 +16,9 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package aos.lucene.index;
+package aos.lucene.directory;
 
-public class IndexDir {
+public class DirPath {
     
     public static final String INDEX_DIR = "target/index";
 

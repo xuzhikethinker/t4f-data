@@ -47,11 +47,6 @@ public class TestDemo {
         }
     }
 
-    private void assertTrue(String string, boolean contains) {
-        // TODO Auto-generated method stub
-
-    }
-
     public void testIndexSearch() throws Exception {
         // File dir = getDataFile("test-files/docs");
         // File indexDir = _TestUtil.getTempDir("ContribDemoTest");

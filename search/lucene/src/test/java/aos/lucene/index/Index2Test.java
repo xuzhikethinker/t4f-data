@@ -32,10 +32,12 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
-import aos.lucene.index.IndexDir;
+import aos.lucene.directory.DirPath;
 
-public class AosIndexerTest {
+public class Index2Test {
 
     protected Directory dir;
 
@@ -44,12 +46,14 @@ public class AosIndexerTest {
     protected String[] unstored = { "Amsterdam has lots of bridges", "Venice has lots of canals" };
     protected String[] text = { "Amsterdam", "Venice" };
 
-    protected void setUp() throws IOException {
-        String indexDir = IndexDir.INDEX_DIR;
+    @Before
+    public void setUp() throws IOException {
+        String indexDir = DirPath.INDEX_DIR;
         dir = FSDirectory.open(new File(indexDir));
         addDocuments(dir);
     }
 
+    @Test
     public void testIndexWriter() throws IOException {
         IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_50, getAnalyzer());
         IndexWriter writer = new IndexWriter(dir, config);
@@ -57,6 +61,7 @@ public class AosIndexerTest {
         writer.close();
     }
 
+    @Test
     public void testIndexReader() throws IOException {
         IndexReader reader = DirectoryReader.open(dir);
         Assert.assertEquals(keywords.length, reader.maxDoc());

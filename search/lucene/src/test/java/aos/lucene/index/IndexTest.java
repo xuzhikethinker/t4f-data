@@ -45,7 +45,7 @@ import aos.lucene.util.TestUtil;
  * #1 One initial document has bridges #2 Create writer with maxFieldLength 1 #3
  * Index document with bridges #4 Document can't be found
  */
-public class IndexingTest extends TestCase {
+public class IndexTest extends TestCase {
     protected String[] ids = { "1", "2" };
     protected String[] unindexed = { "Netherlands", "Italy" };
     protected String[] unstored = { "Amsterdam has lots of bridges", "Venice has lots of canals" };
@@ -66,7 +66,7 @@ public class IndexingTest extends TestCase {
         for (int i = 0; i < ids.length; i++) {
             Document doc = new Document();
             doc.add(new Field("id", ids[i], AosFieldType.INDEXED_STORED_TERMVECTOR));
-            doc.add(new Field("country", unindexed[i], AosFieldType.NOTINDEXED_STORED_TERMVECTOR));
+            doc.add(new Field("country", unindexed[i], AosFieldType.NOTINDEXED_STORED));
             doc.add(new Field("contents", unstored[i], AosFieldType.INDEXED_NOTSTORED_TERMVECTOR));
             doc.add(new Field("city", text[i], AosFieldType.INDEXED_STORED_TERMVECTOR));
             writer.addDocument(doc);

@@ -38,29 +38,31 @@ package aos.lucene.frequency;
 import org.apache.lucene.util.BytesRef;
 
 public final class AosTermStats {
-  public BytesRef termtext;
-  public String field;
-  public int docFreq;
-  public long totalTermFreq;
-  
-  AosTermStats(String field, BytesRef termtext, int df) {
-    this.termtext = (BytesRef)termtext.clone();
-    this.field = field;
-    this.docFreq = df;
-  }
-  
-  AosTermStats(String field, BytesRef termtext, int df, long tf) {
-    this.termtext = (BytesRef)termtext.clone();
-    this.field = field;
-    this.docFreq = df;
-    this.totalTermFreq = tf;
-  }
-  
-  String getTermText() {
-    return termtext.utf8ToString();
-  }
-  
-  public String toString() {
-    return field + ":" + termtext.utf8ToString() + ":" + docFreq + ":" + totalTermFreq;
-  }
+    public BytesRef termtext;
+    public String field;
+    public int docFreq;
+    public long totalTermFreq;
+
+    AosTermStats(String field, BytesRef termtext, int df) {
+        this.termtext = termtext.clone();
+        this.field = field;
+        this.docFreq = df;
+    }
+
+    AosTermStats(String field, BytesRef termtext, int df, long tf) {
+        this.termtext = termtext.clone();
+        this.field = field;
+        this.docFreq = df;
+        this.totalTermFreq = tf;
+    }
+
+    String getTermText() {
+        return termtext.utf8ToString();
+    }
+
+    @Override
+    public String toString() {
+        return field + ":" + termtext.utf8ToString() + ":" + docFreq + ":" + totalTermFreq;
+    }
+
 }
