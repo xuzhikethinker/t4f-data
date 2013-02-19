@@ -34,8 +34,8 @@ import org.apache.lucene.store.IOContext;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
 
-import aos.lucene2.analyser.AosAnalyser;
-import aos.lucene2.field.AosFieldType;
+import aos.lucene.analyser.AosAnalyser;
+import aos.lucene.field.AosFieldType;
 
 public class Fragments {
 

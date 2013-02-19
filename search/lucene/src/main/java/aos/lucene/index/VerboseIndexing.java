@@ -16,58 +16,45 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package aos.lucene.lock;
+package aos.lucene.index;
 
-import java.io.File;
 import java.io.IOException;
 
-import junit.framework.TestCase;
-
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.StoredField;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.store.LockObtainFailedException;
+import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
 
 import aos.lucene.analyser.AosAnalyser;
-import aos.lucene.util.TestUtil;
 
-/**
- * #A Expected exception: only one IndexWriter allowed at once
- */
-public class LockTest extends TestCase {
+public class VerboseIndexing {
 
-    private Directory dir;
-    private File indexDir;
+    private void index() throws IOException {
 
-    @Override
-    protected void setUp() throws IOException {
-
-        indexDir = new File(System.getProperty("java.io.tmpdir", "tmp") + System.getProperty("file.separator")
-                + "index");
-        dir = FSDirectory.open(indexDir);
-
-    }
-
-    public void testWriteLock() throws IOException {
-
+        Directory dir = new RAMDirectory();
         IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_41,
                 AosAnalyser.NO_LIMIT_TOKEN_COUNT_SIMPLE_ANALYSER);
-        IndexWriter writer1 = new IndexWriter(dir, config);
 
-        IndexWriter writer2 = null;
-        try {
-            writer2 = new IndexWriter(dir, config);
-            fail("We should never reach this point");
+        config.setInfoStream(System.out);
+
+        IndexWriter writer = new IndexWriter(dir, config);
+
+        for (int i = 0; i < 100; i++) {
+            Document doc = new Document();
+            doc.add(new StoredField("keyword", "goober"));
+            writer.addDocument(doc);
         }
-        catch (LockObtainFailedException e) {
-            // e.printStackTrace(); // #A
-        }
-        finally {
-            writer1.close();
-            assertNull(writer2);
-            TestUtil.rmDir(indexDir);
-        }
+
+        writer.close();
+
     }
+
+    public static void main(String[] args) throws IOException {
+        VerboseIndexing vi = new VerboseIndexing();
+        vi.index();
+    }
+
 }

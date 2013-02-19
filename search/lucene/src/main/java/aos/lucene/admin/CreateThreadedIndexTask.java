@@ -16,58 +16,37 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package aos.lucene.lock;
+package aos.lucene.admin;
 
-import java.io.File;
 import java.io.IOException;
 
-import junit.framework.TestCase;
-
+import org.apache.lucene.benchmark.byTask.PerfRunData;
+import org.apache.lucene.benchmark.byTask.tasks.CreateIndexTask;
+import org.apache.lucene.benchmark.byTask.utils.Config;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
-import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.store.LockObtainFailedException;
 import org.apache.lucene.util.Version;
 
-import aos.lucene.analyser.AosAnalyser;
-import aos.lucene.util.TestUtil;
-
 /**
- * #A Expected exception: only one IndexWriter allowed at once
+ * A task that you can use from a contrib/benchmark algorithm to create a
+ * ThreadedIndexWriter.
  */
-public class LockTest extends TestCase {
+public class CreateThreadedIndexTask extends CreateIndexTask {
 
-    private Directory dir;
-    private File indexDir;
+    public CreateThreadedIndexTask(PerfRunData runData) {
+        super(runData);
+    }
 
     @Override
-    protected void setUp() throws IOException {
-
-        indexDir = new File(System.getProperty("java.io.tmpdir", "tmp") + System.getProperty("file.separator")
-                + "index");
-        dir = FSDirectory.open(indexDir);
-
+    public int doLogic() throws IOException {
+        PerfRunData runData = getRunData();
+        Config config = runData.getConfig();
+        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_41, runData.getAnalyzer());
+        IndexWriter writer = new ThreadedIndexWriter(runData.getDirectory(), conf, true, config.get(
+                "writer.num.threads", 4), config.get("writer.max.thread.queue.size", 20));
+        // CreateIndexTask.configureWriter(writer, config);
+        runData.setIndexWriter(writer);
+        return 1;
     }
 
-    public void testWriteLock() throws IOException {
-
-        IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_41,
-                AosAnalyser.NO_LIMIT_TOKEN_COUNT_SIMPLE_ANALYSER);
-        IndexWriter writer1 = new IndexWriter(dir, config);
-
-        IndexWriter writer2 = null;
-        try {
-            writer2 = new IndexWriter(dir, config);
-            fail("We should never reach this point");
-        }
-        catch (LockObtainFailedException e) {
-            // e.printStackTrace(); // #A
-        }
-        finally {
-            writer1.close();
-            assertNull(writer2);
-            TestUtil.rmDir(indexDir);
-        }
-    }
 }

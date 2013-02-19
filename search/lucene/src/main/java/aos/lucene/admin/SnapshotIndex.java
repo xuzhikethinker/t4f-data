@@ -16,58 +16,42 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package aos.lucene.lock;
+package aos.lucene.admin;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.Collection;
 
-import junit.framework.TestCase;
-
+import org.apache.lucene.index.IndexCommit;
+import org.apache.lucene.index.IndexDeletionPolicy;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.KeepOnlyLastCommitDeletionPolicy;
+import org.apache.lucene.index.SnapshotDeletionPolicy;
 import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.store.LockObtainFailedException;
 import org.apache.lucene.util.Version;
 
 import aos.lucene.analyser.AosAnalyser;
-import aos.lucene.util.TestUtil;
 
-/**
- * #A Expected exception: only one IndexWriter allowed at once
- */
-public class LockTest extends TestCase {
+public class SnapshotIndex {
 
-    private Directory dir;
-    private File indexDir;
+    public void test() throws Exception {
 
-    @Override
-    protected void setUp() throws IOException {
+        Directory dir = null;
 
-        indexDir = new File(System.getProperty("java.io.tmpdir", "tmp") + System.getProperty("file.separator")
-                + "index");
-        dir = FSDirectory.open(indexDir);
-
-    }
-
-    public void testWriteLock() throws IOException {
-
-        IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_41,
+        IndexDeletionPolicy policy = new KeepOnlyLastCommitDeletionPolicy();
+        SnapshotDeletionPolicy snapshotter = new SnapshotDeletionPolicy(policy);
+        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_41,
                 AosAnalyser.NO_LIMIT_TOKEN_COUNT_SIMPLE_ANALYSER);
-        IndexWriter writer1 = new IndexWriter(dir, config);
+        conf.setIndexDeletionPolicy(snapshotter);
+        IndexWriter writer = new IndexWriter(dir, conf);
 
-        IndexWriter writer2 = null;
         try {
-            writer2 = new IndexWriter(dir, config);
-            fail("We should never reach this point");
-        }
-        catch (LockObtainFailedException e) {
-            // e.printStackTrace(); // #A
+            IndexCommit commit = snapshotter.snapshot("unique-id");
+            Collection<String> fileNames = commit.getFileNames();
+            /* <iterate over & copy files from fileNames> */
         }
         finally {
-            writer1.close();
-            assertNull(writer2);
-            TestUtil.rmDir(indexDir);
+            snapshotter.release("unique-id");
         }
     }
+
 }

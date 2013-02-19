@@ -41,9 +41,9 @@ import org.apache.lucene.util.Version;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import aos.lucene.analyser.AosAnalyser;
+import aos.lucene.field.AosFieldType;
 import aos.lucene.util.TestUtil;
-import aos.lucene2.analyser.AosAnalyser;
-import aos.lucene2.field.AosFieldType;
 
 /**
  * #1 One initial document has bridges
