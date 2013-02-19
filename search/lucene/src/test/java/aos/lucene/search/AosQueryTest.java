@@ -25,6 +25,8 @@ import java.util.Date;
 
 import junit.framework.TestCase;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.lucene.analysis.core.KeywordAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.DateTools;
@@ -49,16 +51,20 @@ import org.junit.Ignore;
 
 @Ignore
 public class AosQueryTest extends TestCase {
+    private static final Logger LOGGER = LogManager.getLogger(AosQueryTest.class);
+
     private Directory INDEX_DIR;
 
     // private final String INDEX_DIR = System.getProperty("java.io.tmpdir",
     // "tmp") + System.getProperty("file.separator") + "index-dir";
 
+    @Override
     protected void setUp() throws Exception {
         BooleanQuery.setMaxClauseCount(10000);
         INDEX_DIR = FSDirectory.open(new File("/aos/aos.index/com.twitter.status.public.0"));
     }
 
+    @Override
     protected void tearDown() throws Exception {
     }
 
@@ -142,7 +148,7 @@ public class AosQueryTest extends TestCase {
 
     private void queryIndex(Query query, String fieldname) throws CorruptIndexException, IOException {
 
-        System.out.println("-------------------------------------");
+        LOGGER.info("-------------------------------------");
 
         long start = java.util.Calendar.getInstance().getTimeInMillis();
 
@@ -159,11 +165,11 @@ public class AosQueryTest extends TestCase {
 
         // float duration = (end - start) / 1000;
 
-        System.out.println("Found " + hits.length + " hits in " + (end - start) + " milliseconds");
+        LOGGER.info("Found " + hits.length + " hits in " + (end - start) + " milliseconds");
         for (int i = 0; i < hits.length; ++i) {
             int docId = hits[i].doc;
             StoredDocument document = indexSearcher.doc(docId);
-            System.out.println((i + 1) + ". " + document.get(fieldname));
+            LOGGER.info((i + 1) + ". " + document.get(fieldname));
         }
 
         // indexSearcher.close();

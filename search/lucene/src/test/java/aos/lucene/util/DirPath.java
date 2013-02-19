@@ -16,10 +16,11 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package aos.lucene.directory;
+package aos.lucene.util;
 
 public class DirPath {
-    
+
+    public static final String DOC_PATH_TXT_TEST = "src/test/resources/aos/lucene/demo/docs";
     public static final String INDEX_DIR = "target/index";
 
 }

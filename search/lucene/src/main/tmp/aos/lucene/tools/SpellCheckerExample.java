@@ -36,7 +36,7 @@ public class SpellCheckerExample {
     public static void main(String[] args) throws IOException {
 
         if (args.length != 2) {
-            System.out.println("Usage: java lia.tools.SpellCheckerTest SpellCheckerIndexDir wordToRespell");
+            LOGGER.info("Usage: java lia.tools.SpellCheckerTest SpellCheckerIndexDir wordToRespell");
             System.exit(1);
         }
 
@@ -45,7 +45,7 @@ public class SpellCheckerExample {
 
         Directory dir = FSDirectory.open(new File(spellCheckDir));
         if (!IndexReader.indexExists(dir)) {
-            System.out.println("\nERROR: No spellchecker index at path \"" + spellCheckDir
+            LOGGER.info("\nERROR: No spellchecker index at path \"" + spellCheckDir
                     + "\"; please run CreateSpellCheckerIndex first\n");
             System.exit(1);
         }
@@ -55,8 +55,8 @@ public class SpellCheckerExample {
         // spell.setStringDistance(new JaroWinklerDistance());
 
         String[] suggestions = spell.suggestSimilar(wordToRespell, 5); // #C
-        System.out.println(suggestions.length + " suggestions for '" + wordToRespell + "':");
+        LOGGER.info(suggestions.length + " suggestions for '" + wordToRespell + "':");
         for (String suggestion : suggestions)
-            System.out.println("  " + suggestion);
+            LOGGER.info("  " + suggestion);
     }
 }

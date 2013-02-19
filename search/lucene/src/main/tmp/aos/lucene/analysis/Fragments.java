@@ -58,7 +58,7 @@ public class Fragments {
     PositionIncrementAttribute posIncr = (PositionIncrementAttribute)
       stream.addAttribute(PositionIncrementAttribute.class);
     while (stream.incrementToken()) {
-      System.out.println("posIncr=" + posIncr.getPositionIncrement());
+      LOGGER.info("posIncr=" + posIncr.getPositionIncrement());
     }
   
   }

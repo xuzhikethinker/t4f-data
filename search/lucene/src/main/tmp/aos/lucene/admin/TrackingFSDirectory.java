@@ -48,7 +48,7 @@ public class TrackingFSDirectory extends SimpleFSDirectory {
     }
 
     synchronized private void report(String message) {
-        System.out.println(System.currentTimeMillis() + ": " + message + "; total " + getFileDescriptorCount());
+        LOGGER.info(System.currentTimeMillis() + ": " + message + "; total " + getFileDescriptorCount());
     }
 
     synchronized public IndexInput openInput(String name) throws IOException {

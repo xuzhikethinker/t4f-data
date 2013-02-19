@@ -48,7 +48,7 @@ public class Explainer {
                                          "contents", new SimpleAnalyzer());
     Query query = parser.parse(queryExpression);
 
-    System.out.println("Query: " + queryExpression);
+    LOGGER.info("Query: " + queryExpression);
 
     IndexSearcher searcher = new IndexSearcher(directory);
     TopDocs topDocs = searcher.search(query, 10);
@@ -57,10 +57,10 @@ public class Explainer {
       Explanation explanation
          = searcher.explain(query, match.doc);     //#A
 
-      System.out.println("----------");
+      LOGGER.info("----------");
       StoredDocument doc = searcher.doc(match.doc);
-      System.out.println(doc.get("title"));
-      System.out.println(explanation.toString());  //#B
+      LOGGER.info(doc.get("title"));
+      LOGGER.info(explanation.toString());  //#B
     }
     searcher.close();
     directory.close();

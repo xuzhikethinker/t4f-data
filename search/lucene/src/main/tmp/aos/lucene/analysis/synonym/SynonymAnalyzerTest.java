@@ -122,14 +122,14 @@ public class SynonymAnalyzerTest extends TestCase {
                                   "content",                                
                                   synonymAnalyzer).parse("\"fox jumps\"");  
     assertEquals(1, TestUtil.hitCount(searcher, query));                   
-    System.out.println("With SynonymAnalyzer, \"fox jumps\" parses to " +
+    LOGGER.info("With SynonymAnalyzer, \"fox jumps\" parses to " +
                                          query.toString("content"));
 
     query = new QueryParser(Version.LUCENE_50,                         
                             "content",                                      
                             new StandardAnalyzer(Version.LUCENE_50)).parse("\"fox jumps\""); 
     assertEquals(1, TestUtil.hitCount(searcher, query));                   
-    System.out.println("With StandardAnalyzer, \"fox jumps\" parses to " +
+    LOGGER.info("With StandardAnalyzer, \"fox jumps\" parses to " +
                                          query.toString("content"));
   }
 

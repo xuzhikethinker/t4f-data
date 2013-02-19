@@ -206,7 +206,7 @@ public class FunctionQueryTest extends TestCase {
 
     for (int i = 0; i < hits.scoreDocs.length; i++) {
       Document doc = r.document(hits.scoreDocs[i].doc);
-      System.out.println((1+i) + ": " +
+      LOGGER.info((1+i) + ": " +
                          doc.get("title") +
                          ": pubmonth=" +
                          doc.get("pubmonth") +

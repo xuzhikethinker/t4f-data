@@ -95,7 +95,7 @@ public class BerkeleyDbJEIndexer {
         blocks.close();
         env.close();
 
-        System.out.println("Indexing Complete");
+        LOGGER.info("Indexing Complete");
     }
 }
 

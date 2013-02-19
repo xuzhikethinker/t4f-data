@@ -53,13 +53,13 @@ public class CategorizerTest extends TestCase {
     Iterator categoryIterator = categoryMap.keySet().iterator();
     while (categoryIterator.hasNext()) {
       String category = (String) categoryIterator.next();
-      System.out.println("Category " + category);
+      LOGGER.info("Category " + category);
 
       Map vectorMap = (Map) categoryMap.get(category);
       Iterator vectorIterator = vectorMap.keySet().iterator();
       while (vectorIterator.hasNext()) {
         String term = (String) vectorIterator.next();
-        System.out.println("    " + term + " = " + vectorMap.get(term));
+        LOGGER.info("    " + term + " = " + vectorMap.get(term));
       }
     }
   }
@@ -116,10 +116,10 @@ public class CategorizerTest extends TestCase {
 
     while (categoryIterator.hasNext()) {
       String category = (String) categoryIterator.next();
-//      System.out.println(category);
+//      LOGGER.info(category);
 
       double angle = computeAngle(words, category);
-//      System.out.println(" -> angle = " + angle + " (" + Math.toDegrees(angle) + ")");
+//      LOGGER.info(" -> angle = " + angle + " (" + Math.toDegrees(angle) + ")");
       if (angle < bestAngle) {
         bestAngle = angle;
         bestCategory = category;

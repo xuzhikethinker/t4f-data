@@ -75,7 +75,7 @@ public class HighlightTest extends TestCase {
                     analyzer);
             String fragment = highlighter.getBestFragment(stream, title);
 
-            System.out.println(fragment);
+            LOGGER.info(fragment);
         }
     }
 

@@ -57,10 +57,10 @@ public class SortingExample {
     TopDocs results = searcher.search(query, null,         //
                                       20, sort);           //
 
-    System.out.println("\nResults for: " +                      //
+    LOGGER.info("\nResults for: " +                      //
         query.toString() + " sorted by " + sort);
 
-    System.out.println(StringUtils.rightPad("Title", 30) +
+    LOGGER.info(StringUtils.rightPad("Title", 30) +
       StringUtils.rightPad("pubmonth", 10) +
       StringUtils.center("id", 4) +
       StringUtils.center("score", 15));

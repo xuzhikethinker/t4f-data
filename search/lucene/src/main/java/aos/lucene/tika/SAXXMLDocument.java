@@ -28,6 +28,8 @@ import java.util.Map.Entry;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.StoredField;
 import org.xml.sax.Attributes;
@@ -40,6 +42,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * elements are processed
  */
 public class SaxXmlDocument extends DefaultHandler {
+    private static final Logger LOGGER = LogManager.getLogger(SaxXmlDocument.class);
 
     private final StringBuilder elementBuffer = new StringBuilder();
     private final Map<String, String> attributeMap = new HashMap<String, String>();
@@ -49,7 +52,7 @@ public class SaxXmlDocument extends DefaultHandler {
     public static void main(String... args) throws Exception {
         SaxXmlDocument handler = new SaxXmlDocument();
         Document doc = handler.getDocument(new FileInputStream(new File(args[0])));
-        System.out.println(doc);
+        LOGGER.info(doc);
     }
 
     public Document getDocument(InputStream is) //

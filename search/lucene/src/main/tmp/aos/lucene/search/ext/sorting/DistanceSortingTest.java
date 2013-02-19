@@ -114,13 +114,13 @@ public class DistanceSortingTest extends TestCase {
 
   private void dumpDocs(Sort sort, TopFieldDocs docs)
       throws IOException {
-    System.out.println("Sorted by: " + sort);
+    LOGGER.info("Sorted by: " + sort);
     ScoreDoc[] scoreDocs = docs.scoreDocs;
     for (int i = 0; i < scoreDocs.length; i++) {
       FieldDoc fieldDoc = (FieldDoc) scoreDocs[i];
       Float distance = (Float) fieldDoc.fields[0];
       StoredDocument doc = searcher.doc(fieldDoc.doc);
-      System.out.println("   " + doc.get("name") +
+      LOGGER.info("   " + doc.get("name") +
                          " @ (" + doc.get("x") + "," + doc.get("y") + ") -> " + distance);
     }
   }

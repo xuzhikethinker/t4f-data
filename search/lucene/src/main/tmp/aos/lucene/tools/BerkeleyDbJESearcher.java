@@ -59,7 +59,7 @@ public class BerkeleyDbJESearcher {
 
         IndexSearcher searcher = new IndexSearcher(directory, true);
         TopDocs hits = searcher.search(new TermQuery(new Term("contents", "fox")), 10);
-        System.out.println(hits.totalHits + " documents found");
+        LOGGER.info(hits.totalHits + " documents found");
         searcher.close();
 
         index.close();

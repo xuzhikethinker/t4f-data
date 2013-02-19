@@ -74,7 +74,7 @@ public class MultiPhraseQueryTest extends TestCase {
         new Term("field", "fast")                // #A
     });
     query.add(new Term("field", "fox"));         // #B
-    System.out.println(query);
+    LOGGER.info(query);
 
     TopDocs hits = searcher.search(query, 10);
     assertEquals("fast fox match", 1, hits.totalHits);
@@ -128,7 +128,7 @@ public class MultiPhraseQueryTest extends TestCase {
   private void debug(TopDocs hits) throws IOException {
     for (ScoreDoc sd : hits.scoreDocs) {
       StoredDocument doc = searcher.doc(sd.doc);
-      System.out.println(sd.score + ": " + doc.get("field"));
+      LOGGER.info(sd.score + ": " + doc.get("field"));
     }
 
   }

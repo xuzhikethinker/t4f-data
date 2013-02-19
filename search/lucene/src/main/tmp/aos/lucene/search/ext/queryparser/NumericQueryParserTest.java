@@ -95,7 +95,7 @@ public class NumericQueryParserTest extends TestCase {
                                                      "subject", analyzer);
 
     Query query = parser.parse(expression);
-    System.out.println(expression + " parsed to " + query);
+    LOGGER.info(expression + " parsed to " + query);
   }
 
   public static class NumericDateRangeQueryParser extends QueryParser {
@@ -128,7 +128,7 @@ public class NumericQueryParserTest extends TestCase {
     QueryParser parser = new QueryParser(Version.LUCENE_50,
                                          "subject", analyzer);
     Query query = parser.parse("pubmonth:[1/1/04 TO 12/31/04]");
-    System.out.println("default date parsing: " + query);
+    LOGGER.info("default date parsing: " + query);
   }
 
   public void testDateRangeQuery() throws Exception {
@@ -141,7 +141,7 @@ public class NumericQueryParserTest extends TestCase {
     parser.setLocale(Locale.US);
 
     Query query = parser.parse(expression);
-    System.out.println(expression + " parsed to " + query);
+    LOGGER.info(expression + " parsed to " + query);
 
     TopDocs matches = searcher.search(query, 10);
     assertTrue("expecting at least one result !", matches.totalHits > 0);

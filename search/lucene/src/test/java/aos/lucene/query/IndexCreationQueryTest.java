@@ -21,6 +21,8 @@ package aos.lucene.query;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
@@ -36,6 +38,7 @@ import org.apache.lucene.store.FSDirectory;
 import aos.lucene.demo.parser.ParseException;
 
 public class IndexCreationQueryTest {
+    private static final Logger LOGGER = LogManager.getLogger(IndexCreationQueryTest.class);
 
     // String indexDir = "./aos.index.test/test1";
     // Directory dir = FSDirectory.open(new File(indexDir));
@@ -88,11 +91,11 @@ public class IndexCreationQueryTest {
         indexSearcher.search(q, collector);
         ScoreDoc[] hits = collector.topDocs().scoreDocs;
 
-        System.out.println("Found " + hits.length + " hits.");
+        LOGGER.info("Found " + hits.length + " hits.");
         for (int i = 0; i < hits.length; ++i) {
             int docId = hits[i].doc;
             StoredDocument d = indexSearcher.doc(docId);
-            // System.out.println((i + 1) + ". " + d.get("title"));
+            // LOGGER.info((i + 1) + ". " + d.get("title"));
         }
 
         // searcher can only be closed when there

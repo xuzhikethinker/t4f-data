@@ -74,7 +74,7 @@ public class SpecialsFilterTest extends TestCase {
         logoOrEdBooks.add(edBooksOnSpecial, BooleanClause.Occur.SHOULD);
 
         TopDocs hits = searcher.search(logoOrEdBooks, 10);
-        System.out.println(logoOrEdBooks.toString());
+        LOGGER.info(logoOrEdBooks.toString());
         assertEquals("Papert and Steiner", 2, hits.totalHits);
     }
 

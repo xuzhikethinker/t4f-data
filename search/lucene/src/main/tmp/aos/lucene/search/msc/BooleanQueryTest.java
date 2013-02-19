@@ -81,7 +81,7 @@ public class BooleanQueryTest extends TestCase {
     Directory dir = TestUtil.getBookIndexDirectory();
     IndexSearcher searcher = new IndexSearcher(dir);
     TopDocs matches = searcher.search(enlightenmentBooks, 10);
-    System.out.println("or = " + enlightenmentBooks);
+    LOGGER.info("or = " + enlightenmentBooks);
 
     assertTrue(TestUtil.hitsIncludeTitle(searcher, matches,
                                          "Extreme Programming Explained"));

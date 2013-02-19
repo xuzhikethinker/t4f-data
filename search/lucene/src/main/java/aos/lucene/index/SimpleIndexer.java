@@ -23,6 +23,8 @@ import java.io.FileFilter;
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.StoredField;
@@ -42,11 +44,13 @@ import aos.lucene.field.AosFieldType;
  * Index file name #9 Index file full path #10 Add document to Lucene index
  */
 public class SimpleIndexer {
+    private static final Logger LOGGER = LogManager.getLogger(SimpleIndexer.class);
 
     public static void main(String[] args) throws Exception {
 
         if (args.length != 2) {
-            throw new IllegalArgumentException("Usage: java " + SimpleIndexer.class.getName() + " <index dir> <data dir>");
+            throw new IllegalArgumentException("Usage: java " + SimpleIndexer.class.getName()
+                    + " <index dir> <data dir>");
         }
 
         String indexDir = args[0];
@@ -63,7 +67,7 @@ public class SimpleIndexer {
         }
         long end = System.currentTimeMillis();
 
-        System.out.println("Indexing " + numIndexed + " files took " + (end - start) + " milliseconds");
+        LOGGER.info("Indexing " + numIndexed + " files took " + (end - start) + " milliseconds");
     }
 
     private final IndexWriter writer;
@@ -113,7 +117,7 @@ public class SimpleIndexer {
     }
 
     private void indexFile(File f) throws Exception {
-        System.out.println("Indexing " + f.getCanonicalPath());
+        LOGGER.info("Indexing " + f.getCanonicalPath());
         Document doc = getDocument(f);
         writer.addDocument(doc);
     }

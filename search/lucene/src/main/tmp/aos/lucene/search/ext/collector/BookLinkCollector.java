@@ -59,7 +59,7 @@ public class BookLinkCollector extends Collector {
             String url = urls[docID]; // #C
             String title = titles[docID]; // #C
             documents.put(url, title); // #C
-            System.out.println(title + ":" + scorer.score());
+            LOGGER.info(title + ":" + scorer.score());
         }
         catch (IOException e) {
             // ignore

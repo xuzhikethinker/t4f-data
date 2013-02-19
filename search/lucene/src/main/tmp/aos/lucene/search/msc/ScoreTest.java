@@ -58,7 +58,7 @@ public class ScoreTest extends TestCase {
 
     Query query = new TermQuery(new Term("contents", "x"));
     Explanation explanation = searcher.explain(query, 0);
-    System.out.println(explanation);
+    LOGGER.info(explanation);
 
     TopDocs matches = searcher.search(query, 10);
     assertEquals(1, matches.totalHits);

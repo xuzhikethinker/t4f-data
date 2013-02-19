@@ -37,7 +37,7 @@ public class TermRangeQueryTest extends TestCase {
     TopDocs matches = searcher.search(query, 100);
     /*
     for(int i=0;i<matches.totalHits;i++) {
-      System.out.println("match " + i + ": " + searcher.doc(matches.scoreDocs[i].doc).get("title2"));
+      LOGGER.info("match " + i + ": " + searcher.doc(matches.scoreDocs[i].doc).get("title2"));
     }
     */
     assertEquals(3, matches.totalHits);

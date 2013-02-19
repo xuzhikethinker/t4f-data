@@ -18,9 +18,11 @@
  ****************************************************************/
 package aos.lucene.index;
 
-import java.io.IOException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import junit.framework.TestCase;
+import java.io.IOException;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
@@ -36,6 +38,8 @@ import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
+import org.junit.Before;
+import org.junit.Test;
 
 import aos.lucene.analyser.AosAnalyser;
 import aos.lucene.field.AosFieldType;
@@ -45,7 +49,7 @@ import aos.lucene.util.TestUtil;
  * #1 One initial document has bridges #2 Create writer with maxFieldLength 1 #3
  * Index document with bridges #4 Document can't be found
  */
-public class IndexTest extends TestCase {
+public class AdvancedIndexTest {
     protected String[] ids = { "1", "2" };
     protected String[] unindexed = { "Netherlands", "Italy" };
     protected String[] unstored = { "Amsterdam has lots of bridges", "Venice has lots of canals" };
@@ -53,8 +57,8 @@ public class IndexTest extends TestCase {
 
     private Directory directory;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
 
         directory = new RAMDirectory();
 
@@ -74,22 +78,14 @@ public class IndexTest extends TestCase {
         writer.close();
     }
 
-    protected int getHitCount(String fieldName, String searchString) throws IOException {
-        IndexReader reader = DirectoryReader.open(directory);
-        IndexSearcher searcher = new IndexSearcher(reader);
-        Term t = new Term(fieldName, searchString);
-        Query query = new TermQuery(t);
-        int hitCount = TestUtil.hitCount(searcher, query);
-        reader.close();
-        return hitCount;
-    }
-
+    @Test
     public void testIndexWriter() throws IOException {
         IndexWriter writer = getWriter();
         assertEquals(ids.length, writer.numDocs());
         writer.close();
     }
 
+    @Test
     public void testIndexReader() throws IOException {
         IndexReader reader = DirectoryReader.open(directory);
         assertEquals(ids.length, reader.maxDoc());
@@ -97,11 +93,12 @@ public class IndexTest extends TestCase {
         reader.close();
     }
 
-    /*
+    /**
      * #1 Run before every test #2 Create IndexWriter #3 Add documents #4 Create
      * new searcher #5 Build simple single-term query #6 Get number of hits #7
      * Verify writer document count #8 Verify reader document count
      */
+    @Test
     public void testDeleteBeforeOptimize() throws IOException {
         IndexWriter writer = getWriter();
         assertEquals(2, writer.numDocs());
@@ -113,6 +110,7 @@ public class IndexTest extends TestCase {
         writer.close();
     }
 
+    @Test
     public void testDeleteAfterOptimize() throws IOException {
         IndexWriter writer = getWriter();
         assertEquals(2, writer.numDocs());
@@ -130,6 +128,7 @@ public class IndexTest extends TestCase {
      * deleted documents #1 Index contains deletions #2 1 indexed document, 1
      * deleted document #3 Optimize compacts deletes
      */
+    @Test
     public void testUpdate() throws IOException {
 
         assertEquals(1, getHitCount("city", "Amsterdam"));
@@ -154,6 +153,7 @@ public class IndexTest extends TestCase {
      * document with new version #C Verify old document is gone #D Verify new
      * document is indexed
      */
+    @Test
     public void testMaxFieldLength() throws IOException {
 
         assertEquals(1, getHitCount("contents", "bridges"));
@@ -165,6 +165,16 @@ public class IndexTest extends TestCase {
         writer.addDocument(doc);
         writer.close();
         assertEquals(1, getHitCount("contents", "bridges"));
+    }
+
+    private int getHitCount(String fieldName, String searchString) throws IOException {
+        IndexReader reader = DirectoryReader.open(directory);
+        IndexSearcher searcher = new IndexSearcher(reader);
+        Term t = new Term(fieldName, searchString);
+        Query query = new TermQuery(t);
+        int hitCount = TestUtil.hitCount(searcher, query);
+        reader.close();
+        return hitCount;
     }
 
     private IndexWriter getWriter() throws IOException {

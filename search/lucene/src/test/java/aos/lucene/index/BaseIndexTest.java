@@ -24,6 +24,7 @@ import java.io.IOException;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.core.SimpleAnalyzer;
 import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
@@ -35,9 +36,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import aos.lucene.directory.DirPath;
+import aos.lucene.field.AosFieldType;
+import aos.lucene.util.DirPath;
 
-public class Index2Test {
+public class BaseIndexTest {
 
     protected Directory dir;
 
@@ -74,11 +76,10 @@ public class Index2Test {
         IndexWriter indexWriter = new IndexWriter(dir, config);
         for (int i = 0; i < keywords.length; i++) {
             Document doc = new Document();
-            // doc.add(new Field("id", keywords[i], Store.YES, Index.ANALYZED));
-            // doc.add(new Field("country", unindexed[i], Store.YES, Index.NO));
-            // doc.add(new Field("contents", unstored[i], Store.NO,
-            // Index.ANALYZED));
-            // doc.add(new Field("city", text[i], Store.YES, Index.ANALYZED));
+            doc.add(new Field("id", keywords[i], AosFieldType.INDEXED_STORED_TERMVECTOR));
+            doc.add(new Field("country", unindexed[i], AosFieldType.NOTINDEXED_STORED));
+            doc.add(new Field("contents", unstored[i], AosFieldType.INDEXED_NOTSTORED_TERMVECTOR));
+            doc.add(new Field("city", text[i], AosFieldType.INDEXED_STORED_TERMVECTOR));
             indexWriter.addDocument(doc);
         }
         // indexWriter.optimize();

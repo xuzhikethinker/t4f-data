@@ -18,18 +18,39 @@
  ****************************************************************/
 package aos.lucene.demo;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
 import java.nio.charset.Charset;
 
-import org.junit.Ignore;
+import org.junit.Test;
 
+import aos.lucene.index.IndexFiles;
 import aos.lucene.search.simple.SearchFiles;
+import aos.lucene.util.DirPath;
+import aos.lucene.util.TestUtil;
 
-public class TestDemo {
+public class DemoTest {
 
-    @Ignore
+    @Test
+    public void testIndexSearch() throws Exception {
+
+        File fileDir = new File(DirPath.DOC_PATH_TXT_TEST);
+        File indexDir = TestUtil.createIndexFile(DirPath.INDEX_DIR);
+
+        IndexFiles.main(new String[] { "-create", "-docs", fileDir.getPath(), "-index", indexDir.getPath() });
+
+        testOneSearch(indexDir, "apache", 3);
+        testOneSearch(indexDir, "patent", 8);
+        testOneSearch(indexDir, "lucene", 0);
+        testOneSearch(indexDir, "gnu", 6);
+        testOneSearch(indexDir, "derivative", 8);
+        testOneSearch(indexDir, "license", 13);
+
+    }
+
     public void testOneSearch(File indexPath, String query, int expectedHitCount) throws Exception {
         PrintStream outSave = System.out;
         try {
@@ -45,19 +66,6 @@ public class TestDemo {
         finally {
             System.setOut(outSave);
         }
-    }
-
-    public void testIndexSearch() throws Exception {
-        // File dir = getDataFile("test-files/docs");
-        // File indexDir = _TestUtil.getTempDir("ContribDemoTest");
-        // IndexFiles.main(new String[] { "-create", "-docs", dir.getPath(),
-        // "-index", indexDir.getPath()});
-        // testOneSearch(indexDir, "apache", 3);
-        // testOneSearch(indexDir, "patent", 8);
-        // testOneSearch(indexDir, "lucene", 0);
-        // testOneSearch(indexDir, "gnu", 6);
-        // testOneSearch(indexDir, "derivative", 8);
-        // testOneSearch(indexDir, "license", 13);
     }
 
 }

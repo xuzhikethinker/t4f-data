@@ -21,6 +21,8 @@ package aos.lucene.index;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -40,46 +42,50 @@ import org.apache.lucene.store.LockObtainFailedException;
 import org.apache.lucene.util.Version;
 
 public class LuceneSimple {
+    private static final Logger LOGGER = LogManager.getLogger(LuceneSimple.class);
 
     public static void main(String... args) {
         try {
-            IndexFile("/Users/androidyou/Documents/lucence/data/test.txt",
-                    "/Users/androidyou/Documents/lucence/index");
-            Search("/Users/androidyou/Documents/lucence/index","nonexistedkeyworld");
-            Search("/Users/androidyou/Documents/lucence/index","apache");
+            IndexFile("/Users/androidyou/Documents/lucence/data/test.txt", "/Users/androidyou/Documents/lucence/index");
+            Search("/Users/androidyou/Documents/lucence/index", "nonexistedkeyworld");
+            Search("/Users/androidyou/Documents/lucence/index", "apache");
 
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             // TODO Auto-generated catch block
         }
-        System.out.println("done");
+        LOGGER.info("done");
     }
 
     private static void Search(String indexpath, String keyword) throws Exception, IOException {
         IndexReader reader = DirectoryReader.open(FSDirectory.open(new File(indexpath)));
         IndexSearcher searcher = new IndexSearcher(reader);
-        System.out.println("Search  keyword " + keyword);
-        Query query=new QueryParser(Version.LUCENE_50, "content", new StandardAnalyzer(Version.LUCENE_50)).parse(keyword);
+        LOGGER.info("Search  keyword " + keyword);
+        Query query = new QueryParser(Version.LUCENE_50, "content", new StandardAnalyzer(Version.LUCENE_50))
+                .parse(keyword);
 
-        TopDocs docs= searcher.search(query, 10);
-        System.out.println("hits " + docs.totalHits);
-        for(ScoreDoc doc: docs.scoreDocs)
-        {
-            System.out.println("doc id" + doc.doc + "doc filename" + searcher.doc(doc.doc).get("filename")) ;
+        TopDocs docs = searcher.search(query, 10);
+        LOGGER.info("hits " + docs.totalHits);
+        for (ScoreDoc doc : docs.scoreDocs) {
+            LOGGER.info("doc id" + doc.doc + "doc filename" + searcher.doc(doc.doc).get("filename"));
         }
 
     }
 
-    private static void IndexFile(String datafolder, String indexfolder) throws CorruptIndexException, LockObtainFailedException, IOException {
-        Analyzer a=new StandardAnalyzer(Version.LUCENE_50);
-        Directory d=FSDirectory.open(new File(indexfolder));
+    private static void IndexFile(String datafolder, String indexfolder) throws CorruptIndexException,
+            LockObtainFailedException, IOException {
+        Analyzer a = new StandardAnalyzer(Version.LUCENE_50);
+        Directory d = FSDirectory.open(new File(indexfolder));
         IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_50, new StandardAnalyzer(Version.LUCENE_50));
         IndexWriter indexWriter = new IndexWriter(d, config);
 
-        Document doc=new Document();
-//        Fieldable contentfield=new Field("content", new FileReader(datafolder));
-//        doc.add(contentfield);
-//        Fieldable namefield=new Field("filename",datafolder, Store.YES, Index.NOT_ANALYZED);
-//        doc.add(namefield);
+        Document doc = new Document();
+        // Fieldable contentfield=new Field("content", new
+        // FileReader(datafolder));
+        // doc.add(contentfield);
+        // Fieldable namefield=new Field("filename",datafolder, Store.YES,
+        // Index.NOT_ANALYZED);
+        // doc.add(namefield);
 
         indexWriter.addDocument(doc);
         indexWriter.commit();

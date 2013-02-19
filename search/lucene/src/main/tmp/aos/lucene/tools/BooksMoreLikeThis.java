@@ -52,20 +52,20 @@ public class BooksMoreLikeThis {
         mlt.setMinDocFreq(1);
 
         for (int docID = 0; docID < numDocs; docID++) {
-            System.out.println();
+            LOGGER.info();
             StoredDocument doc = reader.document(docID);
-            System.out.println(doc.get("title"));
+            LOGGER.info(doc.get("title"));
 
             Query query = mlt.like(docID);
-            System.out.println("  query=" + query);
+            LOGGER.info("  query=" + query);
 
             TopDocs similarDocs = searcher.search(query, 10);
             if (similarDocs.totalHits == 0)
-                System.out.println("  None like this");
+                LOGGER.info("  None like this");
             for (int i = 0; i < similarDocs.scoreDocs.length; i++) {
                 if (similarDocs.scoreDocs[i].doc != docID) {
                     doc = reader.document(similarDocs.scoreDocs[i].doc);
-                    System.out.println("  -> " + doc.getField("title").stringValue());
+                    LOGGER.info("  -> " + doc.getField("title").stringValue());
                 }
             }
         }

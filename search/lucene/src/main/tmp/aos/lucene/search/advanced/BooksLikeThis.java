@@ -43,16 +43,16 @@ public class BooksLikeThis {
 
         BooksLikeThis blt = new BooksLikeThis(reader);
         for (int i = 0; i < numDocs; i++) { //
-            System.out.println();
+            LOGGER.info();
             StoredDocument doc = reader.document(i);
-            System.out.println(doc.get("title"));
+            LOGGER.info(doc.get("title"));
 
             Document[] docs = blt.docsLike(i, 10); //
             if (docs.length == 0) {
-                System.out.println("  None like this");
+                LOGGER.info("  None like this");
             }
             for (Document likeThisDoc : docs) {
-                System.out.println("  -> " + likeThisDoc.get("title"));
+                LOGGER.info("  -> " + likeThisDoc.get("title"));
             }
         }
         reader.close();
@@ -95,7 +95,7 @@ public class BooksLikeThis {
         likeThisQuery.add(new TermQuery( //
                 new Term("isbn", doc.get("isbn"))), BooleanClause.Occur.MUST_NOT); //
 
-        // System.out.println("  Query: " +
+        // LOGGER.info("  Query: " +
         // likeThisQuery.toString("contents"));
         TopDocs hits = searcher.search(likeThisQuery, 10);
         int size = max;

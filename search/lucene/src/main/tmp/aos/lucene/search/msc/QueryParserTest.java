@@ -72,17 +72,17 @@ public class QueryParserTest extends TestCase {
                                          "category",
                                          new StandardAnalyzer(Version.LUCENE_50));
     parser.setLowercaseExpandedTerms(false);
-    System.out.println(parser.parse("/Computers/technology*").toString("category"));
+    LOGGER.info(parser.parse("/Computers/technology*").toString("category"));
   }
 
   public void testFuzzyQuery() throws Exception {
     QueryParser parser = new QueryParser(Version.LUCENE_50,
                                          "subject", analyzer);
     Query query = parser.parse("kountry~");
-    System.out.println("fuzzy: " + query);
+    LOGGER.info("fuzzy: " + query);
 
     query = parser.parse("kountry~0.7");
-    System.out.println("fuzzy 2: " + query);
+    LOGGER.info("fuzzy 2: " + query);
   }
 
   public void testGrouping() throws Exception {
@@ -103,7 +103,7 @@ public class QueryParserTest extends TestCase {
     QueryParser parser = new QueryParser(Version.LUCENE_50,
                                          "subject", analyzer);
     Query query = parser.parse("computers");
-    System.out.println("term: " + query);
+    LOGGER.info("term: " + query);
   }
 
   public void testTermRangeQuery() throws Exception {

@@ -71,7 +71,7 @@ public class MetaphoneAnalyzerTest extends TestCase {
         MetaphoneReplacementAnalyzer analyzer = new MetaphoneReplacementAnalyzer();
         AnalyzerUtils.displayTokens(analyzer, "The quick brown fox jumped over the lazy dog");
 
-        System.out.println("");
+        LOGGER.info("");
         AnalyzerUtils.displayTokens(analyzer, "Tha quik brown phox jumpd ovvar tha lazi dag");
     }
 }

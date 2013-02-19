@@ -80,8 +80,8 @@ public class SearchClient {
                 System.out.print(syn + " ");
             }
         }
-        System.out.println();
-        System.out.println();
+        LOGGER.info();
+        LOGGER.info();
 
     }
 

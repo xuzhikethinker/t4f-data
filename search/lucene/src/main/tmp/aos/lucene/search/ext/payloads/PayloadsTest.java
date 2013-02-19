@@ -93,7 +93,7 @@ public class PayloadsTest extends TestCase {
     Term warning = new Term("contents", "warning");
     
     Query query1 = new TermQuery(warning);
-    System.out.println("\nTermQuery results:");
+    LOGGER.info("\nTermQuery results:");
     TopDocs hits = searcher.search(query1, 10);
     TestUtil.dumpHits(searcher, hits);
 
@@ -102,7 +102,7 @@ public class PayloadsTest extends TestCase {
 
     Query query2 = new PayloadTermQuery(warning,
                                         new AveragePayloadFunction());
-    System.out.println("\nPayloadTermQuery results:");
+    LOGGER.info("\nPayloadTermQuery results:");
     hits = searcher.search(query2, 10);
     TestUtil.dumpHits(searcher, hits);
 

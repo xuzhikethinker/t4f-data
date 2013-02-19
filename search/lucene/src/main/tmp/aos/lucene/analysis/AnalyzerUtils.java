@@ -92,13 +92,13 @@ public class AnalyzerUtils {
             int increment = posIncr.getPositionIncrement();
             if (increment > 0) {
                 position = position + increment;
-                System.out.println();
+                LOGGER.info();
                 System.out.print(position + ": ");
             }
 
             System.out.print("[" + term.term() + "] ");
         }
-        System.out.println();
+        LOGGER.info();
     }
 
     public static void displayTokensWithFullDetails(Analyzer analyzer, String text) throws IOException {
@@ -118,7 +118,7 @@ public class AnalyzerUtils {
             int increment = posIncr.getPositionIncrement(); // #D
             if (increment > 0) { // #D
                 position = position + increment; // #D
-                System.out.println(); // #D
+                LOGGER.info(); // #D
                 System.out.print(position + ": "); // #D
             }
 
@@ -128,7 +128,7 @@ public class AnalyzerUtils {
                     offset.endOffset() + ":" + // #E
                     type.type() + "] "); // #E
         }
-        System.out.println();
+        LOGGER.info();
     }
 
     /*
@@ -155,16 +155,16 @@ public class AnalyzerUtils {
         TokenStream stream = analyzer.tokenStream("contents", new StringReader(text));
         PositionIncrementAttribute posIncr = stream.addAttribute(PositionIncrementAttribute.class);
         while (stream.incrementToken()) {
-            System.out.println("posIncr=" + posIncr.getPositionIncrement());
+            LOGGER.info("posIncr=" + posIncr.getPositionIncrement());
         }
     }
 
     public static void main(String[] args) throws IOException {
-        System.out.println("SimpleAnalyzer");
+        LOGGER.info("SimpleAnalyzer");
         displayTokensWithFullDetails(new SimpleAnalyzer(), "The quick brown fox....");
 
-        System.out.println("\n----");
-        System.out.println("StandardAnalyzer");
+        LOGGER.info("\n----");
+        LOGGER.info("StandardAnalyzer");
         displayTokensWithFullDetails(new StandardAnalyzer(Version.LUCENE_50), "I'll email you at xyz@example.com");
     }
 }

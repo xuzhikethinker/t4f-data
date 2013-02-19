@@ -86,7 +86,7 @@ public class SpatialLuceneExample {
                                      projector, tierPrefix);  // #D
 
       double boxId = ctp.getTierBoxId(lat, lng);              // #D
-      System.out.println("Adding field " + ctp.getTierFieldName() + ":"
+      LOGGER.info("Adding field " + ctp.getTierFieldName() + ":"
                          + boxId);
       doc.add(new Field(ctp.getTierFieldName(), NumericUtils   // #E
                         .doubleToPrefixCoded(boxId), Field.Store.YES,
@@ -95,7 +95,7 @@ public class SpatialLuceneExample {
     }
 
     writer.addDocument(doc);
-    System.out.println("===== Added Doc to index ====");
+    LOGGER.info("===== Added Doc to index ====");
   }
 
 /*
@@ -135,8 +135,8 @@ public class SpatialLuceneExample {
     Map<Integer,Double> distances =                              // #D
          dq.getDistanceFilter().getDistances();                  // #D
 		
-    System.out.println("Number of results: " + hits.totalHits);
-    System.out.println("Found:");
+    LOGGER.info("Number of results: " + hits.totalHits);
+    LOGGER.info("Found:");
     for (ScoreDoc sd : hits.scoreDocs) {
       int docID = sd.doc;
       Document d = searcher.doc(docID);
@@ -147,7 +147,7 @@ public class SpatialLuceneExample {
       Double geo_distance = distances.get(docID);
 	        
       System.out.printf(name +": %.2f Miles\n", geo_distance);
-      System.out.println("\t\t("+ rsLat +","+ rsLng +")");
+      LOGGER.info("\t\t("+ rsLat +","+ rsLng +")");
     }
   }
 

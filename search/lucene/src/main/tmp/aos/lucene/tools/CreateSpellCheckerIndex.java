@@ -33,7 +33,7 @@ public class CreateSpellCheckerIndex {
   public static void main(String[] args) throws IOException {
 
     if (args.length != 3) {
-      System.out.println("Usage: java lia.tools.SpellCheckerTest SpellCheckerIndexDir IndexDir IndexField");
+      LOGGER.info("Usage: java lia.tools.SpellCheckerTest SpellCheckerIndexDir IndexDir IndexField");
       System.exit(1);
     }
 
@@ -41,7 +41,7 @@ public class CreateSpellCheckerIndex {
     String indexDir = args[1];
     String indexField = args[2];
 
-    System.out.println("Now build SpellChecker index...");
+    LOGGER.info("Now build SpellChecker index...");
     Directory dir = FSDirectory.open(new File(spellCheckDir));
     SpellChecker spell = new SpellChecker(dir);     //#A
     long startTime = System.currentTimeMillis();
@@ -56,7 +56,7 @@ public class CreateSpellCheckerIndex {
     dir.close();
     dir2.close();
     long endTime = System.currentTimeMillis();
-    System.out.println("  took " + (endTime-startTime) + " milliseconds");
+    LOGGER.info("  took " + (endTime-startTime) + " milliseconds");
   }
 }
 /*

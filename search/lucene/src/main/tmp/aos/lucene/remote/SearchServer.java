@@ -56,7 +56,7 @@ public class SearchServer {
         RemoteIndexSearcher parallelImpl = new RemoteIndexSearcher(parallelSearcher);
         Naming.rebind("//localhost/LIA_Parallel", parallelImpl);
 
-        System.out.println("Server started");
+        LOGGER.info("Server started");
 
         for (int i = 0; i < ALPHABET.length(); i++) {
             dirs[i].close();

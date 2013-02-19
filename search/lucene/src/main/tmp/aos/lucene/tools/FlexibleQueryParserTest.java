@@ -41,7 +41,7 @@ public class FlexibleQueryParserTest extends TestCase {
         catch (QueryNodeException exc) {
             // TODO: handle exc
         }
-        System.out.println("parsed " + q);
+        LOGGER.info("parsed " + q);
     }
 
     public void testNoFuzzyOrWildcard() throws Exception {
@@ -72,7 +72,7 @@ public class FlexibleQueryParserTest extends TestCase {
         assertTrue("TermQuery", query instanceof TermQuery);
 
         query = parser.parse("\"a phrase test\"", "subject");
-        System.out.println("got query=" + query);
+        LOGGER.info("got query=" + query);
         assertTrue("SpanNearQuery", query instanceof SpanNearQuery);
     }
 

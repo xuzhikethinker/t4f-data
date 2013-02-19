@@ -24,19 +24,26 @@ import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Run this to see what your JRE's open file limit is.
  */
 public class OpenFileLimitCheck {
+    private static final Logger LOGGER = LogManager.getLogger(OpenFileLimitCheck.class);
+
     public static void main(String[] args) throws IOException {
+
         List<RandomAccessFile> files = new ArrayList<RandomAccessFile>();
+
         try {
             while (true) {
                 files.add(new RandomAccessFile("tmp" + files.size(), "rw"));
             }
         }
         catch (IOException ioe) {
-            System.out.println("IOException after  " + files.size() + " open files:");
+            LOGGER.info("IOException after  " + files.size() + " open files:");
             ioe.printStackTrace(System.out);
             int i = 0;
             for (RandomAccessFile raf : files) {
@@ -45,4 +52,5 @@ public class OpenFileLimitCheck {
             }
         }
     }
+
 }

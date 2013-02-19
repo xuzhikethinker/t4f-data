@@ -56,14 +56,14 @@ public class AnalyzerDemo {
 
     private static void analyze(String text) throws IOException {
 
-        System.out.println("Analyzing \"" + text + "\"");
+        LOGGER.info("Analyzing \"" + text + "\"");
 
         for (Analyzer analyzer : analyzers) {
             String name = analyzer.getClass().getSimpleName();
-            System.out.println("  " + name + ":");
+            LOGGER.info("  " + name + ":");
             System.out.print("    ");
             AnalyzerUtils.displayTokens(analyzer, text);
-            System.out.println("\n");
+            LOGGER.info("\n");
         }
 
     }

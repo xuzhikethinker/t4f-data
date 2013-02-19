@@ -46,7 +46,7 @@ public class TimeLimitingCollectorTest extends TestCase {
       searcher.search(q, collector);
       assertEquals(numAllBooks, topDocs.getTotalHits());  // #B
     } catch (TimeExceededException tee) {                 // #C
-      System.out.println("Too much time taken.");         // #C
+      LOGGER.info("Too much time taken.");         // #C
     }                                                     // #C
     searcher.close();
     dir.close();

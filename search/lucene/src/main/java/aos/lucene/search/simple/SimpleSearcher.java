@@ -21,6 +21,8 @@ package aos.lucene.search.simple;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
@@ -43,6 +45,7 @@ import org.apache.lucene.util.Version;
  * matching document #8 Display filename #9 Close IndexSearcher
  */
 public class SimpleSearcher {
+    private static final Logger LOGGER = LogManager.getLogger(SimpleSearcher.class);
 
     public static void main(String[] args) throws IllegalArgumentException, IOException, ParseException {
 
@@ -73,7 +76,7 @@ public class SimpleSearcher {
 
         for (ScoreDoc scoreDoc : hits.scoreDocs) {
             StoredDocument doc = is.doc(scoreDoc.doc);
-            System.out.println(doc.get("fullpath"));
+            LOGGER.info(doc.get("fullpath"));
         }
 
         reader.close();

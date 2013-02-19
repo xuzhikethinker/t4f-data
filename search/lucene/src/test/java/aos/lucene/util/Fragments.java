@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package aos.lucene.index;
+package aos.lucene.util;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -48,34 +48,6 @@ public class Fragments {
     public static final String COMPANY_DOMAIN = "example.com";
     public static final String BAD_DOMAIN = "yucky-domain.com";
 
-    private String getSenderEmail() {
-        return "bob@smith.com";
-    }
-
-    private String getSenderName() {
-        return "Bob Smith";
-    }
-
-    private String getSenderDomain() {
-        return COMPANY_DOMAIN;
-    }
-
-    private String getSubject() {
-        return "Hi there Lisa";
-    }
-
-    private String getBody() {
-        return "I don't have much to say";
-    }
-
-    private boolean isImportant(String lowerDomain) {
-        return lowerDomain.endsWith(COMPANY_DOMAIN);
-    }
-
-    private boolean isUnimportant(String lowerDomain) {
-        return lowerDomain.endsWith(BAD_DOMAIN);
-    }
-
     public void ramDirExample() throws Exception {
         Directory ramDir = new RAMDirectory();
         IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_50,
@@ -85,20 +57,15 @@ public class Fragments {
 
     public void dirCopy() throws Exception {
         Directory otherDir = null;
-
         Directory ramDir = new RAMDirectory(otherDir, new IOContext());
-
     }
 
     public void addIndexes() throws Exception {
-
         Directory otherDir = null;
         Directory ramDir = null;
-
         IndexWriter writer = new IndexWriter(otherDir, new IndexWriterConfig(Version.LUCENE_50, new SimpleAnalyzer(
                 Version.LUCENE_50)));
         writer.addIndexes(new Directory[] { ramDir });
-
     }
 
     /**
@@ -135,13 +102,8 @@ public class Fragments {
     }
 
     public void fieldBoostMethod() throws IOException {
-
-        String senderName = getSenderName();
-        String subject = getSubject();
-
-        Field subjectField = new Field("subject", subject, AosFieldType.INDEXED_STORED_TERMVECTOR);
+        Field subjectField = new Field("subject", getSubject(), AosFieldType.INDEXED_STORED_TERMVECTOR);
         subjectField.setBoost(1.2F);
-
     }
 
     public void numberField() {
@@ -192,6 +154,34 @@ public class Fragments {
         for (String author : authors) {
             doc.add(new StoredField("author", author));
         }
+    }
+
+    private String getSenderEmail() {
+        return "bob@smith.com";
+    }
+
+    private String getSenderName() {
+        return "Bob Smith";
+    }
+
+    private String getSenderDomain() {
+        return COMPANY_DOMAIN;
+    }
+
+    private String getSubject() {
+        return "Hi there Lisa";
+    }
+
+    private String getBody() {
+        return "I don't have much to say";
+    }
+
+    private boolean isImportant(String lowerDomain) {
+        return lowerDomain.endsWith(COMPANY_DOMAIN);
+    }
+
+    private boolean isUnimportant(String lowerDomain) {
+        return lowerDomain.endsWith(BAD_DOMAIN);
     }
 
 }

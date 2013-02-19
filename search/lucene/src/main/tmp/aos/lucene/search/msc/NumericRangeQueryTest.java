@@ -42,7 +42,7 @@ public class NumericRangeQueryTest extends TestCase {
     TopDocs matches = searcher.search(query, 10);
     /*
     for(int i=0;i<matches.totalHits;i++) {
-      System.out.println("match " + i + ": " + searcher.doc(matches.scoreDocs[i].doc).get("author"));
+      LOGGER.info("match " + i + ": " + searcher.doc(matches.scoreDocs[i].doc).get("author"));
     }
     */
     assertEquals(1, matches.totalHits);

@@ -24,6 +24,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -45,19 +47,25 @@ import org.apache.lucene.util.Version;
  * it with no command-line arguments for usage information.
  */
 public class IndexFiles {
+    private static final Logger LOGGER = LogManager.getLogger(IndexFiles.class);
 
     private IndexFiles() {
     }
 
-    /** Index all text files under a directory. */
+    /**
+     * Index all text files under a directory.
+     */
     public static void main(String... args) {
+
         String usage = "java org.apache.lucene.demo.IndexFiles"
                 + " [-index INDEX_PATH] [-docs DOCS_PATH] [-update]\n\n"
                 + "This indexes the documents in DOCS_PATH, creating a Lucene index"
                 + "in INDEX_PATH that can be searched with SearchFiles";
+
         String indexPath = "index";
         String docsPath = null;
         boolean create = true;
+
         for (int i = 0; i < args.length; i++) {
             if ("-index".equals(args[i])) {
                 indexPath = args[i + 1];
@@ -79,14 +87,16 @@ public class IndexFiles {
 
         final File docDir = new File(docsPath);
         if (!docDir.exists() || !docDir.canRead()) {
-            System.out.println("Document directory '" + docDir.getAbsolutePath()
+            LOGGER.info("Document directory '" + docDir.getAbsolutePath()
                     + "' does not exist or is not readable, please check the path");
             System.exit(1);
         }
 
         Date start = new Date();
+
         try {
-            System.out.println("Indexing to directory '" + indexPath + "'...");
+
+            LOGGER.info("Indexing to directory '" + indexPath + "'...");
 
             Directory dir = FSDirectory.open(new File(indexPath));
             Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_50);
@@ -123,11 +133,11 @@ public class IndexFiles {
             writer.close();
 
             Date end = new Date();
-            System.out.println(end.getTime() - start.getTime() + " total milliseconds");
+            LOGGER.info(end.getTime() - start.getTime() + " total milliseconds");
 
         }
         catch (IOException e) {
-            System.out.println(" caught a " + e.getClass() + "\n with message: " + e.getMessage());
+            LOGGER.info(" caught a " + e.getClass() + "\n with message: " + e.getMessage());
         }
     }
 
@@ -219,7 +229,7 @@ public class IndexFiles {
                     if (writer.getConfig().getOpenMode() == OpenMode.CREATE) {
                         // New index, so we just add the document (no old
                         // document can be there):
-                        System.out.println("adding " + file);
+                        LOGGER.info("adding " + file);
                         writer.addDocument(doc);
                     }
                     else {
@@ -228,7 +238,7 @@ public class IndexFiles {
                         // we use updateDocument instead to replace the old one
                         // matching the exact
                         // path, if present:
-                        System.out.println("updating " + file);
+                        LOGGER.info("updating " + file);
                         writer.updateDocument(new Term("path", file.getPath()), doc);
                     }
 

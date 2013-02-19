@@ -24,21 +24,29 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.digester.Digester;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.StoredField;
 import org.xml.sax.SAXException;
 
-public class DigesterXmlDocument {
+/**
+ * #1 Create DigesterXMLDocument #2 Create Contact #3 Set type attribute #4 Set
+ * name property #5 Call populateDocument #6 Parse XML InputStream #7 Create
+ * Lucene document
+ */
+public class DigesterXmlDocument2 {
+    private static final Logger LOGGER = LogManager.getLogger(DigesterXmlDocument2.class);
 
     private final Digester dig;
     private static Document doc;
 
-    public DigesterXmlDocument() {
+    public DigesterXmlDocument2() {
 
         dig = new Digester();
         dig.setValidating(false);
 
-        dig.addObjectCreate("address-book", DigesterXmlDocument.class);
+        dig.addObjectCreate("address-book", DigesterXmlDocument2.class);
         dig.addObjectCreate("address-book/contact", Contact.class);
 
         dig.addSetProperties("address-book/contact", "type", "type");
@@ -159,14 +167,8 @@ public class DigesterXmlDocument {
     }
 
     public static void main(String[] args) throws Exception {
-        DigesterXmlDocument handler = new DigesterXmlDocument();
+        DigesterXmlDocument2 handler = new DigesterXmlDocument2();
         Document doc = handler.getDocument(new FileInputStream(new File(args[0])));
-        System.out.println(doc);
+        LOGGER.info(doc);
     }
 }
-
-/*
- * #1 Create DigesterXMLDocument #2 Create Contact #3 Set type attribute #4 Set
- * name property #5 Call populateDocument #6 Parse XML InputStream #7 Create
- * Lucene document
- */

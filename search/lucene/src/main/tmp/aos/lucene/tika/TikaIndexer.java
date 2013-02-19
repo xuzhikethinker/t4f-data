@@ -65,11 +65,11 @@ public class TikaIndexer extends Indexer {
         List<String> parsers = new ArrayList<String>(config.getParsers().keySet());
         Collections.sort(parsers);
         Iterator<String> it = parsers.iterator();
-        System.out.println("Mime type parsers:");
+        LOGGER.info("Mime type parsers:");
         while (it.hasNext()) {
-            System.out.println("  " + it.next());
+            LOGGER.info("  " + it.next());
         }
-        System.out.println();
+        LOGGER.info();
 
         String indexDir = args[0];
         String dataDir = args[1];
@@ -80,7 +80,7 @@ public class TikaIndexer extends Indexer {
         indexer.close();
         long end = new Date().getTime();
 
-        System.out.println("Indexing " + numIndexed + " files took " + (end - start) + " milliseconds");
+        LOGGER.info("Indexing " + numIndexed + " files took " + (end - start) + " milliseconds");
     }
 
     public TikaIndexer(String indexDir) throws IOException {
@@ -121,7 +121,7 @@ public class TikaIndexer extends Indexer {
                 Field.Store.NO, Field.Index.ANALYZED)); 0
 
         if (DEBUG) {
-            System.out.println("  all text: " + handler.toString());
+            LOGGER.info("  all text: " + handler.toString());
         }
 
         for (String name : metadata.names()) { 1
@@ -135,12 +135,12 @@ public class TikaIndexer extends Indexer {
             doc.add(new Field(name, value, Field.Store.YES, Field.Index.NO)); 3
 
             if (DEBUG) {
-                System.out.println("  " + name + ": " + value);
+                LOGGER.info("  " + name + ": " + value);
             }
         }
 
         if (DEBUG) {
-            System.out.println();
+            LOGGER.info();
         }
 
         doc.add(new Field("filename", f.getCanonicalPath(), 4

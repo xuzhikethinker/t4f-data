@@ -28,6 +28,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.core.LowerCaseFilter;
 import org.apache.lucene.analysis.core.StopFilter;
@@ -52,13 +54,14 @@ import aos.lucene.field.AosFieldType;
  * multi-valued position increment
  */
 public class CreateTestIndex {
+    private static final Logger LOGGER = LogManager.getLogger(CreateTestIndex.class);
 
     public static void main(String[] args) throws IOException {
         String dataDir = args[0];
         String indexDir = args[1];
         List<File> results = new ArrayList<File>();
         findFiles(results, new File(dataDir));
-        System.out.println(results.size() + " books to index");
+        LOGGER.info(results.size() + " books to index");
         Directory dir = FSDirectory.open(new File(indexDir));
         IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_50, new MyStandardAnalyzer(Version.LUCENE_50));
         IndexWriter w = new IndexWriter(dir, conf);
@@ -88,7 +91,7 @@ public class CreateTestIndex {
 
         String pubmonth = props.getProperty("pubmonth");
 
-        System.out.println(title + "\n" + author + "\n" + subject + "\n" + pubmonth + "\n" + category + "\n---------");
+        LOGGER.info(title + "\n" + author + "\n" + subject + "\n" + pubmonth + "\n" + category + "\n---------");
 
         doc.add(new StoredField("isbn", isbn));
         doc.add(new StoredField("category", category));

@@ -246,7 +246,7 @@ public class SpanQueryTest extends TestCase {
 
   private void dumpSpans(SpanQuery query) throws IOException {
     Spans spans = query.getSpans(reader);
-    System.out.println(query + ":");
+    LOGGER.info(query + ":");
     int numSpans = 0;
 
     TopDocs hits = searcher.search(query, 10);
@@ -280,13 +280,13 @@ public class SpanQueryTest extends TestCase {
         i++;
       }
       buffer.append("(").append(scores[id]).append(") ");
-      System.out.println(buffer);
+      LOGGER.info(buffer);
     }
 
     if (numSpans == 0) {
-      System.out.println("   No spans");
+      LOGGER.info("   No spans");
     }
-    System.out.println();
+    LOGGER.info();
   }
 
    Step through each span

@@ -2,6 +2,8 @@ package aos.lucene.query;
 
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.StoredDocument;
@@ -14,6 +16,7 @@ import org.apache.lucene.search.TopScoreDocCollector;
 import aos.lucene.demo.parser.ParseException;
 
 public class IndexCreationQueryOptimizeTest {
+    private static final Logger LOGGER = LogManager.getLogger(IndexCreationQueryOptimizeTest.class);
 
     // String indexDir = "./aos.index.test/test2";
     // Directory dir = FSDirectory.open(new File(indexDir));
@@ -40,7 +43,7 @@ public class IndexCreationQueryOptimizeTest {
     // analyzer).parse(queryString);
     // query(indexSearcher, query);
     //
-    // System.out.println("\n==============================");
+    // LOGGER.info("\n==============================");
     //
     // config = new IndexWriterConfig(Version.LUCENE_50, new
     // StandardAnalyzer(Version.LUCENE_50));
@@ -65,7 +68,7 @@ public class IndexCreationQueryOptimizeTest {
     // // is no need to access the documents any more.
     // // indexSearcher.close();
     //
-    // System.out.println("\n==============================");
+    // LOGGER.info("\n==============================");
     //
     // config = new IndexWriterConfig(Version.LUCENE_50, new
     // StandardAnalyzer(Version.LUCENE_50));
@@ -88,7 +91,7 @@ public class IndexCreationQueryOptimizeTest {
     // query(indexSearcher, query);
     // // indexSearcher.close();
     //
-    // System.out.println("\n==============================");
+    // LOGGER.info("\n==============================");
     //
     // IndexSearcher indexSearcher2 = new IndexSearcher(reader);
     // queryString = "lucene"; // the "title" arg specifies the default field
@@ -136,12 +139,12 @@ public class IndexCreationQueryOptimizeTest {
         indexSearcher.search(q, collector);
 
         ScoreDoc[] hits = collector.topDocs().scoreDocs;
-        System.out.println("Found " + hits.length + " hits.");
+        LOGGER.info("Found " + hits.length + " hits.");
 
         for (int i = 0; i < hits.length; ++i) {
             int docId = hits[i].doc;
             StoredDocument d = indexSearcher.doc(docId);
-            // System.out.println((i + 1) + ". " + d.get("title"));
+            // LOGGER.info((i + 1) + ". " + d.get("title"));
         }
 
     }

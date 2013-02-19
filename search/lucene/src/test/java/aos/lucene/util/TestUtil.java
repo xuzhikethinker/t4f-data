@@ -21,6 +21,9 @@ package aos.lucene.util;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.lucene.index.StoredDocument;
 import org.apache.lucene.search.Filter;
 import org.apache.lucene.search.IndexSearcher;
@@ -31,6 +34,18 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
 public class TestUtil {
+    private static final Logger LOGGER = LogManager.getLogger(TestUtil.class);
+
+    public static File createIndexFile(String indexPath) {
+        File indexFile = new File(indexPath);
+        try {
+            FileUtils.deleteDirectory(indexFile);
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return indexFile;
+    }
 
     public static boolean hitsIncludeTitle(IndexSearcher searcher, TopDocs hits, String title) throws IOException {
         for (ScoreDoc match : hits.scoreDocs) {
@@ -39,7 +54,7 @@ public class TestUtil {
                 return true;
             }
         }
-        System.out.println("title '" + title + "' not found");
+        LOGGER.info("title '" + title + "' not found");
         return false;
     }
 
@@ -53,17 +68,15 @@ public class TestUtil {
 
     public static void dumpHits(IndexSearcher searcher, TopDocs hits) throws IOException {
         if (hits.totalHits == 0) {
-            System.out.println("No hits");
+            LOGGER.info("No hits");
         }
-
         for (ScoreDoc match : hits.scoreDocs) {
             StoredDocument doc = searcher.doc(match.doc);
-            System.out.println(match.score + ":" + doc.get("title"));
+            LOGGER.info(match.score + ":" + doc.get("title"));
         }
     }
 
     public static Directory getBookIndexDirectory() throws IOException {
-        // The build.xml ant script sets this property for us:
         return FSDirectory.open(new File(System.getProperty("index.dir")));
     }
 

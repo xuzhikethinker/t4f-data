@@ -23,6 +23,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.Fields;
@@ -34,6 +36,7 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 
 public class IndexHtml {
+    private static final Logger LOGGER = LogManager.getLogger(IndexHtml.class);
 
     private IndexHtml() {
     }
@@ -90,14 +93,14 @@ public class IndexHtml {
 
             indexDocs(root, index, create);
 
-            System.out.println("Optimizing index...");
+            LOGGER.info("Optimizing index...");
             // writer.optimize();
             writer.close();
 
             Date end = new Date();
 
             System.out.print(end.getTime() - start.getTime());
-            System.out.println(" total milliseconds");
+            LOGGER.info(" total milliseconds");
 
         }
         catch (Exception e) {
@@ -129,7 +132,7 @@ public class IndexHtml {
             if (deleting) { // delete rest of stale docs
                 /*
                  * while (uidIter.term() != null && uidIter.term().field() ==
-                 * "uid") { System.out.println("deleting " +
+                 * "uid") { LOGGER.info("deleting " +
                  * HTMLDocument.uid2url(uidIter.term().text()));
                  * reader.deleteDocuments(uidIter.term()); uidIter.next(); }
                  */
@@ -164,7 +167,7 @@ public class IndexHtml {
              * 
              * while (uidIter.term() != null && uidIter.term().field() == "uid"
              * && uidIter.term().text().compareTo(uid) < 0) { if (deleting) { //
-             * delete stale docs System.out.println("deleting " +
+             * delete stale docs LOGGER.info("deleting " +
              * HTMLDocument.uid2url(uidIter.term().text()));
              * reader.deleteDocuments(uidIter.term()); } uidIter.next(); }
              * 
@@ -173,13 +176,13 @@ public class IndexHtml {
              * keep matching docs }
              * 
              * else if (!deleting) { // add new docs Document doc =
-             * HTMLDocument.Document(file); System.out.println("adding " +
+             * HTMLDocument.Document(file); LOGGER.info("adding " +
              * doc.get("path")); writer.addDocument(doc); }
              * 
              * }
              * 
              * else { // creating a new index Document doc =
-             * HTMLDocument.Document(file); System.out.println("adding " +
+             * HTMLDocument.Document(file); LOGGER.info("adding " +
              * doc.get("path")); writer.addDocument(doc); // add docs
              * unconditionally }
              */

@@ -20,22 +20,32 @@ package aos.lucene.demo.parser;
 
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 class ParserThread extends Thread {
-    HTMLParser parser;
+    private static final Logger LOGGER = LogManager.getLogger(ParserThread.class);
+
+    private final HTMLParser parser;
 
     ParserThread(HTMLParser p) {
         parser = p;
     }
 
-    public void run() { // convert pipeOut to pipeIn
+    @Override
+    public void run() {
+
         try {
-            try { // parse document to pipeOut
+            try {
                 parser.HTMLDocument();
-            } catch (ParseException e) {
-                System.out.println("Parse Aborted: " + e.getMessage());
-            } catch (TokenMgrError e) {
-                System.out.println("Parse Aborted: " + e.getMessage());
-            } finally {
+            }
+            catch (ParseException e) {
+                LOGGER.info("Parse Aborted: " + e.getMessage());
+            }
+            catch (TokenMgrError e) {
+                LOGGER.info("Parse Aborted: " + e.getMessage());
+            }
+            finally {
                 parser.pipeOut.close();
                 synchronized (parser) {
                     parser.summary.setLength(HTMLParser.SUMMARY_LENGTH);
@@ -43,8 +53,10 @@ class ParserThread extends Thread {
                     parser.notifyAll();
                 }
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }

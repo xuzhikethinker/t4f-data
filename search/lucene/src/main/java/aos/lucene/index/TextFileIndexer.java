@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriter;
@@ -37,14 +39,14 @@ import org.apache.lucene.util.Version;
  * files into this index based on the input of the user.
  */
 public class TextFileIndexer {
+    private static final Logger LOGGER = LogManager.getLogger(TextFileIndexer.class);
 
     private final IndexWriter writer;
-
     private final ArrayList<File> queue = new ArrayList<File>();
 
     public static void main(String... args) throws IOException {
 
-        System.out.println("Enter the path where the index will be created: ");
+        LOGGER.info("Enter the path where the index will be created: ");
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String s = br.readLine();
@@ -54,14 +56,14 @@ public class TextFileIndexer {
             indexer = new TextFileIndexer(s);
         }
         catch (Exception ex) {
-            System.out.println("Cannot create index..." + ex.getMessage());
+            LOGGER.info("Cannot create index..." + ex.getMessage());
             System.exit(-1);
         }
 
         while (!s.equalsIgnoreCase("q")) {
             try {
-                System.out.println("Enter the file or folder name to add into the index (q=quit):");
-                System.out.println("[Acceptable file types: .xml, .html, .html, .txt]");
+                LOGGER.info("Enter the file or folder name to add into the index (q=quit):");
+                LOGGER.info("[Acceptable file types: .xml, .html, .html, .txt]");
                 s = br.readLine();
                 if (s.equalsIgnoreCase("q")) {
                     break;
@@ -71,7 +73,7 @@ public class TextFileIndexer {
                 indexer.indexFileOrDirectory(s);
             }
             catch (Exception e) {
-                System.out.println("Error indexing " + s + " : " + e.getMessage());
+                LOGGER.info("Error indexing " + s + " : " + e.getMessage());
             }
         }
 
@@ -130,10 +132,10 @@ public class TextFileIndexer {
                 // Field.Index.NOT_ANALYZED));
 
                 writer.addDocument(doc);
-                System.out.println("Added: " + f);
+                LOGGER.info("Added: " + f);
             }
             catch (Exception e) {
-                System.out.println("Could not add: " + f);
+                LOGGER.info("Could not add: " + f);
             }
             finally {
                 fr.close();
@@ -141,17 +143,17 @@ public class TextFileIndexer {
         }
 
         int newNumDocs = writer.numDocs();
-        System.out.println("");
-        System.out.println("************************");
-        System.out.println((newNumDocs - originalNumDocs) + " documents added.");
-        System.out.println("************************");
+        LOGGER.info("");
+        LOGGER.info("************************");
+        LOGGER.info((newNumDocs - originalNumDocs) + " documents added.");
+        LOGGER.info("************************");
 
         queue.clear();
     }
 
     private void listFiles(File file) {
         if (!file.exists()) {
-            System.out.println(file + " does not exist.");
+            LOGGER.info(file + " does not exist.");
         }
         if (file.isDirectory()) {
             for (File f : file.listFiles()) {
@@ -168,7 +170,7 @@ public class TextFileIndexer {
                 queue.add(file);
             }
             else {
-                System.out.println("Skipped " + filename);
+                LOGGER.info("Skipped " + filename);
             }
         }
     }
