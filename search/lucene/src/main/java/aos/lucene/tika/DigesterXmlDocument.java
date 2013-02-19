@@ -35,18 +35,18 @@ import org.xml.sax.SAXException;
  * name property #5 Call populateDocument #6 Parse XML InputStream #7 Create
  * Lucene document
  */
-public class DigesterXmlDocument2 {
-    private static final Logger LOGGER = LogManager.getLogger(DigesterXmlDocument2.class);
+public class DigesterXmlDocument {
+    private static final Logger LOGGER = LogManager.getLogger(DigesterXmlDocument.class);
 
     private final Digester dig;
     private static Document doc;
 
-    public DigesterXmlDocument2() {
+    public DigesterXmlDocument() {
 
         dig = new Digester();
         dig.setValidating(false);
 
-        dig.addObjectCreate("address-book", DigesterXmlDocument2.class);
+        dig.addObjectCreate("address-book", DigesterXmlDocument.class);
         dig.addObjectCreate("address-book/contact", Contact.class);
 
         dig.addSetProperties("address-book/contact", "type", "type");
@@ -167,7 +167,7 @@ public class DigesterXmlDocument2 {
     }
 
     public static void main(String[] args) throws Exception {
-        DigesterXmlDocument2 handler = new DigesterXmlDocument2();
+        DigesterXmlDocument handler = new DigesterXmlDocument();
         Document doc = handler.getDocument(new FileInputStream(new File(args[0])));
         LOGGER.info(doc);
     }
