@@ -36,13 +36,13 @@ import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import aos.lucene.analyser.AosAnalyser;
 import aos.lucene.field.AosFieldType;
+import aos.lucene.util.AosDirectory;
 import aos.lucene.util.TestUtil;
 
 /**
@@ -61,12 +61,12 @@ public class AdvancedIndexTest {
     private static String[] unstored = { "Amsterdam has lots of bridges", "Venice has lots of canals" };
     private static String[] text = { "Amsterdam", "Venice" };
 
-    private static Directory directory;
+    private Directory directory;
 
-    @BeforeClass
-    public static void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
 
-        directory = new RAMDirectory();
+        directory = AosDirectory.newDirectory();
 
         IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_41,
                 AosAnalyser.NO_LIMIT_TOKEN_COUNT_WHITE_SPACE_ANALYSER);
@@ -81,18 +81,20 @@ public class AdvancedIndexTest {
             doc.add(new Field("city", text[i], AosFieldType.INDEXED_STORED_TERMVECTOR));
             writer.addDocument(doc);
         }
+
         writer.close();
+
     }
 
     @Test
-    public void testIndexWriter() throws IOException {
+    public void testWriter() throws IOException {
         IndexWriter writer = getWriter();
         assertEquals(ids.length, writer.numDocs());
         writer.close();
     }
 
     @Test
-    public void testIndexReader() throws IOException {
+    public void testReader() throws IOException {
         IndexReader reader = DirectoryReader.open(directory);
         assertEquals(ids.length, reader.maxDoc());
         assertEquals(ids.length, reader.numDocs());
@@ -128,12 +130,19 @@ public class AdvancedIndexTest {
         writer.close();
     }
 
+    /**
+     * #1 Index contains deletions
+     * 
+     * #2 1 indexed document, 1 deleted document
+     * 
+     * #3 Optimize compacts deletes
+     */
     @Test
     public void testDeleteAfterOptimize() throws IOException {
         IndexWriter writer = getWriter();
         assertEquals(2, writer.numDocs());
         writer.deleteDocuments(new Term("id", "1"));
-        // writer.optimize();
+        writer.forceMerge(1);
         writer.commit();
         assertFalse(writer.hasDeletions());
         assertEquals(1, writer.maxDoc());
@@ -142,9 +151,11 @@ public class AdvancedIndexTest {
     }
 
     /**
-     * #A 2 docs in the index #B Delete first document #C 1 indexed document, 0
-     * deleted documents #1 Index contains deletions #2 1 indexed document, 1
-     * deleted document #3 Optimize compacts deletes
+     * #A 2 docs in the index
+     * 
+     * #B Delete first document
+     * 
+     * #C 1 indexed document, 0 deleted documents
      */
     @Test
     public void testUpdate() throws IOException {

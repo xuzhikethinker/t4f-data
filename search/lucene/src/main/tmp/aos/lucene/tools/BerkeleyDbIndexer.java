@@ -83,7 +83,7 @@ public class BerkeleyDbIndexer {
         doc.add(new Field("contents", "The quick brown fox...", Field.Store.YES, Field.Index.ANALYZED));
         writer.addDocument(doc);
 
-        writer.optimize();
+        writer.merge(writer.getNextMerge());
         writer.close();
 
         directory.close();

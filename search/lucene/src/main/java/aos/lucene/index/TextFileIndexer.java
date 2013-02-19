@@ -181,7 +181,7 @@ public class TextFileIndexer {
      * @throws java.io.IOException
      */
     public void closeIndex() throws IOException {
-        // writer.optimize();
+        writer.merge(writer.getNextMerge());
         writer.close();
     }
 

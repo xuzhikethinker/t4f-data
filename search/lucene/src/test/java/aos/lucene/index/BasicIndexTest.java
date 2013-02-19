@@ -70,17 +70,17 @@ public class BasicIndexTest {
 
     private static void addDocuments(Directory dir) throws IOException {
         IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_41, getAnalyzer());
-        IndexWriter indexWriter = new IndexWriter(dir, config);
+        IndexWriter writer = new IndexWriter(dir, config);
         for (int i = 0; i < keywords.length; i++) {
             Document doc = new Document();
             doc.add(new Field("id", keywords[i], AosFieldType.INDEXED_STORED_TERMVECTOR));
             doc.add(new Field("country", unindexed[i], AosFieldType.NOTINDEXED_STORED));
             doc.add(new Field("contents", unstored[i], AosFieldType.INDEXED_NOTSTORED_TERMVECTOR));
             doc.add(new Field("city", text[i], AosFieldType.INDEXED_STORED_TERMVECTOR));
-            indexWriter.addDocument(doc);
+            writer.addDocument(doc);
         }
-        // indexWriter.optimize();
-        indexWriter.close();
+        writer.merge(writer.getNextMerge());
+        writer.close();
     }
 
     private static Analyzer getAnalyzer() {

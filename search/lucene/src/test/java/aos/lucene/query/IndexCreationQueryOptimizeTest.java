@@ -25,7 +25,7 @@ public class IndexCreationQueryOptimizeTest {
     // StandardAnalyzer(Version.LUCENE_41));
     // IndexWriter indexWriter = new IndexWriter(dir, config);
     // addDocuments(indexWriter);
-    // // indexWriter.optimize();
+    // writer.merge(writer.getNextMerge());
     // indexWriter.close();
     //
     // IndexReader reader = DirectoryReader.open(FSDirectory.open(new
@@ -49,7 +49,7 @@ public class IndexCreationQueryOptimizeTest {
     // indexWriter = new IndexWriter(dir, config);
     // addDocuments(indexWriter);
     // addDocuments(indexWriter);
-    // // indexWriter.optimize();
+    // writer.merge(writer.getNextMerge());
     // indexWriter.close();
     //
     // queryString = "lucene"; // the "title" arg specifies the default field
@@ -74,7 +74,7 @@ public class IndexCreationQueryOptimizeTest {
     // indexWriter = new IndexWriter(dir, config);
     // addDocuments(indexWriter);
     // addDocuments(indexWriter);
-    // // indexWriter.optimize();
+    // writer.merge(writer.getNextMerge());
     // indexWriter.close();
     //
     // indexSearcher = new IndexSearcher(reader);

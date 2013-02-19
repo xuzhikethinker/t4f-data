@@ -76,7 +76,7 @@ public class ScoreTest extends TestCase {
       doc.add(f);
       writer.addDocument(doc);
     }
-    writer.optimize();
+    writer.merge(writer.getNextMerge());
     writer.close();
   }
 

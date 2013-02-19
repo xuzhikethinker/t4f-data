@@ -94,7 +94,8 @@ public class IndexHtml {
             indexDocs(root, index, create);
 
             LOGGER.info("Optimizing index...");
-            // writer.optimize();
+            writer.merge(writer.getNextMerge());
+
             writer.close();
 
             Date end = new Date();
