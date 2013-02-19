@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.PrintStream;
 import java.nio.charset.Charset;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import aos.lucene.index.IndexFiles;
@@ -35,6 +36,7 @@ import aos.lucene.util.TestUtil;
 public class DemoTest {
 
     @Test
+    @Ignore
     public void testIndexSearch() throws Exception {
 
         File fileDir = new File(AosDirectory.DOC_PATH_TXT_TEST);

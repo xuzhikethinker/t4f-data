@@ -79,7 +79,7 @@ public class BasicIndexTest {
             doc.add(new Field("city", text[i], AosFieldType.INDEXED_STORED_TERMVECTOR));
             writer.addDocument(doc);
         }
-        writer.merge(writer.getNextMerge());
+        writer.forceMerge(1);
         writer.close();
     }
 
