@@ -103,8 +103,8 @@ public class IndexFiles {
             IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_41, analyzer);
 
             if (create) {
-                // Create a new index in the directory, removing any
-                // previously indexed documents:
+                // Create a new index in the directory, removing any previously
+                // indexed documents:
                 iwc.setOpenMode(OpenMode.CREATE);
             }
             else {
@@ -162,6 +162,7 @@ public class IndexFiles {
      * @throws IOException
      */
     static void indexDocs(IndexWriter writer, File file) throws IOException {
+
         // do not try to index files that cannot be read
         if (file.canRead()) {
             if (file.isDirectory()) {
@@ -247,6 +248,9 @@ public class IndexFiles {
                     fis.close();
                 }
             }
+
         }
+
     }
+
 }

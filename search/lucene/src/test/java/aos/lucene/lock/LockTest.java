@@ -18,7 +18,6 @@
  ****************************************************************/
 package aos.lucene.lock;
 
-import java.io.File;
 import java.io.IOException;
 
 import junit.framework.TestCase;
@@ -26,48 +25,43 @@ import junit.framework.TestCase;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.LockObtainFailedException;
 import org.apache.lucene.util.Version;
 
 import aos.lucene.analyser.AosAnalyser;
-import aos.lucene.util.TestUtil;
+import aos.lucene.util.AosDirectory;
 
 /**
  * #A Expected exception: only one IndexWriter allowed at once
  */
 public class LockTest extends TestCase {
 
-    private Directory dir;
-    private File indexDir;
+    private Directory directory;
 
     @Override
     protected void setUp() throws IOException {
-
-        indexDir = new File(System.getProperty("java.io.tmpdir", "tmp") + System.getProperty("file.separator")
-                + "index");
-        dir = FSDirectory.open(indexDir);
-
+        directory = AosDirectory.newDirectory();
     }
 
     public void testWriteLock() throws IOException {
 
         IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_41,
                 AosAnalyser.NO_LIMIT_TOKEN_COUNT_SIMPLE_ANALYSER);
-        IndexWriter writer1 = new IndexWriter(dir, config);
-
+        IndexWriter writer1 = new IndexWriter(directory, config);
         IndexWriter writer2 = null;
+
         try {
-            writer2 = new IndexWriter(dir, config);
+            writer2 = new IndexWriter(directory, config);
             fail("We should never reach this point");
         }
         catch (LockObtainFailedException e) {
-            // e.printStackTrace(); // #A
+            // e.printStackTrace();
         }
         finally {
             writer1.close();
             assertNull(writer2);
-            TestUtil.rmDir(indexDir);
         }
+
     }
+
 }

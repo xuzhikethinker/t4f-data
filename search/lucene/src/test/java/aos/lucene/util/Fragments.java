@@ -39,14 +39,14 @@ import aos.lucene.field.AosFieldType;
 
 public class Fragments {
 
+    public static final String COMPANY_DOMAIN = "example.com";
+    public static final String BAD_DOMAIN = "yucky-domain.com";
+
     public static void indexNumbersMethod() {
         new StoredField("size", 4096);
         new StoredField("price", 10.99);
         new StoredField("author", "Arthur C. Clark");
     }
-
-    public static final String COMPANY_DOMAIN = "example.com";
-    public static final String BAD_DOMAIN = "yucky-domain.com";
 
     public void ramDirExample() throws Exception {
         Directory ramDir = new RAMDirectory();
@@ -69,7 +69,9 @@ public class Fragments {
     }
 
     /**
-     * #1 Good domain boost factor: 1.5 #2 Bad domain boost factor: 0.1
+     * #1 Good domain boost factor: 1.5
+     * 
+     * #2 Bad domain boost factor: 0.1
      */
     public void docBoostMethod() throws IOException {
 

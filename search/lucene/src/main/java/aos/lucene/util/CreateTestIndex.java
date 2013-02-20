@@ -1,4 +1,5 @@
 /****************************************************************
+
  * Licensed to the AOS Community (AOS) under one or more        *
  * contributor license agreements.  See the NOTICE file         *
  * distributed with this work for additional information        *
@@ -49,9 +50,17 @@ import org.apache.lucene.util.Version;
 import aos.lucene.field.AosFieldType;
 
 /**
- * #1 Get category #2 Pull fields #3 Add fields to Document instance #4 Flag
- * subject field #5 Add catch-all contents field #6 Custom analyzer to override
- * multi-valued position increment
+ * #1 Get category
+ * 
+ * #2 Pull fields
+ * 
+ * #3 Add fields to Document instance
+ * 
+ * #4 Flag subject field
+ * 
+ * #5 Add catch-all contents field
+ * 
+ * #6 Custom analyzer to override multi-valued position increment
  */
 public class CreateTestIndex {
     private static final Logger LOGGER = LogManager.getLogger(CreateTestIndex.class);
@@ -127,12 +136,10 @@ public class CreateTestIndex {
 
     private static String aggregate(String[] strings) {
         StringBuilder buffer = new StringBuilder();
-
         for (int i = 0; i < strings.length; i++) {
             buffer.append(strings[i]);
             buffer.append(" ");
         }
-
         return buffer.toString();
     }
 
@@ -170,11 +177,14 @@ public class CreateTestIndex {
 
         @Override
         protected TokenStreamComponents createComponents(final String fieldName, final Reader reader) {
+
             final StandardTokenizer src = new StandardTokenizer(matchVersion, reader);
             src.setMaxTokenLength(maxTokenLength);
+
             TokenStream tok = new StandardFilter(matchVersion, src);
             tok = new LowerCaseFilter(matchVersion, tok);
             tok = new StopFilter(matchVersion, tok, stopwords);
+
             return new TokenStreamComponents(src, tok) {
                 @Override
                 protected void setReader(final Reader reader) throws IOException {
@@ -182,6 +192,7 @@ public class CreateTestIndex {
                     super.setReader(reader);
                 }
             };
+
         }
 
     }

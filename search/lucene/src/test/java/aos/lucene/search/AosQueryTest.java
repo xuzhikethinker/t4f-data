@@ -53,15 +53,12 @@ import org.junit.Ignore;
 public class AosQueryTest extends TestCase {
     private static final Logger LOGGER = LogManager.getLogger(AosQueryTest.class);
 
-    private Directory INDEX_DIR;
-
-    // private final String INDEX_DIR = System.getProperty("java.io.tmpdir",
-    // "tmp") + System.getProperty("file.separator") + "index-dir";
+    private Directory directory;
 
     @Override
     protected void setUp() throws Exception {
         BooleanQuery.setMaxClauseCount(10000);
-        INDEX_DIR = FSDirectory.open(new File("/aos/aos.index/com.twitter.status.public.0"));
+        directory = FSDirectory.open(new File("/aos/aos.index/com.twitter.status.public.0"));
     }
 
     @Override
@@ -153,7 +150,7 @@ public class AosQueryTest extends TestCase {
         long start = java.util.Calendar.getInstance().getTimeInMillis();
 
         int hitsPerPage = 100;
-        IndexReader reader = DirectoryReader.open(INDEX_DIR);
+        IndexReader reader = DirectoryReader.open(directory);
         IndexSearcher indexSearcher = new IndexSearcher(reader);
         TopDocsCollector collector = TopScoreDocCollector.create(hitsPerPage, false);
 
@@ -171,8 +168,6 @@ public class AosQueryTest extends TestCase {
             Document document = indexSearcher.doc(docId);
             LOGGER.info((i + 1) + ". " + document.get(fieldname));
         }
-
-        // indexSearcher.close();
 
     }
 

@@ -46,9 +46,9 @@ public class LuceneSimple {
 
     public static void main(String... args) {
         try {
-            IndexFile("/Users/androidyou/Documents/lucence/data/test.txt", "/Users/androidyou/Documents/lucence/index");
-            Search("/Users/androidyou/Documents/lucence/index", "nonexistedkeyworld");
-            Search("/Users/androidyou/Documents/lucence/index", "apache");
+            index("/Users/androidyou/Documents/lucence/data/test.txt", "/Users/androidyou/Documents/lucence/index");
+            search("/Users/androidyou/Documents/lucence/index", "nonexistedkeyworld");
+            search("/Users/androidyou/Documents/lucence/index", "apache");
 
         }
         catch (Exception e) {
@@ -57,7 +57,27 @@ public class LuceneSimple {
         LOGGER.info("done");
     }
 
-    private static void Search(String indexpath, String keyword) throws Exception, IOException {
+    private static void index(String datafolder, String indexfolder) throws CorruptIndexException,
+            LockObtainFailedException, IOException {
+        Analyzer a = new StandardAnalyzer(Version.LUCENE_41);
+        Directory d = FSDirectory.open(new File(indexfolder));
+        IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_41, new StandardAnalyzer(Version.LUCENE_41));
+        IndexWriter indexWriter = new IndexWriter(d, config);
+    
+        Document doc = new Document();
+        // Fieldable contentfield=new Field("content", new
+        // FileReader(datafolder));
+        // doc.add(contentfield);
+        // Fieldable namefield=new Field("filename",datafolder, Store.YES,
+        // Index.NOT_ANALYZED);
+        // doc.add(namefield);
+    
+        indexWriter.addDocument(doc);
+        indexWriter.commit();
+    
+    }
+
+    private static void search(String indexpath, String keyword) throws Exception, IOException {
         IndexReader reader = DirectoryReader.open(FSDirectory.open(new File(indexpath)));
         IndexSearcher searcher = new IndexSearcher(reader);
         LOGGER.info("Search  keyword " + keyword);
@@ -69,26 +89,6 @@ public class LuceneSimple {
         for (ScoreDoc doc : docs.scoreDocs) {
             LOGGER.info("doc id" + doc.doc + "doc filename" + searcher.doc(doc.doc).get("filename"));
         }
-
-    }
-
-    private static void IndexFile(String datafolder, String indexfolder) throws CorruptIndexException,
-            LockObtainFailedException, IOException {
-        Analyzer a = new StandardAnalyzer(Version.LUCENE_41);
-        Directory d = FSDirectory.open(new File(indexfolder));
-        IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_41, new StandardAnalyzer(Version.LUCENE_41));
-        IndexWriter indexWriter = new IndexWriter(d, config);
-
-        Document doc = new Document();
-        // Fieldable contentfield=new Field("content", new
-        // FileReader(datafolder));
-        // doc.add(contentfield);
-        // Fieldable namefield=new Field("filename",datafolder, Store.YES,
-        // Index.NOT_ANALYZED);
-        // doc.add(namefield);
-
-        indexWriter.addDocument(doc);
-        indexWriter.commit();
 
     }
 

@@ -38,12 +38,26 @@ import aos.lucene.analyser.AosAnalyser;
 import aos.lucene.field.AosFieldType;
 
 /**
- * #1 Create index in this directory #2 Index *.txt files from this directory #3
- * Create Lucene IndexWriter #4 Close IndexWriter #5 Return number of documents
- * indexed #6 Index .txt files only, using FileFilter #7 Index file content #8
- * Index file name #9 Index file full path #10 Add document to Lucene index
+ * #1 Create index in this directory
+ * 
+ * #2 Index *.txt files from this directory
+ * 
+ * #3 Create Lucene IndexWriter
+ * 
+ * #4 Close IndexWriter
+ * 
+ * #5 Return number of documents indexed
+ * 
+ * #6 Index .txt files only, using FileFilter
+ * 
+ * #7 Index file content
+ * 
+ * #8 Index file name
+ * 
+ * #9 Index file full path #10 Add document to Lucene index
  */
 public class SimpleIndexer {
+
     private static final Logger LOGGER = LogManager.getLogger(SimpleIndexer.class);
 
     public static void main(String[] args) throws Exception {
@@ -121,4 +135,5 @@ public class SimpleIndexer {
         Document doc = getDocument(f);
         writer.addDocument(doc);
     }
+
 }
