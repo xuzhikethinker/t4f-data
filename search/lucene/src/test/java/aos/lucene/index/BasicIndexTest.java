@@ -34,8 +34,8 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import aos.lucene.field.AosFieldType;
 import aos.lucene.util.AosDirectory;
+import aos.lucene.util.AosFieldType;
 
 public class BasicIndexTest {
 

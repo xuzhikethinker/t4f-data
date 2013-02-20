@@ -30,48 +30,47 @@ import org.apache.lucene.search.NumericRangeFilter;
 import org.w3c.dom.Element;
 
 /**
- * #A Extract field, time unit, from and to #B Parse date/times #C Create
- * NumericRangeFilter
+ * #A Extract field, time unit, from and to
+ * 
+ * #B Parse date/times
+ * 
+ * #C Create NumericRangeFilter
  */
 public class AgoFilterBuilder implements FilterBuilder {
 
-    static HashMap<String, Integer> timeUnits = new HashMap<String, Integer>();
-
-    @Override
-    public Filter getFilter(Element element) throws ParserException {
-        String fieldName = DOMUtils.getAttributeWithInheritanceOrFail(element, 
-                "fieldName"); 
-        String timeUnit = DOMUtils.getAttribute(element, "timeUnit", "days"); 
-        Integer calUnit = timeUnits.get(timeUnit); 
-        if (calUnit == null) { 
-            throw new ParserException("Illegal time unit:" 
-                    + timeUnit + " - must be days, months or years"); 
-        } 
-        int agoStart = DOMUtils.getAttribute(element, "from", 0); 
-        int agoEnd = DOMUtils.getAttribute(element, "to", 0); 
-        if (agoStart < agoEnd) {
-            int oldAgoStart = agoStart;
-            agoStart = agoEnd;
-            agoEnd = oldAgoStart;
-        }
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd"); 
-
-        Calendar start = Calendar.getInstance(); 
-        start.add(calUnit, agoStart * -1); 
-
-        Calendar end = Calendar.getInstance(); 
-        end.add(calUnit, agoEnd * -1); 
-
-        return NumericRangeFilter.newIntRange(
-                fieldName,
-                Integer.valueOf(sdf.format(start.getTime())),
-                Integer.valueOf(sdf.format(end.getTime())),
-                true, true);
-    }
-
+    private static HashMap<String, Integer> timeUnits = new HashMap<String, Integer>();
     static {
         timeUnits.put("days", Calendar.DAY_OF_YEAR);
         timeUnits.put("months", Calendar.MONTH);
         timeUnits.put("years", Calendar.YEAR);
     }
+
+    @Override
+    public Filter getFilter(Element element) throws ParserException {
+
+        String fieldName = DOMUtils.getAttributeWithInheritanceOrFail(element, "fieldName");
+        String timeUnit = DOMUtils.getAttribute(element, "timeUnit", "days");
+        Integer calUnit = timeUnits.get(timeUnit);
+        if (calUnit == null) {
+            throw new ParserException("Illegal time unit:" + timeUnit + " - must be days, months or years");
+        }
+        int agoStart = DOMUtils.getAttribute(element, "from", 0);
+        int agoEnd = DOMUtils.getAttribute(element, "to", 0);
+        if (agoStart < agoEnd) {
+            int oldAgoStart = agoStart;
+            agoStart = agoEnd;
+            agoEnd = oldAgoStart;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+
+        Calendar start = Calendar.getInstance();
+        start.add(calUnit, agoStart * -1);
+
+        Calendar end = Calendar.getInstance();
+        end.add(calUnit, agoEnd * -1);
+
+        return NumericRangeFilter.newIntRange(fieldName, Integer.valueOf(sdf.format(start.getTime())),
+                Integer.valueOf(sdf.format(end.getTime())), true, true);
+    }
+
 }

@@ -40,10 +40,10 @@ import org.apache.lucene.util.Version;
 import org.junit.Before;
 import org.junit.Test;
 
-import aos.lucene.analyser.AosAnalyser;
-import aos.lucene.field.AosFieldType;
+import aos.lucene.util.AosAnalyser;
 import aos.lucene.util.AosDirectory;
-import aos.lucene.util.TestUtil;
+import aos.lucene.util.AosFieldType;
+import aos.lucene.util.AosTestUtil;
 
 /**
  * #1 One initial document has bridges
@@ -206,7 +206,7 @@ public class AdvancedIndexTest {
         IndexSearcher searcher = new IndexSearcher(reader);
         Term t = new Term(fieldName, searchString);
         Query query = new TermQuery(t);
-        int hitCount = TestUtil.hitCount(searcher, query);
+        int hitCount = AosTestUtil.hitCount(searcher, query);
         reader.close();
         return hitCount;
     }

@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package aos.lucene.util;
+package aos.lucene.collector;
 
 import java.io.IOException;
 import java.util.ArrayList;

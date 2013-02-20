@@ -28,7 +28,7 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
 
-import aos.lucene.analyser.AosAnalyser;
+import aos.lucene.util.AosAnalyser;
 
 public class VerboseIndexing {
 

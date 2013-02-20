@@ -33,8 +33,8 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
-public class TestUtil {
-    private static final Logger LOGGER = LogManager.getLogger(TestUtil.class);
+public class AosTestUtil {
+    private static final Logger LOGGER = LogManager.getLogger(AosTestUtil.class);
 
     public static File createIndexFile(String indexPath) {
         File indexFile = new File(indexPath);

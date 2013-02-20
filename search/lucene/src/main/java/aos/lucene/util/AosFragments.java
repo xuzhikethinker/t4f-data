@@ -34,10 +34,7 @@ import org.apache.lucene.store.IOContext;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
 
-import aos.lucene.analyser.AosAnalyser;
-import aos.lucene.field.AosFieldType;
-
-public class Fragments {
+public class AosFragments {
 
     public static final String COMPANY_DOMAIN = "example.com";
     public static final String BAD_DOMAIN = "yucky-domain.com";

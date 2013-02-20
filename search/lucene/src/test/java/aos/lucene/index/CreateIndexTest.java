@@ -17,7 +17,7 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package aos.lucene.util;
+package aos.lucene.index;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,8 +46,10 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
+import org.junit.Test;
 
-import aos.lucene.field.AosFieldType;
+import aos.lucene.util.AosDirectory;
+import aos.lucene.util.AosFieldType;
 
 /**
  * #1 Get category
@@ -62,12 +64,13 @@ import aos.lucene.field.AosFieldType;
  * 
  * #6 Custom analyzer to override multi-valued position increment
  */
-public class CreateTestIndex {
-    private static final Logger LOGGER = LogManager.getLogger(CreateTestIndex.class);
+public class CreateIndexTest {
+    private static final Logger LOGGER = LogManager.getLogger(CreateIndexTest.class);
 
-    public static void main(String[] args) throws IOException {
-        String dataDir = args[0];
-        String indexDir = args[1];
+    @Test
+    public static void test() throws IOException {
+        String dataDir = AosDirectory.DOC_PATH_TXT_TEST;
+        String indexDir = AosDirectory.INDEX_DIR;
         List<File> results = new ArrayList<File>();
         findFiles(results, new File(dataDir));
         LOGGER.info(results.size() + " books to index");
@@ -82,7 +85,7 @@ public class CreateTestIndex {
         dir.close();
     }
 
-    public static Document getDocument(String rootDir, File file) throws IOException {
+    private static Document getDocument(String rootDir, File file) throws IOException {
         Properties props = new Properties();
         props.load(new FileInputStream(file));
 

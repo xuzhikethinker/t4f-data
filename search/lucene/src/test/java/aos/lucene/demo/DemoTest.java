@@ -31,7 +31,7 @@ import org.junit.Test;
 import aos.lucene.index.IndexFiles;
 import aos.lucene.search.SearchFiles;
 import aos.lucene.util.AosDirectory;
-import aos.lucene.util.TestUtil;
+import aos.lucene.util.AosTestUtil;
 
 public class DemoTest {
 
@@ -40,7 +40,7 @@ public class DemoTest {
     public void testIndexSearch() throws Exception {
 
         File fileDir = new File(AosDirectory.DOC_PATH_TXT_TEST);
-        File indexDir = TestUtil.createIndexFile(AosDirectory.INDEX_DIR);
+        File indexDir = AosTestUtil.createIndexFile(AosDirectory.INDEX_DIR);
 
         IndexFiles.main(new String[] { "-create", "-docs", fileDir.getPath(), "-index", indexDir.getPath() });
 
