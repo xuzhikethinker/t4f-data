@@ -68,7 +68,7 @@ public class CreateIndexTest {
     private static final Logger LOGGER = LogManager.getLogger(CreateIndexTest.class);
 
     @Test
-    public static void test() throws IOException {
+    public void test() throws IOException {
         String dataDir = AosDirectory.DOC_PATH_TXT_TEST;
         String indexDir = AosDirectory.INDEX_DIR;
         List<File> results = new ArrayList<File>();
