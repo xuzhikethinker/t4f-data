@@ -49,9 +49,6 @@ import org.apache.lucene.util.Version;
 public class IndexFiles {
     private static final Logger LOGGER = LogManager.getLogger(IndexFiles.class);
 
-    private IndexFiles() {
-    }
-
     /**
      * Index all text files under a directory.
      */

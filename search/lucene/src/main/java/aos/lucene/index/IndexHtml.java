@@ -38,9 +38,6 @@ import org.apache.lucene.util.Version;
 public class IndexHtml {
     private static final Logger LOGGER = LogManager.getLogger(IndexHtml.class);
 
-    private IndexHtml() {
-    }
-
     private static boolean deleting = false; // true during deletion pass
     private static IndexReader reader; // existing index
     private static IndexWriter writer; // new index being built

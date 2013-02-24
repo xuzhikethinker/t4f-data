@@ -44,17 +44,11 @@ import org.apache.lucene.util.Version;
 public class LuceneSimple {
     private static final Logger LOGGER = LogManager.getLogger(LuceneSimple.class);
 
-    public static void main(String... args) {
-        try {
-            index("/Users/androidyou/Documents/lucence/data/test.txt", "/Users/androidyou/Documents/lucence/index");
-            search("/Users/androidyou/Documents/lucence/index", "nonexistedkeyworld");
-            search("/Users/androidyou/Documents/lucence/index", "apache");
+    public static void main(String... args) throws Exception {
+        index("/Users/androidyou/Documents/lucence/data/test.txt", "/Users/androidyou/Documents/lucence/index");
+        search("/Users/androidyou/Documents/lucence/index", "nonexistedkeyworld");
+        search("/Users/androidyou/Documents/lucence/index", "apache");
 
-        }
-        catch (Exception e) {
-            // TODO Auto-generated catch block
-        }
-        LOGGER.info("done");
     }
 
     private static void index(String datafolder, String indexfolder) throws CorruptIndexException,
@@ -63,7 +57,7 @@ public class LuceneSimple {
         Directory d = FSDirectory.open(new File(indexfolder));
         IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_41, new StandardAnalyzer(Version.LUCENE_41));
         IndexWriter indexWriter = new IndexWriter(d, config);
-    
+
         Document doc = new Document();
         // Fieldable contentfield=new Field("content", new
         // FileReader(datafolder));
@@ -71,10 +65,10 @@ public class LuceneSimple {
         // Fieldable namefield=new Field("filename",datafolder, Store.YES,
         // Index.NOT_ANALYZED);
         // doc.add(namefield);
-    
+
         indexWriter.addDocument(doc);
         indexWriter.commit();
-    
+
     }
 
     private static void search(String indexpath, String keyword) throws Exception, IOException {

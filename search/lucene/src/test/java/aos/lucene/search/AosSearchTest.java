@@ -50,8 +50,8 @@ import org.apache.lucene.util.Version;
 import org.junit.Ignore;
 
 @Ignore
-public class AosQueryTest extends TestCase {
-    private static final Logger LOGGER = LogManager.getLogger(AosQueryTest.class);
+public class AosSearchTest extends TestCase {
+    private static final Logger LOGGER = LogManager.getLogger(AosSearchTest.class);
 
     private Directory directory;
 
