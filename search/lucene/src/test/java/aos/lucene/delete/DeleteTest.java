@@ -19,6 +19,7 @@
 package aos.lucene.delete;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,54 +32,36 @@ import org.apache.lucene.index.Term;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
+import org.junit.Ignore;
+import org.junit.Test;
 
-/**
- * Deletes documents from an index that do not contain a term.
- */
-public class DeleteFiles {
-    private static final Logger LOGGER = LogManager.getLogger(DeleteFiles.class);
+public class DeleteTest {
+    private static final Logger LOGGER = LogManager.getLogger(DeleteTest.class);
 
-    private DeleteFiles() {
-    } // singleton
+    @Test
+    @Ignore
+    public static void test() throws IOException {
 
-    /** Deletes documents from an index that do not contain a term. */
-    public static void main(String... args) {
+        Directory directory = FSDirectory.open(new File("index"));
+        IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_41, new StandardAnalyzer(Version.LUCENE_41));
+        IndexWriter writer = new IndexWriter(directory, config);
 
-        String usage = "java org.apache.lucene.demo.DeleteFiles <unique_term>";
+        IndexReader reader = DirectoryReader.open(FSDirectory.open(new File("index")));
 
-        if (args.length == 0) {
-            System.err.println("Usage: " + usage);
-            System.exit(1);
+        Term term = new Term("path", "value");
+        writer.deleteDocuments(term);
+
+        LOGGER.info("deleted  documents containing " + term);
+
+        // one can also delete documents by their internal id:
+        for (int i = 0; i < reader.maxDoc(); i++) {
+            LOGGER.info("Deleting document with id " + i);
+            // writer.delete(i);
         }
 
-        try {
+        reader.close();
+        directory.close();
 
-            Directory directory = FSDirectory.open(new File("index"));
-            IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_41, new StandardAnalyzer(Version.LUCENE_41));
-            IndexWriter writer = new IndexWriter(directory, config);
-
-            IndexReader reader = DirectoryReader.open(FSDirectory.open(new File("index")));
-
-            Term term = new Term("path", args[0]);
-            writer.deleteDocuments(term);
-
-            // LOGGER.info("deleted " + deleted + " documents containing " +
-            // term);
-
-            // one can also delete documents by their internal id:
-            /*
-             * for (int i = 0; i < reader.maxDoc(); i++) {
-             * LOGGER.info("Deleting document with id " + i); reader.delete(i);
-             * }
-             */
-
-            reader.close();
-            directory.close();
-
-        }
-        catch (Exception e) {
-            LOGGER.info(" caught a " + e.getClass() + "\n with message: " + e.getMessage());
-        }
     }
 
 }

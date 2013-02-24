@@ -30,6 +30,7 @@
   <name>T4F Data Parser</name>
   <packaging>pom</packaging>
   <modules>
+    <module>antlr</module>
     <module>jcc</module>
     <module>mime4j</module>
     <module>mvel</module>
