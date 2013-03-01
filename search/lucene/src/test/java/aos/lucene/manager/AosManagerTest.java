@@ -15,7 +15,8 @@ public class AosManagerTest {
     @Test
     public void test() throws IOException {
 
-        ReaderManager readerManager = new ReaderManager(AosIndexUtil.newIndexWithDocuments());
+        AosIndexUtil.newIndexWithDocuments();
+        ReaderManager readerManager = new ReaderManager(AosIndexUtil.directory());
 
         // NRTManager nrtManager = new NRTManager(AosDirectory.newDirectory());
         // SearcherManager searcherManager = new

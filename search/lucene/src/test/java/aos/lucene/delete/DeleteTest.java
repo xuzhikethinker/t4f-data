@@ -18,35 +18,26 @@
  ****************************************************************/
 package aos.lucene.delete;
 
-import java.io.File;
 import java.io.IOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.Term;
-import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.util.Version;
-import org.junit.Ignore;
 import org.junit.Test;
+
+import aos.lucene.util.AosIndexUtil;
 
 public class DeleteTest {
     private static final Logger LOGGER = LogManager.getLogger(DeleteTest.class);
 
     @Test
-    @Ignore
-    public static void test() throws IOException {
+    public void test() throws IOException {
 
-        Directory directory = FSDirectory.open(new File("index"));
-        IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_41, new StandardAnalyzer(Version.LUCENE_41));
-        IndexWriter writer = new IndexWriter(directory, config);
-
-        IndexReader reader = DirectoryReader.open(FSDirectory.open(new File("index")));
+        IndexWriter writer = AosIndexUtil.newIndexWithDocuments();
+        IndexReader reader = DirectoryReader.open(writer, true);
 
         Term term = new Term("path", "value");
         writer.deleteDocuments(term);
@@ -60,7 +51,7 @@ public class DeleteTest {
         }
 
         reader.close();
-        directory.close();
+        writer.close();
 
     }
 

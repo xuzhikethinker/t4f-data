@@ -53,7 +53,7 @@ public class AosIndexUtil {
         }
     }
 
-    public static Directory newIndexWithDocuments() throws IOException {
+    public static IndexWriter newIndexWithDocuments() throws IOException {
         IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_41, getAnalyzer());
         IndexWriter writer = new IndexWriter(indexDirectory, config);
         for (int i = 0; i < keywords.length; i++) {
@@ -64,8 +64,7 @@ public class AosIndexUtil {
             doc.add(new Field(FIELD_CONTENT, unstored[i], AosFieldType.INDEXED_NOTSTORED_TERMVECTOR));
             writer.addDocument(doc);
         }
-        writer.close();
-        return indexDirectory;
+        return writer;
     }
 
     public static Directory directory() {
