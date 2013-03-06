@@ -28,10 +28,10 @@ import java.nio.charset.Charset;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import aos.lucene.helper.AosDirectory;
+import aos.lucene.helper.AosTestUtil;
 import aos.lucene.index.IndexFiles;
 import aos.lucene.search.SearchFiles;
-import aos.lucene.util.AosDirectory;
-import aos.lucene.util.AosTestUtil;
 
 public class DemoTest {
 

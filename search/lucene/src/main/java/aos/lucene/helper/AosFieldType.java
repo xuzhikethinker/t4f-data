@@ -1,4 +1,4 @@
-package aos.lucene.util;
+package aos.lucene.helper;
 
 import org.apache.lucene.document.FieldType;
 import org.apache.lucene.index.FieldInfo.IndexOptions;

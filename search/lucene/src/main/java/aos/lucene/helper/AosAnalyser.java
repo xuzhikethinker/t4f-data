@@ -1,4 +1,4 @@
-package aos.lucene.util;
+package aos.lucene.helper;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.core.SimpleAnalyzer;

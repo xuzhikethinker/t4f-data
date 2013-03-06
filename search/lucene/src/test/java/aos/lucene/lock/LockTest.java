@@ -28,8 +28,8 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.LockObtainFailedException;
 import org.apache.lucene.util.Version;
 
-import aos.lucene.util.AosAnalyser;
-import aos.lucene.util.AosDirectory;
+import aos.lucene.helper.AosAnalyser;
+import aos.lucene.helper.AosDirectory;
 
 /**
  * #A Expected exception: only one IndexWriter allowed at once

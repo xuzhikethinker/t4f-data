@@ -29,7 +29,7 @@ import org.apache.lucene.index.SnapshotDeletionPolicy;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.util.Version;
 
-import aos.lucene.util.AosAnalyser;
+import aos.lucene.helper.AosAnalyser;
 
 public class SnapshotIndex {
 

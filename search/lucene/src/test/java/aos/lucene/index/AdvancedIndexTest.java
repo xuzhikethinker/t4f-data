@@ -40,10 +40,10 @@ import org.apache.lucene.util.Version;
 import org.junit.Before;
 import org.junit.Test;
 
-import aos.lucene.util.AosAnalyser;
-import aos.lucene.util.AosDirectory;
-import aos.lucene.util.AosFieldType;
-import aos.lucene.util.AosTestUtil;
+import aos.lucene.helper.AosAnalyser;
+import aos.lucene.helper.AosDirectory;
+import aos.lucene.helper.AosFieldType;
+import aos.lucene.helper.AosTestUtil;
 
 /**
  * #1 One initial document has bridges

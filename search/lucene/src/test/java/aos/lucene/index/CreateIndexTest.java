@@ -48,8 +48,8 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 import org.junit.Test;
 
-import aos.lucene.util.AosDirectory;
-import aos.lucene.util.AosFieldType;
+import aos.lucene.helper.AosDirectory;
+import aos.lucene.helper.AosFieldType;
 
 /**
  * #1 Get category

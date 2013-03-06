@@ -28,7 +28,7 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.Term;
 import org.junit.Test;
 
-import aos.lucene.util.AosIndexUtil;
+import aos.lucene.helper.AosIndexUtil;
 
 public class DeleteTest {
     private static final Logger LOGGER = LogManager.getLogger(DeleteTest.class);

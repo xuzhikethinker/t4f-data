@@ -34,8 +34,8 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 
-import aos.lucene.util.AosAnalyser;
-import aos.lucene.util.AosFieldType;
+import aos.lucene.helper.AosAnalyser;
+import aos.lucene.helper.AosFieldType;
 
 /**
  * #1 Create index in this directory
