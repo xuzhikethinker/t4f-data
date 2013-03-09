@@ -33,6 +33,7 @@
     <module>avro</module>
     <module>core</module>
     <module>json</module>
+    <module>protobuf</module>
     <module>xml</module>
     <module>xsd</module>
     <module>yaml</module>
