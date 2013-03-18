@@ -18,12 +18,14 @@
  ****************************************************************/
 package aos.format.number;
 
+import java.text.DecimalFormat;
+
 import org.junit.Test;
 
 public class FloatingPointConversionExample {
 
     @Test
-    public void test() {
+    public void test1() {
         System.out.printf("Decimal:               %f\n", Math.PI);
         System.out.printf("Scientific notation:   %e\n", Math.PI);
         System.out.printf("Scientific notation:   %E\n", Math.PI);
@@ -31,6 +33,12 @@ public class FloatingPointConversionExample {
         System.out.printf("Decimal/Scientific:    %G\n", Math.PI);
         System.out.printf("Lowercase Hexadecimal: %a\n", Math.PI);
         System.out.printf("Uppercase Hexadecimal: %A\n", Math.PI);
+    }
+    
+    @Test
+    public void test2() {
+        DecimalFormat df = new DecimalFormat( "#########0.00");
+        System.out.println(df.format(Math.PI));
     }
 
 }
