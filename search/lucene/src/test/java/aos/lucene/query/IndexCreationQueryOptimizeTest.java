@@ -2,8 +2,9 @@ package aos.lucene.query;
 
 import java.io.IOException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.slf4j.Logger;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.search.IndexSearcher;
@@ -15,7 +16,7 @@ import org.apache.lucene.search.TopScoreDocCollector;
 import aos.lucene.demo.parser.ParseException;
 
 public class IndexCreationQueryOptimizeTest {
-    private static final Logger LOGGER = LogManager.getLogger(IndexCreationQueryOptimizeTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(IndexCreationQueryOptimizeTest.class);
 
     // String indexDir = "./aos.index.test/test2";
     // Directory dir = FSDirectory.open(new File(indexDir));

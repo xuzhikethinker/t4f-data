@@ -20,15 +20,16 @@ package aos.lucene.demo.parser;
 
 import java.io.IOException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.slf4j.Logger;
 
 import aos.lucene.demo.parser.HTMLParser;
 import aos.lucene.demo.parser.ParseException;
 import aos.lucene.demo.parser.TokenMgrError;
 
 class ParserThread extends Thread {
-    private static final Logger LOGGER = LogManager.getLogger(ParserThread.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ParserThread.class);
 
     private final HTMLParser parser;
 

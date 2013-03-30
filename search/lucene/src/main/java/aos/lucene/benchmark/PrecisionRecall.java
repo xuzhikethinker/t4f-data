@@ -39,9 +39,17 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
 /**
- * #1 Read TREC topics as QualityQuery[] #2 Create Judge from TREC Qrel file #3
- * Verify query and Judge match #4 Create parser to translate queries into
- * Lucene queries #5 Run benchmark #6 Print precision and recall measures
+ * #1 Read TREC topics as QualityQuery[]
+ * 
+ * #2 Create Judge from TREC Qrel file
+ * 
+ * #3 Verify query and Judge match
+ * 
+ * #4 Create parser to translate queries into Lucene queries
+ * 
+ * #5 Run benchmark
+ * 
+ * #6 Print precision and recall measures
  */
 public class PrecisionRecall {
 
@@ -57,24 +65,24 @@ public class PrecisionRecall {
 
         PrintWriter LOGGER = new PrintWriter(System.out, true);
 
-        TrecTopicsReader qReader = new TrecTopicsReader(); //
-        QualityQuery qqs[] = qReader.readQueries( //
-                new BufferedReader(new FileReader(topicsFile))); //
+        TrecTopicsReader qReader = new TrecTopicsReader();
+        QualityQuery qqs[] = qReader.readQueries(new BufferedReader(new FileReader(topicsFile)));
 
-        Judge judge = new TrecJudge(new BufferedReader( //
-                new FileReader(qrelsFile))); //
+        Judge judge = new TrecJudge(new BufferedReader(new FileReader(qrelsFile)));
 
-        judge.validateData(qqs, LOGGER); //
+        judge.validateData(qqs, LOGGER);
 
-        QualityQueryParser qqParser = new SimpleQQParser("title", "contents"); //
+        QualityQueryParser qqParser = new SimpleQQParser("title", "contents");
 
         QualityBenchmark qrun = new QualityBenchmark(qqs, qqParser, searcher, docNameField);
         SubmissionReport submitLog = null;
-        QualityStats stats[] = qrun.execute(judge, //
-                submitLog, LOGGER);
+        QualityStats stats[] = qrun.execute(judge, submitLog, LOGGER);
 
-        QualityStats avg = QualityStats.average(stats); //
+        QualityStats avg = QualityStats.average(stats);
         avg.log("SUMMARY", 2, LOGGER, "  ");
+
         dir.close();
+
     }
+
 }

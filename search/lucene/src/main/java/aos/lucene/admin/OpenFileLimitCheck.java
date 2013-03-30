@@ -24,14 +24,15 @@ import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.slf4j.Logger;
 
 /**
  * Run this to see what your JRE's open file limit is.
  */
 public class OpenFileLimitCheck {
-    private static final Logger LOGGER = LogManager.getLogger(OpenFileLimitCheck.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OpenFileLimitCheck.class);
 
     public static void main(String[] args) throws IOException {
 

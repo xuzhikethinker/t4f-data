@@ -19,7 +19,7 @@
 package aos.algo.math;
 
 import aos.algo.math.IterativePowerCalculator;
-import aos.data.aos.iterable.PowerCalculator;
+import aos.data.iterable.PowerCalculator;
 
 /**
  * Test cases for {@link IterativePowerCalculator}.

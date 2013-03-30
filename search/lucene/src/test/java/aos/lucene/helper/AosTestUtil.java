@@ -22,8 +22,9 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.slf4j.Logger;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.search.Filter;
 import org.apache.lucene.search.IndexSearcher;
@@ -34,7 +35,7 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
 public class AosTestUtil {
-    private static final Logger LOGGER = LogManager.getLogger(AosTestUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AosTestUtil.class);
 
     public static File createIndexFile(String indexPath) {
         File indexFile = new File(indexPath);

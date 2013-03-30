@@ -35,7 +35,6 @@ import aos.lucene.helper.AosDirectory;
  * #A Expected exception: only one IndexWriter allowed at once
  */
 public class LockTest extends TestCase {
-
     private Directory directory;
 
     @Override

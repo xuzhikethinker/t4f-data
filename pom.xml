@@ -32,7 +32,6 @@
   <modules>
     <module>algorithm</module>
     <module>analysis</module>
-    <module>cloud</module>
     <module>coordination</module>
     <module>format</module>
     <module>game</module>

@@ -12,3 +12,5 @@ target
 */*/*/*/*/target
 */*/*/*/*/*/.*
 */*/*/*/*/*/target
+search/elasticsearch/data
+

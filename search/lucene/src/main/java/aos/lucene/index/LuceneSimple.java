@@ -21,8 +21,9 @@ package aos.lucene.index;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.slf4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -42,7 +43,7 @@ import org.apache.lucene.store.LockObtainFailedException;
 import org.apache.lucene.util.Version;
 
 public class LuceneSimple {
-    private static final Logger LOGGER = LogManager.getLogger(LuceneSimple.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LuceneSimple.class);
 
     public static void main(String... args) throws Exception {
         index("/Users/androidyou/Documents/lucence/data/test.txt", "/Users/androidyou/Documents/lucence/index");

@@ -57,7 +57,7 @@ public class AppRespositorySelector implements RepositorySelector {
             throws ServletException {
         if (!initialized) // set the global RepositorySelector
         {
-            defaultRepository = LogManager.getLoggerRepository();
+            defaultRepository = LoggerFactory.getLoggerRepository();
             RepositorySelector theSelector = new AppRespositorySelector();
             LogManager.setRepositorySelector(theSelector, guard);
             initialized = true;

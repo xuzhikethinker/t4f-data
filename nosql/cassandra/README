@@ -79,6 +79,12 @@ update column family    Update the settings for a column family.
 update keyspace         Update the settings for a keyspace.
 use                     Switch to a keyspace.
 
+---
+create keyspace mutable
+  with placement_strategy = 'NetworkTopologyStrategy'
+  and strategy_options = {'eu-west': 3}
+  and durable_writes = true;
+
 Configure for Clustering
 ------------------------
 Must not use localhost

@@ -19,9 +19,9 @@
 package aos.algo.geometry;
 
 import aos.algo.geometry.ClosestPairFinder;
-import aos.data.aos.geometry.Point;
-import aos.data.aos.set.ListSet;
-import aos.data.aos.set.Set;
+import aos.data.geometry.Point;
+import aos.data.set.ListSet;
+import aos.data.set.Set;
 import junit.framework.TestCase;
 
 /**

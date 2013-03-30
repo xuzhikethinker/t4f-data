@@ -7,7 +7,6 @@ import org.apache.lucene.analysis.miscellaneous.LimitTokenCountAnalyzer;
 import org.apache.lucene.util.Version;
 
 public class AosAnalyser {
-
     public static final Analyzer NO_LIMIT_TOKEN_COUNT_SIMPLE_ANALYSER;
     public static final Analyzer NO_LIMIT_TOKEN_COUNT_WHITE_SPACE_ANALYSER;
     public static final Analyzer ONE_TOKEN_COUNT_WHITE_SPACE_ANALYSER;

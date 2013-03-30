@@ -1,5 +1,5 @@
 /****************************************************************
- * Licensed to the AOS Community (AOS) under one or more        *
+\ * Licensed to the AOS Community (AOS) under one or more        *
  * contributor license agreements.  See the NOTICE file         *
  * distributed with this work for additional information        *
  * regarding copyright ownership.  The AOS licenses this file   *
@@ -24,10 +24,10 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.digester.Digester;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.StoredField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
 /**
@@ -36,7 +36,7 @@ import org.xml.sax.SAXException;
  * Lucene document
  */
 public class DigesterXmlDocument {
-    private static final Logger LOGGER = LogManager.getLogger(DigesterXmlDocument.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DigesterXmlDocument.class);
 
     private final Digester dig;
     private static Document doc;
@@ -169,6 +169,6 @@ public class DigesterXmlDocument {
     public static void main(String[] args) throws Exception {
         DigesterXmlDocument handler = new DigesterXmlDocument();
         Document doc = handler.getDocument(new FileInputStream(new File(args[0])));
-        LOGGER.info(doc);
+        LOGGER.info(doc.toString());
     }
 }

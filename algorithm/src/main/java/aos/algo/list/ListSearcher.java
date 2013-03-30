@@ -18,7 +18,7 @@
  ****************************************************************/
 package aos.algo.list;
 
-import aos.data.aos.list.List;
+import aos.data.list.List;
 
 
 /**

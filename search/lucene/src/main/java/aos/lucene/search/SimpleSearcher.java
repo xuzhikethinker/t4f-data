@@ -21,8 +21,9 @@ package aos.lucene.search;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.slf4j.Logger;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
@@ -45,7 +46,7 @@ import org.apache.lucene.util.Version;
  * matching document #8 Display filename #9 Close IndexSearcher
  */
 public class SimpleSearcher {
-    private static final Logger LOGGER = LogManager.getLogger(SimpleSearcher.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleSearcher.class);
 
     public static void main(String[] args) throws IllegalArgumentException, IOException, ParseException {
 

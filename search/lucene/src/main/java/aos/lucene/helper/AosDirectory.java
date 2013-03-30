@@ -33,7 +33,8 @@ public class AosDirectory {
     public static Directory newDirectory() throws IOException {
         File indexFile = new File(AosDirectory.INDEX_DIR);
         FileUtils.deleteDirectory(indexFile);
-        return FSDirectory.open(indexFile);
+        Directory directory = FSDirectory.open(indexFile);
+        return directory;
     }
 
 }

@@ -23,8 +23,9 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.slf4j.Logger;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.Fields;
@@ -35,8 +36,8 @@ import org.apache.lucene.index.MultiFields;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 
-public class IndexHtml {
-    private static final Logger LOGGER = LogManager.getLogger(IndexHtml.class);
+public class IndexHtmlFilesMain {
+    private static final Logger LOGGER = LoggerFactory.getLogger(IndexHtmlFilesMain.class);
 
     private static boolean deleting = false; // true during deletion pass
     private static IndexReader reader; // existing index

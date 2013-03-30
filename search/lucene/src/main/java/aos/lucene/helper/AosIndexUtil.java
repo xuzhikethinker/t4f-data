@@ -64,6 +64,7 @@ public class AosIndexUtil {
             doc.add(new Field(FIELD_CONTENT, unstored[i], AosFieldType.INDEXED_NOTSTORED_TERMVECTOR));
             writer.addDocument(doc);
         }
+        writer.commit();
         return writer;
     }
 

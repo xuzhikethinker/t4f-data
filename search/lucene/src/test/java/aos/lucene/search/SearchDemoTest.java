@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package aos.lucene.demo;
+package aos.lucene.search;
 
 import static org.junit.Assert.assertTrue;
 
@@ -30,10 +30,10 @@ import org.junit.Test;
 
 import aos.lucene.helper.AosDirectory;
 import aos.lucene.helper.AosTestUtil;
-import aos.lucene.index.IndexFiles;
+import aos.lucene.index.IndexFilesMain;
 import aos.lucene.search.SearchFiles;
 
-public class DemoTest {
+public class SearchDemoTest {
 
     @Test
     @Ignore
@@ -42,7 +42,7 @@ public class DemoTest {
         File fileDir = new File(AosDirectory.DOC_PATH_TXT_TEST);
         File indexDir = AosTestUtil.createIndexFile(AosDirectory.INDEX_DIR);
 
-        IndexFiles.main(new String[] { "-create", "-docs", fileDir.getPath(), "-index", indexDir.getPath() });
+        IndexFilesMain.main(new String[] { "-create", "-docs", fileDir.getPath(), "-index", indexDir.getPath() });
 
         testOneSearch(indexDir, "apache", 3);
         testOneSearch(indexDir, "patent", 8);
@@ -64,6 +64,9 @@ public class DemoTest {
             // intentionally use default encoding
             String output = bytes.toString(Charset.defaultCharset().name());
             assertTrue("output=" + output, output.contains(expectedHitCount + " total matching documents"));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
         finally {
             System.setOut(outSave);

@@ -38,7 +38,6 @@ import aos.lucene.helper.AosDirectory;
 import aos.lucene.helper.AosFieldType;
 
 public class BasicIndexTest {
-
     private static Directory dir;
 
     private static String[] keywords = { "1", "2" };

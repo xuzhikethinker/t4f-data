@@ -19,11 +19,11 @@
 package aos.algo.sort;
 
 
-import aos.data.aos.comparator.Comparator;
-import aos.data.aos.comparator.NaturalComparator;
-import aos.data.aos.iterator.AosIterator;
-import aos.data.aos.list.ArrayList;
-import aos.data.aos.list.List;
+import aos.data.comparator.Comparator;
+import aos.data.comparator.NaturalComparator;
+import aos.data.iterator.AosIterator;
+import aos.data.list.ArrayList;
+import aos.data.list.List;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -25,8 +25,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Date;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.DirectoryReader;
@@ -38,15 +36,14 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Simple command-line based search demo.
  */
 public class SearchFiles {
-    private static final Logger LOGGER = LogManager.getLogger(SearchFiles.class);
-
-    private SearchFiles() {
-    }
+    private static final Logger LOGGER = LoggerFactory.getLogger(SearchFiles.class);
 
     /**
      * Simple command-line based search demo.
@@ -253,4 +250,5 @@ public class SearchFiles {
             }
         }
     }
+
 }

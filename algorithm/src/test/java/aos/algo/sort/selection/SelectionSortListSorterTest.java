@@ -21,7 +21,7 @@ package aos.algo.sort.selection;
 import aos.algo.list.ListSorter;
 import aos.algo.sort.AbstractListSorterTestCase;
 import aos.algo.sort.selection.SelectionSortListSorter;
-import aos.data.aos.comparator.Comparator;
+import aos.data.comparator.Comparator;
 
 /**
  */

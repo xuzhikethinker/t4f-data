@@ -29,8 +29,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.core.LowerCaseFilter;
 import org.apache.lucene.analysis.core.StopFilter;
@@ -47,6 +45,8 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import aos.lucene.helper.AosDirectory;
 import aos.lucene.helper.AosFieldType;
@@ -65,17 +65,17 @@ import aos.lucene.helper.AosFieldType;
  * #6 Custom analyzer to override multi-valued position increment
  */
 public class CreateIndexTest {
-    private static final Logger LOGGER = LogManager.getLogger(CreateIndexTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CreateIndexTest.class);
 
     @Test
-    public void test() throws IOException {
+    public void test() throws IOException, ParseException {
         String dataDir = AosDirectory.DOC_PATH_TXT_TEST;
         String indexDir = AosDirectory.INDEX_DIR;
         List<File> results = new ArrayList<File>();
         findFiles(results, new File(dataDir));
         LOGGER.info(results.size() + " books to index");
         Directory dir = FSDirectory.open(new File(indexDir));
-        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_41, new MyStandardAnalyzer(Version.LUCENE_41));
+        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_41, new MyStopWordAnalyzer(Version.LUCENE_41));
         IndexWriter w = new IndexWriter(dir, conf);
         for (File file : results) {
             Document doc = getDocument(dataDir, file);
@@ -85,7 +85,8 @@ public class CreateIndexTest {
         dir.close();
     }
 
-    private static Document getDocument(String rootDir, File file) throws IOException {
+    private static Document getDocument(String rootDir, File file) throws IOException, ParseException {
+
         Properties props = new Properties();
         props.load(new FileInputStream(file));
 
@@ -121,13 +122,7 @@ public class CreateIndexTest {
 
         doc.add(new StoredField("pubmonth", Integer.parseInt(pubmonth)));
 
-        Date d;
-        try {
-            d = DateTools.stringToDate(pubmonth);
-        }
-        catch (ParseException pe) {
-            throw new RuntimeException(pe);
-        }
+        Date d = DateTools.stringToDate(pubmonth);
         doc.add(new StoredField("pubmonthAsDay", (int) (d.getTime() / (1000 * 3600 * 24))));
 
         for (String text : new String[] { title, subject, author, category }) {
@@ -135,6 +130,7 @@ public class CreateIndexTest {
         }
 
         return doc;
+
     }
 
     private static String aggregate(String[] strings) {
@@ -157,14 +153,12 @@ public class CreateIndexTest {
         }
     }
 
-    private static class MyStandardAnalyzer extends StopwordAnalyzerBase {
-
+    private static class MyStopWordAnalyzer extends StopwordAnalyzerBase {
         /** Default maximum allowed token length */
-        public static final int DEFAULT_MAX_TOKEN_LENGTH = 255;
-
+        private static final int DEFAULT_MAX_TOKEN_LENGTH = 255;
         private final int maxTokenLength = DEFAULT_MAX_TOKEN_LENGTH;
 
-        public MyStandardAnalyzer(Version matchVersion) {
+        public MyStopWordAnalyzer(Version matchVersion) {
             super(matchVersion);
         }
 
@@ -191,7 +185,7 @@ public class CreateIndexTest {
             return new TokenStreamComponents(src, tok) {
                 @Override
                 protected void setReader(final Reader reader) throws IOException {
-                    src.setMaxTokenLength(MyStandardAnalyzer.this.maxTokenLength);
+                    src.setMaxTokenLength(MyStopWordAnalyzer.this.maxTokenLength);
                     super.setReader(reader);
                 }
             };

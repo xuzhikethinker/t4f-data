@@ -19,8 +19,8 @@
 package aos.algo.sort.selection;
 
 import aos.algo.list.ListSorter;
-import aos.data.aos.comparator.Comparator;
-import aos.data.aos.list.List;
+import aos.data.comparator.Comparator;
+import aos.data.list.List;
 
 /**
  * A {@link ListSorter} that uses a selection sort algorithm.

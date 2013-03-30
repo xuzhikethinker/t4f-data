@@ -23,8 +23,9 @@ import java.io.FileFilter;
 import java.io.FileReader;
 import java.io.IOException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.slf4j.Logger;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.StoredField;
@@ -58,7 +59,7 @@ import aos.lucene.helper.AosFieldType;
  */
 public class SimpleIndexer {
 
-    private static final Logger LOGGER = LogManager.getLogger(SimpleIndexer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleIndexer.class);
 
     public static void main(String[] args) throws Exception {
 

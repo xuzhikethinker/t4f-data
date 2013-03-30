@@ -24,8 +24,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.slf4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -46,8 +47,8 @@ import org.apache.lucene.util.Version;
  * This is a command-line application demonstrating simple Lucene indexing. Run
  * it with no command-line arguments for usage information.
  */
-public class IndexFiles {
-    private static final Logger LOGGER = LogManager.getLogger(IndexFiles.class);
+public class IndexFilesMain {
+    private static final Logger LOGGER = LoggerFactory.getLogger(IndexFilesMain.class);
 
     /**
      * Index all text files under a directory.
