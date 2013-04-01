@@ -75,6 +75,7 @@ public class ElasticSearchTest {
         for (int i = 0; i < nodes.length; i++) {
             nodes[i] = NodeBuilder.nodeBuilder().settings(nodeSettings).node();
         }
+        client = client(nodes);
 
         Settings indexSettings = ImmutableSettings.settingsBuilder() //
                 .put("cluster.name", "EmbeddedESCluster") //
@@ -82,8 +83,6 @@ public class ElasticSearchTest {
                 .put("client.transport.ignore_cluster_name", true) //
                 .put("org.elasticsearch.client.transport", true) //
                 .build();
-
-        client = client(nodes);
         // client = client(indexSettings, "localhost", 9300);
 
     }
@@ -107,7 +106,7 @@ public class ElasticSearchTest {
         testFacets();
     }
 
-    public void testIndex() throws IOException {
+    private void testIndex() throws IOException {
 
         String jsonString = "{" + //
                 "\"user\":\"kimchy\"," + //
@@ -135,7 +134,8 @@ public class ElasticSearchTest {
         jsonMap.put("message", "trying out Elastic Search");
 
         ObjectMapper mapper = new ObjectMapper(); // create once, reuse
-        LOGGER.info(mapper.writeValueAsString(jsonMap));
+        String json = mapper.writeValueAsString(jsonMap);
+        LOGGER.info(json);
 
         XContentBuilder builder = jsonBuilder() //
                 .startObject() //
@@ -144,7 +144,7 @@ public class ElasticSearchTest {
                 .field("message", "trying out Elastic Search") //
                 .endObject();
 
-        String json = builder.string();
+        String json2 = builder.string();
 
         IndexResponse response2 = client.prepareIndex("twitter", "tweet", "1") //
                 .setSource(jsonBuilder() //
@@ -159,7 +159,7 @@ public class ElasticSearchTest {
 
     }
 
-    public void testGet() {
+    private void testGet() {
         GetResponse response = client.prepareGet("twitter", "tweet", "1") //
                 .execute() //
                 .actionGet();
@@ -169,19 +169,17 @@ public class ElasticSearchTest {
                 .actionGet();
     }
 
-    public void testDelete() {
-
+    private void testDelete() {
         DeleteResponse response = client.prepareDelete("twitter", "tweet", "1") //
                 .execute() //
                 .actionGet();
-
         DeleteResponse response2 = client.prepareDelete("twitter", "tweet", "1") //
                 .setOperationThreaded(false) //
                 .execute() //
                 .actionGet();
     }
 
-    public void testSearch() {
+    private void testSearch() {
 
         SearchResponse response = client.prepareSearch("index1", "index2") //
                 .setTypes("type1", "type2") //
@@ -203,16 +201,8 @@ public class ElasticSearchTest {
                 .setQuery(qb) //
                 .setSize(100) //
                 .execute() //
-                .actionGet(); // 100
-                              // hits
-                              // per
-                              // shard
-                              // will
-                              // be
-                              // returned
-                              // for
-                              // each
-                              // scroll
+                .actionGet();
+        // 100 hits per shard will be returned for each scroll
         // Scroll until no hits are returned
         while (true) {
             scrollResp = client.prepareSearchScroll(scrollResp.getScrollId()).setScroll(new TimeValue(600000))
@@ -228,7 +218,7 @@ public class ElasticSearchTest {
 
     }
 
-    public void testMultiSearch() {
+    private void testMultiSearch() {
 
         SearchRequestBuilder srb1 = client.prepareSearch() //
                 .setQuery(QueryBuilders.queryString("elasticsearch")) //
@@ -254,7 +244,7 @@ public class ElasticSearchTest {
 
     }
 
-    public void testBulkRequests() throws IOException {
+    private void testBulkRequests() throws IOException {
 
         for (int i = 0; i < NUMBER_OF_ACTIONS; i++) {
             BulkRequestBuilder bulkRequest = client.prepareBulk();
@@ -294,38 +284,7 @@ public class ElasticSearchTest {
 
     }
 
-    public void testPercolate() throws IOException {
-
-        // This is the query we're registering in the percolator
-        QueryBuilder qb = termQuery("content", "amazing");
-
-        // Index the query = register it in the percolator
-        client.prepareIndex("_percolator", "myIndexName", "myDesignatedQueryName") //
-                .setSource(qb.buildAsBytes()) //
-                .setRefresh(true) // Needed when the query shall be available
-                                  // immediately
-                .execute().actionGet();
-
-        // Build a document to check against the percolator
-        XContentBuilder docBuilder = jsonBuilder().startObject();
-        docBuilder.field("doc").startObject(); // This is needed to designate
-                                               // the document
-        docBuilder.field("content", "This is amazing!");
-        docBuilder.endObject(); // End of the doc field
-        docBuilder.endObject(); // End of the JSON root object
-        // Percolate
-        PercolateResponse response = client.preparePercolate("myIndexName", "myDocumentType") //
-                .setSource(docBuilder) //
-                .execute() //
-                .actionGet();
-        // Iterate over the results
-        for (String result : response) {
-            // Handle the result which is the name of
-            // the query in the percolator
-        }
-    }
-
-    public void testQueryDslFilters() {
+    private void testQueryDslFilters() {
 
         FilterBuilders.andFilter(FilterBuilders.rangeFilter("postDate").from("2010-03-01").to("2010-04-01"),
                 FilterBuilders.prefixFilter("name.second", "ba"));
@@ -431,7 +390,7 @@ public class ElasticSearchTest {
                 FilterBuilders.prefixFilter("name.second", "ba")).cache(true);
     }
 
-    public void testQueryDslQueries() {
+    private void testQueryDslQueries() {
 
         QueryBuilder qb = QueryBuilders.matchQuery("name", "kimchy elasticsearch");
 
@@ -609,7 +568,7 @@ public class ElasticSearchTest {
 
     }
 
-    public void testFacets() {
+    private void testFacets() {
 
         SearchResponse sr = client.prepareSearch() //
                 .setQuery(QueryBuilders.matchAllQuery()) //
@@ -787,6 +746,37 @@ public class ElasticSearchTest {
 
         TermsFacetBuilder facet2 = FacetBuilders.termsFacet("f").field("brand").global(true);
 
+    }
+
+    private void testPercolate() throws IOException {
+
+        // This is the query we're registering in the percolator
+        QueryBuilder qb = termQuery("content", "amazing");
+
+        // Index the query = register it in the percolator
+        client.prepareIndex("_percolator", "myIndexName", "myDesignatedQueryName") //
+                .setSource(qb.buildAsBytes()) //
+                .setRefresh(true) // Needed when the query shall be available
+                                  // immediately
+                .execute().actionGet();
+
+        // Build a document to check against the percolator
+        XContentBuilder docBuilder = jsonBuilder().startObject();
+        docBuilder.field("doc").startObject(); // This is needed to designate
+                                               // the document
+        docBuilder.field("content", "This is amazing!");
+        docBuilder.endObject(); // End of the doc field
+        docBuilder.endObject(); // End of the JSON root object
+        // Percolate
+        PercolateResponse response = client.preparePercolate("myIndexName", "myDocumentType") //
+                .setSource(docBuilder) //
+                .execute() //
+                .actionGet();
+        // Iterate over the results
+        for (String result : response) {
+            // Handle the result which is the name of
+            // the query in the percolator
+        }
     }
 
     private static Client client(Node[] nodes) {
